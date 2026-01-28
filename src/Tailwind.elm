@@ -55,7 +55,7 @@ This is the main entry point for using Tailwind classes in your view:
 
     import Tailwind exposing (classes)
     import Tailwind.Utilities as Tw
-    import Tailwind.Theme exposing (s4, blue_500)
+    import Tailwind.Theme exposing (s4, s8, blue, s500)
     import Tailwind.Breakpoints exposing (hover, md)
 
     view =

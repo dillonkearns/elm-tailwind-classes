@@ -30,7 +30,7 @@ Example:
     import Tailwind exposing (classes)
     import Tailwind.Utilities as Tw
     import Tailwind.Breakpoints exposing (hover, md)
-    import Tailwind.Theme exposing (s4, blue_500, blue_600)
+    import Tailwind.Theme exposing (s4, blue, s500, s600)
 
     button
         [ classes

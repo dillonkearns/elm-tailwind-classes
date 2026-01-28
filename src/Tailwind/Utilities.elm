@@ -243,6 +243,9 @@ module Tailwind.Utilities exposing
     , border_color
     , ring_color
     , placeholder_color
+    , text_simple
+    , bg_simple
+    , border_simple
     , opacity_0
     , opacity_5
     , opacity_10
@@ -311,7 +314,7 @@ Following elm-tailwind-modules naming conventions:
 -}
 
 import Tailwind exposing (Tailwind(..))
-import Tailwind.Theme exposing (Color(..), Spacing(..), spacingToString)
+import Tailwind.Theme exposing (Color(..), Shade(..), SimpleColor(..), Spacing(..), colorToString, shadeToString, spacingToString)
 
 
 -- SPACING
@@ -1781,54 +1784,86 @@ shadow_inner =
 
 -- COLOR UTILITIES (parameterized)
 
-{-| Set text color.
+{-| Set text color with shade.
 
-    text_color red_500
+    text_color blue s500
 
 -}
-text_color : Color -> Tailwind
-text_color (Color c) =
+text_color : Color -> Shade -> Tailwind
+text_color color shade =
+    Tailwind ("text-" ++ colorToString color ++ "-" ++ shadeToString shade)
+
+
+{-| Set background color with shade.
+
+    bg_color blue s100
+
+-}
+bg_color : Color -> Shade -> Tailwind
+bg_color color shade =
+    Tailwind ("bg-" ++ colorToString color ++ "-" ++ shadeToString shade)
+
+
+{-| Set border color with shade.
+
+    border_color gray s300
+
+-}
+border_color : Color -> Shade -> Tailwind
+border_color color shade =
+    Tailwind ("border-" ++ colorToString color ++ "-" ++ shadeToString shade)
+
+
+{-| Set ring color with shade.
+
+    ring_color indigo s500
+
+-}
+ring_color : Color -> Shade -> Tailwind
+ring_color color shade =
+    Tailwind ("ring-" ++ colorToString color ++ "-" ++ shadeToString shade)
+
+
+{-| Set placeholder color with shade.
+
+    placeholder_color gray s400
+
+-}
+placeholder_color : Color -> Shade -> Tailwind
+placeholder_color color shade =
+    Tailwind ("placeholder-" ++ colorToString color ++ "-" ++ shadeToString shade)
+
+
+-- SIMPLE COLOR UTILITIES (no shade)
+
+{-| Set text color (simple colors like white, black).
+
+    text_simple white
+
+-}
+text_simple : SimpleColor -> Tailwind
+text_simple (SimpleColor c) =
     Tailwind ("text-" ++ c)
 
 
-{-| Set background color.
+{-| Set background color (simple colors like white, black).
 
-    bg_color blue_100
+    bg_simple white
 
 -}
-bg_color : Color -> Tailwind
-bg_color (Color c) =
+bg_simple : SimpleColor -> Tailwind
+bg_simple (SimpleColor c) =
     Tailwind ("bg-" ++ c)
 
 
-{-| Set border color.
+{-| Set border color (simple colors like white, black).
 
-    border_color gray_300
+    border_simple black
 
 -}
-border_color : Color -> Tailwind
-border_color (Color c) =
+border_simple : SimpleColor -> Tailwind
+border_simple (SimpleColor c) =
     Tailwind ("border-" ++ c)
-
-
-{-| Set ring color.
-
-    ring_color indigo_500
-
--}
-ring_color : Color -> Tailwind
-ring_color (Color c) =
-    Tailwind ("ring-" ++ c)
-
-
-{-| Set placeholder color.
-
-    placeholder_color gray_400
-
--}
-placeholder_color : Color -> Tailwind
-placeholder_color (Color c) =
-    Tailwind ("placeholder-" ++ c)
 
 
 

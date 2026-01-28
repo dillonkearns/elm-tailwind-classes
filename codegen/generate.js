@@ -91,7 +91,7 @@ This is the main entry point for using Tailwind classes in your view:
 
     import Tailwind exposing (classes)
     import Tailwind.Utilities as Tw
-    import Tailwind.Theme exposing (s4, blue_500)
+    import Tailwind.Theme exposing (s4, s8, blue, s500)
     import Tailwind.Breakpoints exposing (hover, md)
 
     view =
@@ -198,37 +198,70 @@ function generateTheme(theme) {
   const colors = theme.colors;
   const colorNames = Object.keys(colors);
 
-  // Build color definitions
-  const colorDefs = [];
-  const colorExports = [];
+  // Separate shaded colors from simple colors
+  const shadedColors = [];    // Colors with shade scale (blue, red, etc.)
+  const simpleColors = [];    // Colors without shades (white, black, etc.)
 
   for (const colorName of colorNames) {
     const colorValue = colors[colorName];
     if (typeof colorValue === 'string') {
-      // Simple colors like black, white
-      const elmName = toElmName(colorName);
-      colorExports.push(elmName);
-      colorDefs.push(`
-{-| Color: ${colorName}
--}
-${elmName} : Color
-${elmName} =
-    Color "${colorName}"`);
+      simpleColors.push(colorName);
     } else {
-      // Colors with shades (50-950)
-      const shades = Object.keys(colorValue);
-      for (const shade of shades) {
-        const elmName = toElmName(colorName) + '_' + shade;
-        colorExports.push(elmName);
-        colorDefs.push(`
-{-| Color: ${colorName}-${shade}
--}
-${elmName} : Color
-${elmName} =
-    Color "${colorName}-${shade}"`);
-      }
+      shadedColors.push(colorName);
     }
   }
+
+  // Standard Tailwind shade scale
+  const shadeScale = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950'];
+
+  // Build Color type (shaded colors only)
+  const colorConstructors = shadedColors.map(c => toElmName(c).charAt(0).toUpperCase() + toElmName(c).slice(1));
+
+  // Build color value definitions (lowercase)
+  const colorValueDefs = shadedColors.map(c => {
+    const constructorName = toElmName(c).charAt(0).toUpperCase() + toElmName(c).slice(1);
+    const valueName = toElmName(c);
+    return `
+{-| ${c}
+-}
+${valueName} : Color
+${valueName} =
+    ${constructorName}`;
+  });
+  const colorValueExports = shadedColors.map(c => toElmName(c));
+
+  // Build colorToString case expression
+  const colorCases = shadedColors.map(c => {
+    const constructorName = toElmName(c).charAt(0).toUpperCase() + toElmName(c).slice(1);
+    return `        ${constructorName} ->\n            "${c}"`;
+  });
+
+  // Build Shade type
+  const shadeConstructors = shadeScale.map(s => `S${s}`);
+
+  // Build shade value definitions (lowercase)
+  const shadeValueDefs = shadeScale.map(s => `
+{-| Shade ${s}
+-}
+s${s} : Shade
+s${s} =
+    S${s}`);
+  const shadeValueExports = shadeScale.map(s => `s${s}`);
+
+  // Build shadeToString case expression
+  const shadeCases = shadeScale.map(s => `        S${s} ->\n            "${s}"`);
+
+  // Build simple color definitions (white, black, etc.)
+  const simpleColorDefs = simpleColors.map(c => {
+    const elmName = toElmName(c);
+    return `
+{-| Simple color: ${c}
+-}
+${elmName} : SimpleColor
+${elmName} =
+    SimpleColor "${c}"`;
+  });
+  const simpleColorExports = simpleColors.map(c => toElmName(c));
 
   // Tailwind's default spacing scale
   const spacingScale = [
@@ -276,45 +309,101 @@ opacity${v} =
 
   const content = `module Tailwind.Theme exposing
     ( Color(..)
+    , Shade(..)
+    , SimpleColor(..)
+    , colorToString
+    , shadeToString
     , Spacing(..)
     , spacingToString
     , Opacity(..)
-    , ${colorExports.join('\n    , ')}
+    , ${colorValueExports.join('\n    , ')}
+    , ${shadeValueExports.join('\n    , ')}
+    , ${simpleColorExports.join('\n    , ')}
     , ${spacingValueExports.join('\n    , ')}
     , ${opacityExports.join('\n    , ')}
     )
 
 {-| Theme values for Tailwind CSS.
 
-This module provides type-safe color, spacing, and opacity values.
+This module provides type-safe color, shade, spacing, and opacity values.
 
 
-## Types
+## Color Types
 
-@docs Color, Spacing, spacingToString, Opacity
+@docs Color, Shade, SimpleColor, colorToString, shadeToString
 
 
-## Colors
+## Shaded Colors
 
-@docs ${colorExports.slice(0, 20).join(', ')}
+Use with shade parameter: \`bg_color blue s500\`
+
+@docs ${colorValueExports.slice(0, 15).join(', ')}
+
+
+## Shades
+
+@docs ${shadeValueExports.join(', ')}
+
+
+## Simple Colors
+
+Use directly: \`bg_simple white\`
+
+@docs ${simpleColorExports.join(', ')}
 
 
 ## Spacing
 
-@docs ${spacingValueExports.slice(0, 20).join(', ')}
+@docs Spacing, spacingToString, ${spacingValueExports.slice(0, 10).join(', ')}
 
 
 ## Opacities
 
-@docs ${opacityExports.join(', ')}
+@docs Opacity, ${opacityExports.join(', ')}
 
 -}
 
 
-{-| A Tailwind color value.
+{-| A shaded color name (blue, red, slate, etc.).
+
+Use with a Shade to specify the full color:
+
+    bg_color blue s500
+
 -}
 type Color
-    = Color String
+    = ${colorConstructors.join('\n    | ')}
+
+
+{-| Convert a Color to its CSS class string.
+-}
+colorToString : Color -> String
+colorToString color =
+    case color of
+${colorCases.join('\n\n')}
+
+
+{-| A color shade (50, 100, 200, ... 950).
+
+Represents the lightness level where 50 is lightest and 950 is darkest.
+
+-}
+type Shade
+    = ${shadeConstructors.join('\n    | ')}
+
+
+{-| Convert a Shade to its CSS class string.
+-}
+shadeToString : Shade -> String
+shadeToString shade =
+    case shade of
+${shadeCases.join('\n\n')}
+
+
+{-| A simple color without shades (white, black, transparent, etc.).
+-}
+type SimpleColor
+    = SimpleColor String
 
 
 {-| A Tailwind spacing value from the default scale.
@@ -336,10 +425,24 @@ ${spacingCases.join('\n\n')}
 type Opacity
     = Opacity Int
 
-${colorDefs.join('\n')}
+
+-- SHADED COLORS
+${colorValueDefs.join('\n')}
+
+
+-- SHADES
+${shadeValueDefs.join('\n')}
+
+
+-- SIMPLE COLORS
+${simpleColorDefs.join('\n')}
+
 
 -- SPACING VALUES
 ${spacingValueDefs.join('\n')}
+
+
+-- OPACITY VALUES
 ${opacityDefs.join('\n')}
 `;
 
@@ -1442,61 +1545,96 @@ select_auto =
     'select_none', 'select_text', 'select_all', 'select_auto'
   ];
 
-  // Color utility functions (parameterized)
+  // Color utility functions (parameterized with Color + Shade)
   const colorUtilDefs = `
 -- COLOR UTILITIES (parameterized)
 
-{-| Set text color.
+{-| Set text color with shade.
 
-    text_color red_500
+    text_color blue s500
 
 -}
-text_color : Color -> Tailwind
-text_color (Color c) =
+text_color : Color -> Shade -> Tailwind
+text_color color shade =
+    Tailwind ("text-" ++ colorToString color ++ "-" ++ shadeToString shade)
+
+
+{-| Set background color with shade.
+
+    bg_color blue s100
+
+-}
+bg_color : Color -> Shade -> Tailwind
+bg_color color shade =
+    Tailwind ("bg-" ++ colorToString color ++ "-" ++ shadeToString shade)
+
+
+{-| Set border color with shade.
+
+    border_color gray s300
+
+-}
+border_color : Color -> Shade -> Tailwind
+border_color color shade =
+    Tailwind ("border-" ++ colorToString color ++ "-" ++ shadeToString shade)
+
+
+{-| Set ring color with shade.
+
+    ring_color indigo s500
+
+-}
+ring_color : Color -> Shade -> Tailwind
+ring_color color shade =
+    Tailwind ("ring-" ++ colorToString color ++ "-" ++ shadeToString shade)
+
+
+{-| Set placeholder color with shade.
+
+    placeholder_color gray s400
+
+-}
+placeholder_color : Color -> Shade -> Tailwind
+placeholder_color color shade =
+    Tailwind ("placeholder-" ++ colorToString color ++ "-" ++ shadeToString shade)
+
+
+-- SIMPLE COLOR UTILITIES (no shade)
+
+{-| Set text color (simple colors like white, black).
+
+    text_simple white
+
+-}
+text_simple : SimpleColor -> Tailwind
+text_simple (SimpleColor c) =
     Tailwind ("text-" ++ c)
 
 
-{-| Set background color.
+{-| Set background color (simple colors like white, black).
 
-    bg_color blue_100
+    bg_simple white
 
 -}
-bg_color : Color -> Tailwind
-bg_color (Color c) =
+bg_simple : SimpleColor -> Tailwind
+bg_simple (SimpleColor c) =
     Tailwind ("bg-" ++ c)
 
 
-{-| Set border color.
+{-| Set border color (simple colors like white, black).
 
-    border_color gray_300
+    border_simple black
 
 -}
-border_color : Color -> Tailwind
-border_color (Color c) =
+border_simple : SimpleColor -> Tailwind
+border_simple (SimpleColor c) =
     Tailwind ("border-" ++ c)
-
-
-{-| Set ring color.
-
-    ring_color indigo_500
-
--}
-ring_color : Color -> Tailwind
-ring_color (Color c) =
-    Tailwind ("ring-" ++ c)
-
-
-{-| Set placeholder color.
-
-    placeholder_color gray_400
-
--}
-placeholder_color : Color -> Tailwind
-placeholder_color (Color c) =
-    Tailwind ("placeholder-" ++ c)
 `;
 
-  const colorUtilExports = ['text_color', 'bg_color', 'border_color', 'ring_color', 'placeholder_color'];
+  const colorUtilExports = [
+    'text_color', 'bg_color', 'border_color', 'ring_color', 'placeholder_color',
+    'text_simple', 'bg_simple', 'border_simple'
+  ];
 
   // Opacity utilities
   const opacityDefs = `
@@ -1662,7 +1800,7 @@ Following elm-tailwind-modules naming conventions:
 -}
 
 import Tailwind exposing (Tailwind(..))
-import Tailwind.Theme exposing (Color(..), Spacing(..), spacingToString)
+import Tailwind.Theme exposing (Color(..), Shade(..), SimpleColor(..), Spacing(..), colorToString, shadeToString, spacingToString)
 
 
 -- SPACING
@@ -1772,7 +1910,7 @@ Example:
     import Tailwind exposing (classes)
     import Tailwind.Utilities as Tw
     import Tailwind.Breakpoints exposing (hover, md)
-    import Tailwind.Theme exposing (s4, blue_500, blue_600)
+    import Tailwind.Theme exposing (s4, blue, s500, s600)
 
     button
         [ classes

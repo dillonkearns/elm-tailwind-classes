@@ -13,6 +13,7 @@ all =
         [ simpleConstantsTests
         , parameterizedSpacingTests
         , parameterizedColorTests
+        , simpleColorTests
         ]
 
 
@@ -87,37 +88,53 @@ view = Tw.gap Theme.s8
 
 parameterizedColorTests : Test
 parameterizedColorTests =
-    describe "parameterized colors"
-        [ test "extracts bg_color Theme.blue_500 as bg-blue-500" <|
+    describe "parameterized colors (two arguments)"
+        [ test "extracts bg_color blue s500 as bg-blue-500" <|
             \() ->
                 """module A exposing (..)
 import Tailwind.Utilities as Tw
 import Tailwind.Theme as Theme
 
-view = Tw.bg_color Theme.blue_500
+view = Tw.bg_color Theme.blue Theme.s500
 """
                     |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
                     |> Review.Test.expectDataExtract """{"classes":["bg-blue-500"]}"""
-        , test "extracts text_color Theme.gray_800 as text-gray-800" <|
+        , test "extracts text_color gray s800 as text-gray-800" <|
             \() ->
                 """module A exposing (..)
 import Tailwind.Utilities as Tw
 import Tailwind.Theme as Theme
 
-view = Tw.text_color Theme.gray_800
+view = Tw.text_color Theme.gray Theme.s800
 """
                     |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
                     |> Review.Test.expectDataExtract """{"classes":["text-gray-800"]}"""
-        , test "extracts text_color Theme.white as text-white" <|
+        ]
+
+
+simpleColorTests : Test
+simpleColorTests =
+    describe "simple colors (one argument)"
+        [ test "extracts text_simple white as text-white" <|
             \() ->
                 """module A exposing (..)
 import Tailwind.Utilities as Tw
 import Tailwind.Theme as Theme
 
-view = Tw.text_color Theme.white
+view = Tw.text_simple Theme.white
 """
                     |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
                     |> Review.Test.expectDataExtract """{"classes":["text-white"]}"""
+        , test "extracts bg_simple black as bg-black" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind.Utilities as Tw
+import Tailwind.Theme as Theme
+
+view = Tw.bg_simple Theme.black
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["bg-black"]}"""
         ]
 
 
@@ -142,7 +159,7 @@ tailwindUtilitiesStub =
 
 import Html exposing (Attribute)
 import Html.Attributes exposing (class)
-import Tailwind.Theme exposing (Color(..), Spacing(..))
+import Tailwind.Theme exposing (Color(..), Shade(..), SimpleColor(..), Spacing(..))
 
 flex : Attribute msg
 flex = class "flex"
@@ -162,11 +179,17 @@ m _ = class ""
 gap : Spacing -> Attribute msg
 gap _ = class ""
 
-bg_color : Color -> Attribute msg
-bg_color _ = class ""
+bg_color : Color -> Shade -> Attribute msg
+bg_color _ _ = class ""
 
-text_color : Color -> Attribute msg
-text_color _ = class ""
+text_color : Color -> Shade -> Attribute msg
+text_color _ _ = class ""
+
+bg_simple : SimpleColor -> Attribute msg
+bg_simple _ = class ""
+
+text_simple : SimpleColor -> Attribute msg
+text_simple _ = class ""
 """
 
 
@@ -188,14 +211,39 @@ s8 = S8
 s0_dot_5 : Spacing
 s0_dot_5 = S0_dot_5
 
-type Color = Color String
+type Color = Blue | Gray | Red
 
-blue_500 : Color
-blue_500 = Color "blue-500"
+blue : Color
+blue = Blue
 
-gray_800 : Color
-gray_800 = Color "gray-800"
+gray : Color
+gray = Gray
 
-white : Color
-white = Color "white"
+red : Color
+red = Red
+
+type Shade = S50 | S100 | S500 | S800 | S900
+
+s50 : Shade
+s50 = S50
+
+s100 : Shade
+s100 = S100
+
+s500 : Shade
+s500 = S500
+
+s800 : Shade
+s800 = S800
+
+s900 : Shade
+s900 = S900
+
+type SimpleColor = SimpleColor String
+
+white : SimpleColor
+white = SimpleColor "white"
+
+black : SimpleColor
+black = SimpleColor "black"
 """

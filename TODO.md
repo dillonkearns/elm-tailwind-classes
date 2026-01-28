@@ -1,5 +1,51 @@
 # TODO / Open Questions
 
+## Completed ✓
+
+- [x] Opaque `Tailwind` type with `classes : List Tailwind -> Attribute msg`
+- [x] Parameterized colors: `bg_color : Color -> Shade -> Tailwind` (e.g., `bg_color blue s500`)
+- [x] Simple colors: `bg_simple : SimpleColor -> Tailwind` (e.g., `bg_simple white`)
+- [x] Parameterized spacing: `p : Spacing -> Tailwind` (e.g., `p s4`)
+- [x] elm-review extractor handles all patterns (34 classes from Demo.elm)
+- [x] Vite plugin for build-time extraction
+- [x] Unit tests for extractor (10 tests passing)
+
+## Parameterized Colors Edge Cases
+
+The current API assumes all colors have the same shade scale (50-950). Edge cases to handle:
+
+1. **Custom theme colors** with non-standard shades (e.g., `brand: { light: '...', dark: '...' }`)
+   - Could generate a separate type for custom colors
+   - Or use string-based API for custom: `bg_custom "brand" "light"`
+
+2. **Colors with missing shades** - Some themes may not define all 11 shades
+   - Code generator should only emit shades that exist in the theme
+   - Extractor doesn't need to change (it just extracts what's used)
+
+3. **Simple colors without shades** - white, black, transparent, current, inherit
+   - Already handled via `SimpleColor` type and `*_simple` functions
+
+## End-to-End / Snapshot Tests
+
+We should add "approval" (snapshot) tests that verify:
+
+1. **Generated code validity** - Full generated Elm modules compile correctly
+2. **Tree shaking** - Only used classes end up in final CSS
+3. **Edge case configs** - Custom themes, missing shades, plugin utilities
+
+Test approach:
+- Generate Elm code from various Tailwind configs
+- Snapshot the generated modules
+- Compile and verify they produce expected class strings
+- Run through full build pipeline and snapshot extracted classes
+
+Edge cases to test:
+- Custom theme colors that don't follow standard shade scale (e.g., `brand: { light: '...', dark: '...' }`)
+- Colors with missing shades (not all 50-950)
+- Simple colors (white, black, transparent, current, inherit)
+- Custom spacing scales
+- Plugin-added utilities
+
 ## elm-pages + Vite Integration
 
 The Vite plugin runs `elm-review` as a subprocess, independent of Vite's module processing. This means:

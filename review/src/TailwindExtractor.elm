@@ -5,8 +5,9 @@ module TailwindExtractor exposing (rule)
 MVP scope:
 
   - Simple constants: `Tw.flex` → "flex"
-  - Parameterized spacing: `Tw.p Theme.s4` → "p-4"
-  - Parameterized colors: `Tw.bg_color Theme.blue_500` → "bg-blue-500"
+  - Parameterized spacing: `Tw.p s4` → "p-4"
+  - Parameterized colors: `Tw.bg_color blue s500` → "bg-blue-500"
+  - Simple colors: `Tw.bg_simple white` → "bg-white"
 
 @docs rule
 
@@ -87,7 +88,7 @@ moduleVisitor schema =
 expressionVisitor : Node Expression -> ModuleContext -> ( List (Rule.Error {}), ModuleContext )
 expressionVisitor node context =
     case Node.value node of
-        -- Function application: Tw.p Theme.s4, Tw.bg_color Theme.blue_500
+        -- Function application: Tw.p s4, Tw.bg_color blue s500, Tw.bg_simple white
         Expression.Application ((Node funcRange (Expression.FunctionOrValue _ funcName)) :: args) ->
             case ModuleNameLookupTable.moduleNameAt context.lookupTable funcRange of
                 Just [ "Tailwind", "Utilities" ] ->
@@ -142,25 +143,70 @@ isParameterizedFunction name =
         , "gap", "gap_x", "gap_y"
         , "w", "h", "min_w", "max_w", "min_h", "max_h"
         , "text_color", "bg_color", "border_color", "ring_color", "placeholder_color"
+        , "text_simple", "bg_simple", "border_simple"
         , "neg_m", "neg_mx", "neg_my", "neg_mt", "neg_mr", "neg_mb", "neg_ml"
         ]
 
 
-{-| Extract class from a function application like `Tw.p Theme.s4`
+{-| Extract class from a function application
 -}
 extractFromApplication : String -> List (Node Expression) -> ModuleNameLookupTable -> Maybe String
 extractFromApplication funcName args lookupTable =
     case args of
-        [ arg ] ->
-            case Node.value arg of
-                Expression.FunctionOrValue _ argName ->
-                    case ModuleNameLookupTable.moduleNameAt lookupTable (Node.range arg) of
-                        Just [ "Tailwind", "Theme" ] ->
-                            -- This is a Theme value, extract based on function
-                            extractParameterizedClass funcName argName
+        -- Two arguments: color functions like bg_color blue s500
+        [ arg1, arg2 ] ->
+            extractTwoArgColor funcName arg1 arg2 lookupTable
 
-                        _ ->
-                            Nothing
+        -- One argument: spacing functions like p s4, or simple colors like bg_simple white
+        [ arg ] ->
+            extractOneArg funcName arg lookupTable
+
+        _ ->
+            Nothing
+
+
+{-| Extract from two-argument color function: bg_color blue s500 → "bg-blue-500"
+-}
+extractTwoArgColor : String -> Node Expression -> Node Expression -> ModuleNameLookupTable -> Maybe String
+extractTwoArgColor funcName colorArg shadeArg lookupTable =
+    case ( Node.value colorArg, Node.value shadeArg ) of
+        ( Expression.FunctionOrValue _ colorName, Expression.FunctionOrValue _ shadeName ) ->
+            case ( ModuleNameLookupTable.moduleNameAt lookupTable (Node.range colorArg), ModuleNameLookupTable.moduleNameAt lookupTable (Node.range shadeArg) ) of
+                ( Just [ "Tailwind", "Theme" ], Just [ "Tailwind", "Theme" ] ) ->
+                    let
+                        prefix =
+                            case funcName of
+                                "text_color" ->
+                                    Just "text"
+
+                                "bg_color" ->
+                                    Just "bg"
+
+                                "border_color" ->
+                                    Just "border"
+
+                                "ring_color" ->
+                                    Just "ring"
+
+                                "placeholder_color" ->
+                                    Just "placeholder"
+
+                                _ ->
+                                    Nothing
+
+                        colorStr =
+                            -- Color names are lowercase in Theme: blue, red, gray
+                            Just colorName
+
+                        shadeStr =
+                            -- Shade names are s50, s100, etc. → 50, 100
+                            if String.startsWith "s" shadeName then
+                                Just (String.dropLeft 1 shadeName)
+
+                            else
+                                Nothing
+                    in
+                    Maybe.map3 (\p c s -> p ++ "-" ++ c ++ "-" ++ s) prefix colorStr shadeStr
 
                 _ ->
                     Nothing
@@ -169,96 +215,140 @@ extractFromApplication funcName args lookupTable =
             Nothing
 
 
-{-| Extract class from parameterized function + theme value.
-For example: funcName="p", argName="s4" → "p-4"
-For example: funcName="bg_color", argName="blue_500" → "bg-blue-500"
+{-| Extract from single-argument function
 -}
-extractParameterizedClass : String -> String -> Maybe String
-extractParameterizedClass funcName argName =
-    case funcName of
-        -- Spacing functions
-        "p" ->
-            spacingArgToClass argName |> Maybe.map (\s -> "p-" ++ s)
+extractOneArg : String -> Node Expression -> ModuleNameLookupTable -> Maybe String
+extractOneArg funcName arg lookupTable =
+    case Node.value arg of
+        Expression.FunctionOrValue _ argName ->
+            case ModuleNameLookupTable.moduleNameAt lookupTable (Node.range arg) of
+                Just [ "Tailwind", "Theme" ] ->
+                    -- Check if this is a simple color function
+                    case funcName of
+                        "text_simple" ->
+                            Just ("text-" ++ argName)
 
-        "px" ->
-            spacingArgToClass argName |> Maybe.map (\s -> "px-" ++ s)
+                        "bg_simple" ->
+                            Just ("bg-" ++ argName)
 
-        "py" ->
-            spacingArgToClass argName |> Maybe.map (\s -> "py-" ++ s)
+                        "border_simple" ->
+                            Just ("border-" ++ argName)
 
-        "pt" ->
-            spacingArgToClass argName |> Maybe.map (\s -> "pt-" ++ s)
+                        _ ->
+                            -- Spacing function
+                            extractSpacingClass funcName argName
 
-        "pr" ->
-            spacingArgToClass argName |> Maybe.map (\s -> "pr-" ++ s)
-
-        "pb" ->
-            spacingArgToClass argName |> Maybe.map (\s -> "pb-" ++ s)
-
-        "pl" ->
-            spacingArgToClass argName |> Maybe.map (\s -> "pl-" ++ s)
-
-        "m" ->
-            spacingArgToClass argName |> Maybe.map (\s -> "m-" ++ s)
-
-        "mx" ->
-            spacingArgToClass argName |> Maybe.map (\s -> "mx-" ++ s)
-
-        "my" ->
-            spacingArgToClass argName |> Maybe.map (\s -> "my-" ++ s)
-
-        "mt" ->
-            spacingArgToClass argName |> Maybe.map (\s -> "mt-" ++ s)
-
-        "mr" ->
-            spacingArgToClass argName |> Maybe.map (\s -> "mr-" ++ s)
-
-        "mb" ->
-            spacingArgToClass argName |> Maybe.map (\s -> "mb-" ++ s)
-
-        "ml" ->
-            spacingArgToClass argName |> Maybe.map (\s -> "ml-" ++ s)
-
-        "gap" ->
-            spacingArgToClass argName |> Maybe.map (\s -> "gap-" ++ s)
-
-        "gap_x" ->
-            spacingArgToClass argName |> Maybe.map (\s -> "gap-x-" ++ s)
-
-        "gap_y" ->
-            spacingArgToClass argName |> Maybe.map (\s -> "gap-y-" ++ s)
-
-        -- Sizing functions
-        "w" ->
-            spacingArgToClass argName |> Maybe.map (\s -> "w-" ++ s)
-
-        "h" ->
-            spacingArgToClass argName |> Maybe.map (\s -> "h-" ++ s)
-
-        "min_w" ->
-            spacingArgToClass argName |> Maybe.map (\s -> "min-w-" ++ s)
-
-        "max_w" ->
-            spacingArgToClass argName |> Maybe.map (\s -> "max-w-" ++ s)
-
-        "min_h" ->
-            spacingArgToClass argName |> Maybe.map (\s -> "min-h-" ++ s)
-
-        "max_h" ->
-            spacingArgToClass argName |> Maybe.map (\s -> "max-h-" ++ s)
-
-        -- Color functions
-        "text_color" ->
-            colorArgToClass argName |> Maybe.map (\c -> "text-" ++ c)
-
-        "bg_color" ->
-            colorArgToClass argName |> Maybe.map (\c -> "bg-" ++ c)
-
-        "border_color" ->
-            colorArgToClass argName |> Maybe.map (\c -> "border-" ++ c)
+                _ ->
+                    Nothing
 
         _ ->
             Nothing
+
+
+{-| Extract spacing class: p s4 → "p-4"
+-}
+extractSpacingClass : String -> String -> Maybe String
+extractSpacingClass funcName argName =
+    let
+        prefix =
+            case funcName of
+                "p" ->
+                    Just "p"
+
+                "px" ->
+                    Just "px"
+
+                "py" ->
+                    Just "py"
+
+                "pt" ->
+                    Just "pt"
+
+                "pr" ->
+                    Just "pr"
+
+                "pb" ->
+                    Just "pb"
+
+                "pl" ->
+                    Just "pl"
+
+                "m" ->
+                    Just "m"
+
+                "mx" ->
+                    Just "mx"
+
+                "my" ->
+                    Just "my"
+
+                "mt" ->
+                    Just "mt"
+
+                "mr" ->
+                    Just "mr"
+
+                "mb" ->
+                    Just "mb"
+
+                "ml" ->
+                    Just "ml"
+
+                "gap" ->
+                    Just "gap"
+
+                "gap_x" ->
+                    Just "gap-x"
+
+                "gap_y" ->
+                    Just "gap-y"
+
+                "w" ->
+                    Just "w"
+
+                "h" ->
+                    Just "h"
+
+                "min_w" ->
+                    Just "min-w"
+
+                "max_w" ->
+                    Just "max-w"
+
+                "min_h" ->
+                    Just "min-h"
+
+                "max_h" ->
+                    Just "max-h"
+
+                "neg_m" ->
+                    Just "-m"
+
+                "neg_mx" ->
+                    Just "-mx"
+
+                "neg_my" ->
+                    Just "-my"
+
+                "neg_mt" ->
+                    Just "-mt"
+
+                "neg_mr" ->
+                    Just "-mr"
+
+                "neg_mb" ->
+                    Just "-mb"
+
+                "neg_ml" ->
+                    Just "-ml"
+
+                _ ->
+                    Nothing
+
+        spacingValue =
+            spacingArgToClass argName
+    in
+    Maybe.map2 (\p s -> p ++ "-" ++ s) prefix spacingValue
 
 
 {-| Convert spacing argument name to class suffix.
@@ -280,15 +370,6 @@ spacingArgToClass argName =
 
     else
         Nothing
-
-
-{-| Convert color argument name to class suffix.
-blue\_500 → "blue-500", gray\_100 → "gray-100", white → "white"
--}
-colorArgToClass : String -> Maybe String
-colorArgToClass argName =
-    -- Convert underscores to hyphens
-    Just (String.replace "_" "-" argName)
 
 
 {-| Convert simple utility function name to CSS class.
