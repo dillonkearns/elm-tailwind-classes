@@ -1,4 +1,4 @@
-module Example exposing (main, view)
+module Demo exposing (main, view)
 
 {-| Example usage of Tailwind utilities with type-safe API.
 

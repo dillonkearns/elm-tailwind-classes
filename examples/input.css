@@ -1,0 +1,4 @@
+@import "tailwindcss";
+
+/* Source classes from the elm-review extracted safelist */
+@source "./tailwind-safelist.txt";

@@ -1,16 +1,17 @@
 module TailwindExtractor exposing (rule)
 
-{-| Extracts all Tailwind CSS class names used in the project.
+{-| Extracts Tailwind CSS class names from Elm code.
 
-This rule analyzes calls to Tailwind.Utilities functions and extracts the
-corresponding CSS class names. The output can be used to generate a safelist
-for Tailwind CSS tree-shaking.
+MVP scope:
+
+  - Simple constants: `Tw.flex` → "flex"
+  - Parameterized spacing: `Tw.p Theme.s4` → "p-4"
+  - Parameterized colors: `Tw.bg_color Theme.blue_500` → "bg-blue-500"
 
 @docs rule
 
 -}
 
-import Dict exposing (Dict)
 import Elm.Syntax.Expression as Expression exposing (Expression)
 import Elm.Syntax.Node as Node exposing (Node(..))
 import Json.Encode as Encode
@@ -19,12 +20,7 @@ import Review.Rule as Rule exposing (Rule)
 import Set exposing (Set)
 
 
-{-| Provides an elm-review rule that extracts Tailwind class names.
-
-    config =
-        [ TailwindExtractor.rule
-        ]
-
+{-| Rule that extracts Tailwind class names.
 -}
 rule : Rule
 rule =
@@ -91,17 +87,17 @@ moduleVisitor schema =
 expressionVisitor : Node Expression -> ModuleContext -> ( List (Rule.Error {}), ModuleContext )
 expressionVisitor node context =
     case Node.value node of
+        -- Function application: Tw.p Theme.s4, Tw.bg_color Theme.blue_500
         Expression.Application ((Node funcRange (Expression.FunctionOrValue _ funcName)) :: args) ->
-            -- Look up what module the function actually comes from
             case ModuleNameLookupTable.moduleNameAt context.lookupTable funcRange of
                 Just [ "Tailwind", "Utilities" ] ->
-                    case extractClassFromUtility funcName args context.lookupTable of
+                    case extractFromApplication funcName args context.lookupTable of
                         Just className ->
                             ( [], { context | classes = Set.insert className context.classes } )
 
                         Nothing ->
-                            -- Try as a simple utility (no args needed)
-                            case Dict.get funcName utilitiesMap of
+                            -- Function not recognized as parameterized, try as simple constant
+                            case elmNameToClassName funcName of
                                 Just className ->
                                     ( [], { context | classes = Set.insert className context.classes } )
 
@@ -111,16 +107,23 @@ expressionVisitor node context =
                 _ ->
                     ( [], context )
 
-        Expression.FunctionOrValue _ name ->
-            -- Look up what module this value comes from
+        -- Simple value reference: Tw.flex, Tw.items_center
+        -- Only match if this is NOT part of an application (avoid double-counting)
+        Expression.FunctionOrValue _ funcName ->
             case ModuleNameLookupTable.moduleNameAt context.lookupTable (Node.range node) of
                 Just [ "Tailwind", "Utilities" ] ->
-                    case Dict.get name utilitiesMap of
-                        Just className ->
-                            ( [], { context | classes = Set.insert className context.classes } )
+                    -- Check if this is a function that takes arguments
+                    -- If so, we'll handle it in the Application case above
+                    if isParameterizedFunction funcName then
+                        ( [], context )
 
-                        Nothing ->
-                            ( [], context )
+                    else
+                        case elmNameToClassName funcName of
+                            Just className ->
+                                ( [], { context | classes = Set.insert className context.classes } )
+
+                            Nothing ->
+                                ( [], context )
 
                 _ ->
                     ( [], context )
@@ -129,43 +132,35 @@ expressionVisitor node context =
             ( [], context )
 
 
-{-| Extract the CSS class from a utility function call with arguments.
+{-| Functions that take parameters (should not be extracted as simple constants)
 -}
-extractClassFromUtility : String -> List (Node Expression) -> ModuleNameLookupTable -> Maybe String
-extractClassFromUtility funcName args lookupTable =
-    case ( funcName, args ) of
-        -- Parameterized color functions
-        ( "text_color", [ colorArg ] ) ->
-            extractColorClass "text-" colorArg lookupTable
-
-        ( "bg_color", [ colorArg ] ) ->
-            extractColorClass "bg-" colorArg lookupTable
-
-        ( "border_color", [ colorArg ] ) ->
-            extractColorClass "border-" colorArg lookupTable
-
-        ( "ring_color", [ colorArg ] ) ->
-            extractColorClass "ring-" colorArg lookupTable
-
-        ( "placeholder_color", [ colorArg ] ) ->
-            extractColorClass "placeholder-" colorArg lookupTable
-
-        -- Simple utilities (no args) - use the map
-        _ ->
-            Dict.get funcName utilitiesMap
+isParameterizedFunction : String -> Bool
+isParameterizedFunction name =
+    List.member name
+        [ "p", "px", "py", "pt", "pr", "pb", "pl"
+        , "m", "mx", "my", "mt", "mr", "mb", "ml"
+        , "gap", "gap_x", "gap_y"
+        , "w", "h", "min_w", "max_w", "min_h", "max_h"
+        , "text_color", "bg_color", "border_color", "ring_color", "placeholder_color"
+        , "neg_m", "neg_mx", "neg_my", "neg_mt", "neg_mr", "neg_mb", "neg_ml"
+        ]
 
 
-{-| Extract a color class from a color argument.
+{-| Extract class from a function application like `Tw.p Theme.s4`
 -}
-extractColorClass : String -> Node Expression -> ModuleNameLookupTable -> Maybe String
-extractColorClass prefix colorArg lookupTable =
-    case Node.value colorArg of
-        Expression.FunctionOrValue _ colorName ->
-            -- Check if this is from Tailwind.Theme
-            case ModuleNameLookupTable.moduleNameAt lookupTable (Node.range colorArg) of
-                Just [ "Tailwind", "Theme" ] ->
-                    colorNameToClass colorName
-                        |> Maybe.map (\c -> prefix ++ c)
+extractFromApplication : String -> List (Node Expression) -> ModuleNameLookupTable -> Maybe String
+extractFromApplication funcName args lookupTable =
+    case args of
+        [ arg ] ->
+            case Node.value arg of
+                Expression.FunctionOrValue _ argName ->
+                    case ModuleNameLookupTable.moduleNameAt lookupTable (Node.range arg) of
+                        Just [ "Tailwind", "Theme" ] ->
+                            -- This is a Theme value, extract based on function
+                            extractParameterizedClass funcName argName
+
+                        _ ->
+                            Nothing
 
                 _ ->
                     Nothing
@@ -174,361 +169,193 @@ extractColorClass prefix colorArg lookupTable =
             Nothing
 
 
-{-| Convert an Elm color name to a Tailwind class suffix.
-For example: red_500 -> "red-500"
+{-| Extract class from parameterized function + theme value.
+For example: funcName="p", argName="s4" → "p-4"
+For example: funcName="bg_color", argName="blue_500" → "bg-blue-500"
 -}
-colorNameToClass : String -> Maybe String
-colorNameToClass elmName =
-    -- Convert underscores back to hyphens
-    -- red_500 -> red-500
-    -- slate_50 -> slate-50
-    Just (String.replace "_" "-" elmName)
+extractParameterizedClass : String -> String -> Maybe String
+extractParameterizedClass funcName argName =
+    case funcName of
+        -- Spacing functions
+        "p" ->
+            spacingArgToClass argName |> Maybe.map (\s -> "p-" ++ s)
+
+        "px" ->
+            spacingArgToClass argName |> Maybe.map (\s -> "px-" ++ s)
+
+        "py" ->
+            spacingArgToClass argName |> Maybe.map (\s -> "py-" ++ s)
+
+        "pt" ->
+            spacingArgToClass argName |> Maybe.map (\s -> "pt-" ++ s)
+
+        "pr" ->
+            spacingArgToClass argName |> Maybe.map (\s -> "pr-" ++ s)
+
+        "pb" ->
+            spacingArgToClass argName |> Maybe.map (\s -> "pb-" ++ s)
+
+        "pl" ->
+            spacingArgToClass argName |> Maybe.map (\s -> "pl-" ++ s)
+
+        "m" ->
+            spacingArgToClass argName |> Maybe.map (\s -> "m-" ++ s)
+
+        "mx" ->
+            spacingArgToClass argName |> Maybe.map (\s -> "mx-" ++ s)
+
+        "my" ->
+            spacingArgToClass argName |> Maybe.map (\s -> "my-" ++ s)
+
+        "mt" ->
+            spacingArgToClass argName |> Maybe.map (\s -> "mt-" ++ s)
+
+        "mr" ->
+            spacingArgToClass argName |> Maybe.map (\s -> "mr-" ++ s)
+
+        "mb" ->
+            spacingArgToClass argName |> Maybe.map (\s -> "mb-" ++ s)
+
+        "ml" ->
+            spacingArgToClass argName |> Maybe.map (\s -> "ml-" ++ s)
+
+        "gap" ->
+            spacingArgToClass argName |> Maybe.map (\s -> "gap-" ++ s)
+
+        "gap_x" ->
+            spacingArgToClass argName |> Maybe.map (\s -> "gap-x-" ++ s)
+
+        "gap_y" ->
+            spacingArgToClass argName |> Maybe.map (\s -> "gap-y-" ++ s)
+
+        -- Sizing functions
+        "w" ->
+            spacingArgToClass argName |> Maybe.map (\s -> "w-" ++ s)
+
+        "h" ->
+            spacingArgToClass argName |> Maybe.map (\s -> "h-" ++ s)
+
+        "min_w" ->
+            spacingArgToClass argName |> Maybe.map (\s -> "min-w-" ++ s)
+
+        "max_w" ->
+            spacingArgToClass argName |> Maybe.map (\s -> "max-w-" ++ s)
+
+        "min_h" ->
+            spacingArgToClass argName |> Maybe.map (\s -> "min-h-" ++ s)
+
+        "max_h" ->
+            spacingArgToClass argName |> Maybe.map (\s -> "max-h-" ++ s)
+
+        -- Color functions
+        "text_color" ->
+            colorArgToClass argName |> Maybe.map (\c -> "text-" ++ c)
+
+        "bg_color" ->
+            colorArgToClass argName |> Maybe.map (\c -> "bg-" ++ c)
+
+        "border_color" ->
+            colorArgToClass argName |> Maybe.map (\c -> "border-" ++ c)
+
+        _ ->
+            Nothing
 
 
-{-| Map of utility function names to their CSS class names.
-This covers all the simple (non-parameterized) utilities.
+{-| Convert spacing argument name to class suffix.
+s4 → "4", s0\_dot\_5 → "0.5", spx → "px"
 -}
-utilitiesMap : Dict String String
-utilitiesMap =
-    Dict.fromList
-        ([ -- Display
-           ( "flex", "flex" )
-         , ( "inline_flex", "inline-flex" )
-         , ( "block", "block" )
-         , ( "inline_block", "inline-block" )
-         , ( "inline", "inline" )
-         , ( "grid", "grid" )
-         , ( "hidden", "hidden" )
+spacingArgToClass : String -> Maybe String
+spacingArgToClass argName =
+    if String.startsWith "s" argName then
+        let
+            rest =
+                String.dropLeft 1 argName
+        in
+        if rest == "px" then
+            Just "px"
 
-         -- Flex direction
-         , ( "flex_row", "flex-row" )
-         , ( "flex_row_reverse", "flex-row-reverse" )
-         , ( "flex_col", "flex-col" )
-         , ( "flex_col_reverse", "flex-col-reverse" )
+        else
+            -- Convert _dot_ back to .
+            Just (String.replace "_dot_" "." rest)
 
-         -- Flex wrap
-         , ( "flex_wrap", "flex-wrap" )
-         , ( "flex_wrap_reverse", "flex-wrap-reverse" )
-         , ( "flex_nowrap", "flex-nowrap" )
-
-         -- Flex grow/shrink
-         , ( "grow", "grow" )
-         , ( "grow_0", "grow-0" )
-         , ( "shrink", "shrink" )
-         , ( "shrink_0", "shrink-0" )
-
-         -- Align items
-         , ( "items_start", "items-start" )
-         , ( "items_end", "items-end" )
-         , ( "items_center", "items-center" )
-         , ( "items_baseline", "items-baseline" )
-         , ( "items_stretch", "items-stretch" )
-
-         -- Justify content
-         , ( "justify_start", "justify-start" )
-         , ( "justify_end", "justify-end" )
-         , ( "justify_center", "justify-center" )
-         , ( "justify_between", "justify-between" )
-         , ( "justify_around", "justify-around" )
-         , ( "justify_evenly", "justify-evenly" )
-
-         -- Positioning
-         , ( "relative", "relative" )
-         , ( "absolute", "absolute" )
-         , ( "fixed", "fixed" )
-         , ( "sticky", "sticky" )
-         , ( "static", "static" )
-
-         -- Visibility
-         , ( "visible", "visible" )
-         , ( "invisible", "invisible" )
-
-         -- Overflow
-         , ( "overflow_auto", "overflow-auto" )
-         , ( "overflow_hidden", "overflow-hidden" )
-         , ( "overflow_visible", "overflow-visible" )
-         , ( "overflow_scroll", "overflow-scroll" )
-         , ( "overflow_x_auto", "overflow-x-auto" )
-         , ( "overflow_y_auto", "overflow-y-auto" )
-         , ( "overflow_x_hidden", "overflow-x-hidden" )
-         , ( "overflow_y_hidden", "overflow-y-hidden" )
-
-         -- Typography
-         , ( "text_left", "text-left" )
-         , ( "text_center", "text-center" )
-         , ( "text_right", "text-right" )
-         , ( "text_justify", "text-justify" )
-         , ( "font_sans", "font-sans" )
-         , ( "font_serif", "font-serif" )
-         , ( "font_mono", "font-mono" )
-         , ( "italic", "italic" )
-         , ( "not_italic", "not-italic" )
-         , ( "uppercase", "uppercase" )
-         , ( "lowercase", "lowercase" )
-         , ( "capitalize", "capitalize" )
-         , ( "normal_case", "normal-case" )
-         , ( "underline", "underline" )
-         , ( "line_through", "line-through" )
-         , ( "no_underline", "no-underline" )
-         , ( "truncate", "truncate" )
-
-         -- Borders
-         , ( "border", "border" )
-         , ( "border_0", "border-0" )
-         , ( "border_2", "border-2" )
-         , ( "border_4", "border-4" )
-         , ( "border_8", "border-8" )
-         , ( "border_t", "border-t" )
-         , ( "border_r", "border-r" )
-         , ( "border_b", "border-b" )
-         , ( "border_l", "border-l" )
-         , ( "rounded", "rounded" )
-         , ( "rounded_none", "rounded-none" )
-         , ( "rounded_full", "rounded-full" )
-
-         -- Effects
-         , ( "shadow", "shadow" )
-         , ( "shadow_none", "shadow-none" )
-         , ( "transition", "transition" )
-         , ( "transition_all", "transition-all" )
-         , ( "transition_none", "transition-none" )
-         , ( "transition_colors", "transition-colors" )
-         ]
-            ++ spacingClasses
-            ++ sizingClasses
-            ++ fontSizeClasses
-            ++ fontWeightClasses
-            ++ roundedClasses
-            ++ shadowClasses
-            ++ opacityClasses
-            ++ zIndexClasses
-        )
+    else
+        Nothing
 
 
-spacingClasses : List ( String, String )
-spacingClasses =
+{-| Convert color argument name to class suffix.
+blue\_500 → "blue-500", gray\_100 → "gray-100", white → "white"
+-}
+colorArgToClass : String -> Maybe String
+colorArgToClass argName =
+    -- Convert underscores to hyphens
+    Just (String.replace "_" "-" argName)
+
+
+{-| Convert simple utility function name to CSS class.
+flex → "flex", items\_center → "items-center", text\_n2xl → "text-2xl"
+-}
+elmNameToClassName : String -> Maybe String
+elmNameToClassName elmName =
+    -- Convert underscores to hyphens, handle special prefixes
     let
-        values =
-            [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "14", "16", "20", "24", "28", "32", "36", "40", "44", "48", "52", "56", "60", "64", "72", "80", "96" ]
+        -- Handle numeric prefix at start (n2xl → 2xl)
+        withoutStartNumericPrefix =
+            if String.startsWith "n" elmName && String.length elmName > 1 then
+                case String.toInt (String.slice 1 2 elmName) of
+                    Just _ ->
+                        String.dropLeft 1 elmName
 
-        fractional =
-            [ ( "0_dot_5", "0.5" ), ( "1_dot_5", "1.5" ), ( "2_dot_5", "2.5" ), ( "3_dot_5", "3.5" ) ]
+                    Nothing ->
+                        elmName
 
-        directions =
-            [ "", "x", "y", "t", "r", "b", "l" ]
+            else
+                elmName
+
+        -- Handle _n prefix for numbers within compound names (text_n2xl → text_2xl)
+        -- We need to replace _n followed by a digit with just _
+        withoutInnerNumericPrefix =
+            replaceNumericPrefixes withoutStartNumericPrefix
+
+        -- Convert _dot_ to .
+        withDots =
+            String.replace "_dot_" "." withoutInnerNumericPrefix
+
+        -- Convert remaining underscores to hyphens
+        className =
+            String.replace "_" "-" withDots
     in
-    -- Padding
-    List.concatMap
-        (\v ->
-            List.map
-                (\d ->
-                    let
-                        prefix =
-                            if d == "" then
-                                "p"
-
-                            else
-                                "p" ++ d
-                    in
-                    ( prefix ++ "_" ++ v, prefix ++ "-" ++ v )
-                )
-                directions
-        )
-        values
-        ++ List.concatMap
-            (\( elmV, cssV ) ->
-                List.map
-                    (\d ->
-                        let
-                            prefix =
-                                if d == "" then
-                                    "p"
-
-                                else
-                                    "p" ++ d
-                        in
-                        ( prefix ++ "_" ++ elmV, prefix ++ "-" ++ cssV )
-                    )
-                    directions
-            )
-            fractional
-        -- Margin
-        ++ List.concatMap
-            (\v ->
-                List.map
-                    (\d ->
-                        let
-                            prefix =
-                                if d == "" then
-                                    "m"
-
-                                else
-                                    "m" ++ d
-                        in
-                        ( prefix ++ "_" ++ v, prefix ++ "-" ++ v )
-                    )
-                    directions
-            )
-            values
-        ++ List.concatMap
-            (\( elmV, cssV ) ->
-                List.map
-                    (\d ->
-                        let
-                            prefix =
-                                if d == "" then
-                                    "m"
-
-                                else
-                                    "m" ++ d
-                        in
-                        ( prefix ++ "_" ++ elmV, prefix ++ "-" ++ cssV )
-                    )
-                    directions
-            )
-            fractional
-        -- Negative margin
-        ++ List.map (\v -> ( "neg_m_" ++ v, "-m-" ++ v )) (List.filter (\v -> v /= "0") values)
-        -- Gap
-        ++ List.map (\v -> ( "gap_" ++ v, "gap-" ++ v )) values
-        ++ List.concatMap
-            (\v ->
-                [ ( "gap_x_" ++ v, "gap-x-" ++ v )
-                , ( "gap_y_" ++ v, "gap-y-" ++ v )
-                ]
-            )
-            values
+    Just className
 
 
-sizingClasses : List ( String, String )
-sizingClasses =
-    let
-        values =
-            [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "14", "16", "20", "24", "28", "32", "36", "40", "44", "48", "52", "56", "60", "64", "72", "80", "96" ]
-    in
-    List.concatMap
-        (\v ->
-            [ ( "w_" ++ v, "w-" ++ v )
-            , ( "h_" ++ v, "h-" ++ v )
-            ]
-        )
-        values
-        ++ [ ( "w_full", "w-full" )
-           , ( "w_screen", "w-screen" )
-           , ( "w_auto", "w-auto" )
-           , ( "w_min", "w-min" )
-           , ( "w_max", "w-max" )
-           , ( "w_fit", "w-fit" )
-           , ( "h_full", "h-full" )
-           , ( "h_screen", "h-screen" )
-           , ( "h_auto", "h-auto" )
-           , ( "h_min", "h-min" )
-           , ( "h_max", "h-max" )
-           , ( "h_fit", "h-fit" )
-           , ( "min_w_0", "min-w-0" )
-           , ( "min_w_full", "min-w-full" )
-           , ( "min_h_0", "min-h-0" )
-           , ( "min_h_full", "min-h-full" )
-           , ( "min_h_screen", "min-h-screen" )
-           , ( "max_w_none", "max-w-none" )
-           , ( "max_w_full", "max-w-full" )
-           , ( "max_h_none", "max-h-none" )
-           , ( "max_h_full", "max-h-full" )
-           , ( "max_h_screen", "max-h-screen" )
-           ]
+{-| Replace \_n followed by digit with just \_ (e.g., text\_n2xl → text\_2xl)
+-}
+replaceNumericPrefixes : String -> String
+replaceNumericPrefixes str =
+    -- Look for patterns like _n2, _n3, etc. and replace with _2, _3
+    String.toList str
+        |> replaceNumericPrefixesHelper []
+        |> String.fromList
 
 
-fontSizeClasses : List ( String, String )
-fontSizeClasses =
-    [ ( "text_xs", "text-xs" )
-    , ( "text_sm", "text-sm" )
-    , ( "text_base", "text-base" )
-    , ( "text_lg", "text-lg" )
-    , ( "text_xl", "text-xl" )
-    , ( "text_n2xl", "text-2xl" )
-    , ( "text_n3xl", "text-3xl" )
-    , ( "text_n4xl", "text-4xl" )
-    , ( "text_n5xl", "text-5xl" )
-    , ( "text_n6xl", "text-6xl" )
-    , ( "text_n7xl", "text-7xl" )
-    , ( "text_n8xl", "text-8xl" )
-    , ( "text_n9xl", "text-9xl" )
-    ]
+replaceNumericPrefixesHelper : List Char -> List Char -> List Char
+replaceNumericPrefixesHelper acc remaining =
+    case remaining of
+        '_' :: 'n' :: digit :: rest ->
+            if Char.isDigit digit then
+                -- Skip the 'n', keep underscore and digit
+                replaceNumericPrefixesHelper (digit :: '_' :: acc) rest
+
+            else
+                replaceNumericPrefixesHelper ('n' :: '_' :: acc) (digit :: rest)
+
+        c :: rest ->
+            replaceNumericPrefixesHelper (c :: acc) rest
+
+        [] ->
+            List.reverse acc
 
 
-fontWeightClasses : List ( String, String )
-fontWeightClasses =
-    [ ( "font_thin", "font-thin" )
-    , ( "font_extralight", "font-extralight" )
-    , ( "font_light", "font-light" )
-    , ( "font_normal", "font-normal" )
-    , ( "font_medium", "font-medium" )
-    , ( "font_semibold", "font-semibold" )
-    , ( "font_bold", "font-bold" )
-    , ( "font_extrabold", "font-extrabold" )
-    , ( "font_black", "font-black" )
-    ]
-
-
-roundedClasses : List ( String, String )
-roundedClasses =
-    [ ( "rounded_xs", "rounded-xs" )
-    , ( "rounded_sm", "rounded-sm" )
-    , ( "rounded_md", "rounded-md" )
-    , ( "rounded_lg", "rounded-lg" )
-    , ( "rounded_xl", "rounded-xl" )
-    , ( "rounded_n2xl", "rounded-2xl" )
-    , ( "rounded_n3xl", "rounded-3xl" )
-    , ( "rounded_n4xl", "rounded-4xl" )
-    ]
-
-
-shadowClasses : List ( String, String )
-shadowClasses =
-    [ ( "shadow_n2xs", "shadow-2xs" )
-    , ( "shadow_xs", "shadow-xs" )
-    , ( "shadow_sm", "shadow-sm" )
-    , ( "shadow_md", "shadow-md" )
-    , ( "shadow_lg", "shadow-lg" )
-    , ( "shadow_xl", "shadow-xl" )
-    , ( "shadow_n2xl", "shadow-2xl" )
-    , ( "shadow_inner", "shadow-inner" )
-    ]
-
-
-opacityClasses : List ( String, String )
-opacityClasses =
-    [ ( "opacity_0", "opacity-0" )
-    , ( "opacity_5", "opacity-5" )
-    , ( "opacity_10", "opacity-10" )
-    , ( "opacity_20", "opacity-20" )
-    , ( "opacity_25", "opacity-25" )
-    , ( "opacity_30", "opacity-30" )
-    , ( "opacity_40", "opacity-40" )
-    , ( "opacity_50", "opacity-50" )
-    , ( "opacity_60", "opacity-60" )
-    , ( "opacity_70", "opacity-70" )
-    , ( "opacity_75", "opacity-75" )
-    , ( "opacity_80", "opacity-80" )
-    , ( "opacity_90", "opacity-90" )
-    , ( "opacity_95", "opacity-95" )
-    , ( "opacity_100", "opacity-100" )
-    ]
-
-
-zIndexClasses : List ( String, String )
-zIndexClasses =
-    [ ( "z_0", "z-0" )
-    , ( "z_10", "z-10" )
-    , ( "z_20", "z-20" )
-    , ( "z_30", "z-30" )
-    , ( "z_40", "z-40" )
-    , ( "z_50", "z-50" )
-    , ( "z_auto", "z-auto" )
-    ]
-
-
-{-| Extract the collected classes as JSON for use by build tools.
+{-| Extract collected classes as JSON.
 -}
 dataExtractor : ProjectContext -> Encode.Value
 dataExtractor context =

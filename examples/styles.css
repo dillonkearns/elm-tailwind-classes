@@ -1,0 +1,2 @@
+/* Just import Tailwind - the Vite plugin handles class extraction! */
+@import "tailwindcss";
