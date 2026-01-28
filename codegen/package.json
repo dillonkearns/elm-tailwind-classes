@@ -1,0 +1,14 @@
+{
+  "name": "elm-tailwind-codegen",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "Code generator for elm-tailwind-classes",
+  "main": "generate.js",
+  "scripts": {
+    "generate": "node generate.js"
+  },
+  "dependencies": {
+    "tailwind-resolver": "^0.1.0",
+    "tailwindcss": "^4.0.0"
+  }
+}

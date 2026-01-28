@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tailwind CSS + Elm Demo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen">
+    <div id="app"></div>
+    <script src="example.js"></script>
+    <script>
+        var app = Elm.Example.init({
+            node: document.getElementById('app')
+        });
+    </script>
+</body>
+</html>

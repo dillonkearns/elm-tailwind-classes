@@ -31,11 +31,13 @@ import NoUnused.Parameters
 import NoUnused.Patterns
 import NoUnused.Variables
 import Review.Rule exposing (Rule)
+import TailwindExtractor
 
 
 config : List Rule
 config =
-    [ NoUnused.Modules.rule
+    [ TailwindExtractor.rule
+    , NoUnused.Modules.rule
     , NoUnused.Exports.rule
     , NoUnused.Dependencies.rule
     , NoUnused.CustomTypeConstructorArgs.rule
