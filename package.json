@@ -1,19 +1,49 @@
 {
-  "name": "REPLACEME-AUTHOR-SLASH-REPO",
-  "version": "0.0.1",
-  "description": "REPLACEME",
+  "name": "elm-tailwind-classes",
+  "version": "0.1.0",
+  "description": "Type-safe Tailwind CSS for Elm with static class extraction",
+  "type": "module",
+  "main": "./vite-plugin/index.js",
+  "exports": {
+    ".": "./vite-plugin/index.js",
+    "./vite-plugin": "./vite-plugin/index.js"
+  },
+  "files": [
+    "vite-plugin/",
+    "review/src/",
+    "review/elm.json"
+  ],
+  "scripts": {
+    "test": "cd review && npx elm-test",
+    "test:extract": "cd examples && npx elm-review --extract --report=json --config ../review | node -e \"const d=require('fs').readFileSync(0,'utf8');const j=JSON.parse(d);console.log(j.extracts?.TailwindExtractor?.classes?.length+' classes')\"",
+    "generate": "node codegen/generate.js",
+    "postinstall": "elm-tooling install"
+  },
+  "keywords": [
+    "elm",
+    "tailwind",
+    "tailwindcss",
+    "vite",
+    "css"
+  ],
+  "author": "Dillon Kearns",
+  "license": "BSD-3-Clause",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dillonkearns/elm-tailwind-classes.git"
+  },
+  "peerDependencies": {
+    "elm-review": ">=2.10.0"
+  },
+  "dependencies": {
+    "tailwind-resolver": "^0.3.5"
+  },
   "devDependencies": {
     "elm-review": "^2.10.3",
     "elm-test": "^0.19.1-revision9",
     "elm-tooling": "^1.15.0",
     "elm-verify-examples": "^6.0.3",
     "prettier": "^3.2.5",
-    "vite": "^7.3.1"
-  },
-  "scripts": {
-    "test": "elm-verify-examples --run-tests && elm-test",
-    "postinstall": "elm-tooling install"
-  },
-  "author": "REPLACEME",
-  "license": "BSD-3-Clause"
+    "vite": "^6.0.0"
+  }
 }
