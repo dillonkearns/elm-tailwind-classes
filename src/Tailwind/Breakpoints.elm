@@ -18,10 +18,28 @@ module Tailwind.Breakpoints exposing
     , dark
     , group_hover
     , withVariant
-    , classesToString
     )
 
 {-| Responsive breakpoints and state variants for Tailwind CSS.
+
+All functions take a `List Tailwind` and return a `Tailwind` value
+with the appropriate variant prefix applied.
+
+Example:
+
+    import Tailwind exposing (classes)
+    import Tailwind.Utilities as Tw
+    import Tailwind.Breakpoints exposing (hover, md)
+    import Tailwind.Theme exposing (s4, blue_500, blue_600)
+
+    button
+        [ classes
+            [ Tw.bg_color blue_500
+            , hover [ Tw.bg_color blue_600 ]
+            , md [ Tw.p s4 ]
+            ]
+        ]
+        [ text "Click me" ]
 
 
 ## Responsive Breakpoints
@@ -34,183 +52,239 @@ module Tailwind.Breakpoints exposing
 @docs hover, focus, active, disabled, visited, focus_within, focus_visible, first, last, odd, even, dark, group_hover
 
 
-## Utilities
+## Custom Variants
 
-@docs withVariant, classesToString
+@docs withVariant
 
 -}
 
-import Html exposing (Attribute)
-import Html.Attributes exposing (class)
+import Tailwind exposing (Tailwind(..))
 
 
 {-| Apply classes at the sm breakpoint (40rem) and above.
 
-    sm [ flex, p_8 ]
+    sm [ Tw.flex, Tw.p s8 ]
 
 produces classes like "sm:flex sm:p-8"
 
 -}
-sm : List String -> Attribute msg
-sm classes =
-    class (String.join " " (List.map (\c -> "sm:" ++ c) classes))
+sm : List Tailwind -> Tailwind
+sm twClasses =
+    Tailwind (String.join " " (List.map (\(Tailwind c) -> "sm:" ++ c) twClasses))
 
 
 {-| Apply classes at the md breakpoint (48rem) and above.
 
-    md [ flex, p_8 ]
+    md [ Tw.flex, Tw.p s8 ]
 
 produces classes like "sm:flex sm:p-8"
 
 -}
-md : List String -> Attribute msg
-md classes =
-    class (String.join " " (List.map (\c -> "md:" ++ c) classes))
+md : List Tailwind -> Tailwind
+md twClasses =
+    Tailwind (String.join " " (List.map (\(Tailwind c) -> "md:" ++ c) twClasses))
 
 
 {-| Apply classes at the lg breakpoint (64rem) and above.
 
-    lg [ flex, p_8 ]
+    lg [ Tw.flex, Tw.p s8 ]
 
 produces classes like "sm:flex sm:p-8"
 
 -}
-lg : List String -> Attribute msg
-lg classes =
-    class (String.join " " (List.map (\c -> "lg:" ++ c) classes))
+lg : List Tailwind -> Tailwind
+lg twClasses =
+    Tailwind (String.join " " (List.map (\(Tailwind c) -> "lg:" ++ c) twClasses))
 
 
 {-| Apply classes at the xl breakpoint (80rem) and above.
 
-    xl [ flex, p_8 ]
+    xl [ Tw.flex, Tw.p s8 ]
 
 produces classes like "sm:flex sm:p-8"
 
 -}
-xl : List String -> Attribute msg
-xl classes =
-    class (String.join " " (List.map (\c -> "xl:" ++ c) classes))
+xl : List Tailwind -> Tailwind
+xl twClasses =
+    Tailwind (String.join " " (List.map (\(Tailwind c) -> "xl:" ++ c) twClasses))
 
 
 {-| Apply classes at the 2xl breakpoint (96rem) and above.
 
-    n2xl [ flex, p_8 ]
+    n2xl [ Tw.flex, Tw.p s8 ]
 
 produces classes like "sm:flex sm:p-8"
 
 -}
-n2xl : List String -> Attribute msg
-n2xl classes =
-    class (String.join " " (List.map (\c -> "2xl:" ++ c) classes))
+n2xl : List Tailwind -> Tailwind
+n2xl twClasses =
+    Tailwind (String.join " " (List.map (\(Tailwind c) -> "2xl:" ++ c) twClasses))
 
 
 
-{-| Apply classes with hover: prefix.
+{-| Apply classes with hover: variant.
+
+    hover [ Tw.bg_color blue_500, Tw.text_color white ]
+
+produces "hover:bg-blue-500 hover:text-white"
+
 -}
-hover : List String -> Attribute msg
-hover classes =
-    class (String.join " " (List.map (\c -> "hover:" ++ c) classes))
+hover : List Tailwind -> Tailwind
+hover twClasses =
+    Tailwind (String.join " " (List.map (\(Tailwind c) -> "hover:" ++ c) twClasses))
 
 
-{-| Apply classes with focus: prefix.
+{-| Apply classes with focus: variant.
+
+    focus [ Tw.bg_color blue_500, Tw.text_color white ]
+
+produces "focus:bg-blue-500 focus:text-white"
+
 -}
-focus : List String -> Attribute msg
-focus classes =
-    class (String.join " " (List.map (\c -> "focus:" ++ c) classes))
+focus : List Tailwind -> Tailwind
+focus twClasses =
+    Tailwind (String.join " " (List.map (\(Tailwind c) -> "focus:" ++ c) twClasses))
 
 
-{-| Apply classes with active: prefix.
+{-| Apply classes with active: variant.
+
+    active [ Tw.bg_color blue_500, Tw.text_color white ]
+
+produces "active:bg-blue-500 active:text-white"
+
 -}
-active : List String -> Attribute msg
-active classes =
-    class (String.join " " (List.map (\c -> "active:" ++ c) classes))
+active : List Tailwind -> Tailwind
+active twClasses =
+    Tailwind (String.join " " (List.map (\(Tailwind c) -> "active:" ++ c) twClasses))
 
 
-{-| Apply classes with disabled: prefix.
+{-| Apply classes with disabled: variant.
+
+    disabled [ Tw.bg_color blue_500, Tw.text_color white ]
+
+produces "disabled:bg-blue-500 disabled:text-white"
+
 -}
-disabled : List String -> Attribute msg
-disabled classes =
-    class (String.join " " (List.map (\c -> "disabled:" ++ c) classes))
+disabled : List Tailwind -> Tailwind
+disabled twClasses =
+    Tailwind (String.join " " (List.map (\(Tailwind c) -> "disabled:" ++ c) twClasses))
 
 
-{-| Apply classes with visited: prefix.
+{-| Apply classes with visited: variant.
+
+    visited [ Tw.bg_color blue_500, Tw.text_color white ]
+
+produces "visited:bg-blue-500 visited:text-white"
+
 -}
-visited : List String -> Attribute msg
-visited classes =
-    class (String.join " " (List.map (\c -> "visited:" ++ c) classes))
+visited : List Tailwind -> Tailwind
+visited twClasses =
+    Tailwind (String.join " " (List.map (\(Tailwind c) -> "visited:" ++ c) twClasses))
 
 
-{-| Apply classes with focus-within: prefix.
+{-| Apply classes with focus-within: variant.
+
+    focus_within [ Tw.bg_color blue_500, Tw.text_color white ]
+
+produces "focus-within:bg-blue-500 focus-within:text-white"
+
 -}
-focus_within : List String -> Attribute msg
-focus_within classes =
-    class (String.join " " (List.map (\c -> "focus-within:" ++ c) classes))
+focus_within : List Tailwind -> Tailwind
+focus_within twClasses =
+    Tailwind (String.join " " (List.map (\(Tailwind c) -> "focus-within:" ++ c) twClasses))
 
 
-{-| Apply classes with focus-visible: prefix.
+{-| Apply classes with focus-visible: variant.
+
+    focus_visible [ Tw.bg_color blue_500, Tw.text_color white ]
+
+produces "focus-visible:bg-blue-500 focus-visible:text-white"
+
 -}
-focus_visible : List String -> Attribute msg
-focus_visible classes =
-    class (String.join " " (List.map (\c -> "focus-visible:" ++ c) classes))
+focus_visible : List Tailwind -> Tailwind
+focus_visible twClasses =
+    Tailwind (String.join " " (List.map (\(Tailwind c) -> "focus-visible:" ++ c) twClasses))
 
 
-{-| Apply classes with first: prefix.
+{-| Apply classes with first: variant.
+
+    first [ Tw.bg_color blue_500, Tw.text_color white ]
+
+produces "first:bg-blue-500 first:text-white"
+
 -}
-first : List String -> Attribute msg
-first classes =
-    class (String.join " " (List.map (\c -> "first:" ++ c) classes))
+first : List Tailwind -> Tailwind
+first twClasses =
+    Tailwind (String.join " " (List.map (\(Tailwind c) -> "first:" ++ c) twClasses))
 
 
-{-| Apply classes with last: prefix.
+{-| Apply classes with last: variant.
+
+    last [ Tw.bg_color blue_500, Tw.text_color white ]
+
+produces "last:bg-blue-500 last:text-white"
+
 -}
-last : List String -> Attribute msg
-last classes =
-    class (String.join " " (List.map (\c -> "last:" ++ c) classes))
+last : List Tailwind -> Tailwind
+last twClasses =
+    Tailwind (String.join " " (List.map (\(Tailwind c) -> "last:" ++ c) twClasses))
 
 
-{-| Apply classes with odd: prefix.
+{-| Apply classes with odd: variant.
+
+    odd [ Tw.bg_color blue_500, Tw.text_color white ]
+
+produces "odd:bg-blue-500 odd:text-white"
+
 -}
-odd : List String -> Attribute msg
-odd classes =
-    class (String.join " " (List.map (\c -> "odd:" ++ c) classes))
+odd : List Tailwind -> Tailwind
+odd twClasses =
+    Tailwind (String.join " " (List.map (\(Tailwind c) -> "odd:" ++ c) twClasses))
 
 
-{-| Apply classes with even: prefix.
+{-| Apply classes with even: variant.
+
+    even [ Tw.bg_color blue_500, Tw.text_color white ]
+
+produces "even:bg-blue-500 even:text-white"
+
 -}
-even : List String -> Attribute msg
-even classes =
-    class (String.join " " (List.map (\c -> "even:" ++ c) classes))
+even : List Tailwind -> Tailwind
+even twClasses =
+    Tailwind (String.join " " (List.map (\(Tailwind c) -> "even:" ++ c) twClasses))
 
 
-{-| Apply classes with dark: prefix.
+{-| Apply classes with dark: variant.
+
+    dark [ Tw.bg_color blue_500, Tw.text_color white ]
+
+produces "dark:bg-blue-500 dark:text-white"
+
 -}
-dark : List String -> Attribute msg
-dark classes =
-    class (String.join " " (List.map (\c -> "dark:" ++ c) classes))
+dark : List Tailwind -> Tailwind
+dark twClasses =
+    Tailwind (String.join " " (List.map (\(Tailwind c) -> "dark:" ++ c) twClasses))
 
 
-{-| Apply classes with group-hover: prefix.
+{-| Apply classes with group-hover: variant.
+
+    group_hover [ Tw.bg_color blue_500, Tw.text_color white ]
+
+produces "group-hover:bg-blue-500 group-hover:text-white"
+
 -}
-group_hover : List String -> Attribute msg
-group_hover classes =
-    class (String.join " " (List.map (\c -> "group-hover:" ++ c) classes))
+group_hover : List Tailwind -> Tailwind
+group_hover twClasses =
+    Tailwind (String.join " " (List.map (\(Tailwind c) -> "group-hover:" ++ c) twClasses))
 
 
-{-| Apply a custom variant prefix to a list of class names.
+{-| Apply a custom variant prefix to a list of Tailwind values.
 
-    withVariant "aria-selected" [ "bg-blue-500", "text-white" ]
+    withVariant "aria-selected" [ Tw.bg_color blue_500, Tw.text_color white ]
 
 produces "aria-selected:bg-blue-500 aria-selected:text-white"
 
 -}
-withVariant : String -> List String -> Attribute msg
-withVariant variant classes =
-    class (String.join " " (List.map (\c -> variant ++ ":" ++ c) classes))
-
-
-{-| Convert a list of class names to a single space-separated string.
-Useful when you need to extract class names.
--}
-classesToString : List String -> String
-classesToString =
-    String.join " "
+withVariant : String -> List Tailwind -> Tailwind
+withVariant variant twClasses =
+    Tailwind (String.join " " (List.map (\(Tailwind c) -> variant ++ ":" ++ c) twClasses))

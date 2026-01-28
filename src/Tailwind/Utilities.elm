@@ -269,6 +269,9 @@ module Tailwind.Utilities exposing
 
 {-| Tailwind CSS utility classes as Elm functions.
 
+All functions return the opaque `Tailwind` type. Use `Tailwind.classes` to
+convert a list of Tailwind values to an Html.Attribute.
+
 Following elm-tailwind-modules naming conventions:
 - Hyphens become underscores: `flex-col` → `flex_col`
 - Numeric prefixes get 'n': `2xl` → `n2xl`
@@ -307,8 +310,7 @@ Following elm-tailwind-modules naming conventions:
 
 -}
 
-import Html exposing (Attribute)
-import Html.Attributes exposing (class)
+import Tailwind exposing (Tailwind(..))
 import Tailwind.Theme exposing (Color(..), Spacing(..), spacingToString)
 
 
@@ -321,51 +323,51 @@ import Tailwind.Theme exposing (Color(..), Spacing(..), spacingToString)
     p s4  -- produces "p-4" (1rem)
 
 -}
-p : Spacing -> Attribute msg
+p : Spacing -> Tailwind
 p spacing =
-    class ("p-" ++ spacingToString spacing)
+    Tailwind ("p-" ++ spacingToString spacing)
 
 
 {-| Horizontal padding (left and right).
 -}
-px : Spacing -> Attribute msg
+px : Spacing -> Tailwind
 px spacing =
-    class ("px-" ++ spacingToString spacing)
+    Tailwind ("px-" ++ spacingToString spacing)
 
 
 {-| Vertical padding (top and bottom).
 -}
-py : Spacing -> Attribute msg
+py : Spacing -> Tailwind
 py spacing =
-    class ("py-" ++ spacingToString spacing)
+    Tailwind ("py-" ++ spacingToString spacing)
 
 
 {-| Top padding.
 -}
-pt : Spacing -> Attribute msg
+pt : Spacing -> Tailwind
 pt spacing =
-    class ("pt-" ++ spacingToString spacing)
+    Tailwind ("pt-" ++ spacingToString spacing)
 
 
 {-| Right padding.
 -}
-pr : Spacing -> Attribute msg
+pr : Spacing -> Tailwind
 pr spacing =
-    class ("pr-" ++ spacingToString spacing)
+    Tailwind ("pr-" ++ spacingToString spacing)
 
 
 {-| Bottom padding.
 -}
-pb : Spacing -> Attribute msg
+pb : Spacing -> Tailwind
 pb spacing =
-    class ("pb-" ++ spacingToString spacing)
+    Tailwind ("pb-" ++ spacingToString spacing)
 
 
 {-| Left padding.
 -}
-pl : Spacing -> Attribute msg
+pl : Spacing -> Tailwind
 pl spacing =
-    class ("pl-" ++ spacingToString spacing)
+    Tailwind ("pl-" ++ spacingToString spacing)
 
 
 -- MARGIN
@@ -375,102 +377,102 @@ pl spacing =
     m s4  -- produces "m-4" (1rem)
 
 -}
-m : Spacing -> Attribute msg
+m : Spacing -> Tailwind
 m spacing =
-    class ("m-" ++ spacingToString spacing)
+    Tailwind ("m-" ++ spacingToString spacing)
 
 
 {-| Horizontal margin (left and right).
 -}
-mx : Spacing -> Attribute msg
+mx : Spacing -> Tailwind
 mx spacing =
-    class ("mx-" ++ spacingToString spacing)
+    Tailwind ("mx-" ++ spacingToString spacing)
 
 
 {-| Vertical margin (top and bottom).
 -}
-my : Spacing -> Attribute msg
+my : Spacing -> Tailwind
 my spacing =
-    class ("my-" ++ spacingToString spacing)
+    Tailwind ("my-" ++ spacingToString spacing)
 
 
 {-| Top margin.
 -}
-mt : Spacing -> Attribute msg
+mt : Spacing -> Tailwind
 mt spacing =
-    class ("mt-" ++ spacingToString spacing)
+    Tailwind ("mt-" ++ spacingToString spacing)
 
 
 {-| Right margin.
 -}
-mr : Spacing -> Attribute msg
+mr : Spacing -> Tailwind
 mr spacing =
-    class ("mr-" ++ spacingToString spacing)
+    Tailwind ("mr-" ++ spacingToString spacing)
 
 
 {-| Bottom margin.
 -}
-mb : Spacing -> Attribute msg
+mb : Spacing -> Tailwind
 mb spacing =
-    class ("mb-" ++ spacingToString spacing)
+    Tailwind ("mb-" ++ spacingToString spacing)
 
 
 {-| Left margin.
 -}
-ml : Spacing -> Attribute msg
+ml : Spacing -> Tailwind
 ml spacing =
-    class ("ml-" ++ spacingToString spacing)
+    Tailwind ("ml-" ++ spacingToString spacing)
 
 
 -- NEGATIVE MARGIN
 
 {-| Negative margin on all sides.
 -}
-neg_m : Spacing -> Attribute msg
+neg_m : Spacing -> Tailwind
 neg_m spacing =
-    class ("-m-" ++ spacingToString spacing)
+    Tailwind ("-m-" ++ spacingToString spacing)
 
 
 {-| Negative horizontal margin.
 -}
-neg_mx : Spacing -> Attribute msg
+neg_mx : Spacing -> Tailwind
 neg_mx spacing =
-    class ("-mx-" ++ spacingToString spacing)
+    Tailwind ("-mx-" ++ spacingToString spacing)
 
 
 {-| Negative vertical margin.
 -}
-neg_my : Spacing -> Attribute msg
+neg_my : Spacing -> Tailwind
 neg_my spacing =
-    class ("-my-" ++ spacingToString spacing)
+    Tailwind ("-my-" ++ spacingToString spacing)
 
 
 {-| Negative top margin.
 -}
-neg_mt : Spacing -> Attribute msg
+neg_mt : Spacing -> Tailwind
 neg_mt spacing =
-    class ("-mt-" ++ spacingToString spacing)
+    Tailwind ("-mt-" ++ spacingToString spacing)
 
 
 {-| Negative right margin.
 -}
-neg_mr : Spacing -> Attribute msg
+neg_mr : Spacing -> Tailwind
 neg_mr spacing =
-    class ("-mr-" ++ spacingToString spacing)
+    Tailwind ("-mr-" ++ spacingToString spacing)
 
 
 {-| Negative bottom margin.
 -}
-neg_mb : Spacing -> Attribute msg
+neg_mb : Spacing -> Tailwind
 neg_mb spacing =
-    class ("-mb-" ++ spacingToString spacing)
+    Tailwind ("-mb-" ++ spacingToString spacing)
 
 
 {-| Negative left margin.
 -}
-neg_ml : Spacing -> Attribute msg
+neg_ml : Spacing -> Tailwind
 neg_ml spacing =
-    class ("-ml-" ++ spacingToString spacing)
+    Tailwind ("-ml-" ++ spacingToString spacing)
 
 
 -- GAP
@@ -480,23 +482,23 @@ neg_ml spacing =
     gap s4  -- produces "gap-4"
 
 -}
-gap : Spacing -> Attribute msg
+gap : Spacing -> Tailwind
 gap spacing =
-    class ("gap-" ++ spacingToString spacing)
+    Tailwind ("gap-" ++ spacingToString spacing)
 
 
 {-| Horizontal gap.
 -}
-gap_x : Spacing -> Attribute msg
+gap_x : Spacing -> Tailwind
 gap_x spacing =
-    class ("gap-x-" ++ spacingToString spacing)
+    Tailwind ("gap-x-" ++ spacingToString spacing)
 
 
 {-| Vertical gap.
 -}
-gap_y : Spacing -> Attribute msg
+gap_y : Spacing -> Tailwind
 gap_y spacing =
-    class ("gap-y-" ++ spacingToString spacing)
+    Tailwind ("gap-y-" ++ spacingToString spacing)
 
 
 
@@ -504,260 +506,260 @@ gap_y spacing =
 
 {-| display: flex
 -}
-flex : Attribute msg
+flex : Tailwind
 flex =
-    class "flex"
+    Tailwind "flex"
 
 
 {-| display: inline-flex
 -}
-inline_flex : Attribute msg
+inline_flex : Tailwind
 inline_flex =
-    class "inline-flex"
+    Tailwind "inline-flex"
 
 
 {-| display: block
 -}
-block : Attribute msg
+block : Tailwind
 block =
-    class "block"
+    Tailwind "block"
 
 
 {-| display: inline-block
 -}
-inline_block : Attribute msg
+inline_block : Tailwind
 inline_block =
-    class "inline-block"
+    Tailwind "inline-block"
 
 
 {-| display: inline
 -}
-inline : Attribute msg
+inline : Tailwind
 inline =
-    class "inline"
+    Tailwind "inline"
 
 
 {-| display: grid
 -}
-grid : Attribute msg
+grid : Tailwind
 grid =
-    class "grid"
+    Tailwind "grid"
 
 
 {-| display: none
 -}
-hidden : Attribute msg
+hidden : Tailwind
 hidden =
-    class "hidden"
+    Tailwind "hidden"
 
 
 -- FLEX DIRECTION
 
 {-| flex-direction: row
 -}
-flex_row : Attribute msg
+flex_row : Tailwind
 flex_row =
-    class "flex-row"
+    Tailwind "flex-row"
 
 
 {-| flex-direction: row-reverse
 -}
-flex_row_reverse : Attribute msg
+flex_row_reverse : Tailwind
 flex_row_reverse =
-    class "flex-row-reverse"
+    Tailwind "flex-row-reverse"
 
 
 {-| flex-direction: column
 -}
-flex_col : Attribute msg
+flex_col : Tailwind
 flex_col =
-    class "flex-col"
+    Tailwind "flex-col"
 
 
 {-| flex-direction: column-reverse
 -}
-flex_col_reverse : Attribute msg
+flex_col_reverse : Tailwind
 flex_col_reverse =
-    class "flex-col-reverse"
+    Tailwind "flex-col-reverse"
 
 
 -- FLEX WRAP
 
-flex_wrap : Attribute msg
+flex_wrap : Tailwind
 flex_wrap =
-    class "flex-wrap"
+    Tailwind "flex-wrap"
 
 
-flex_wrap_reverse : Attribute msg
+flex_wrap_reverse : Tailwind
 flex_wrap_reverse =
-    class "flex-wrap-reverse"
+    Tailwind "flex-wrap-reverse"
 
 
-flex_nowrap : Attribute msg
+flex_nowrap : Tailwind
 flex_nowrap =
-    class "flex-nowrap"
+    Tailwind "flex-nowrap"
 
 
 -- FLEX GROW/SHRINK
 
-grow : Attribute msg
+grow : Tailwind
 grow =
-    class "grow"
+    Tailwind "grow"
 
 
-grow_0 : Attribute msg
+grow_0 : Tailwind
 grow_0 =
-    class "grow-0"
+    Tailwind "grow-0"
 
 
-shrink : Attribute msg
+shrink : Tailwind
 shrink =
-    class "shrink"
+    Tailwind "shrink"
 
 
-shrink_0 : Attribute msg
+shrink_0 : Tailwind
 shrink_0 =
-    class "shrink-0"
+    Tailwind "shrink-0"
 
 
 -- ALIGN ITEMS
 
-items_start : Attribute msg
+items_start : Tailwind
 items_start =
-    class "items-start"
+    Tailwind "items-start"
 
 
-items_end : Attribute msg
+items_end : Tailwind
 items_end =
-    class "items-end"
+    Tailwind "items-end"
 
 
-items_center : Attribute msg
+items_center : Tailwind
 items_center =
-    class "items-center"
+    Tailwind "items-center"
 
 
-items_baseline : Attribute msg
+items_baseline : Tailwind
 items_baseline =
-    class "items-baseline"
+    Tailwind "items-baseline"
 
 
-items_stretch : Attribute msg
+items_stretch : Tailwind
 items_stretch =
-    class "items-stretch"
+    Tailwind "items-stretch"
 
 
 -- JUSTIFY CONTENT
 
-justify_start : Attribute msg
+justify_start : Tailwind
 justify_start =
-    class "justify-start"
+    Tailwind "justify-start"
 
 
-justify_end : Attribute msg
+justify_end : Tailwind
 justify_end =
-    class "justify-end"
+    Tailwind "justify-end"
 
 
-justify_center : Attribute msg
+justify_center : Tailwind
 justify_center =
-    class "justify-center"
+    Tailwind "justify-center"
 
 
-justify_between : Attribute msg
+justify_between : Tailwind
 justify_between =
-    class "justify-between"
+    Tailwind "justify-between"
 
 
-justify_around : Attribute msg
+justify_around : Tailwind
 justify_around =
-    class "justify-around"
+    Tailwind "justify-around"
 
 
-justify_evenly : Attribute msg
+justify_evenly : Tailwind
 justify_evenly =
-    class "justify-evenly"
+    Tailwind "justify-evenly"
 
 
 -- POSITIONING
 
-relative : Attribute msg
+relative : Tailwind
 relative =
-    class "relative"
+    Tailwind "relative"
 
 
-absolute : Attribute msg
+absolute : Tailwind
 absolute =
-    class "absolute"
+    Tailwind "absolute"
 
 
-fixed : Attribute msg
+fixed : Tailwind
 fixed =
-    class "fixed"
+    Tailwind "fixed"
 
 
-sticky : Attribute msg
+sticky : Tailwind
 sticky =
-    class "sticky"
+    Tailwind "sticky"
 
 
-static : Attribute msg
+static : Tailwind
 static =
-    class "static"
+    Tailwind "static"
 
 
 -- VISIBILITY
 
-visible : Attribute msg
+visible : Tailwind
 visible =
-    class "visible"
+    Tailwind "visible"
 
 
-invisible : Attribute msg
+invisible : Tailwind
 invisible =
-    class "invisible"
+    Tailwind "invisible"
 
 
 -- OVERFLOW
 
-overflow_auto : Attribute msg
+overflow_auto : Tailwind
 overflow_auto =
-    class "overflow-auto"
+    Tailwind "overflow-auto"
 
 
-overflow_hidden : Attribute msg
+overflow_hidden : Tailwind
 overflow_hidden =
-    class "overflow-hidden"
+    Tailwind "overflow-hidden"
 
 
-overflow_visible : Attribute msg
+overflow_visible : Tailwind
 overflow_visible =
-    class "overflow-visible"
+    Tailwind "overflow-visible"
 
 
-overflow_scroll : Attribute msg
+overflow_scroll : Tailwind
 overflow_scroll =
-    class "overflow-scroll"
+    Tailwind "overflow-scroll"
 
 
-overflow_x_auto : Attribute msg
+overflow_x_auto : Tailwind
 overflow_x_auto =
-    class "overflow-x-auto"
+    Tailwind "overflow-x-auto"
 
 
-overflow_y_auto : Attribute msg
+overflow_y_auto : Tailwind
 overflow_y_auto =
-    class "overflow-y-auto"
+    Tailwind "overflow-y-auto"
 
 
-overflow_x_hidden : Attribute msg
+overflow_x_hidden : Tailwind
 overflow_x_hidden =
-    class "overflow-x-hidden"
+    Tailwind "overflow-x-hidden"
 
 
-overflow_y_hidden : Attribute msg
+overflow_y_hidden : Tailwind
 overflow_y_hidden =
-    class "overflow-y-hidden"
+    Tailwind "overflow-y-hidden"
 
 
 -- SIZING
@@ -769,212 +771,212 @@ overflow_y_hidden =
     w s64  -- produces "w-64" (16rem)
 
 -}
-w : Spacing -> Attribute msg
+w : Spacing -> Tailwind
 w spacing =
-    class ("w-" ++ spacingToString spacing)
+    Tailwind ("w-" ++ spacingToString spacing)
 
 
 -- WIDTH FRACTIONS
 
 {-| Width 1/2
 -}
-w_1over2 : Attribute msg
+w_1over2 : Tailwind
 w_1over2 =
-    class "w-1/2"
+    Tailwind "w-1/2"
 
 {-| Width 1/3
 -}
-w_1over3 : Attribute msg
+w_1over3 : Tailwind
 w_1over3 =
-    class "w-1/3"
+    Tailwind "w-1/3"
 
 {-| Width 2/3
 -}
-w_2over3 : Attribute msg
+w_2over3 : Tailwind
 w_2over3 =
-    class "w-2/3"
+    Tailwind "w-2/3"
 
 {-| Width 1/4
 -}
-w_1over4 : Attribute msg
+w_1over4 : Tailwind
 w_1over4 =
-    class "w-1/4"
+    Tailwind "w-1/4"
 
 {-| Width 2/4
 -}
-w_2over4 : Attribute msg
+w_2over4 : Tailwind
 w_2over4 =
-    class "w-2/4"
+    Tailwind "w-2/4"
 
 {-| Width 3/4
 -}
-w_3over4 : Attribute msg
+w_3over4 : Tailwind
 w_3over4 =
-    class "w-3/4"
+    Tailwind "w-3/4"
 
 {-| Width 1/5
 -}
-w_1over5 : Attribute msg
+w_1over5 : Tailwind
 w_1over5 =
-    class "w-1/5"
+    Tailwind "w-1/5"
 
 {-| Width 2/5
 -}
-w_2over5 : Attribute msg
+w_2over5 : Tailwind
 w_2over5 =
-    class "w-2/5"
+    Tailwind "w-2/5"
 
 {-| Width 3/5
 -}
-w_3over5 : Attribute msg
+w_3over5 : Tailwind
 w_3over5 =
-    class "w-3/5"
+    Tailwind "w-3/5"
 
 {-| Width 4/5
 -}
-w_4over5 : Attribute msg
+w_4over5 : Tailwind
 w_4over5 =
-    class "w-4/5"
+    Tailwind "w-4/5"
 
 {-| Width 1/6
 -}
-w_1over6 : Attribute msg
+w_1over6 : Tailwind
 w_1over6 =
-    class "w-1/6"
+    Tailwind "w-1/6"
 
 {-| Width 2/6
 -}
-w_2over6 : Attribute msg
+w_2over6 : Tailwind
 w_2over6 =
-    class "w-2/6"
+    Tailwind "w-2/6"
 
 {-| Width 3/6
 -}
-w_3over6 : Attribute msg
+w_3over6 : Tailwind
 w_3over6 =
-    class "w-3/6"
+    Tailwind "w-3/6"
 
 {-| Width 4/6
 -}
-w_4over6 : Attribute msg
+w_4over6 : Tailwind
 w_4over6 =
-    class "w-4/6"
+    Tailwind "w-4/6"
 
 {-| Width 5/6
 -}
-w_5over6 : Attribute msg
+w_5over6 : Tailwind
 w_5over6 =
-    class "w-5/6"
+    Tailwind "w-5/6"
 
 {-| Width 1/12
 -}
-w_1over12 : Attribute msg
+w_1over12 : Tailwind
 w_1over12 =
-    class "w-1/12"
+    Tailwind "w-1/12"
 
 {-| Width 2/12
 -}
-w_2over12 : Attribute msg
+w_2over12 : Tailwind
 w_2over12 =
-    class "w-2/12"
+    Tailwind "w-2/12"
 
 {-| Width 3/12
 -}
-w_3over12 : Attribute msg
+w_3over12 : Tailwind
 w_3over12 =
-    class "w-3/12"
+    Tailwind "w-3/12"
 
 {-| Width 4/12
 -}
-w_4over12 : Attribute msg
+w_4over12 : Tailwind
 w_4over12 =
-    class "w-4/12"
+    Tailwind "w-4/12"
 
 {-| Width 5/12
 -}
-w_5over12 : Attribute msg
+w_5over12 : Tailwind
 w_5over12 =
-    class "w-5/12"
+    Tailwind "w-5/12"
 
 {-| Width 6/12
 -}
-w_6over12 : Attribute msg
+w_6over12 : Tailwind
 w_6over12 =
-    class "w-6/12"
+    Tailwind "w-6/12"
 
 {-| Width 7/12
 -}
-w_7over12 : Attribute msg
+w_7over12 : Tailwind
 w_7over12 =
-    class "w-7/12"
+    Tailwind "w-7/12"
 
 {-| Width 8/12
 -}
-w_8over12 : Attribute msg
+w_8over12 : Tailwind
 w_8over12 =
-    class "w-8/12"
+    Tailwind "w-8/12"
 
 {-| Width 9/12
 -}
-w_9over12 : Attribute msg
+w_9over12 : Tailwind
 w_9over12 =
-    class "w-9/12"
+    Tailwind "w-9/12"
 
 {-| Width 10/12
 -}
-w_10over12 : Attribute msg
+w_10over12 : Tailwind
 w_10over12 =
-    class "w-10/12"
+    Tailwind "w-10/12"
 
 {-| Width 11/12
 -}
-w_11over12 : Attribute msg
+w_11over12 : Tailwind
 w_11over12 =
-    class "w-11/12"
+    Tailwind "w-11/12"
 
 
 -- WIDTH KEYWORDS
 
 {-| Full width (100%).
 -}
-w_full : Attribute msg
+w_full : Tailwind
 w_full =
-    class "w-full"
+    Tailwind "w-full"
 
 
 {-| Screen width (100vw).
 -}
-w_screen : Attribute msg
+w_screen : Tailwind
 w_screen =
-    class "w-screen"
+    Tailwind "w-screen"
 
 
 {-| Auto width.
 -}
-w_auto : Attribute msg
+w_auto : Tailwind
 w_auto =
-    class "w-auto"
+    Tailwind "w-auto"
 
 
 {-| Min-content width.
 -}
-w_min : Attribute msg
+w_min : Tailwind
 w_min =
-    class "w-min"
+    Tailwind "w-min"
 
 
 {-| Max-content width.
 -}
-w_max : Attribute msg
+w_max : Tailwind
 w_max =
-    class "w-max"
+    Tailwind "w-max"
 
 
 {-| Fit-content width.
 -}
-w_fit : Attribute msg
+w_fit : Tailwind
 w_fit =
-    class "w-fit"
+    Tailwind "w-fit"
 
 
 -- HEIGHT (using Spacing)
@@ -984,797 +986,797 @@ w_fit =
     h s32  -- produces "h-32" (8rem)
 
 -}
-h : Spacing -> Attribute msg
+h : Spacing -> Tailwind
 h spacing =
-    class ("h-" ++ spacingToString spacing)
+    Tailwind ("h-" ++ spacingToString spacing)
 
 
 -- HEIGHT FRACTIONS
 
 {-| Height 1/2
 -}
-h_1over2 : Attribute msg
+h_1over2 : Tailwind
 h_1over2 =
-    class "h-1/2"
+    Tailwind "h-1/2"
 
 {-| Height 1/3
 -}
-h_1over3 : Attribute msg
+h_1over3 : Tailwind
 h_1over3 =
-    class "h-1/3"
+    Tailwind "h-1/3"
 
 {-| Height 2/3
 -}
-h_2over3 : Attribute msg
+h_2over3 : Tailwind
 h_2over3 =
-    class "h-2/3"
+    Tailwind "h-2/3"
 
 {-| Height 1/4
 -}
-h_1over4 : Attribute msg
+h_1over4 : Tailwind
 h_1over4 =
-    class "h-1/4"
+    Tailwind "h-1/4"
 
 {-| Height 2/4
 -}
-h_2over4 : Attribute msg
+h_2over4 : Tailwind
 h_2over4 =
-    class "h-2/4"
+    Tailwind "h-2/4"
 
 {-| Height 3/4
 -}
-h_3over4 : Attribute msg
+h_3over4 : Tailwind
 h_3over4 =
-    class "h-3/4"
+    Tailwind "h-3/4"
 
 {-| Height 1/5
 -}
-h_1over5 : Attribute msg
+h_1over5 : Tailwind
 h_1over5 =
-    class "h-1/5"
+    Tailwind "h-1/5"
 
 {-| Height 2/5
 -}
-h_2over5 : Attribute msg
+h_2over5 : Tailwind
 h_2over5 =
-    class "h-2/5"
+    Tailwind "h-2/5"
 
 {-| Height 3/5
 -}
-h_3over5 : Attribute msg
+h_3over5 : Tailwind
 h_3over5 =
-    class "h-3/5"
+    Tailwind "h-3/5"
 
 {-| Height 4/5
 -}
-h_4over5 : Attribute msg
+h_4over5 : Tailwind
 h_4over5 =
-    class "h-4/5"
+    Tailwind "h-4/5"
 
 {-| Height 1/6
 -}
-h_1over6 : Attribute msg
+h_1over6 : Tailwind
 h_1over6 =
-    class "h-1/6"
+    Tailwind "h-1/6"
 
 {-| Height 2/6
 -}
-h_2over6 : Attribute msg
+h_2over6 : Tailwind
 h_2over6 =
-    class "h-2/6"
+    Tailwind "h-2/6"
 
 {-| Height 3/6
 -}
-h_3over6 : Attribute msg
+h_3over6 : Tailwind
 h_3over6 =
-    class "h-3/6"
+    Tailwind "h-3/6"
 
 {-| Height 4/6
 -}
-h_4over6 : Attribute msg
+h_4over6 : Tailwind
 h_4over6 =
-    class "h-4/6"
+    Tailwind "h-4/6"
 
 {-| Height 5/6
 -}
-h_5over6 : Attribute msg
+h_5over6 : Tailwind
 h_5over6 =
-    class "h-5/6"
+    Tailwind "h-5/6"
 
 {-| Height 1/12
 -}
-h_1over12 : Attribute msg
+h_1over12 : Tailwind
 h_1over12 =
-    class "h-1/12"
+    Tailwind "h-1/12"
 
 {-| Height 2/12
 -}
-h_2over12 : Attribute msg
+h_2over12 : Tailwind
 h_2over12 =
-    class "h-2/12"
+    Tailwind "h-2/12"
 
 {-| Height 3/12
 -}
-h_3over12 : Attribute msg
+h_3over12 : Tailwind
 h_3over12 =
-    class "h-3/12"
+    Tailwind "h-3/12"
 
 {-| Height 4/12
 -}
-h_4over12 : Attribute msg
+h_4over12 : Tailwind
 h_4over12 =
-    class "h-4/12"
+    Tailwind "h-4/12"
 
 {-| Height 5/12
 -}
-h_5over12 : Attribute msg
+h_5over12 : Tailwind
 h_5over12 =
-    class "h-5/12"
+    Tailwind "h-5/12"
 
 {-| Height 6/12
 -}
-h_6over12 : Attribute msg
+h_6over12 : Tailwind
 h_6over12 =
-    class "h-6/12"
+    Tailwind "h-6/12"
 
 {-| Height 7/12
 -}
-h_7over12 : Attribute msg
+h_7over12 : Tailwind
 h_7over12 =
-    class "h-7/12"
+    Tailwind "h-7/12"
 
 {-| Height 8/12
 -}
-h_8over12 : Attribute msg
+h_8over12 : Tailwind
 h_8over12 =
-    class "h-8/12"
+    Tailwind "h-8/12"
 
 {-| Height 9/12
 -}
-h_9over12 : Attribute msg
+h_9over12 : Tailwind
 h_9over12 =
-    class "h-9/12"
+    Tailwind "h-9/12"
 
 {-| Height 10/12
 -}
-h_10over12 : Attribute msg
+h_10over12 : Tailwind
 h_10over12 =
-    class "h-10/12"
+    Tailwind "h-10/12"
 
 {-| Height 11/12
 -}
-h_11over12 : Attribute msg
+h_11over12 : Tailwind
 h_11over12 =
-    class "h-11/12"
+    Tailwind "h-11/12"
 
 
 -- HEIGHT KEYWORDS
 
 {-| Full height (100%).
 -}
-h_full : Attribute msg
+h_full : Tailwind
 h_full =
-    class "h-full"
+    Tailwind "h-full"
 
 
 {-| Screen height (100vh).
 -}
-h_screen : Attribute msg
+h_screen : Tailwind
 h_screen =
-    class "h-screen"
+    Tailwind "h-screen"
 
 
 {-| Auto height.
 -}
-h_auto : Attribute msg
+h_auto : Tailwind
 h_auto =
-    class "h-auto"
+    Tailwind "h-auto"
 
 
 {-| Min-content height.
 -}
-h_min : Attribute msg
+h_min : Tailwind
 h_min =
-    class "h-min"
+    Tailwind "h-min"
 
 
 {-| Max-content height.
 -}
-h_max : Attribute msg
+h_max : Tailwind
 h_max =
-    class "h-max"
+    Tailwind "h-max"
 
 
 {-| Fit-content height.
 -}
-h_fit : Attribute msg
+h_fit : Tailwind
 h_fit =
-    class "h-fit"
+    Tailwind "h-fit"
 
 
 -- MIN/MAX WIDTH (using Spacing)
 
 {-| Min width.
 -}
-min_w : Spacing -> Attribute msg
+min_w : Spacing -> Tailwind
 min_w spacing =
-    class ("min-w-" ++ spacingToString spacing)
+    Tailwind ("min-w-" ++ spacingToString spacing)
 
 
 {-| Max width.
 -}
-max_w : Spacing -> Attribute msg
+max_w : Spacing -> Tailwind
 max_w spacing =
-    class ("max-w-" ++ spacingToString spacing)
+    Tailwind ("max-w-" ++ spacingToString spacing)
 
 
 -- MIN/MAX HEIGHT (using Spacing)
 
 {-| Min height.
 -}
-min_h : Spacing -> Attribute msg
+min_h : Spacing -> Tailwind
 min_h spacing =
-    class ("min-h-" ++ spacingToString spacing)
+    Tailwind ("min-h-" ++ spacingToString spacing)
 
 
 {-| Max height.
 -}
-max_h : Spacing -> Attribute msg
+max_h : Spacing -> Tailwind
 max_h spacing =
-    class ("max-h-" ++ spacingToString spacing)
+    Tailwind ("max-h-" ++ spacingToString spacing)
 
 
 
 -- TEXT ALIGNMENT
 
-text_left : Attribute msg
+text_left : Tailwind
 text_left =
-    class "text-left"
+    Tailwind "text-left"
 
 
-text_center : Attribute msg
+text_center : Tailwind
 text_center =
-    class "text-center"
+    Tailwind "text-center"
 
 
-text_right : Attribute msg
+text_right : Tailwind
 text_right =
-    class "text-right"
+    Tailwind "text-right"
 
 
-text_justify : Attribute msg
+text_justify : Tailwind
 text_justify =
-    class "text-justify"
+    Tailwind "text-justify"
 
 
 -- FONT FAMILY
 
-font_sans : Attribute msg
+font_sans : Tailwind
 font_sans =
-    class "font-sans"
+    Tailwind "font-sans"
 
 
-font_serif : Attribute msg
+font_serif : Tailwind
 font_serif =
-    class "font-serif"
+    Tailwind "font-serif"
 
 
-font_mono : Attribute msg
+font_mono : Tailwind
 font_mono =
-    class "font-mono"
+    Tailwind "font-mono"
 
 
 -- FONT STYLE
 
-italic : Attribute msg
+italic : Tailwind
 italic =
-    class "italic"
+    Tailwind "italic"
 
 
-not_italic : Attribute msg
+not_italic : Tailwind
 not_italic =
-    class "not-italic"
+    Tailwind "not-italic"
 
 
 -- TEXT TRANSFORM
 
-uppercase : Attribute msg
+uppercase : Tailwind
 uppercase =
-    class "uppercase"
+    Tailwind "uppercase"
 
 
-lowercase : Attribute msg
+lowercase : Tailwind
 lowercase =
-    class "lowercase"
+    Tailwind "lowercase"
 
 
-capitalize : Attribute msg
+capitalize : Tailwind
 capitalize =
-    class "capitalize"
+    Tailwind "capitalize"
 
 
-normal_case : Attribute msg
+normal_case : Tailwind
 normal_case =
-    class "normal-case"
+    Tailwind "normal-case"
 
 
 -- TEXT DECORATION
 
-underline : Attribute msg
+underline : Tailwind
 underline =
-    class "underline"
+    Tailwind "underline"
 
 
-line_through : Attribute msg
+line_through : Tailwind
 line_through =
-    class "line-through"
+    Tailwind "line-through"
 
 
-no_underline : Attribute msg
+no_underline : Tailwind
 no_underline =
-    class "no-underline"
+    Tailwind "no-underline"
 
 
 -- WHITESPACE
 
-whitespace_normal : Attribute msg
+whitespace_normal : Tailwind
 whitespace_normal =
-    class "whitespace-normal"
+    Tailwind "whitespace-normal"
 
 
-whitespace_nowrap : Attribute msg
+whitespace_nowrap : Tailwind
 whitespace_nowrap =
-    class "whitespace-nowrap"
+    Tailwind "whitespace-nowrap"
 
 
-whitespace_pre : Attribute msg
+whitespace_pre : Tailwind
 whitespace_pre =
-    class "whitespace-pre"
+    Tailwind "whitespace-pre"
 
 
-whitespace_pre_line : Attribute msg
+whitespace_pre_line : Tailwind
 whitespace_pre_line =
-    class "whitespace-pre-line"
+    Tailwind "whitespace-pre-line"
 
 
-whitespace_pre_wrap : Attribute msg
+whitespace_pre_wrap : Tailwind
 whitespace_pre_wrap =
-    class "whitespace-pre-wrap"
+    Tailwind "whitespace-pre-wrap"
 
 
 -- TEXT OVERFLOW
 
-truncate : Attribute msg
+truncate : Tailwind
 truncate =
-    class "truncate"
+    Tailwind "truncate"
 
 
-text_ellipsis : Attribute msg
+text_ellipsis : Tailwind
 text_ellipsis =
-    class "text-ellipsis"
+    Tailwind "text-ellipsis"
 
 
-text_clip : Attribute msg
+text_clip : Tailwind
 text_clip =
-    class "text-clip"
+    Tailwind "text-clip"
 
 
 -- FONT SIZE
 
 {-| font-size: 0.75rem
 -}
-text_xs : Attribute msg
+text_xs : Tailwind
 text_xs =
-    class "text-xs"
+    Tailwind "text-xs"
 
 {-| font-size: 0.875rem
 -}
-text_sm : Attribute msg
+text_sm : Tailwind
 text_sm =
-    class "text-sm"
+    Tailwind "text-sm"
 
 {-| font-size: 1rem
 -}
-text_base : Attribute msg
+text_base : Tailwind
 text_base =
-    class "text-base"
+    Tailwind "text-base"
 
 {-| font-size: 1.125rem
 -}
-text_lg : Attribute msg
+text_lg : Tailwind
 text_lg =
-    class "text-lg"
+    Tailwind "text-lg"
 
 {-| font-size: 1.25rem
 -}
-text_xl : Attribute msg
+text_xl : Tailwind
 text_xl =
-    class "text-xl"
+    Tailwind "text-xl"
 
 {-| font-size: 1.5rem
 -}
-text_n2xl : Attribute msg
+text_n2xl : Tailwind
 text_n2xl =
-    class "text-2xl"
+    Tailwind "text-2xl"
 
 {-| font-size: 1.875rem
 -}
-text_n3xl : Attribute msg
+text_n3xl : Tailwind
 text_n3xl =
-    class "text-3xl"
+    Tailwind "text-3xl"
 
 {-| font-size: 2.25rem
 -}
-text_n4xl : Attribute msg
+text_n4xl : Tailwind
 text_n4xl =
-    class "text-4xl"
+    Tailwind "text-4xl"
 
 {-| font-size: 3rem
 -}
-text_n5xl : Attribute msg
+text_n5xl : Tailwind
 text_n5xl =
-    class "text-5xl"
+    Tailwind "text-5xl"
 
 {-| font-size: 3.75rem
 -}
-text_n6xl : Attribute msg
+text_n6xl : Tailwind
 text_n6xl =
-    class "text-6xl"
+    Tailwind "text-6xl"
 
 {-| font-size: 4.5rem
 -}
-text_n7xl : Attribute msg
+text_n7xl : Tailwind
 text_n7xl =
-    class "text-7xl"
+    Tailwind "text-7xl"
 
 {-| font-size: 6rem
 -}
-text_n8xl : Attribute msg
+text_n8xl : Tailwind
 text_n8xl =
-    class "text-8xl"
+    Tailwind "text-8xl"
 
 {-| font-size: 8rem
 -}
-text_n9xl : Attribute msg
+text_n9xl : Tailwind
 text_n9xl =
-    class "text-9xl"
+    Tailwind "text-9xl"
 
 -- FONT WEIGHT
 
 {-| font-weight: 100
 -}
-font_thin : Attribute msg
+font_thin : Tailwind
 font_thin =
-    class "font-thin"
+    Tailwind "font-thin"
 
 {-| font-weight: 200
 -}
-font_extralight : Attribute msg
+font_extralight : Tailwind
 font_extralight =
-    class "font-extralight"
+    Tailwind "font-extralight"
 
 {-| font-weight: 300
 -}
-font_light : Attribute msg
+font_light : Tailwind
 font_light =
-    class "font-light"
+    Tailwind "font-light"
 
 {-| font-weight: 400
 -}
-font_normal : Attribute msg
+font_normal : Tailwind
 font_normal =
-    class "font-normal"
+    Tailwind "font-normal"
 
 {-| font-weight: 500
 -}
-font_medium : Attribute msg
+font_medium : Tailwind
 font_medium =
-    class "font-medium"
+    Tailwind "font-medium"
 
 {-| font-weight: 600
 -}
-font_semibold : Attribute msg
+font_semibold : Tailwind
 font_semibold =
-    class "font-semibold"
+    Tailwind "font-semibold"
 
 {-| font-weight: 700
 -}
-font_bold : Attribute msg
+font_bold : Tailwind
 font_bold =
-    class "font-bold"
+    Tailwind "font-bold"
 
 {-| font-weight: 800
 -}
-font_extrabold : Attribute msg
+font_extrabold : Tailwind
 font_extrabold =
-    class "font-extrabold"
+    Tailwind "font-extrabold"
 
 {-| font-weight: 900
 -}
-font_black : Attribute msg
+font_black : Tailwind
 font_black =
-    class "font-black"
+    Tailwind "font-black"
 
 
 -- BORDER WIDTH
 
-border : Attribute msg
+border : Tailwind
 border =
-    class "border"
+    Tailwind "border"
 
 
-border_0 : Attribute msg
+border_0 : Tailwind
 border_0 =
-    class "border-0"
+    Tailwind "border-0"
 
 
-border_2 : Attribute msg
+border_2 : Tailwind
 border_2 =
-    class "border-2"
+    Tailwind "border-2"
 
 
-border_4 : Attribute msg
+border_4 : Tailwind
 border_4 =
-    class "border-4"
+    Tailwind "border-4"
 
 
-border_8 : Attribute msg
+border_8 : Tailwind
 border_8 =
-    class "border-8"
+    Tailwind "border-8"
 
 
-border_t : Attribute msg
+border_t : Tailwind
 border_t =
-    class "border-t"
+    Tailwind "border-t"
 
 
-border_r : Attribute msg
+border_r : Tailwind
 border_r =
-    class "border-r"
+    Tailwind "border-r"
 
 
-border_b : Attribute msg
+border_b : Tailwind
 border_b =
-    class "border-b"
+    Tailwind "border-b"
 
 
-border_l : Attribute msg
+border_l : Tailwind
 border_l =
-    class "border-l"
+    Tailwind "border-l"
 
 
 -- BORDER RADIUS
 
-rounded : Attribute msg
+rounded : Tailwind
 rounded =
-    class "rounded"
+    Tailwind "rounded"
 
 
-rounded_none : Attribute msg
+rounded_none : Tailwind
 rounded_none =
-    class "rounded-none"
+    Tailwind "rounded-none"
 
 
-rounded_full : Attribute msg
+rounded_full : Tailwind
 rounded_full =
-    class "rounded-full"
+    Tailwind "rounded-full"
 
 
 -- BORDER RADIUS
 
-rounded_xs : Attribute msg
+rounded_xs : Tailwind
 rounded_xs =
-    class "rounded-xs"
+    Tailwind "rounded-xs"
 
-rounded_sm : Attribute msg
+rounded_sm : Tailwind
 rounded_sm =
-    class "rounded-sm"
+    Tailwind "rounded-sm"
 
-rounded_md : Attribute msg
+rounded_md : Tailwind
 rounded_md =
-    class "rounded-md"
+    Tailwind "rounded-md"
 
-rounded_lg : Attribute msg
+rounded_lg : Tailwind
 rounded_lg =
-    class "rounded-lg"
+    Tailwind "rounded-lg"
 
-rounded_xl : Attribute msg
+rounded_xl : Tailwind
 rounded_xl =
-    class "rounded-xl"
+    Tailwind "rounded-xl"
 
-rounded_n2xl : Attribute msg
+rounded_n2xl : Tailwind
 rounded_n2xl =
-    class "rounded-2xl"
+    Tailwind "rounded-2xl"
 
-rounded_n3xl : Attribute msg
+rounded_n3xl : Tailwind
 rounded_n3xl =
-    class "rounded-3xl"
+    Tailwind "rounded-3xl"
 
-rounded_n4xl : Attribute msg
+rounded_n4xl : Tailwind
 rounded_n4xl =
-    class "rounded-4xl"
+    Tailwind "rounded-4xl"
 
 
 -- SHADOW
 
-shadow : Attribute msg
+shadow : Tailwind
 shadow =
-    class "shadow"
+    Tailwind "shadow"
 
 
-shadow_none : Attribute msg
+shadow_none : Tailwind
 shadow_none =
-    class "shadow-none"
+    Tailwind "shadow-none"
 
 
 -- TRANSITIONS
 
-transition : Attribute msg
+transition : Tailwind
 transition =
-    class "transition"
+    Tailwind "transition"
 
 
-transition_all : Attribute msg
+transition_all : Tailwind
 transition_all =
-    class "transition-all"
+    Tailwind "transition-all"
 
 
-transition_none : Attribute msg
+transition_none : Tailwind
 transition_none =
-    class "transition-none"
+    Tailwind "transition-none"
 
 
-transition_colors : Attribute msg
+transition_colors : Tailwind
 transition_colors =
-    class "transition-colors"
+    Tailwind "transition-colors"
 
 
-transition_opacity : Attribute msg
+transition_opacity : Tailwind
 transition_opacity =
-    class "transition-opacity"
+    Tailwind "transition-opacity"
 
 
-transition_shadow : Attribute msg
+transition_shadow : Tailwind
 transition_shadow =
-    class "transition-shadow"
+    Tailwind "transition-shadow"
 
 
-transition_transform : Attribute msg
+transition_transform : Tailwind
 transition_transform =
-    class "transition-transform"
+    Tailwind "transition-transform"
 
 
 -- ANIMATIONS
 
-animate_none : Attribute msg
+animate_none : Tailwind
 animate_none =
-    class "animate-none"
+    Tailwind "animate-none"
 
 
-animate_spin : Attribute msg
+animate_spin : Tailwind
 animate_spin =
-    class "animate-spin"
+    Tailwind "animate-spin"
 
 
-animate_ping : Attribute msg
+animate_ping : Tailwind
 animate_ping =
-    class "animate-ping"
+    Tailwind "animate-ping"
 
 
-animate_pulse : Attribute msg
+animate_pulse : Tailwind
 animate_pulse =
-    class "animate-pulse"
+    Tailwind "animate-pulse"
 
 
-animate_bounce : Attribute msg
+animate_bounce : Tailwind
 animate_bounce =
-    class "animate-bounce"
+    Tailwind "animate-bounce"
 
 
 -- CURSOR
 
-cursor_auto : Attribute msg
+cursor_auto : Tailwind
 cursor_auto =
-    class "cursor-auto"
+    Tailwind "cursor-auto"
 
 
-cursor_default : Attribute msg
+cursor_default : Tailwind
 cursor_default =
-    class "cursor-default"
+    Tailwind "cursor-default"
 
 
-cursor_pointer : Attribute msg
+cursor_pointer : Tailwind
 cursor_pointer =
-    class "cursor-pointer"
+    Tailwind "cursor-pointer"
 
 
-cursor_wait : Attribute msg
+cursor_wait : Tailwind
 cursor_wait =
-    class "cursor-wait"
+    Tailwind "cursor-wait"
 
 
-cursor_text : Attribute msg
+cursor_text : Tailwind
 cursor_text =
-    class "cursor-text"
+    Tailwind "cursor-text"
 
 
-cursor_move : Attribute msg
+cursor_move : Tailwind
 cursor_move =
-    class "cursor-move"
+    Tailwind "cursor-move"
 
 
-cursor_not_allowed : Attribute msg
+cursor_not_allowed : Tailwind
 cursor_not_allowed =
-    class "cursor-not-allowed"
+    Tailwind "cursor-not-allowed"
 
 
 -- POINTER EVENTS
 
-pointer_events_none : Attribute msg
+pointer_events_none : Tailwind
 pointer_events_none =
-    class "pointer-events-none"
+    Tailwind "pointer-events-none"
 
 
-pointer_events_auto : Attribute msg
+pointer_events_auto : Tailwind
 pointer_events_auto =
-    class "pointer-events-auto"
+    Tailwind "pointer-events-auto"
 
 
 -- USER SELECT
 
-select_none : Attribute msg
+select_none : Tailwind
 select_none =
-    class "select-none"
+    Tailwind "select-none"
 
 
-select_text : Attribute msg
+select_text : Tailwind
 select_text =
-    class "select-text"
+    Tailwind "select-text"
 
 
-select_all : Attribute msg
+select_all : Tailwind
 select_all =
-    class "select-all"
+    Tailwind "select-all"
 
 
-select_auto : Attribute msg
+select_auto : Tailwind
 select_auto =
-    class "select-auto"
+    Tailwind "select-auto"
 
 
 -- SHADOW SIZES
 
-shadow_n2xs : Attribute msg
+shadow_n2xs : Tailwind
 shadow_n2xs =
-    class "shadow-2xs"
+    Tailwind "shadow-2xs"
 
-shadow_xs : Attribute msg
+shadow_xs : Tailwind
 shadow_xs =
-    class "shadow-xs"
+    Tailwind "shadow-xs"
 
-shadow_sm : Attribute msg
+shadow_sm : Tailwind
 shadow_sm =
-    class "shadow-sm"
+    Tailwind "shadow-sm"
 
-shadow_md : Attribute msg
+shadow_md : Tailwind
 shadow_md =
-    class "shadow-md"
+    Tailwind "shadow-md"
 
-shadow_lg : Attribute msg
+shadow_lg : Tailwind
 shadow_lg =
-    class "shadow-lg"
+    Tailwind "shadow-lg"
 
-shadow_xl : Attribute msg
+shadow_xl : Tailwind
 shadow_xl =
-    class "shadow-xl"
+    Tailwind "shadow-xl"
 
-shadow_n2xl : Attribute msg
+shadow_n2xl : Tailwind
 shadow_n2xl =
-    class "shadow-2xl"
+    Tailwind "shadow-2xl"
 
-shadow_inner : Attribute msg
+shadow_inner : Tailwind
 shadow_inner =
-    class "shadow-inner"
+    Tailwind "shadow-inner"
 
 
 -- COLOR UTILITIES (parameterized)
@@ -1784,9 +1786,9 @@ shadow_inner =
     text_color red_500
 
 -}
-text_color : Color -> Attribute msg
+text_color : Color -> Tailwind
 text_color (Color c) =
-    class ("text-" ++ c)
+    Tailwind ("text-" ++ c)
 
 
 {-| Set background color.
@@ -1794,9 +1796,9 @@ text_color (Color c) =
     bg_color blue_100
 
 -}
-bg_color : Color -> Attribute msg
+bg_color : Color -> Tailwind
 bg_color (Color c) =
-    class ("bg-" ++ c)
+    Tailwind ("bg-" ++ c)
 
 
 {-| Set border color.
@@ -1804,9 +1806,9 @@ bg_color (Color c) =
     border_color gray_300
 
 -}
-border_color : Color -> Attribute msg
+border_color : Color -> Tailwind
 border_color (Color c) =
-    class ("border-" ++ c)
+    Tailwind ("border-" ++ c)
 
 
 {-| Set ring color.
@@ -1814,9 +1816,9 @@ border_color (Color c) =
     ring_color indigo_500
 
 -}
-ring_color : Color -> Attribute msg
+ring_color : Color -> Tailwind
 ring_color (Color c) =
-    class ("ring-" ++ c)
+    Tailwind ("ring-" ++ c)
 
 
 {-| Set placeholder color.
@@ -1824,115 +1826,115 @@ ring_color (Color c) =
     placeholder_color gray_400
 
 -}
-placeholder_color : Color -> Attribute msg
+placeholder_color : Color -> Tailwind
 placeholder_color (Color c) =
-    class ("placeholder-" ++ c)
+    Tailwind ("placeholder-" ++ c)
 
 
 
 -- OPACITY
 
-opacity_0 : Attribute msg
+opacity_0 : Tailwind
 opacity_0 =
-    class "opacity-0"
+    Tailwind "opacity-0"
 
 
-opacity_5 : Attribute msg
+opacity_5 : Tailwind
 opacity_5 =
-    class "opacity-5"
+    Tailwind "opacity-5"
 
 
-opacity_10 : Attribute msg
+opacity_10 : Tailwind
 opacity_10 =
-    class "opacity-10"
+    Tailwind "opacity-10"
 
 
-opacity_20 : Attribute msg
+opacity_20 : Tailwind
 opacity_20 =
-    class "opacity-20"
+    Tailwind "opacity-20"
 
 
-opacity_25 : Attribute msg
+opacity_25 : Tailwind
 opacity_25 =
-    class "opacity-25"
+    Tailwind "opacity-25"
 
 
-opacity_30 : Attribute msg
+opacity_30 : Tailwind
 opacity_30 =
-    class "opacity-30"
+    Tailwind "opacity-30"
 
 
-opacity_40 : Attribute msg
+opacity_40 : Tailwind
 opacity_40 =
-    class "opacity-40"
+    Tailwind "opacity-40"
 
 
-opacity_50 : Attribute msg
+opacity_50 : Tailwind
 opacity_50 =
-    class "opacity-50"
+    Tailwind "opacity-50"
 
 
-opacity_60 : Attribute msg
+opacity_60 : Tailwind
 opacity_60 =
-    class "opacity-60"
+    Tailwind "opacity-60"
 
 
-opacity_70 : Attribute msg
+opacity_70 : Tailwind
 opacity_70 =
-    class "opacity-70"
+    Tailwind "opacity-70"
 
 
-opacity_75 : Attribute msg
+opacity_75 : Tailwind
 opacity_75 =
-    class "opacity-75"
+    Tailwind "opacity-75"
 
 
-opacity_80 : Attribute msg
+opacity_80 : Tailwind
 opacity_80 =
-    class "opacity-80"
+    Tailwind "opacity-80"
 
 
-opacity_90 : Attribute msg
+opacity_90 : Tailwind
 opacity_90 =
-    class "opacity-90"
+    Tailwind "opacity-90"
 
 
-opacity_95 : Attribute msg
+opacity_95 : Tailwind
 opacity_95 =
-    class "opacity-95"
+    Tailwind "opacity-95"
 
 
-opacity_100 : Attribute msg
+opacity_100 : Tailwind
 opacity_100 =
-    class "opacity-100"
+    Tailwind "opacity-100"
 
 
 -- Z-INDEX
 
-z_0 : Attribute msg
+z_0 : Tailwind
 z_0 =
-    class "z-0"
+    Tailwind "z-0"
 
-z_10 : Attribute msg
+z_10 : Tailwind
 z_10 =
-    class "z-10"
+    Tailwind "z-10"
 
-z_20 : Attribute msg
+z_20 : Tailwind
 z_20 =
-    class "z-20"
+    Tailwind "z-20"
 
-z_30 : Attribute msg
+z_30 : Tailwind
 z_30 =
-    class "z-30"
+    Tailwind "z-30"
 
-z_40 : Attribute msg
+z_40 : Tailwind
 z_40 =
-    class "z-40"
+    Tailwind "z-40"
 
-z_50 : Attribute msg
+z_50 : Tailwind
 z_50 =
-    class "z-50"
+    Tailwind "z-50"
 
-z_auto : Attribute msg
+z_auto : Tailwind
 z_auto =
-    class "z-auto"
+    Tailwind "z-auto"
