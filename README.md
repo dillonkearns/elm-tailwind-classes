@@ -45,9 +45,22 @@ export default defineConfig({
 })
 ```
 
+### 4. Import CSS in your entry point
+
+**Important:** For CSS Hot Module Replacement (HMR) to work, import your CSS file in your JavaScript/TypeScript entry point:
+
+```javascript
+// index.js or index.ts
+import "./style.css";
+
+// ... rest of your app initialization
+```
+
 Make sure your CSS file has `@import "tailwindcss";` - the plugin handles everything else automatically.
 
-### 4. Write type-safe Tailwind!
+**Note:** If you're using a `<link>` tag in your HTML to load CSS, HMR won't work for Tailwind class changes. Remove the link tag and use the JS import instead.
+
+### 5. Write type-safe Tailwind!
 
 ```elm
 import Tailwind exposing (classes)
@@ -75,7 +88,7 @@ That's it! The Vite plugin:
 2. **Extracts used classes** from your Elm code at build time
 3. **Injects them into Tailwind** for optimized CSS output
 
-### 5. Add `.elm-tailwind/` to .gitignore
+### 6. Add `.elm-tailwind/` to .gitignore
 
 ```
 # Generated Tailwind Elm modules
@@ -164,7 +177,52 @@ export default {
 }
 ```
 
+Make sure to import your CSS in your entry point (e.g., `index.ts`):
+
+```typescript
+import "./style.css";
+
+const config: ElmPagesInit = {
+  // ...
+};
+
+export default config;
+```
+
 The plugin auto-detects elm.json location for elm-pages projects.
+
+## Hot Module Replacement (HMR)
+
+When you change Elm files, the plugin automatically:
+1. Re-extracts used Tailwind classes via elm-review
+2. Updates the safelist
+3. Triggers Vite's CSS HMR to reload styles
+
+### HMR Requirements
+
+For HMR to work properly:
+
+1. **Import CSS via JavaScript** - CSS must be imported in your JS/TS entry point (`import "./style.css"`), not via a `<link>` tag in HTML
+2. **Don't use both** - Remove any `<link rel="stylesheet" href="./style.css">` from your HTML if you're using the JS import
+
+### Troubleshooting HMR
+
+If CSS changes aren't hot-reloading:
+
+1. **Enable debug mode** to see what's happening:
+   ```javascript
+   elmTailwind({ debug: true })
+   ```
+
+2. **Check the console** for messages like:
+   - `[elm-tailwind] Elm file changed: MyComponent.elm`
+   - `[elm-tailwind] Re-extracted classes: 42`
+   - `[elm-tailwind] Classes changed! New classes: ...`
+   - `[elm-tailwind] Triggered Vite CSS HMR`
+
+3. **Verify CSS import method** - Open browser DevTools Network tab, look for your CSS file. If loaded via `<link>` tag, switch to JS import.
+
+4. **Check for errors** - Look for `[elm-tailwind]` errors in the terminal where Vite is running.
 
 ## Custom Tailwind Config
 
