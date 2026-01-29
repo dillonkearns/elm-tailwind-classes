@@ -50,7 +50,7 @@ The key insight: generate class *strings* (not elm-css styles), then use static 
 ### 1. Install
 
 ```bash
-npm install elm-tailwind-classes elm-review
+npm install github:dillonkearns/elm-tailwind-classes elm-review
 ```
 
 ### 2. Add to elm.json
