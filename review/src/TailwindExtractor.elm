@@ -46,6 +46,7 @@ type alias ProjectContext =
 type alias ModuleContext =
     { classes : Set String
     , lookupTable : ModuleNameLookupTable
+    , breakpointsDepth : Int
     }
 
 
@@ -61,6 +62,7 @@ fromProjectToModule =
         (\lookupTable _ ->
             { classes = Set.empty
             , lookupTable = lookupTable
+            , breakpointsDepth = 0
             }
         )
         |> Rule.withModuleNameLookupTable
@@ -84,16 +86,69 @@ foldProjectContexts new old =
 moduleVisitor : Rule.ModuleRuleSchema {} ModuleContext -> Rule.ModuleRuleSchema { hasAtLeastOneVisitor : () } ModuleContext
 moduleVisitor schema =
     schema
-        |> Rule.withExpressionEnterVisitor expressionVisitor
+        |> Rule.withExpressionEnterVisitor expressionEnterVisitor
+        |> Rule.withExpressionExitVisitor expressionExitVisitor
 
 
-expressionVisitor : Node Expression -> ModuleContext -> ( List (Rule.Error {}), ModuleContext )
-expressionVisitor node context =
-    let
-        extractedClasses =
-            extractClasses "" node context.lookupTable
-    in
-    ( [], { context | classes = Set.union context.classes (Set.fromList extractedClasses) } )
+{-| Check if an expression is a Tailwind.Breakpoints application.
+-}
+isBreakpointsApplication : Node Expression -> ModuleNameLookupTable -> Bool
+isBreakpointsApplication node lookupTable =
+    case Node.value node of
+        Expression.Application ((Node funcRange (Expression.FunctionOrValue _ _)) :: _) ->
+            case ModuleNameLookupTable.moduleNameAt lookupTable funcRange of
+                Just [ "Tailwind", "Breakpoints" ] ->
+                    True
+
+                _ ->
+                    False
+
+        _ ->
+            False
+
+
+expressionEnterVisitor : Node Expression -> ModuleContext -> ( List (Rule.Error {}), ModuleContext )
+expressionEnterVisitor node context =
+    if isBreakpointsApplication node context.lookupTable then
+        if context.breakpointsDepth > 0 then
+            -- Nested Breakpoints call: just increment depth, don't re-extract
+            -- (parent already handled this via extractClasses recursion)
+            ( [], { context | breakpointsDepth = context.breakpointsDepth + 1 } )
+
+        else
+            -- Top-level Breakpoints call: extract classes and increment depth
+            let
+                extractedClasses =
+                    extractClasses "" node context.lookupTable
+            in
+            ( []
+            , { context
+                | classes = Set.union context.classes (Set.fromList extractedClasses)
+                , breakpointsDepth = context.breakpointsDepth + 1
+              }
+            )
+
+    else if context.breakpointsDepth > 0 then
+        -- Inside a Breakpoints call: skip extraction (already handled by parent)
+        ( [], context )
+
+    else
+        -- Top-level: extract normally
+        let
+            extractedClasses =
+                extractClasses "" node context.lookupTable
+        in
+        ( [], { context | classes = Set.union context.classes (Set.fromList extractedClasses) } )
+
+
+expressionExitVisitor : Node Expression -> ModuleContext -> ( List (Rule.Error {}), ModuleContext )
+expressionExitVisitor node context =
+    if isBreakpointsApplication node context.lookupTable then
+        -- Exiting a Breakpoints call: decrement depth
+        ( [], { context | breakpointsDepth = context.breakpointsDepth - 1 } )
+
+    else
+        ( [], context )
 
 
 {-| Extract classes from an expression, with an optional variant prefix.
@@ -260,12 +315,41 @@ getVariantPrefix funcName existingPrefix =
 isParameterizedFunction : String -> Bool
 isParameterizedFunction name =
     List.member name
-        [ "p", "px", "py", "pt", "pr", "pb", "pl"
-        , "m", "mx", "my", "mt", "mr", "mb", "ml"
-        , "gap", "gap_x", "gap_y"
-        , "w", "h", "min_w", "max_w", "min_h", "max_h"
-        , "text_color", "bg_color", "border_color", "ring_color", "placeholder_color"
-        , "neg_m", "neg_mx", "neg_my", "neg_mt", "neg_mr", "neg_mb", "neg_ml"
+        [ "p"
+        , "px"
+        , "py"
+        , "pt"
+        , "pr"
+        , "pb"
+        , "pl"
+        , "m"
+        , "mx"
+        , "my"
+        , "mt"
+        , "mr"
+        , "mb"
+        , "ml"
+        , "gap"
+        , "gap_x"
+        , "gap_y"
+        , "w"
+        , "h"
+        , "min_w"
+        , "max_w"
+        , "min_h"
+        , "max_h"
+        , "text_color"
+        , "bg_color"
+        , "border_color"
+        , "ring_color"
+        , "placeholder_color"
+        , "neg_m"
+        , "neg_mx"
+        , "neg_my"
+        , "neg_mt"
+        , "neg_mr"
+        , "neg_mb"
+        , "neg_ml"
         ]
 
 

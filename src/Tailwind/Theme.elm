@@ -1,7 +1,7 @@
 module Tailwind.Theme exposing
-    ( Color, Shade, colorToString, shadeToString
+    ( Color, colorToString
     , red, orange, amber, yellow, lime, green, emerald, teal, cyan, sky, blue, indigo, violet, purple, fuchsia, pink, rose, slate, gray, zinc, neutral, stone
-    , s50, s100, s200, s300, s400, s500, s600, s700, s800, s900, s950
+    , Shade, shadeToString, s50, s100, s200, s300, s400, s500, s600, s700, s800, s900, s950
     , black, white, transparent, currentColor, inherit
     , Spacing(..), spacingToString, s0, spx, s0_dot_5, s1, s1_dot_5, s2, s2_dot_5, s3, s3_dot_5, s4, s5, s6, s7, s8, s9, s10, s11, s12, s14, s16, s20, s24, s28, s32, s36, s40, s44, s48, s52, s56, s60, s64, s72, s80, s96
     , Opacity(..), opacity0, opacity5, opacity10, opacity20, opacity25, opacity30, opacity40, opacity50, opacity60, opacity70, opacity75, opacity80, opacity90, opacity95, opacity100
