@@ -337,7 +337,7 @@ This module provides type-safe color, shade, spacing, and opacity values.
 
 Use with shade parameter: \`bg_color blue s500\`
 
-@docs ${colorValueExports.slice(0, 15).join(', ')}
+@docs ${colorValueExports.join(', ')}
 
 
 ## Shades
@@ -354,7 +354,7 @@ Use directly: \`bg_simple white\`
 
 ## Spacing
 
-@docs Spacing, spacingToString, ${spacingValueExports.slice(0, 10).join(', ')}
+@docs Spacing, spacingToString, ${spacingValueExports.join(', ')}
 
 
 ## Opacities
@@ -686,6 +686,8 @@ ${name} =
   const radiusFunctions = radiusSizes.map(size => {
     const name = `rounded_${toElmName(size)}`;
     return `
+{-| Border radius: ${size}
+-}
 rounded_${toElmName(size)} : Tailwind
 rounded_${toElmName(size)} =
     Tailwind "rounded-${size}"`;
@@ -696,6 +698,8 @@ rounded_${toElmName(size)} =
   const shadowFunctions = shadowSizes.map(size => {
     const name = `shadow_${toElmName(size)}`;
     return `
+{-| Shadow: ${size}
+-}
 shadow_${toElmName(size)} : Tailwind
 shadow_${toElmName(size)} =
     Tailwind "shadow-${size}"`;
@@ -787,16 +791,22 @@ flex_col_reverse =
 
 -- FLEX WRAP
 
+{-| flex-wrap: wrap
+-}
 flex_wrap : Tailwind
 flex_wrap =
     Tailwind "flex-wrap"
 
 
+{-| flex-wrap: wrap-reverse
+-}
 flex_wrap_reverse : Tailwind
 flex_wrap_reverse =
     Tailwind "flex-wrap-reverse"
 
 
+{-| flex-wrap: nowrap
+-}
 flex_nowrap : Tailwind
 flex_nowrap =
     Tailwind "flex-nowrap"
@@ -804,21 +814,29 @@ flex_nowrap =
 
 -- FLEX GROW/SHRINK
 
+{-| flex-grow: 1
+-}
 grow : Tailwind
 grow =
     Tailwind "grow"
 
 
+{-| flex-grow: 0
+-}
 grow_0 : Tailwind
 grow_0 =
     Tailwind "grow-0"
 
 
+{-| flex-shrink: 1
+-}
 shrink : Tailwind
 shrink =
     Tailwind "shrink"
 
 
+{-| flex-shrink: 0
+-}
 shrink_0 : Tailwind
 shrink_0 =
     Tailwind "shrink-0"
@@ -826,26 +844,36 @@ shrink_0 =
 
 -- ALIGN ITEMS
 
+{-| align-items: flex-start
+-}
 items_start : Tailwind
 items_start =
     Tailwind "items-start"
 
 
+{-| align-items: flex-end
+-}
 items_end : Tailwind
 items_end =
     Tailwind "items-end"
 
 
+{-| align-items: center
+-}
 items_center : Tailwind
 items_center =
     Tailwind "items-center"
 
 
+{-| align-items: baseline
+-}
 items_baseline : Tailwind
 items_baseline =
     Tailwind "items-baseline"
 
 
+{-| align-items: stretch
+-}
 items_stretch : Tailwind
 items_stretch =
     Tailwind "items-stretch"
@@ -853,31 +881,43 @@ items_stretch =
 
 -- JUSTIFY CONTENT
 
+{-| justify-content: flex-start
+-}
 justify_start : Tailwind
 justify_start =
     Tailwind "justify-start"
 
 
+{-| justify-content: flex-end
+-}
 justify_end : Tailwind
 justify_end =
     Tailwind "justify-end"
 
 
+{-| justify-content: center
+-}
 justify_center : Tailwind
 justify_center =
     Tailwind "justify-center"
 
 
+{-| justify-content: space-between
+-}
 justify_between : Tailwind
 justify_between =
     Tailwind "justify-between"
 
 
+{-| justify-content: space-around
+-}
 justify_around : Tailwind
 justify_around =
     Tailwind "justify-around"
 
 
+{-| justify-content: space-evenly
+-}
 justify_evenly : Tailwind
 justify_evenly =
     Tailwind "justify-evenly"
@@ -885,26 +925,36 @@ justify_evenly =
 
 -- POSITIONING
 
+{-| position: relative
+-}
 relative : Tailwind
 relative =
     Tailwind "relative"
 
 
+{-| position: absolute
+-}
 absolute : Tailwind
 absolute =
     Tailwind "absolute"
 
 
+{-| position: fixed
+-}
 fixed : Tailwind
 fixed =
     Tailwind "fixed"
 
 
+{-| position: sticky
+-}
 sticky : Tailwind
 sticky =
     Tailwind "sticky"
 
 
+{-| position: static
+-}
 static : Tailwind
 static =
     Tailwind "static"
@@ -912,11 +962,15 @@ static =
 
 -- VISIBILITY
 
+{-| visibility: visible
+-}
 visible : Tailwind
 visible =
     Tailwind "visible"
 
 
+{-| visibility: hidden
+-}
 invisible : Tailwind
 invisible =
     Tailwind "invisible"
@@ -924,41 +978,57 @@ invisible =
 
 -- OVERFLOW
 
+{-| overflow: auto
+-}
 overflow_auto : Tailwind
 overflow_auto =
     Tailwind "overflow-auto"
 
 
+{-| overflow: hidden
+-}
 overflow_hidden : Tailwind
 overflow_hidden =
     Tailwind "overflow-hidden"
 
 
+{-| overflow: visible
+-}
 overflow_visible : Tailwind
 overflow_visible =
     Tailwind "overflow-visible"
 
 
+{-| overflow: scroll
+-}
 overflow_scroll : Tailwind
 overflow_scroll =
     Tailwind "overflow-scroll"
 
 
+{-| overflow-x: auto
+-}
 overflow_x_auto : Tailwind
 overflow_x_auto =
     Tailwind "overflow-x-auto"
 
 
+{-| overflow-y: auto
+-}
 overflow_y_auto : Tailwind
 overflow_y_auto =
     Tailwind "overflow-y-auto"
 
 
+{-| overflow-x: hidden
+-}
 overflow_x_hidden : Tailwind
 overflow_x_hidden =
     Tailwind "overflow-x-hidden"
 
 
+{-| overflow-y: hidden
+-}
 overflow_y_hidden : Tailwind
 overflow_y_hidden =
     Tailwind "overflow-y-hidden"
@@ -1173,21 +1243,29 @@ max_h spacing =
   const typographyDefs = `
 -- TEXT ALIGNMENT
 
+{-| text-align: left
+-}
 text_left : Tailwind
 text_left =
     Tailwind "text-left"
 
 
+{-| text-align: center
+-}
 text_center : Tailwind
 text_center =
     Tailwind "text-center"
 
 
+{-| text-align: right
+-}
 text_right : Tailwind
 text_right =
     Tailwind "text-right"
 
 
+{-| text-align: justify
+-}
 text_justify : Tailwind
 text_justify =
     Tailwind "text-justify"
@@ -1195,16 +1273,22 @@ text_justify =
 
 -- FONT FAMILY
 
+{-| font-family: sans-serif
+-}
 font_sans : Tailwind
 font_sans =
     Tailwind "font-sans"
 
 
+{-| font-family: serif
+-}
 font_serif : Tailwind
 font_serif =
     Tailwind "font-serif"
 
 
+{-| font-family: monospace
+-}
 font_mono : Tailwind
 font_mono =
     Tailwind "font-mono"
@@ -1212,11 +1296,15 @@ font_mono =
 
 -- FONT STYLE
 
+{-| font-style: italic
+-}
 italic : Tailwind
 italic =
     Tailwind "italic"
 
 
+{-| font-style: normal
+-}
 not_italic : Tailwind
 not_italic =
     Tailwind "not-italic"
@@ -1224,21 +1312,29 @@ not_italic =
 
 -- TEXT TRANSFORM
 
+{-| text-transform: uppercase
+-}
 uppercase : Tailwind
 uppercase =
     Tailwind "uppercase"
 
 
+{-| text-transform: lowercase
+-}
 lowercase : Tailwind
 lowercase =
     Tailwind "lowercase"
 
 
+{-| text-transform: capitalize
+-}
 capitalize : Tailwind
 capitalize =
     Tailwind "capitalize"
 
 
+{-| text-transform: none
+-}
 normal_case : Tailwind
 normal_case =
     Tailwind "normal-case"
@@ -1246,16 +1342,22 @@ normal_case =
 
 -- TEXT DECORATION
 
+{-| text-decoration: underline
+-}
 underline : Tailwind
 underline =
     Tailwind "underline"
 
 
+{-| text-decoration: line-through
+-}
 line_through : Tailwind
 line_through =
     Tailwind "line-through"
 
 
+{-| text-decoration: none
+-}
 no_underline : Tailwind
 no_underline =
     Tailwind "no-underline"
@@ -1263,26 +1365,36 @@ no_underline =
 
 -- WHITESPACE
 
+{-| white-space: normal
+-}
 whitespace_normal : Tailwind
 whitespace_normal =
     Tailwind "whitespace-normal"
 
 
+{-| white-space: nowrap
+-}
 whitespace_nowrap : Tailwind
 whitespace_nowrap =
     Tailwind "whitespace-nowrap"
 
 
+{-| white-space: pre
+-}
 whitespace_pre : Tailwind
 whitespace_pre =
     Tailwind "whitespace-pre"
 
 
+{-| white-space: pre-line
+-}
 whitespace_pre_line : Tailwind
 whitespace_pre_line =
     Tailwind "whitespace-pre-line"
 
 
+{-| white-space: pre-wrap
+-}
 whitespace_pre_wrap : Tailwind
 whitespace_pre_wrap =
     Tailwind "whitespace-pre-wrap"
@@ -1290,16 +1402,22 @@ whitespace_pre_wrap =
 
 -- TEXT OVERFLOW
 
+{-| Truncate text with ellipsis
+-}
 truncate : Tailwind
 truncate =
     Tailwind "truncate"
 
 
+{-| text-overflow: ellipsis
+-}
 text_ellipsis : Tailwind
 text_ellipsis =
     Tailwind "text-ellipsis"
 
 
+{-| text-overflow: clip
+-}
 text_clip : Tailwind
 text_clip =
     Tailwind "text-clip"
@@ -1319,46 +1437,64 @@ text_clip =
   const borderDefs = `
 -- BORDER WIDTH
 
+{-| border-width: 1px
+-}
 border : Tailwind
 border =
     Tailwind "border"
 
 
+{-| border-width: 0px
+-}
 border_0 : Tailwind
 border_0 =
     Tailwind "border-0"
 
 
+{-| border-width: 2px
+-}
 border_2 : Tailwind
 border_2 =
     Tailwind "border-2"
 
 
+{-| border-width: 4px
+-}
 border_4 : Tailwind
 border_4 =
     Tailwind "border-4"
 
 
+{-| border-width: 8px
+-}
 border_8 : Tailwind
 border_8 =
     Tailwind "border-8"
 
 
+{-| border-top-width: 1px
+-}
 border_t : Tailwind
 border_t =
     Tailwind "border-t"
 
 
+{-| border-right-width: 1px
+-}
 border_r : Tailwind
 border_r =
     Tailwind "border-r"
 
 
+{-| border-bottom-width: 1px
+-}
 border_b : Tailwind
 border_b =
     Tailwind "border-b"
 
 
+{-| border-left-width: 1px
+-}
 border_l : Tailwind
 border_l =
     Tailwind "border-l"
@@ -1366,16 +1502,22 @@ border_l =
 
 -- BORDER RADIUS
 
+{-| border-radius: 0.25rem
+-}
 rounded : Tailwind
 rounded =
     Tailwind "rounded"
 
 
+{-| border-radius: 0
+-}
 rounded_none : Tailwind
 rounded_none =
     Tailwind "rounded-none"
 
 
+{-| border-radius: 9999px
+-}
 rounded_full : Tailwind
 rounded_full =
     Tailwind "rounded-full"
@@ -1391,11 +1533,15 @@ rounded_full =
   const effectDefs = `
 -- SHADOW
 
+{-| Default shadow
+-}
 shadow : Tailwind
 shadow =
     Tailwind "shadow"
 
 
+{-| No shadow
+-}
 shadow_none : Tailwind
 shadow_none =
     Tailwind "shadow-none"
@@ -1403,36 +1549,50 @@ shadow_none =
 
 -- TRANSITIONS
 
+{-| Default transition
+-}
 transition : Tailwind
 transition =
     Tailwind "transition"
 
 
+{-| Transition all properties
+-}
 transition_all : Tailwind
 transition_all =
     Tailwind "transition-all"
 
 
+{-| No transition
+-}
 transition_none : Tailwind
 transition_none =
     Tailwind "transition-none"
 
 
+{-| Transition colors
+-}
 transition_colors : Tailwind
 transition_colors =
     Tailwind "transition-colors"
 
 
+{-| Transition opacity
+-}
 transition_opacity : Tailwind
 transition_opacity =
     Tailwind "transition-opacity"
 
 
+{-| Transition shadow
+-}
 transition_shadow : Tailwind
 transition_shadow =
     Tailwind "transition-shadow"
 
 
+{-| Transition transform
+-}
 transition_transform : Tailwind
 transition_transform =
     Tailwind "transition-transform"
@@ -1440,26 +1600,36 @@ transition_transform =
 
 -- ANIMATIONS
 
+{-| No animation
+-}
 animate_none : Tailwind
 animate_none =
     Tailwind "animate-none"
 
 
+{-| Spinning animation
+-}
 animate_spin : Tailwind
 animate_spin =
     Tailwind "animate-spin"
 
 
+{-| Ping animation
+-}
 animate_ping : Tailwind
 animate_ping =
     Tailwind "animate-ping"
 
 
+{-| Pulse animation
+-}
 animate_pulse : Tailwind
 animate_pulse =
     Tailwind "animate-pulse"
 
 
+{-| Bounce animation
+-}
 animate_bounce : Tailwind
 animate_bounce =
     Tailwind "animate-bounce"
@@ -1467,36 +1637,50 @@ animate_bounce =
 
 -- CURSOR
 
+{-| cursor: auto
+-}
 cursor_auto : Tailwind
 cursor_auto =
     Tailwind "cursor-auto"
 
 
+{-| cursor: default
+-}
 cursor_default : Tailwind
 cursor_default =
     Tailwind "cursor-default"
 
 
+{-| cursor: pointer
+-}
 cursor_pointer : Tailwind
 cursor_pointer =
     Tailwind "cursor-pointer"
 
 
+{-| cursor: wait
+-}
 cursor_wait : Tailwind
 cursor_wait =
     Tailwind "cursor-wait"
 
 
+{-| cursor: text
+-}
 cursor_text : Tailwind
 cursor_text =
     Tailwind "cursor-text"
 
 
+{-| cursor: move
+-}
 cursor_move : Tailwind
 cursor_move =
     Tailwind "cursor-move"
 
 
+{-| cursor: not-allowed
+-}
 cursor_not_allowed : Tailwind
 cursor_not_allowed =
     Tailwind "cursor-not-allowed"
@@ -1504,11 +1688,15 @@ cursor_not_allowed =
 
 -- POINTER EVENTS
 
+{-| pointer-events: none
+-}
 pointer_events_none : Tailwind
 pointer_events_none =
     Tailwind "pointer-events-none"
 
 
+{-| pointer-events: auto
+-}
 pointer_events_auto : Tailwind
 pointer_events_auto =
     Tailwind "pointer-events-auto"
@@ -1516,21 +1704,29 @@ pointer_events_auto =
 
 -- USER SELECT
 
+{-| user-select: none
+-}
 select_none : Tailwind
 select_none =
     Tailwind "select-none"
 
 
+{-| user-select: text
+-}
 select_text : Tailwind
 select_text =
     Tailwind "select-text"
 
 
+{-| user-select: all
+-}
 select_all : Tailwind
 select_all =
     Tailwind "select-all"
 
 
+{-| user-select: auto
+-}
 select_auto : Tailwind
 select_auto =
     Tailwind "select-auto"
@@ -1640,76 +1836,106 @@ border_simple (SimpleColor c) =
   const opacityDefs = `
 -- OPACITY
 
+{-| opacity: 0
+-}
 opacity_0 : Tailwind
 opacity_0 =
     Tailwind "opacity-0"
 
 
+{-| opacity: 0.05
+-}
 opacity_5 : Tailwind
 opacity_5 =
     Tailwind "opacity-5"
 
 
+{-| opacity: 0.1
+-}
 opacity_10 : Tailwind
 opacity_10 =
     Tailwind "opacity-10"
 
 
+{-| opacity: 0.2
+-}
 opacity_20 : Tailwind
 opacity_20 =
     Tailwind "opacity-20"
 
 
+{-| opacity: 0.25
+-}
 opacity_25 : Tailwind
 opacity_25 =
     Tailwind "opacity-25"
 
 
+{-| opacity: 0.3
+-}
 opacity_30 : Tailwind
 opacity_30 =
     Tailwind "opacity-30"
 
 
+{-| opacity: 0.4
+-}
 opacity_40 : Tailwind
 opacity_40 =
     Tailwind "opacity-40"
 
 
+{-| opacity: 0.5
+-}
 opacity_50 : Tailwind
 opacity_50 =
     Tailwind "opacity-50"
 
 
+{-| opacity: 0.6
+-}
 opacity_60 : Tailwind
 opacity_60 =
     Tailwind "opacity-60"
 
 
+{-| opacity: 0.7
+-}
 opacity_70 : Tailwind
 opacity_70 =
     Tailwind "opacity-70"
 
 
+{-| opacity: 0.75
+-}
 opacity_75 : Tailwind
 opacity_75 =
     Tailwind "opacity-75"
 
 
+{-| opacity: 0.8
+-}
 opacity_80 : Tailwind
 opacity_80 =
     Tailwind "opacity-80"
 
 
+{-| opacity: 0.9
+-}
 opacity_90 : Tailwind
 opacity_90 =
     Tailwind "opacity-90"
 
 
+{-| opacity: 0.95
+-}
 opacity_95 : Tailwind
 opacity_95 =
     Tailwind "opacity-95"
 
 
+{-| opacity: 1
+-}
 opacity_100 : Tailwind
 opacity_100 =
     Tailwind "opacity-100"
@@ -1726,12 +1952,16 @@ opacity_100 =
   for (const z of [0, 10, 20, 30, 40, 50]) {
     zIndexExports.push(`z_${z}`);
     zIndexDefs.push(`
+{-| z-index: ${z}
+-}
 z_${z} : Tailwind
 z_${z} =
     Tailwind "z-${z}"`);
   }
   zIndexExports.push('z_auto');
   zIndexDefs.push(`
+{-| z-index: auto
+-}
 z_auto : Tailwind
 z_auto =
     Tailwind "z-auto"`);
@@ -1762,40 +1992,76 @@ All functions return the opaque \`Tailwind\` type. Use \`Tailwind.classes\` to
 convert a list of Tailwind values to an Html.Attribute.
 
 Following elm-tailwind-modules naming conventions:
-- Hyphens become underscores: \`flex-col\` → \`flex_col\`
-- Numeric prefixes get 'n': \`2xl\` → \`n2xl\`
-- Fractions use 'over': \`w-1/2\` → \`w_1over2\`
-- Decimals use '_dot_': \`p-0.5\` → \`p_0_dot_5\`
+
+  - Hyphens become underscores: \`flex-col\` → \`flex_col\`
+  - Numeric prefixes get 'n': \`2xl\` → \`n2xl\`
+  - Fractions use 'over': \`w-1/2\` → \`w_1over2\`
+  - Decimals use '_dot_': \`p-0.5\` → \`p_0_dot_5\`
 
 
-## Spacing (Type-Safe)
+## Spacing
 
-@docs p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml, neg_m, neg_mx, neg_my, gap, gap_x, gap_y
+@docs ${spacingExports.join(', ')}
 
 
 ## Layout
 
-@docs flex, grid, block, hidden, flex_row, flex_col, items_center, justify_center
+@docs ${layoutExports.join(', ')}
 
 
 ## Sizing
 
-@docs w, h, min_w, max_w, min_h, max_h, w_full, h_full, w_screen, h_screen, w_1over2, w_1over3, h_1over2
+@docs ${sizingExports.join(', ')}
 
 
 ## Typography
 
-@docs text_left, text_center, text_right, text_xs, text_sm, text_base, text_lg, text_xl
+@docs ${typographyExports.join(', ')}
 
 
-## Colors
+## Font Sizes
 
-@docs text_color, bg_color, border_color
+@docs ${fontSizeExports.join(', ')}
+
+
+## Font Weights
+
+@docs ${fontWeightExports.join(', ')}
+
+
+## Borders
+
+@docs ${borderExports.join(', ')}
+
+
+## Border Radius
+
+@docs ${radiusExports.join(', ')}
 
 
 ## Effects
 
-@docs shadow, rounded, transition
+@docs ${effectExports.join(', ')}
+
+
+## Shadows
+
+@docs ${shadowExports.join(', ')}
+
+
+## Colors
+
+@docs ${colorUtilExports.join(', ')}
+
+
+## Opacity
+
+@docs ${opacityExports.join(', ')}
+
+
+## Z-Index
+
+@docs ${zIndexExports.join(', ')}
 
 -}
 

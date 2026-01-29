@@ -2,12 +2,14 @@ module TailwindExtractor exposing (rule)
 
 {-| Extracts Tailwind CSS class names from Elm code.
 
-MVP scope:
+Supports:
 
   - Simple constants: `Tw.flex` → "flex"
   - Parameterized spacing: `Tw.p s4` → "p-4"
-  - Parameterized colors: `Tw.bg_color blue s500` → "bg-blue-500"
-  - Simple colors: `Tw.bg_simple white` → "bg-white"
+  - Parameterized colors: `Tw.bg_color (blue s500)` → "bg-blue-500"
+  - Simple colors: `Tw.text_color white` → "text-white"
+  - Variants: `hover [ Tw.opacity_50 ]` → "hover:opacity-50"
+  - Responsive: `md [ Tw.p s8 ]` → "md:p-8"
 
 @docs rule
 
@@ -87,50 +89,170 @@ moduleVisitor schema =
 
 expressionVisitor : Node Expression -> ModuleContext -> ( List (Rule.Error {}), ModuleContext )
 expressionVisitor node context =
+    let
+        extractedClasses =
+            extractClasses "" node context.lookupTable
+    in
+    ( [], { context | classes = Set.union context.classes (Set.fromList extractedClasses) } )
+
+
+{-| Extract classes from an expression, with an optional variant prefix.
+-}
+extractClasses : String -> Node Expression -> ModuleNameLookupTable -> List String
+extractClasses variantPrefix node lookupTable =
     case Node.value node of
-        -- Function application: Tw.p s4, Tw.bg_color blue s500, Tw.bg_simple white
+        -- Function application
         Expression.Application ((Node funcRange (Expression.FunctionOrValue _ funcName)) :: args) ->
-            case ModuleNameLookupTable.moduleNameAt context.lookupTable funcRange of
+            case ModuleNameLookupTable.moduleNameAt lookupTable funcRange of
                 Just [ "Tailwind", "Utilities" ] ->
-                    case extractFromApplication funcName args context.lookupTable of
+                    -- Utility function call
+                    case extractUtilityClass funcName args lookupTable of
                         Just className ->
-                            ( [], { context | classes = Set.insert className context.classes } )
+                            [ applyPrefix variantPrefix className ]
 
                         Nothing ->
-                            -- Function not recognized as parameterized, try as simple constant
-                            case elmNameToClassName funcName of
-                                Just className ->
-                                    ( [], { context | classes = Set.insert className context.classes } )
+                            -- Might be a simple constant used in application context
+                            []
 
-                                Nothing ->
-                                    ( [], context )
+                Just [ "Tailwind", "Breakpoints" ] ->
+                    -- Variant/breakpoint function
+                    let
+                        newPrefix =
+                            getVariantPrefix funcName variantPrefix
+                    in
+                    case args of
+                        [ listArg ] ->
+                            extractFromListArg newPrefix listArg lookupTable
+
+                        _ ->
+                            []
 
                 _ ->
-                    ( [], context )
+                    -- Not a Tailwind function, but recurse into args
+                    List.concatMap (\arg -> extractClasses variantPrefix arg lookupTable) args
 
         -- Simple value reference: Tw.flex, Tw.items_center
-        -- Only match if this is NOT part of an application (avoid double-counting)
         Expression.FunctionOrValue _ funcName ->
-            case ModuleNameLookupTable.moduleNameAt context.lookupTable (Node.range node) of
+            case ModuleNameLookupTable.moduleNameAt lookupTable (Node.range node) of
                 Just [ "Tailwind", "Utilities" ] ->
-                    -- Check if this is a function that takes arguments
-                    -- If so, we'll handle it in the Application case above
                     if isParameterizedFunction funcName then
-                        ( [], context )
+                        []
 
                     else
                         case elmNameToClassName funcName of
                             Just className ->
-                                ( [], { context | classes = Set.insert className context.classes } )
+                                [ applyPrefix variantPrefix className ]
 
                             Nothing ->
-                                ( [], context )
+                                []
 
                 _ ->
-                    ( [], context )
+                    []
+
+        -- List expressions (for classes [ ... ])
+        Expression.ListExpr items ->
+            List.concatMap (\item -> extractClasses variantPrefix item lookupTable) items
+
+        -- Parenthesized expressions
+        Expression.ParenthesizedExpression inner ->
+            extractClasses variantPrefix inner lookupTable
 
         _ ->
-            ( [], context )
+            []
+
+
+{-| Extract classes from a list argument to a variant function.
+-}
+extractFromListArg : String -> Node Expression -> ModuleNameLookupTable -> List String
+extractFromListArg variantPrefix node lookupTable =
+    case Node.value node of
+        Expression.ListExpr items ->
+            List.concatMap (\item -> extractClasses variantPrefix item lookupTable) items
+
+        _ ->
+            []
+
+
+{-| Apply a variant prefix to a class name.
+-}
+applyPrefix : String -> String -> String
+applyPrefix prefix className =
+    if String.isEmpty prefix then
+        className
+
+    else
+        prefix ++ ":" ++ className
+
+
+{-| Get the CSS variant prefix for a breakpoint/variant function.
+-}
+getVariantPrefix : String -> String -> String
+getVariantPrefix funcName existingPrefix =
+    let
+        variantStr =
+            case funcName of
+                "sm" ->
+                    "sm"
+
+                "md" ->
+                    "md"
+
+                "lg" ->
+                    "lg"
+
+                "xl" ->
+                    "xl"
+
+                "xxl" ->
+                    "2xl"
+
+                "hover" ->
+                    "hover"
+
+                "focus" ->
+                    "focus"
+
+                "active" ->
+                    "active"
+
+                "disabled" ->
+                    "disabled"
+
+                "visited" ->
+                    "visited"
+
+                "focus_within" ->
+                    "focus-within"
+
+                "focus_visible" ->
+                    "focus-visible"
+
+                "first" ->
+                    "first"
+
+                "last" ->
+                    "last"
+
+                "odd" ->
+                    "odd"
+
+                "even" ->
+                    "even"
+
+                "dark" ->
+                    "dark"
+
+                "group_hover" ->
+                    "group-hover"
+
+                _ ->
+                    funcName
+    in
+    if String.isEmpty existingPrefix then
+        variantStr
+
+    else
+        existingPrefix ++ ":" ++ variantStr
 
 
 {-| Functions that take parameters (should not be extracted as simple constants)
@@ -143,21 +265,16 @@ isParameterizedFunction name =
         , "gap", "gap_x", "gap_y"
         , "w", "h", "min_w", "max_w", "min_h", "max_h"
         , "text_color", "bg_color", "border_color", "ring_color", "placeholder_color"
-        , "text_simple", "bg_simple", "border_simple"
         , "neg_m", "neg_mx", "neg_my", "neg_mt", "neg_mr", "neg_mb", "neg_ml"
         ]
 
 
-{-| Extract class from a function application
+{-| Extract a class from a utility function application.
 -}
-extractFromApplication : String -> List (Node Expression) -> ModuleNameLookupTable -> Maybe String
-extractFromApplication funcName args lookupTable =
+extractUtilityClass : String -> List (Node Expression) -> ModuleNameLookupTable -> Maybe String
+extractUtilityClass funcName args lookupTable =
     case args of
-        -- Two arguments: color functions like bg_color blue s500
-        [ arg1, arg2 ] ->
-            extractTwoArgColor funcName arg1 arg2 lookupTable
-
-        -- One argument: spacing functions like p s4, or simple colors like bg_simple white
+        -- One argument: spacing or color
         [ arg ] ->
             extractOneArg funcName arg lookupTable
 
@@ -165,78 +282,90 @@ extractFromApplication funcName args lookupTable =
             Nothing
 
 
-{-| Extract from two-argument color function: bg_color blue s500 → "bg-blue-500"
+{-| Extract from single-argument function.
 -}
-extractTwoArgColor : String -> Node Expression -> Node Expression -> ModuleNameLookupTable -> Maybe String
-extractTwoArgColor funcName colorArg shadeArg lookupTable =
-    case ( Node.value colorArg, Node.value shadeArg ) of
-        ( Expression.FunctionOrValue _ colorName, Expression.FunctionOrValue _ shadeName ) ->
-            case ( ModuleNameLookupTable.moduleNameAt lookupTable (Node.range colorArg), ModuleNameLookupTable.moduleNameAt lookupTable (Node.range shadeArg) ) of
-                ( Just [ "Tailwind", "Theme" ], Just [ "Tailwind", "Theme" ] ) ->
-                    let
-                        prefix =
-                            case funcName of
-                                "text_color" ->
-                                    Just "text"
+extractOneArg : String -> Node Expression -> ModuleNameLookupTable -> Maybe String
+extractOneArg funcName arg lookupTable =
+    case Node.value arg of
+        -- Simple value: Theme.white, Theme.s4
+        Expression.FunctionOrValue _ argName ->
+            case ModuleNameLookupTable.moduleNameAt lookupTable (Node.range arg) of
+                Just [ "Tailwind", "Theme" ] ->
+                    if isColorFunction funcName then
+                        -- Simple color like white, black
+                        Just (colorFunctionPrefix funcName ++ argName)
 
-                                "bg_color" ->
-                                    Just "bg"
-
-                                "border_color" ->
-                                    Just "border"
-
-                                "ring_color" ->
-                                    Just "ring"
-
-                                "placeholder_color" ->
-                                    Just "placeholder"
-
-                                _ ->
-                                    Nothing
-
-                        colorStr =
-                            -- Color names are lowercase in Theme: blue, red, gray
-                            Just colorName
-
-                        shadeStr =
-                            -- Shade names are s50, s100, etc. → 50, 100
-                            if String.startsWith "s" shadeName then
-                                Just (String.dropLeft 1 shadeName)
-
-                            else
-                                Nothing
-                    in
-                    Maybe.map3 (\p c s -> p ++ "-" ++ c ++ "-" ++ s) prefix colorStr shadeStr
+                    else
+                        -- Spacing function
+                        extractSpacingClass funcName argName
 
                 _ ->
                     Nothing
+
+        -- Function application: (blue s500) - color with shade
+        Expression.Application colorArgs ->
+            if isColorFunction funcName then
+                extractColorApplication funcName colorArgs lookupTable
+
+            else
+                Nothing
+
+        -- Parenthesized: (blue s500)
+        Expression.ParenthesizedExpression inner ->
+            extractOneArg funcName inner lookupTable
 
         _ ->
             Nothing
 
 
-{-| Extract from single-argument function
+{-| Check if function is a color function.
 -}
-extractOneArg : String -> Node Expression -> ModuleNameLookupTable -> Maybe String
-extractOneArg funcName arg lookupTable =
-    case Node.value arg of
-        Expression.FunctionOrValue _ argName ->
-            case ModuleNameLookupTable.moduleNameAt lookupTable (Node.range arg) of
-                Just [ "Tailwind", "Theme" ] ->
-                    -- Check if this is a simple color function
-                    case funcName of
-                        "text_simple" ->
-                            Just ("text-" ++ argName)
+isColorFunction : String -> Bool
+isColorFunction name =
+    List.member name [ "text_color", "bg_color", "border_color", "ring_color", "placeholder_color" ]
 
-                        "bg_simple" ->
-                            Just ("bg-" ++ argName)
 
-                        "border_simple" ->
-                            Just ("border-" ++ argName)
+{-| Get the CSS prefix for a color function.
+-}
+colorFunctionPrefix : String -> String
+colorFunctionPrefix funcName =
+    case funcName of
+        "text_color" ->
+            "text-"
 
-                        _ ->
-                            -- Spacing function
-                            extractSpacingClass funcName argName
+        "bg_color" ->
+            "bg-"
+
+        "border_color" ->
+            "border-"
+
+        "ring_color" ->
+            "ring-"
+
+        "placeholder_color" ->
+            "placeholder-"
+
+        _ ->
+            ""
+
+
+{-| Extract from a color application like (blue s500).
+-}
+extractColorApplication : String -> List (Node Expression) -> ModuleNameLookupTable -> Maybe String
+extractColorApplication funcName args lookupTable =
+    case args of
+        [ Node colorRange (Expression.FunctionOrValue _ colorName), Node shadeRange (Expression.FunctionOrValue _ shadeName) ] ->
+            case ( ModuleNameLookupTable.moduleNameAt lookupTable colorRange, ModuleNameLookupTable.moduleNameAt lookupTable shadeRange ) of
+                ( Just [ "Tailwind", "Theme" ], Just [ "Tailwind", "Theme" ] ) ->
+                    let
+                        shadeStr =
+                            if String.startsWith "s" shadeName then
+                                String.dropLeft 1 shadeName
+
+                            else
+                                shadeName
+                    in
+                    Just (colorFunctionPrefix funcName ++ colorName ++ "-" ++ shadeStr)
 
                 _ ->
                     Nothing
@@ -373,67 +502,20 @@ spacingArgToClass argName =
 
 
 {-| Convert simple utility function name to CSS class.
-flex → "flex", items\_center → "items-center", text\_n2xl → "text-2xl"
+flex → "flex", items\_center → "items-center", text\_2xl → "text-2xl"
 -}
 elmNameToClassName : String -> Maybe String
 elmNameToClassName elmName =
-    -- Convert underscores to hyphens, handle special prefixes
     let
-        -- Handle numeric prefix at start (n2xl → 2xl)
-        withoutStartNumericPrefix =
-            if String.startsWith "n" elmName && String.length elmName > 1 then
-                case String.toInt (String.slice 1 2 elmName) of
-                    Just _ ->
-                        String.dropLeft 1 elmName
-
-                    Nothing ->
-                        elmName
-
-            else
-                elmName
-
-        -- Handle _n prefix for numbers within compound names (text_n2xl → text_2xl)
-        -- We need to replace _n followed by a digit with just _
-        withoutInnerNumericPrefix =
-            replaceNumericPrefixes withoutStartNumericPrefix
-
         -- Convert _dot_ to .
         withDots =
-            String.replace "_dot_" "." withoutInnerNumericPrefix
+            String.replace "_dot_" "." elmName
 
         -- Convert remaining underscores to hyphens
         className =
             String.replace "_" "-" withDots
     in
     Just className
-
-
-{-| Replace \_n followed by digit with just \_ (e.g., text\_n2xl → text\_2xl)
--}
-replaceNumericPrefixes : String -> String
-replaceNumericPrefixes str =
-    -- Look for patterns like _n2, _n3, etc. and replace with _2, _3
-    String.toList str
-        |> replaceNumericPrefixesHelper []
-        |> String.fromList
-
-
-replaceNumericPrefixesHelper : List Char -> List Char -> List Char
-replaceNumericPrefixesHelper acc remaining =
-    case remaining of
-        '_' :: 'n' :: digit :: rest ->
-            if Char.isDigit digit then
-                -- Skip the 'n', keep underscore and digit
-                replaceNumericPrefixesHelper (digit :: '_' :: acc) rest
-
-            else
-                replaceNumericPrefixesHelper ('n' :: '_' :: acc) (digit :: rest)
-
-        c :: rest ->
-            replaceNumericPrefixesHelper (c :: acc) rest
-
-        [] ->
-            List.reverse acc
 
 
 {-| Extract collected classes as JSON.

@@ -14,6 +14,7 @@ all =
         , parameterizedSpacingTests
         , parameterizedColorTests
         , simpleColorTests
+        , variantTests
         ]
 
 
@@ -38,12 +39,12 @@ view = Tw.items_center
 """
                     |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
                     |> Review.Test.expectDataExtract """{"classes":["items-center"]}"""
-        , test "extracts text_n2xl as text-2xl" <|
+        , test "extracts text_2xl as text-2xl" <|
             \() ->
                 """module A exposing (..)
 import Tailwind.Utilities as Tw
 
-view = Tw.text_n2xl
+view = Tw.text_2xl
 """
                     |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
                     |> Review.Test.expectDataExtract """{"classes":["text-2xl"]}"""
@@ -88,24 +89,24 @@ view = Tw.gap Theme.s8
 
 parameterizedColorTests : Test
 parameterizedColorTests =
-    describe "parameterized colors (two arguments)"
-        [ test "extracts bg_color blue s500 as bg-blue-500" <|
+    describe "parameterized colors (Color with shade)"
+        [ test "extracts bg_color (blue s500) as bg-blue-500" <|
             \() ->
                 """module A exposing (..)
 import Tailwind.Utilities as Tw
 import Tailwind.Theme as Theme
 
-view = Tw.bg_color Theme.blue Theme.s500
+view = Tw.bg_color (Theme.blue Theme.s500)
 """
                     |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
                     |> Review.Test.expectDataExtract """{"classes":["bg-blue-500"]}"""
-        , test "extracts text_color gray s800 as text-gray-800" <|
+        , test "extracts text_color (gray s800) as text-gray-800" <|
             \() ->
                 """module A exposing (..)
 import Tailwind.Utilities as Tw
 import Tailwind.Theme as Theme
 
-view = Tw.text_color Theme.gray Theme.s800
+view = Tw.text_color (Theme.gray Theme.s800)
 """
                     |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
                     |> Review.Test.expectDataExtract """{"classes":["text-gray-800"]}"""
@@ -114,27 +115,65 @@ view = Tw.text_color Theme.gray Theme.s800
 
 simpleColorTests : Test
 simpleColorTests =
-    describe "simple colors (one argument)"
-        [ test "extracts text_simple white as text-white" <|
+    describe "simple colors"
+        [ test "extracts text_color white as text-white" <|
             \() ->
                 """module A exposing (..)
 import Tailwind.Utilities as Tw
 import Tailwind.Theme as Theme
 
-view = Tw.text_simple Theme.white
+view = Tw.text_color Theme.white
 """
                     |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
                     |> Review.Test.expectDataExtract """{"classes":["text-white"]}"""
-        , test "extracts bg_simple black as bg-black" <|
+        , test "extracts bg_color black as bg-black" <|
             \() ->
                 """module A exposing (..)
 import Tailwind.Utilities as Tw
 import Tailwind.Theme as Theme
 
-view = Tw.bg_simple Theme.black
+view = Tw.bg_color Theme.black
 """
                     |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
                     |> Review.Test.expectDataExtract """{"classes":["bg-black"]}"""
+        ]
+
+
+variantTests : Test
+variantTests =
+    describe "variants"
+        [ test "extracts hover variant" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind.Utilities as Tw
+import Tailwind.Breakpoints as Bp
+
+view = Bp.hover [ Tw.opacity_50 ]
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["hover:opacity-50"]}"""
+        , test "extracts md breakpoint" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind.Utilities as Tw
+import Tailwind.Breakpoints as Bp
+import Tailwind.Theme as Theme
+
+view = Bp.md [ Tw.p Theme.s8 ]
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["md:p-8"]}"""
+        , test "extracts nested variant (md hover)" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind.Utilities as Tw
+import Tailwind.Breakpoints as Bp
+import Tailwind.Theme as Theme
+
+view = Bp.md [ Bp.hover [ Tw.bg_color (Theme.blue Theme.s600) ] ]
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["md:hover:bg-blue-600"]}"""
         ]
 
 
@@ -151,6 +190,10 @@ projectWithTailwind =
             { path = "src/Tailwind/Theme.elm"
             , source = tailwindThemeStub
             }
+        |> Project.addModule
+            { path = "src/Tailwind/Breakpoints.elm"
+            , source = tailwindBreakpointsStub
+            }
 
 
 tailwindUtilitiesStub : String
@@ -159,7 +202,7 @@ tailwindUtilitiesStub =
 
 import Html exposing (Attribute)
 import Html.Attributes exposing (class)
-import Tailwind.Theme exposing (Color(..), Shade(..), SimpleColor(..), Spacing(..))
+import Tailwind.Theme exposing (Color, Spacing(..))
 
 flex : Attribute msg
 flex = class "flex"
@@ -167,8 +210,11 @@ flex = class "flex"
 items_center : Attribute msg
 items_center = class "items-center"
 
-text_n2xl : Attribute msg
-text_n2xl = class "text-2xl"
+text_2xl : Attribute msg
+text_2xl = class "text-2xl"
+
+opacity_50 : Attribute msg
+opacity_50 = class "opacity-50"
 
 p : Spacing -> Attribute msg
 p _ = class ""
@@ -179,17 +225,11 @@ m _ = class ""
 gap : Spacing -> Attribute msg
 gap _ = class ""
 
-bg_color : Color -> Shade -> Attribute msg
-bg_color _ _ = class ""
+bg_color : Color -> Attribute msg
+bg_color _ = class ""
 
-text_color : Color -> Shade -> Attribute msg
-text_color _ _ = class ""
-
-bg_simple : SimpleColor -> Attribute msg
-bg_simple _ = class ""
-
-text_simple : SimpleColor -> Attribute msg
-text_simple _ = class ""
+text_color : Color -> Attribute msg
+text_color _ = class ""
 """
 
 
@@ -211,18 +251,18 @@ s8 = S8
 s0_dot_5 : Spacing
 s0_dot_5 = S0_dot_5
 
-type Color = Blue | Gray | Red
+type Color = Color String
 
-blue : Color
-blue = Blue
+type Shade = S50 | S100 | S500 | S600 | S800 | S900
 
-gray : Color
-gray = Gray
+blue : Shade -> Color
+blue _ = Color "blue"
 
-red : Color
-red = Red
+gray : Shade -> Color
+gray _ = Color "gray"
 
-type Shade = S50 | S100 | S500 | S800 | S900
+red : Shade -> Color
+red _ = Color "red"
 
 s50 : Shade
 s50 = S50
@@ -233,17 +273,37 @@ s100 = S100
 s500 : Shade
 s500 = S500
 
+s600 : Shade
+s600 = S600
+
 s800 : Shade
 s800 = S800
 
 s900 : Shade
 s900 = S900
 
-type SimpleColor = SimpleColor String
+white : Color
+white = Color "white"
 
-white : SimpleColor
-white = SimpleColor "white"
+black : Color
+black = Color "black"
+"""
 
-black : SimpleColor
-black = SimpleColor "black"
+
+tailwindBreakpointsStub : String
+tailwindBreakpointsStub =
+    """module Tailwind.Breakpoints exposing (..)
+
+import Html exposing (Attribute)
+
+type Tailwind = Tailwind String
+
+hover : List Tailwind -> Tailwind
+hover _ = Tailwind ""
+
+md : List Tailwind -> Tailwind
+md _ = Tailwind ""
+
+lg : List Tailwind -> Tailwind
+lg _ = Tailwind ""
 """

@@ -2,8 +2,7 @@ module Tailwind exposing
     ( Tailwind(..)
     , classes
     , batch
-    , raw
-    , toClass
+    , raw, toClass
     )
 
 {-| Type-safe Tailwind CSS for Elm.
@@ -54,9 +53,9 @@ type Tailwind
 This is the main entry point for using Tailwind classes in your view:
 
     import Tailwind exposing (classes)
-    import Tailwind.Utilities as Tw
-    import Tailwind.Theme exposing (s4, s8, blue, s500)
     import Tailwind.Breakpoints exposing (hover, md)
+    import Tailwind.Theme exposing (blue, s4, s500, s8)
+    import Tailwind.Utilities as Tw
 
     view =
         div
@@ -101,7 +100,7 @@ batch twClasses =
 
     raw "custom-class"
 
-    raw "[scroll-snap-type:x_mandatory]"  -- Tailwind arbitrary value syntax
+    raw "[scroll-snap-type:x_mandatory]" -- Tailwind arbitrary value syntax
 
 Use sparingly - these won't be type-checked!
 
@@ -121,7 +120,10 @@ toClass (Tailwind className) =
     className
 
 
+
 -- Internal helper
+
+
 toClassName : Tailwind -> String
 toClassName (Tailwind className) =
     className
