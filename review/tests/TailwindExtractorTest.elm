@@ -90,26 +90,36 @@ view = Tw.gap Theme.s8
 parameterizedColorTests : Test
 parameterizedColorTests =
     describe "parameterized colors (Color with shade)"
-        [ test "extracts bg_color (blue s500) as bg-blue-500" <|
+        [ test "extracts bg_color blue s500 as bg-blue-500 (two args)" <|
             \() ->
                 """module A exposing (..)
 import Tailwind.Utilities as Tw
 import Tailwind.Theme as Theme
 
-view = Tw.bg_color (Theme.blue Theme.s500)
+view = Tw.bg_color Theme.blue Theme.s500
 """
                     |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
                     |> Review.Test.expectDataExtract """{"classes":["bg-blue-500"]}"""
-        , test "extracts text_color (gray s800) as text-gray-800" <|
+        , test "extracts text_color gray s800 as text-gray-800 (two args)" <|
             \() ->
                 """module A exposing (..)
 import Tailwind.Utilities as Tw
 import Tailwind.Theme as Theme
 
-view = Tw.text_color (Theme.gray Theme.s800)
+view = Tw.text_color Theme.gray Theme.s800
 """
                     |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
                     |> Review.Test.expectDataExtract """{"classes":["text-gray-800"]}"""
+        , test "extracts text_color red s400 as text-red-400 (two args)" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind.Utilities as Tw
+import Tailwind.Theme as Theme
+
+view = Tw.text_color Theme.red Theme.s400
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["text-red-400"]}"""
         ]
 
 
@@ -170,7 +180,7 @@ import Tailwind.Utilities as Tw
 import Tailwind.Breakpoints as Bp
 import Tailwind.Theme as Theme
 
-view = Bp.md [ Bp.hover [ Tw.bg_color (Theme.blue Theme.s600) ] ]
+view = Bp.md [ Bp.hover [ Tw.bg_color Theme.blue Theme.s600 ] ]
 """
                     |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
                     |> Review.Test.expectDataExtract """{"classes":["md:hover:bg-blue-600"]}"""
@@ -202,7 +212,7 @@ tailwindUtilitiesStub =
 
 import Html exposing (Attribute)
 import Html.Attributes exposing (class)
-import Tailwind.Theme exposing (Color, Spacing(..))
+import Tailwind.Theme exposing (Color, Shade, Spacing(..))
 
 flex : Attribute msg
 flex = class "flex"
@@ -225,11 +235,11 @@ m _ = class ""
 gap : Spacing -> Attribute msg
 gap _ = class ""
 
-bg_color : Color -> Attribute msg
-bg_color _ = class ""
+bg_color : Color -> Shade -> Attribute msg
+bg_color _ _ = class ""
 
-text_color : Color -> Attribute msg
-text_color _ = class ""
+text_color : Color -> Shade -> Attribute msg
+text_color _ _ = class ""
 """
 
 
@@ -253,22 +263,25 @@ s0_dot_5 = S0_dot_5
 
 type Color = Color String
 
-type Shade = S50 | S100 | S500 | S600 | S800 | S900
+type Shade = S50 | S100 | S400 | S500 | S600 | S800 | S900
 
-blue : Shade -> Color
-blue _ = Color "blue"
+blue : Color
+blue = Color "blue"
 
-gray : Shade -> Color
-gray _ = Color "gray"
+gray : Color
+gray = Color "gray"
 
-red : Shade -> Color
-red _ = Color "red"
+red : Color
+red = Color "red"
 
 s50 : Shade
 s50 = S50
 
 s100 : Shade
 s100 = S100
+
+s400 : Shade
+s400 = S400
 
 s500 : Shade
 s500 = S500

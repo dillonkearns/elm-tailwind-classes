@@ -6,7 +6,7 @@ Supports:
 
   - Simple constants: `Tw.flex` → "flex"
   - Parameterized spacing: `Tw.p s4` → "p-4"
-  - Parameterized colors: `Tw.bg_color (blue s500)` → "bg-blue-500"
+  - Parameterized colors: `Tw.bg_color red s500` → "bg-red-500"
   - Simple colors: `Tw.text_color white` → "text-white"
   - Variants: `hover [ Tw.opacity_50 ]` → "hover:opacity-50"
   - Responsive: `md [ Tw.p s8 ]` → "md:p-8"
@@ -358,9 +358,17 @@ isParameterizedFunction name =
 extractUtilityClass : String -> List (Node Expression) -> ModuleNameLookupTable -> Maybe String
 extractUtilityClass funcName args lookupTable =
     case args of
-        -- One argument: spacing or color
+        -- One argument: spacing or simple color
         [ arg ] ->
             extractOneArg funcName arg lookupTable
+
+        -- Two arguments: color with shade (text_color red s500)
+        [ colorArg, shadeArg ] ->
+            if isColorFunction funcName then
+                extractTwoArgColor funcName colorArg shadeArg lookupTable
+
+            else
+                Nothing
 
         _ ->
             Nothing
@@ -440,6 +448,31 @@ extractColorApplication funcName args lookupTable =
     case args of
         [ Node colorRange (Expression.FunctionOrValue _ colorName), Node shadeRange (Expression.FunctionOrValue _ shadeName) ] ->
             case ( ModuleNameLookupTable.moduleNameAt lookupTable colorRange, ModuleNameLookupTable.moduleNameAt lookupTable shadeRange ) of
+                ( Just [ "Tailwind", "Theme" ], Just [ "Tailwind", "Theme" ] ) ->
+                    let
+                        shadeStr =
+                            if String.startsWith "s" shadeName then
+                                String.dropLeft 1 shadeName
+
+                            else
+                                shadeName
+                    in
+                    Just (colorFunctionPrefix funcName ++ colorName ++ "-" ++ shadeStr)
+
+                _ ->
+                    Nothing
+
+        _ ->
+            Nothing
+
+
+{-| Extract from two-argument color function: text_color red s500
+-}
+extractTwoArgColor : String -> Node Expression -> Node Expression -> ModuleNameLookupTable -> Maybe String
+extractTwoArgColor funcName colorArg shadeArg lookupTable =
+    case ( Node.value colorArg, Node.value shadeArg ) of
+        ( Expression.FunctionOrValue _ colorName, Expression.FunctionOrValue _ shadeName ) ->
+            case ( ModuleNameLookupTable.moduleNameAt lookupTable (Node.range colorArg), ModuleNameLookupTable.moduleNameAt lookupTable (Node.range shadeArg) ) of
                 ( Just [ "Tailwind", "Theme" ], Just [ "Tailwind", "Theme" ] ) ->
                     let
                         shadeStr =
