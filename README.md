@@ -2,6 +2,41 @@
 
 Type-safe Tailwind CSS for Elm with automatic code generation and static class extraction.
 
+## Demo
+
+See it in action:
+- **Live site**: [elm-tailwind-classes-demo.netlify.app](https://elm-tailwind-classes-demo.netlify.app/)
+- **Example code**: [github.com/dillonkearns/elm-tailwind-classes-demo](https://github.com/dillonkearns/elm-tailwind-classes-demo) (elm-pages project)
+
+## Motivation
+
+Elm developers using Tailwind CSS have historically faced a frustrating tradeoff:
+
+### The Problem with String Classes
+
+Using Tailwind's class strings directly (`class "flex p-4 text-gray-500"`) gives you small bundles and standard tooling, but **no type safety**. Typos like `"flexz"` or invalid values like `"text-gray-550"` silently fail with no compiler help.
+
+### The Problem with elm-css
+
+Tools like [elm-tailwind-modules](https://github.com/matheus23/elm-tailwind-modules) solve type safety by generating Elm functions that produce `elm-css` styles. This gives you a nice parameterized API (`Tw.p_4`, `Tw.text_color Theme.gray_500`), but comes with significant costs:
+
+- **Runtime overhead**: elm-css must collect and hash styles at runtime, which is more expensive than parsing stylesheets
+- **Bundle size**: The elm-css runtime adds to your JavaScript bundle
+- **Performance degradation**: Real-world examples show style recomputation taking ~3 seconds for pages with ~900 elements, each with ~20 styles applied
+- **Sequential bottleneck**: CSS and JS parsing can be done in parallel by browsers, but computing styles in JS means that work happens *after* all JS has been parsed
+
+### This Solution: Best of Both Worlds
+
+**elm-tailwind-classes** gives you the **developer experience of elm-tailwind-modules** (type-safe, parameterized API) with the **runtime characteristics of plain Tailwind** (zero JS overhead, build-time CSS):
+
+| Approach | Type Safety | Parameterized | Bundle Size | CSS Generation |
+|----------|-------------|---------------|-------------|----------------|
+| String classes | ❌ | ❌ | ✅ Small | Build-time |
+| elm-tailwind-modules | ✅ | ✅ | ❌ elm-css runtime | Runtime |
+| **elm-tailwind-classes** | ✅ | ✅ | ✅ Small | Build-time |
+
+The key insight: generate class *strings* (not elm-css styles), then use static analysis to extract them for Tailwind's JIT compiler. You get compile-time errors for typos, a nice API for programmatic styling, and zero runtime cost.
+
 ## Features
 
 - **Type-safe API**: `Tw.bg_color blue s500` not `"bg-blue-500"` strings
