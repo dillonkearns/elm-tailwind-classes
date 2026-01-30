@@ -190,12 +190,7 @@ extractClasses variantPrefix node lookupTable =
                         []
 
                     else
-                        case elmNameToClassName funcName of
-                            Just className ->
-                                [ applyPrefix variantPrefix className ]
-
-                            Nothing ->
-                                []
+                        [ applyPrefix variantPrefix (elmNameToClassName funcName) ]
 
                 _ ->
                     []
@@ -617,18 +612,13 @@ spacingArgToClass argName =
 {-| Convert simple utility function name to CSS class.
 `flex` → `"flex"`, `items_center` → `"items-center"`, `text_2xl` → `"text-2xl"`
 -}
-elmNameToClassName : String -> Maybe String
+elmNameToClassName : String -> String
 elmNameToClassName elmName =
-    let
+    elmName
         -- Convert _dot_ to .
-        withDots =
-            String.replace "_dot_" "." elmName
-
+        |> String.replace "_dot_" "."
         -- Convert remaining underscores to hyphens
-        className =
-            String.replace "_" "-" withDots
-    in
-    Just className
+        |> String.replace "_" "-"
 
 
 {-| Extract collected classes as JSON.
