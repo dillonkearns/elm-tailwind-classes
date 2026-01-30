@@ -15,6 +15,7 @@ Supports:
 
 -}
 
+import Dict
 import Elm.Syntax.Expression as Expression exposing (Expression)
 import Elm.Syntax.Node as Node exposing (Node(..))
 import Json.Encode as Encode
@@ -458,106 +459,45 @@ extractTwoArgColor funcName colorArg shadeArg lookupTable =
 -}
 extractSpacingClass : String -> String -> Maybe String
 extractSpacingClass funcName argName =
-    let
-        prefix =
-            case funcName of
-                "p" ->
-                    Just "p"
+    Maybe.map2 (\p s -> p ++ "-" ++ s)
+        (Dict.get funcName spacingClasses)
+        (spacingArgToClass argName)
 
-                "px" ->
-                    Just "px"
 
-                "py" ->
-                    Just "py"
-
-                "pt" ->
-                    Just "pt"
-
-                "pr" ->
-                    Just "pr"
-
-                "pb" ->
-                    Just "pb"
-
-                "pl" ->
-                    Just "pl"
-
-                "m" ->
-                    Just "m"
-
-                "mx" ->
-                    Just "mx"
-
-                "my" ->
-                    Just "my"
-
-                "mt" ->
-                    Just "mt"
-
-                "mr" ->
-                    Just "mr"
-
-                "mb" ->
-                    Just "mb"
-
-                "ml" ->
-                    Just "ml"
-
-                "gap" ->
-                    Just "gap"
-
-                "gap_x" ->
-                    Just "gap-x"
-
-                "gap_y" ->
-                    Just "gap-y"
-
-                "w" ->
-                    Just "w"
-
-                "h" ->
-                    Just "h"
-
-                "min_w" ->
-                    Just "min-w"
-
-                "max_w" ->
-                    Just "max-w"
-
-                "min_h" ->
-                    Just "min-h"
-
-                "max_h" ->
-                    Just "max-h"
-
-                "neg_m" ->
-                    Just "-m"
-
-                "neg_mx" ->
-                    Just "-mx"
-
-                "neg_my" ->
-                    Just "-my"
-
-                "neg_mt" ->
-                    Just "-mt"
-
-                "neg_mr" ->
-                    Just "-mr"
-
-                "neg_mb" ->
-                    Just "-mb"
-
-                "neg_ml" ->
-                    Just "-ml"
-
-                _ ->
-                    Nothing
-
-        spacingValue =
-            spacingArgToClass argName
-    in
-    Maybe.map2 (\p s -> p ++ "-" ++ s) prefix spacingValue
+spacingClasses : Dict.Dict String String
+spacingClasses =
+    Dict.fromList
+        [ ( "p", "p" )
+        , ( "px", "px" )
+        , ( "py", "py" )
+        , ( "pt", "pt" )
+        , ( "pr", "pr" )
+        , ( "pb", "pb" )
+        , ( "pl", "pl" )
+        , ( "m", "m" )
+        , ( "mx", "mx" )
+        , ( "my", "my" )
+        , ( "mt", "mt" )
+        , ( "mr", "mr" )
+        , ( "mb", "mb" )
+        , ( "ml", "ml" )
+        , ( "gap", "gap" )
+        , ( "gap_x", "gap-x" )
+        , ( "gap_y", "gap-y" )
+        , ( "w", "w" )
+        , ( "h", "h" )
+        , ( "min_w", "min-w" )
+        , ( "max_w", "max-w" )
+        , ( "min_h", "min-h" )
+        , ( "max_h", "max-h" )
+        , ( "neg_m", "-m" )
+        , ( "neg_mx", "-mx" )
+        , ( "neg_my", "-my" )
+        , ( "neg_mt", "-mt" )
+        , ( "neg_mr", "-mr" )
+        , ( "neg_mb", "-mb" )
+        , ( "neg_ml", "-ml" )
+        ]
 
 
 {-| Convert spacing argument name to class suffix.
