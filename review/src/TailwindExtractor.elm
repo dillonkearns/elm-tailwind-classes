@@ -257,56 +257,14 @@ applyPrefix prefix className =
 getVariantPrefix : String -> String
 getVariantPrefix funcName =
     case funcName of
-        "sm" ->
-            "sm"
-
-        "md" ->
-            "md"
-
-        "lg" ->
-            "lg"
-
-        "xl" ->
-            "xl"
-
         "xxl" ->
             "2xl"
-
-        "hover" ->
-            "hover"
-
-        "focus" ->
-            "focus"
-
-        "active" ->
-            "active"
-
-        "disabled" ->
-            "disabled"
-
-        "visited" ->
-            "visited"
 
         "focus_within" ->
             "focus-within"
 
         "focus_visible" ->
             "focus-visible"
-
-        "first" ->
-            "first"
-
-        "last" ->
-            "last"
-
-        "odd" ->
-            "odd"
-
-        "even" ->
-            "even"
-
-        "dark" ->
-            "dark"
 
         "group_hover" ->
             "group-hover"
