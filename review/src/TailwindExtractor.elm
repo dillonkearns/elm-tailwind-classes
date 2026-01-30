@@ -183,7 +183,7 @@ extractClassesHelp variantPrefix lookupTable (Node nodeRange node) ( classes, ne
                     -- Variant/breakpoint function
                     let
                         newPrefix =
-                            getVariantPrefix funcName variantPrefix
+                            applyPrefix variantPrefix (getVariantPrefix funcName)
                     in
                     case args of
                         [ listArg ] ->
@@ -254,73 +254,65 @@ applyPrefix prefix className =
 
 {-| Get the CSS variant prefix for a breakpoint/variant function.
 -}
-getVariantPrefix : String -> String -> String
-getVariantPrefix funcName existingPrefix =
-    let
-        variantStr =
-            case funcName of
-                "sm" ->
-                    "sm"
+getVariantPrefix : String -> String
+getVariantPrefix funcName =
+    case funcName of
+        "sm" ->
+            "sm"
 
-                "md" ->
-                    "md"
+        "md" ->
+            "md"
 
-                "lg" ->
-                    "lg"
+        "lg" ->
+            "lg"
 
-                "xl" ->
-                    "xl"
+        "xl" ->
+            "xl"
 
-                "xxl" ->
-                    "2xl"
+        "xxl" ->
+            "2xl"
 
-                "hover" ->
-                    "hover"
+        "hover" ->
+            "hover"
 
-                "focus" ->
-                    "focus"
+        "focus" ->
+            "focus"
 
-                "active" ->
-                    "active"
+        "active" ->
+            "active"
 
-                "disabled" ->
-                    "disabled"
+        "disabled" ->
+            "disabled"
 
-                "visited" ->
-                    "visited"
+        "visited" ->
+            "visited"
 
-                "focus_within" ->
-                    "focus-within"
+        "focus_within" ->
+            "focus-within"
 
-                "focus_visible" ->
-                    "focus-visible"
+        "focus_visible" ->
+            "focus-visible"
 
-                "first" ->
-                    "first"
+        "first" ->
+            "first"
 
-                "last" ->
-                    "last"
+        "last" ->
+            "last"
 
-                "odd" ->
-                    "odd"
+        "odd" ->
+            "odd"
 
-                "even" ->
-                    "even"
+        "even" ->
+            "even"
 
-                "dark" ->
-                    "dark"
+        "dark" ->
+            "dark"
 
-                "group_hover" ->
-                    "group-hover"
+        "group_hover" ->
+            "group-hover"
 
-                _ ->
-                    funcName
-    in
-    if String.isEmpty existingPrefix then
-        variantStr
-
-    else
-        existingPrefix ++ ":" ++ variantStr
+        _ ->
+            funcName
 
 
 {-| Functions that take parameters (should not be extracted as simple constants)
