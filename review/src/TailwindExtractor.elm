@@ -637,6 +637,6 @@ dataExtractor : ProjectContext -> Encode.Value
 dataExtractor classes =
     Encode.object
         [ ( "classes"
-          , Encode.list Encode.string (Set.toList classes)
+          , Encode.set Encode.string classes
           )
         ]
