@@ -466,7 +466,7 @@ extractColorApplication funcName args lookupTable =
             Nothing
 
 
-{-| Extract from two-argument color function: text_color red s500
+{-| Extract from two-argument color function: `text_color red s500`
 -}
 extractTwoArgColor : String -> Node Expression -> Node Expression -> ModuleNameLookupTable -> Maybe String
 extractTwoArgColor funcName colorArg shadeArg lookupTable =
@@ -598,7 +598,7 @@ extractSpacingClass funcName argName =
 
 
 {-| Convert spacing argument name to class suffix.
-s4 → "4", s0\_dot\_5 → "0.5", spx → "px"
+`s4` → `"4"`, `s0_dot_5` → `"0.5"`, `spx` → `"px"`
 -}
 spacingArgToClass : String -> Maybe String
 spacingArgToClass argName =
@@ -619,7 +619,7 @@ spacingArgToClass argName =
 
 
 {-| Convert simple utility function name to CSS class.
-flex → "flex", items\_center → "items-center", text\_2xl → "text-2xl"
+`flex` → `"flex"`, `items_center` → `"items-center"`, `text_2xl` → `"text-2xl"`
 -}
 elmNameToClassName : String -> Maybe String
 elmNameToClassName elmName =
