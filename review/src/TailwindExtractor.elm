@@ -115,11 +115,11 @@ expressionEnterVisitor node context =
             -- Top-level Breakpoints call: extract classes and increment depth
             let
                 extractedClasses =
-                    extractClasses "" node context.lookupTable
+                    extractClasses "" context.lookupTable ( context.classes, [ node ] )
             in
             ( []
             , { context
-                | classes = Set.union context.classes (Set.fromList extractedClasses)
+                | classes = extractedClasses
                 , breakpointsDepth = context.breakpointsDepth + 1
               }
             )
@@ -132,9 +132,9 @@ expressionEnterVisitor node context =
         -- Top-level: extract normally
         let
             extractedClasses =
-                extractClasses "" node context.lookupTable
+                extractClasses "" context.lookupTable ( context.classes, [ node ] )
         in
-        ( [], { context | classes = Set.union context.classes (Set.fromList extractedClasses) } )
+        ( [], { context | classes = extractedClasses } )
 
 
 expressionExitVisitor : Node Expression -> ModuleContext -> ( List (Rule.Error {}), ModuleContext )
@@ -149,9 +149,21 @@ expressionExitVisitor node context =
 
 {-| Extract classes from an expression, with an optional variant prefix.
 -}
-extractClasses : String -> Node Expression -> ModuleNameLookupTable -> List String
-extractClasses variantPrefix node lookupTable =
-    case Node.value node of
+extractClasses : String -> ModuleNameLookupTable -> ( Set String, List (Node Expression) ) -> Set String
+extractClasses variantPrefix lookupTable ( classes, nodes ) =
+    case nodes of
+        [] ->
+            classes
+
+        node :: nextNodes ->
+            extractClasses variantPrefix
+                lookupTable
+                (extractClassesHelp variantPrefix lookupTable node ( classes, nextNodes ))
+
+
+extractClassesHelp : String -> ModuleNameLookupTable -> Node Expression -> ( Set String, List (Node Expression) ) -> ( Set String, List (Node Expression) )
+extractClassesHelp variantPrefix lookupTable (Node nodeRange node) ( classes, nextNodes ) =
+    case node of
         -- Function application
         Expression.Application ((Node funcRange (Expression.FunctionOrValue _ funcName)) :: args) ->
             case ModuleNameLookupTable.moduleNameAt lookupTable funcRange of
@@ -159,11 +171,13 @@ extractClasses variantPrefix node lookupTable =
                     -- Utility function call
                     case extractUtilityClass funcName args lookupTable of
                         Just className ->
-                            [ applyPrefix variantPrefix className ]
+                            ( Set.insert (applyPrefix variantPrefix className) classes
+                            , nextNodes
+                            )
 
                         Nothing ->
                             -- Might be a simple constant used in application context
-                            []
+                            ( classes, nextNodes )
 
                 Just [ "Tailwind", "Breakpoints" ] ->
                     -- Variant/breakpoint function
@@ -173,50 +187,58 @@ extractClasses variantPrefix node lookupTable =
                     in
                     case args of
                         [ listArg ] ->
-                            extractFromListArg newPrefix listArg lookupTable
+                            ( extractFromListArg newPrefix listArg lookupTable classes
+                            , nextNodes
+                            )
 
                         _ ->
-                            []
+                            ( classes, nextNodes )
 
                 _ ->
-                    -- Not a Tailwind function, but recurse into args
-                    List.concatMap (\arg -> extractClasses variantPrefix arg lookupTable) args
+                    -- Not a Tailwind function, but visit other args
+                    ( classes
+                    , List.foldl (::) args nextNodes
+                    )
 
         -- Simple value reference: Tw.flex, Tw.items_center
         Expression.FunctionOrValue _ funcName ->
-            case ModuleNameLookupTable.moduleNameFor lookupTable node of
+            case ModuleNameLookupTable.moduleNameAt lookupTable nodeRange of
                 Just [ "Tailwind", "Utilities" ] ->
-                    if isParameterizedFunction funcName then
-                        []
+                    ( if isParameterizedFunction funcName then
+                        classes
 
-                    else
-                        [ applyPrefix variantPrefix (elmNameToClassName funcName) ]
+                      else
+                        Set.insert (applyPrefix variantPrefix (elmNameToClassName funcName)) classes
+                    , nextNodes
+                    )
 
                 _ ->
-                    []
+                    ( classes, nextNodes )
 
         -- List expressions (for classes [ ... ])
         Expression.ListExpr items ->
-            List.concatMap (\item -> extractClasses variantPrefix item lookupTable) items
+            ( classes
+            , List.foldl (::) nextNodes items
+            )
 
         -- Parenthesized expressions
         Expression.ParenthesizedExpression inner ->
-            extractClasses variantPrefix inner lookupTable
+            ( classes, inner :: nextNodes )
 
         _ ->
-            []
+            ( classes, nextNodes )
 
 
 {-| Extract classes from a list argument to a variant function.
 -}
-extractFromListArg : String -> Node Expression -> ModuleNameLookupTable -> List String
-extractFromListArg variantPrefix node lookupTable =
+extractFromListArg : String -> Node Expression -> ModuleNameLookupTable -> Set String -> Set String
+extractFromListArg variantPrefix node lookupTable classes =
     case Node.value node of
         Expression.ListExpr items ->
-            List.concatMap (\item -> extractClasses variantPrefix item lookupTable) items
+            extractClasses variantPrefix lookupTable ( classes, items )
 
         _ ->
-            []
+            classes
 
 
 {-| Apply a variant prefix to a class name.
