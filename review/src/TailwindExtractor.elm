@@ -354,17 +354,6 @@ colorFunctionPrefix funcName =
         |> Maybe.withDefault ""
 
 
-colorFunctions : Dict String String
-colorFunctions =
-    Dict.fromList
-        [ ( "text_color", "text-" )
-        , ( "bg_color", "bg-" )
-        , ( "border_color", "border-" )
-        , ( "ring_color", "ring-" )
-        , ( "placeholder_color", "placeholder-" )
-        ]
-
-
 {-| Extract from a color application like (blue s500).
 -}
 extractColorApplication : String -> List (Node Expression) -> ModuleNameLookupTable -> Maybe String
@@ -424,42 +413,6 @@ extractSpacingClass funcName argName =
         (spacingArgToClass argName)
 
 
-spacingClasses : Dict.Dict String String
-spacingClasses =
-    Dict.fromList
-        [ ( "p", "p" )
-        , ( "px", "px" )
-        , ( "py", "py" )
-        , ( "pt", "pt" )
-        , ( "pr", "pr" )
-        , ( "pb", "pb" )
-        , ( "pl", "pl" )
-        , ( "m", "m" )
-        , ( "mx", "mx" )
-        , ( "my", "my" )
-        , ( "mt", "mt" )
-        , ( "mr", "mr" )
-        , ( "mb", "mb" )
-        , ( "ml", "ml" )
-        , ( "gap", "gap" )
-        , ( "gap_x", "gap-x" )
-        , ( "gap_y", "gap-y" )
-        , ( "w", "w" )
-        , ( "h", "h" )
-        , ( "min_w", "min-w" )
-        , ( "max_w", "max-w" )
-        , ( "min_h", "min-h" )
-        , ( "max_h", "max-h" )
-        , ( "neg_m", "-m" )
-        , ( "neg_mx", "-mx" )
-        , ( "neg_my", "-my" )
-        , ( "neg_mt", "-mt" )
-        , ( "neg_mr", "-mr" )
-        , ( "neg_mb", "-mb" )
-        , ( "neg_ml", "-ml" )
-        ]
-
-
 {-| Convert spacing argument name to class suffix.
 `s4` → `"4"`, `s0_dot_5` → `"0.5"`, `spx` → `"px"`
 -}
@@ -501,4 +454,55 @@ dataExtractor classes =
         [ ( "classes"
           , Encode.set Encode.string classes
           )
+        ]
+
+
+
+-- CLASSES
+
+
+colorFunctions : Dict String String
+colorFunctions =
+    Dict.fromList
+        [ ( "text_color", "text-" )
+        , ( "bg_color", "bg-" )
+        , ( "border_color", "border-" )
+        , ( "ring_color", "ring-" )
+        , ( "placeholder_color", "placeholder-" )
+        ]
+
+
+spacingClasses : Dict.Dict String String
+spacingClasses =
+    Dict.fromList
+        [ ( "p", "p" )
+        , ( "px", "px" )
+        , ( "py", "py" )
+        , ( "pt", "pt" )
+        , ( "pr", "pr" )
+        , ( "pb", "pb" )
+        , ( "pl", "pl" )
+        , ( "m", "m" )
+        , ( "mx", "mx" )
+        , ( "my", "my" )
+        , ( "mt", "mt" )
+        , ( "mr", "mr" )
+        , ( "mb", "mb" )
+        , ( "ml", "ml" )
+        , ( "gap", "gap" )
+        , ( "gap_x", "gap-x" )
+        , ( "gap_y", "gap-y" )
+        , ( "w", "w" )
+        , ( "h", "h" )
+        , ( "min_w", "min-w" )
+        , ( "max_w", "max-w" )
+        , ( "min_h", "min-h" )
+        , ( "max_h", "max-h" )
+        , ( "neg_m", "-m" )
+        , ( "neg_mx", "-mx" )
+        , ( "neg_my", "-my" )
+        , ( "neg_mt", "-mt" )
+        , ( "neg_mr", "-mr" )
+        , ( "neg_mb", "-mb" )
+        , ( "neg_ml", "-ml" )
         ]
