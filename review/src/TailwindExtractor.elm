@@ -182,12 +182,12 @@ extractClassesHelp variantPrefix lookupTable (Node nodeRange node) ( classes, ne
 
                 Just [ "Tailwind", "Breakpoints" ] ->
                     -- Variant/breakpoint function
-                    let
-                        newPrefix =
-                            applyPrefix variantPrefix (getVariantPrefix funcName)
-                    in
                     case args of
                         [ listArg ] ->
+                            let
+                                newPrefix =
+                                    applyPrefix variantPrefix (getVariantPrefix funcName)
+                            in
                             ( extractFromListArg newPrefix listArg lookupTable classes
                             , nextNodes
                             )
