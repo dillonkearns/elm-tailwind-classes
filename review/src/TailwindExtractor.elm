@@ -278,43 +278,8 @@ getVariantPrefix funcName =
 -}
 isParameterizedFunction : String -> Bool
 isParameterizedFunction name =
-    List.member name
-        [ "p"
-        , "px"
-        , "py"
-        , "pt"
-        , "pr"
-        , "pb"
-        , "pl"
-        , "m"
-        , "mx"
-        , "my"
-        , "mt"
-        , "mr"
-        , "mb"
-        , "ml"
-        , "gap"
-        , "gap_x"
-        , "gap_y"
-        , "w"
-        , "h"
-        , "min_w"
-        , "max_w"
-        , "min_h"
-        , "max_h"
-        , "text_color"
-        , "bg_color"
-        , "border_color"
-        , "ring_color"
-        , "placeholder_color"
-        , "neg_m"
-        , "neg_mx"
-        , "neg_my"
-        , "neg_mt"
-        , "neg_mr"
-        , "neg_mb"
-        , "neg_ml"
-        ]
+    Dict.member name spacingClasses
+        || Dict.member name colorFunctions
 
 
 {-| Extract a class from a utility function application.
