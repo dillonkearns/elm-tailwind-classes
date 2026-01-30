@@ -39,8 +39,7 @@ rule =
 
 
 type alias ProjectContext =
-    { classes : Set String
-    }
+    Set String
 
 
 type alias ModuleContext =
@@ -52,8 +51,7 @@ type alias ModuleContext =
 
 initialProjectContext : ProjectContext
 initialProjectContext =
-    { classes = Set.empty
-    }
+    Set.empty
 
 
 fromProjectToModule : Rule.ContextCreator ProjectContext ModuleContext
@@ -72,15 +70,13 @@ fromModuleToProject : Rule.ContextCreator ModuleContext ProjectContext
 fromModuleToProject =
     Rule.initContextCreator
         (\moduleContext ->
-            { classes = moduleContext.classes
-            }
+            moduleContext.classes
         )
 
 
 foldProjectContexts : ProjectContext -> ProjectContext -> ProjectContext
-foldProjectContexts new old =
-    { classes = Set.union new.classes old.classes
-    }
+foldProjectContexts =
+    Set.union
 
 
 moduleVisitor : Rule.ModuleRuleSchema {} ModuleContext -> Rule.ModuleRuleSchema { hasAtLeastOneVisitor : () } ModuleContext
@@ -638,9 +634,9 @@ elmNameToClassName elmName =
 {-| Extract collected classes as JSON.
 -}
 dataExtractor : ProjectContext -> Encode.Value
-dataExtractor context =
+dataExtractor classes =
     Encode.object
         [ ( "classes"
-          , Encode.list Encode.string (Set.toList context.classes)
+          , Encode.list Encode.string (Set.toList classes)
           )
         ]
