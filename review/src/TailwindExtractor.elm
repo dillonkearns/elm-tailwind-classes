@@ -15,7 +15,7 @@ Supports:
 
 -}
 
-import Dict
+import Dict exposing (Dict)
 import Elm.Syntax.Expression as Expression exposing (Expression)
 import Elm.Syntax.Node as Node exposing (Node(..))
 import Json.Encode as Encode
@@ -378,31 +378,26 @@ extractOneArg funcName arg lookupTable =
 -}
 isColorFunction : String -> Bool
 isColorFunction name =
-    List.member name [ "text_color", "bg_color", "border_color", "ring_color", "placeholder_color" ]
+    Dict.member name colorFunctions
 
 
 {-| Get the CSS prefix for a color function.
 -}
 colorFunctionPrefix : String -> String
 colorFunctionPrefix funcName =
-    case funcName of
-        "text_color" ->
-            "text-"
+    Dict.get funcName colorFunctions
+        |> Maybe.withDefault ""
 
-        "bg_color" ->
-            "bg-"
 
-        "border_color" ->
-            "border-"
-
-        "ring_color" ->
-            "ring-"
-
-        "placeholder_color" ->
-            "placeholder-"
-
-        _ ->
-            ""
+colorFunctions : Dict String String
+colorFunctions =
+    Dict.fromList
+        [ ( "text_color", "text-" )
+        , ( "bg_color", "bg-" )
+        , ( "border_color", "border-" )
+        , ( "ring_color", "ring-" )
+        , ( "placeholder_color", "placeholder-" )
+        ]
 
 
 {-| Extract from a color application like (blue s500).
