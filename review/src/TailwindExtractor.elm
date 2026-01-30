@@ -184,7 +184,7 @@ extractClasses variantPrefix node lookupTable =
 
         -- Simple value reference: Tw.flex, Tw.items_center
         Expression.FunctionOrValue _ funcName ->
-            case ModuleNameLookupTable.moduleNameAt lookupTable (Node.range node) of
+            case ModuleNameLookupTable.moduleNameFor lookupTable node of
                 Just [ "Tailwind", "Utilities" ] ->
                     if isParameterizedFunction funcName then
                         []
@@ -372,7 +372,7 @@ extractOneArg funcName arg lookupTable =
     case Node.value arg of
         -- Simple value: Theme.white, Theme.s4
         Expression.FunctionOrValue _ argName ->
-            case ModuleNameLookupTable.moduleNameAt lookupTable (Node.range arg) of
+            case ModuleNameLookupTable.moduleNameFor lookupTable arg of
                 Just [ "Tailwind", "Theme" ] ->
                     if isColorFunction funcName then
                         -- Simple color like white, black
@@ -463,7 +463,7 @@ extractTwoArgColor : String -> Node Expression -> Node Expression -> ModuleNameL
 extractTwoArgColor funcName colorArg shadeArg lookupTable =
     case ( Node.value colorArg, Node.value shadeArg ) of
         ( Expression.FunctionOrValue _ colorName, Expression.FunctionOrValue _ shadeName ) ->
-            case ( ModuleNameLookupTable.moduleNameAt lookupTable (Node.range colorArg), ModuleNameLookupTable.moduleNameAt lookupTable (Node.range shadeArg) ) of
+            case ( ModuleNameLookupTable.moduleNameFor lookupTable colorArg, ModuleNameLookupTable.moduleNameFor lookupTable shadeArg ) of
                 ( Just [ "Tailwind", "Theme" ], Just [ "Tailwind", "Theme" ] ) ->
                     let
                         shadeStr =
