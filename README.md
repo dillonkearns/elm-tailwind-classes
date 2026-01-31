@@ -1,12 +1,17 @@
 # elm-tailwind-classes
 
-Type-safe Tailwind CSS for Elm with automatic code generation and static class extraction.
+Type-safe Elm API for regular Tailwind CSS classes — no elm-css needed.
+
+- Uses regular Tailwind CSS classes under the hood — no elm-css runtime, no performance overhead
+- The Vite plugin generates a type-safe Elm API matching your Tailwind theme
+- At build time, the plugin analyzes your Elm code to find which classes to include in your CSS bundle
+- Just install and configure the Vite plugin and you're ready to go (see [Quick Start](#quick-start))
 
 ## Demo
 
 See it in action:
 - **Live site**: [elm-tailwind-classes-demo.netlify.app](https://elm-tailwind-classes-demo.netlify.app/)
-- **Example code**: [github.com/dillonkearns/elm-tailwind-classes-demo](https://github.com/dillonkearns/elm-tailwind-classes-demo) (elm-pages project)
+- **Source code**: [github.com/dillonkearns/elm-tailwind-classes-demo](https://github.com/dillonkearns/elm-tailwind-classes-demo) (elm-pages project)
 
 ## Motivation
 
@@ -39,32 +44,41 @@ The key insight: generate class *strings* (not elm-css styles), then use static 
 
 ## Features
 
-- **Type-safe API**: `Tw.bg_color (blue s500)` not `"bg-blue-500"` strings
+- **Type-safe API**: `Tw.bg_color (blue s500)` not `"bg-blue-500"` strings - typos are compile errors
+- **Parameterized values**: `Tw.p s4` not `Tw.p_4` - use the same spacing value across padding, margin, gap, width
+- **Composable variants**: Nest responsive and state variants naturally: `md [ hover [ Tw.bg_color (blue s600) ] ]`
+- **Smart static extraction**: Even `List.map` and `case` expressions are analyzed - all possible classes are extracted
 - **Auto-generated from your Tailwind config**: Custom colors, spacing, etc. just work
-- **Static extraction**: Classes extracted at build time automatically
 - **Zero config**: Just add the Vite plugin - no elm-review setup required
 - **No runtime overhead**: Generates class strings, not elm-css styles
 
+### Parameterized Example
+
+```elm
+-- Use the same spacing value everywhere
+buttonPadding : Spacing
+buttonPadding = s4
+
+button [ classes [ Tw.px buttonPadding, Tw.py s2 ] ] [ text "Click" ]
+
+-- Map over a list - all values are statically extracted!
+List.map (\size -> div [ classes [ Tw.p size ] ] []) [ s2, s4, s8 ]
+
+-- Conditional classes - both branches are extracted
+classes [ if isLarge then Tw.p s8 else Tw.p s4 ]
+```
+
 ## Quick Start
 
-### 1. Install
+> **Prerequisites:** You need an existing Vite project with Elm. If you're starting fresh, check out [vite-plugin-elm](https://github.com/hmsk/vite-plugin-elm) or [elm-pages](https://elm-pages.com).
+
+### 1. Install the packages
 
 ```bash
-npm install github:dillonkearns/elm-tailwind-classes elm-review
+npm install github:dillonkearns/elm-tailwind-classes @tailwindcss/vite elm-review
 ```
 
-### 2. Add to elm.json
-
-```json
-{
-  "source-directories": [
-    "src",
-    ".elm-tailwind"
-  ]
-}
-```
-
-### 3. Add Vite plugins
+### 2. Add the Vite plugins
 
 ```javascript
 // vite.config.js
@@ -80,22 +94,39 @@ export default defineConfig({
 })
 ```
 
-### 4. Import CSS in your entry point
+### 3. Add the generated directory to elm.json
 
-**Important:** For CSS Hot Module Replacement (HMR) to work, import your CSS file in your JavaScript/TypeScript entry point:
+The plugin generates Elm modules to `.elm-tailwind/`. Add it to your source directories:
+
+```json
+{
+  "source-directories": [
+    "src",
+    ".elm-tailwind"
+  ]
+}
+```
+
+### 4. Set up your CSS file
+
+Create a CSS file (e.g., `style.css`) with:
+
+```css
+@import "tailwindcss";
+```
+
+Then import it in your JavaScript/TypeScript entry point:
 
 ```javascript
 // index.js or index.ts
 import "./style.css";
-
-// ... rest of your app initialization
 ```
 
-Make sure your CSS file has `@import "tailwindcss";` - the plugin handles everything else automatically.
+> **Note:** Import CSS via JavaScript (not a `<link>` tag) for hot-reloading to work when you add new Tailwind classes.
 
-**Note:** If you're using a `<link>` tag in your HTML to load CSS, HMR won't work for Tailwind class changes. Remove the link tag and use the JS import instead.
+### 5. Run Vite and start coding!
 
-### 5. Write type-safe Tailwind!
+When you run `npm run dev`, the plugin generates the Elm modules automatically. Now you can write:
 
 ```elm
 import Tailwind as Tw exposing (classes)
@@ -117,15 +148,17 @@ view =
         [ text "Hello, Tailwind!" ]
 ```
 
-That's it! The Vite plugin:
-1. **Reads your Tailwind config** and generates type-safe Elm modules to `.elm-tailwind/`
-2. **Extracts used classes** from your Elm code at build time
-3. **Injects them into Tailwind** for optimized CSS output
+The plugin handles everything:
+1. **Generates Elm modules** matching your Tailwind theme → `.elm-tailwind/`
+2. **Analyzes your Elm code** to find which Tailwind classes you're using
+3. **Tells Tailwind** which classes to include in your CSS bundle
 
 ### 6. Add `.elm-tailwind/` to .gitignore
 
+The generated modules are specific to your Tailwind config, so don't commit them:
+
 ```
-# Generated Tailwind Elm modules
+# Generated by elm-tailwind-classes
 .elm-tailwind/
 ```
 
@@ -179,6 +212,28 @@ Tw.flex           -- "flex"
 Tw.items_center   -- "items-center"
 Tw.rounded_lg     -- "rounded-lg"
 Tw.shadow_md      -- "shadow-md"
+```
+
+### Reusable style groups
+
+```elm
+-- Define reusable styles with batch
+buttonBase : Tailwind
+buttonBase =
+    batch
+        [ Tw.px s4
+        , Tw.py s2
+        , Tw.rounded_lg
+        , Tw.font_semibold
+        , hover [ Tw.opacity_90 ]
+        ]
+
+-- Use in multiple places
+primaryButton =
+    button [ classes [ buttonBase, Tw.bg_color (blue s500), Tw.text_simple white ] ]
+
+secondaryButton =
+    button [ classes [ buttonBase, Tw.bg_color (gray s200), Tw.text_color (gray s800) ] ]
 ```
 
 ### Escape hatch
