@@ -39,7 +39,7 @@ The key insight: generate class *strings* (not elm-css styles), then use static 
 
 ## Features
 
-- **Type-safe API**: `Tw.bg_color blue s500` not `"bg-blue-500"` strings
+- **Type-safe API**: `Tw.bg_color (blue s500)` not `"bg-blue-500"` strings
 - **Auto-generated from your Tailwind config**: Custom colors, spacing, etc. just work
 - **Static extraction**: Classes extracted at build time automatically
 - **Zero config**: Just add the Vite plugin - no elm-review setup required
@@ -98,9 +98,8 @@ Make sure your CSS file has `@import "tailwindcss";` - the plugin handles everyt
 ### 5. Write type-safe Tailwind!
 
 ```elm
-import Tailwind exposing (classes)
-import Tailwind.Theme exposing (blue, gray, s4, s500, s800, white)
-import Tailwind.Utilities as Tw
+import Tailwind as Tw exposing (classes)
+import Tailwind.Theme exposing (blue, gray, s4, s500, s600, s800, white)
 import Tailwind.Breakpoints exposing (hover, md)
 
 view =
@@ -109,9 +108,9 @@ view =
             [ Tw.flex
             , Tw.items_center
             , Tw.p s4
-            , Tw.bg_color blue s500
+            , Tw.bg_color (blue s500)
             , Tw.text_simple white
-            , hover [ Tw.bg_color blue s600 ]
+            , hover [ Tw.bg_color (blue s600) ]
             , md [ Tw.p s8 ]
             ]
         ]
@@ -155,22 +154,22 @@ Tw.w s64     -- "w-64"
 ### Colors (parameterized)
 
 ```elm
--- Shaded colors: Color -> Shade -> Tailwind
-Tw.bg_color blue s500       -- "bg-blue-500"
-Tw.text_color gray s800     -- "text-gray-800"
-Tw.border_color red s300    -- "border-red-300"
+-- Shaded colors: apply shade to color name
+Tw.bg_color (blue s500)       -- "bg-blue-500"
+Tw.text_color (gray s800)     -- "text-gray-800"
+Tw.border_color (red s300)    -- "border-red-300"
 
 -- Simple colors: SimpleColor -> Tailwind
-Tw.bg_simple white          -- "bg-white"
-Tw.text_simple black        -- "text-black"
+Tw.bg_simple white            -- "bg-white"
+Tw.text_simple black          -- "text-black"
 ```
 
 ### Variants (composable)
 
 ```elm
-hover [ Tw.bg_color blue s600 ]           -- "hover:bg-blue-600"
-md [ Tw.p s8 ]                            -- "md:p-8"
-md [ hover [ Tw.text_color gray s900 ] ]  -- "md:hover:text-gray-900"
+hover [ Tw.bg_color (blue s600) ]           -- "hover:bg-blue-600"
+md [ Tw.p s8 ]                              -- "md:p-8"
+md [ hover [ Tw.text_color (gray s900) ] ]  -- "md:hover:text-gray-900"
 ```
 
 ### Simple utilities

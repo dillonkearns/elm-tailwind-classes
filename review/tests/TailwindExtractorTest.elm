@@ -17,6 +17,7 @@ all =
         , variantTests
         , rawStringTests
         , conditionalTests
+        , tailwindUtilitiesModuleTests
         ]
 
 
@@ -274,6 +275,31 @@ view size =
         ]
 
 
+tailwindUtilitiesModuleTests : Test
+tailwindUtilitiesModuleTests =
+    describe "Tailwind.Utilities module (codegen compatibility)"
+        [ test "extracts flex from Tailwind.Utilities" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind.Utilities as Tw
+
+view = Tw.flex
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwindUtilities TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["flex"]}"""
+        , test "extracts parameterized spacing from Tailwind.Utilities" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind.Utilities as Tw
+import Tailwind.Theme as Theme
+
+view = Tw.p Theme.s4
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwindUtilities TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["p-4"]}"""
+        ]
+
+
 {-| Project with stub Tailwind modules for testing.
 -}
 projectWithTailwind : Project.Project
@@ -282,6 +308,29 @@ projectWithTailwind =
         |> Project.addModule
             { path = "src/Tailwind.elm"
             , source = tailwindStub
+            }
+        |> Project.addModule
+            { path = "src/Tailwind/Theme.elm"
+            , source = tailwindThemeStub
+            }
+        |> Project.addModule
+            { path = "src/Tailwind/Breakpoints.elm"
+            , source = tailwindBreakpointsStub
+            }
+
+
+{-| Project with Tailwind.Utilities module (codegen output structure).
+-}
+projectWithTailwindUtilities : Project.Project
+projectWithTailwindUtilities =
+    Review.Test.Dependencies.projectWithElmCore
+        |> Project.addModule
+            { path = "src/Tailwind.elm"
+            , source = tailwindBaseStub
+            }
+        |> Project.addModule
+            { path = "src/Tailwind/Utilities.elm"
+            , source = tailwindUtilitiesStub
             }
         |> Project.addModule
             { path = "src/Tailwind/Theme.elm"
@@ -415,4 +464,41 @@ md _ = Tailwind ""
 
 lg : List Tailwind -> Tailwind
 lg _ = Tailwind ""
+"""
+
+
+tailwindBaseStub : String
+tailwindBaseStub =
+    """module Tailwind exposing (..)
+
+import Html exposing (Attribute)
+import Html.Attributes exposing (class)
+
+type Tailwind = Tailwind String
+
+classes : List Tailwind -> Attribute msg
+classes _ = class ""
+"""
+
+
+tailwindUtilitiesStub : String
+tailwindUtilitiesStub =
+    """module Tailwind.Utilities exposing (..)
+
+import Html exposing (Attribute)
+import Html.Attributes exposing (class)
+import Tailwind exposing (Tailwind(..))
+import Tailwind.Theme exposing (Color, Shade, Spacing(..))
+
+flex : Tailwind
+flex = Tailwind "flex"
+
+items_center : Tailwind
+items_center = Tailwind "items-center"
+
+p : Spacing -> Tailwind
+p _ = Tailwind ""
+
+m : Spacing -> Tailwind
+m _ = Tailwind ""
 """

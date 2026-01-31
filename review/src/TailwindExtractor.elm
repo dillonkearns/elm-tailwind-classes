@@ -161,13 +161,22 @@ extractClasses variantPrefix node lookupTable =
         Expression.Application ((Node funcRange (Expression.FunctionOrValue _ funcName)) :: args) ->
             case ModuleNameLookupTable.moduleNameAt lookupTable funcRange of
                 Just [ "Tailwind" ] ->
-                    -- Utility function call
+                    -- Utility function call (merged module)
                     case extractUtilityClass funcName args lookupTable of
                         Just className ->
                             [ applyPrefix variantPrefix className ]
 
                         Nothing ->
                             -- Might be a simple constant used in application context
+                            []
+
+                Just [ "Tailwind", "Utilities" ] ->
+                    -- Utility function call (separate module - codegen output)
+                    case extractUtilityClass funcName args lookupTable of
+                        Just className ->
+                            [ applyPrefix variantPrefix className ]
+
+                        Nothing ->
                             []
 
                 Just [ "Tailwind", "Breakpoints" ] ->
@@ -191,7 +200,21 @@ extractClasses variantPrefix node lookupTable =
         Expression.FunctionOrValue _ funcName ->
             case ModuleNameLookupTable.moduleNameAt lookupTable (Node.range node) of
                 Just [ "Tailwind" ] ->
+                    -- Merged module
                     if isParameterizedFunction funcName || isNonUtilityFunction funcName then
+                        []
+
+                    else
+                        case elmNameToClassName funcName of
+                            Just className ->
+                                [ applyPrefix variantPrefix className ]
+
+                            Nothing ->
+                                []
+
+                Just [ "Tailwind", "Utilities" ] ->
+                    -- Separate module (codegen output)
+                    if isParameterizedFunction funcName then
                         []
 
                     else
