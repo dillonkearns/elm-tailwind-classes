@@ -29,11 +29,11 @@ Tools like [elm-tailwind-modules](https://github.com/matheus23/elm-tailwind-modu
 
 **elm-tailwind-classes** gives you the **developer experience of elm-tailwind-modules** (type-safe, parameterized API) with the **runtime characteristics of plain Tailwind** (zero JS overhead, build-time CSS):
 
-| Approach | Type Safety | Parameterized | Bundle Size | CSS Generation |
-|----------|-------------|---------------|-------------|----------------|
-| String classes | ❌ | ❌ | ✅ Small | Build-time |
-| elm-tailwind-modules | ✅ | ✅ | ❌ elm-css runtime | Runtime |
-| **elm-tailwind-classes** | ✅ | ✅ | ✅ Small | Build-time |
+**String classes**: No type safety, no parameterization, small bundle, build-time CSS
+
+**elm-tailwind-modules**: Type-safe, parameterized, but includes elm-css runtime and generates CSS at runtime
+
+**elm-tailwind-classes**: Type-safe, parameterized, small bundle, build-time CSS - the best of both worlds!
 
 The key insight: generate class *strings* (not elm-css styles), then use static analysis to extract them for Tailwind's JIT compiler. You get compile-time errors for typos, a nice API for programmatic styling, and zero runtime cost.
 
