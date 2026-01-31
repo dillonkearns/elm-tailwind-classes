@@ -242,13 +242,6 @@ secondaryButton =
 Tw.raw "custom-plugin-class"  -- For classes not in the generated API
 ```
 
-## How it works
-
-1. **Code generation**: Parses your Tailwind config, generates type-safe Elm modules to `.elm-tailwind/`
-2. **Static extraction**: Runs bundled elm-review to find all Tailwind classes used in your Elm code
-3. **CSS interception**: Intercepts your CSS requests and injects `@source` directive for extracted classes
-4. **Tailwind JIT**: Only classes you actually use end up in the final CSS
-
 ## elm-pages Integration
 
 Works with elm-pages out of the box:
@@ -315,7 +308,7 @@ If CSS changes aren't hot-reloading:
 
 ## Custom Tailwind Config
 
-Your custom colors, spacing, etc. are automatically included:
+Your custom colors, spacing, etc. are automatically included in the generated Elm modules:
 
 ```css
 /* styles.css */
@@ -328,11 +321,16 @@ Your custom colors, spacing, etc. are automatically included:
 }
 ```
 
-After running Vite, you can use:
+After running Vite, the plugin generates Elm functions for your custom colors:
 
 ```elm
-Tw.bg_color (brand s500)  -- Uses your custom "brand" color
+-- Custom colors become simple Color values (no shade parameter)
+Tw.bg_color brand       -- "bg-brand"
+Tw.bg_color brandLight  -- "bg-brand-light"
+Tw.bg_color brandDark   -- "bg-brand-dark"
 ```
+
+> **Note:** Custom colors defined with `--color-name` become simple colors. If you want shaded colors (50-950 scale), define them with the full shade scale in your CSS.
 
 ## Local Development
 
@@ -343,3 +341,7 @@ npm install /path/to/elm-tailwind-classes
 # Run tests
 npm test
 ```
+
+## License
+
+BSD-3-Clause. See [LICENSE](./LICENSE) for details.
