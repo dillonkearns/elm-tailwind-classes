@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [
     // Our plugin - extracts classes from Elm and injects into CSS
     elmTailwind({
-      reviewConfig: '../review',
+      reviewConfig: '../extractor',
       debug: false
     }),
 

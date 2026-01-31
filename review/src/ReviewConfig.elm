@@ -1,17 +1,41 @@
 module ReviewConfig exposing (config)
 
-{-| elm-review configuration for Tailwind class extraction.
+{-| elm-review configuration for reviewing this project.
 
-This is a minimal config that only runs the TailwindExtractor rule.
-It's designed to be used internally by the Vite plugin.
+This config uses standard elm-review rules to check for common issues.
+The TailwindExtractor rule is in the separate `extractor/` folder.
 
 -}
 
+import NoDebug.Log
+import NoDebug.TodoOrToString
+import NoExposingEverything
+import NoImportingEverything
+import NoMissingTypeAnnotation
+import NoUnused.CustomTypeConstructorArgs
+import NoUnused.CustomTypeConstructors
+import NoUnused.Dependencies
+import NoUnused.Exports
+import NoUnused.Modules
+import NoUnused.Parameters
+import NoUnused.Patterns
+import NoUnused.Variables
 import Review.Rule exposing (Rule)
-import TailwindExtractor
 
 
 config : List Rule
 config =
-    [ TailwindExtractor.rule
+    [ NoDebug.Log.rule
+    , NoDebug.TodoOrToString.rule
+    , NoExposingEverything.rule
+    , NoImportingEverything.rule []
+    , NoMissingTypeAnnotation.rule
+    , NoUnused.CustomTypeConstructors.rule []
+    , NoUnused.CustomTypeConstructorArgs.rule
+    , NoUnused.Dependencies.rule
+    , NoUnused.Exports.rule
+    , NoUnused.Modules.rule
+    , NoUnused.Parameters.rule
+    , NoUnused.Patterns.rule
+    , NoUnused.Variables.rule
     ]

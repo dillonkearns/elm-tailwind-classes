@@ -112,7 +112,7 @@ Use `classes` to convert a list of Tailwind values to an `Html.Attribute`.
 
 import Html exposing (Attribute)
 import Html.Attributes
-import Tailwind.Theme exposing (Color, SimpleColor(..), Spacing(..), colorToString, spacingToString)
+import Tailwind.Theme exposing (Color, SimpleColor(..), Spacing, colorToString, spacingToString)
 
 
 {-| A type representing a Tailwind CSS class or set of classes.

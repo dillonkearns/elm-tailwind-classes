@@ -10,14 +10,14 @@
   },
   "files": [
     "vite-plugin/",
-    "review/src/",
-    "review/elm.json"
+    "extractor/src/",
+    "extractor/elm.json"
   ],
   "scripts": {
     "test": "npm run test:unit && npm run test:golden",
-    "test:unit": "cd review && npx elm-test",
+    "test:unit": "cd extractor && npx elm-test",
     "test:golden": "./bin/approve",
-    "test:extract": "cd examples && npx elm-review --extract --report=json --config ../review | node -e \"const d=require('fs').readFileSync(0,'utf8');const j=JSON.parse(d);console.log(j.extracts?.TailwindExtractor?.classes?.length+' classes')\"",
+    "test:extract": "cd examples && npx elm-review --extract --report=json --config ../extractor | node -e \"const d=require('fs').readFileSync(0,'utf8');const j=JSON.parse(d);console.log(j.extracts?.TailwindExtractor?.classes?.length+' classes')\"",
     "generate": "cd codegen && node generate.js",
     "postinstall": "elm-tooling install"
   },

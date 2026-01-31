@@ -24,8 +24,8 @@ export function elmTailwind(options = {}) {
   let codegenComplete = false;
   let userCssFile = null;  // Track the user's main CSS file
 
-  // Path to the bundled review config (relative to this plugin)
-  const bundledReviewConfig = path.resolve(__dirname, '..', 'review');
+  // Path to the bundled extractor config (relative to this plugin)
+  const bundledReviewConfig = path.resolve(__dirname, '..', 'extractor');
 
   function log(...args) {
     if (debug) console.log('[elm-tailwind]', ...args);

@@ -3,7 +3,7 @@ set -o errexit
 cd "$(dirname "${BASH_SOURCE[0]}")/.."
 
 echo "=== Running unit tests ==="
-cd review
+cd extractor
 npx elm-test
 cd ..
 
@@ -12,7 +12,7 @@ echo "=== Extracting classes from golden ==="
 cd golden
 
 # Extract classes and save to file
-npx elm-review --extract --report=json --config ../review 2>/dev/null \
+npx elm-review --extract --report=json --config ../extractor 2>/dev/null \
   | node -e "const d=require('fs').readFileSync(0,'utf8');const j=JSON.parse(d);console.log(j.extracts?.TailwindExtractor?.classes?.sort().join('\n'))" \
   > extracted-classes.txt
 
