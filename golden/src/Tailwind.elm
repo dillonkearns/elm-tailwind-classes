@@ -1,5 +1,9 @@
-module Tailwind.Utilities exposing
-    ( p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml, neg_m, neg_mx, neg_my, neg_mt, neg_mr, neg_mb, neg_ml, gap, gap_x, gap_y
+module Tailwind exposing
+    ( Tailwind(..)
+    , classes
+    , batch
+    , raw, toClass
+    , p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml, neg_m, neg_mx, neg_my, neg_mt, neg_mr, neg_mb, neg_ml, gap, gap_x, gap_y
     , flex, inline_flex, block, inline_block, inline, grid, hidden, flex_row, flex_row_reverse, flex_col, flex_col_reverse, flex_wrap, flex_wrap_reverse, flex_nowrap, grow, grow_0, shrink, shrink_0, items_start, items_end, items_center, items_baseline, items_stretch, justify_start, justify_end, justify_center, justify_between, justify_around, justify_evenly, relative, absolute, fixed, sticky, static, visible, invisible, overflow_auto, overflow_hidden, overflow_visible, overflow_scroll, overflow_x_auto, overflow_y_auto, overflow_x_hidden, overflow_y_hidden
     , w, w_1over2, w_1over3, w_2over3, w_1over4, w_2over4, w_3over4, w_1over5, w_2over5, w_3over5, w_4over5, w_1over6, w_2over6, w_3over6, w_4over6, w_5over6, w_1over12, w_2over12, w_3over12, w_4over12, w_5over12, w_6over12, w_7over12, w_8over12, w_9over12, w_10over12, w_11over12, w_full, w_screen, w_auto, w_min, w_max, w_fit, h, h_1over2, h_1over3, h_2over3, h_1over4, h_2over4, h_3over4, h_1over5, h_2over5, h_3over5, h_4over5, h_1over6, h_2over6, h_3over6, h_4over6, h_5over6, h_1over12, h_2over12, h_3over12, h_4over12, h_5over12, h_6over12, h_7over12, h_8over12, h_9over12, h_10over12, h_11over12, h_full, h_screen, h_auto, h_min, h_max, h_fit, min_w, max_w, min_h, max_h
     , text_left, text_center, text_right, text_justify, font_sans, font_serif, font_mono, italic, not_italic, uppercase, lowercase, capitalize, normal_case, underline, line_through, no_underline, whitespace_normal, whitespace_nowrap, whitespace_pre, whitespace_pre_line, whitespace_pre_wrap, truncate, text_ellipsis, text_clip
@@ -9,22 +13,35 @@ module Tailwind.Utilities exposing
     , rounded_xs, rounded_sm, rounded_md, rounded_lg, rounded_xl, rounded_n2xl, rounded_n3xl, rounded_n4xl
     , shadow, shadow_none, transition, transition_all, transition_none, transition_colors, transition_opacity, transition_shadow, transition_transform, animate_none, animate_spin, animate_ping, animate_pulse, animate_bounce, cursor_auto, cursor_default, cursor_pointer, cursor_wait, cursor_text, cursor_move, cursor_not_allowed, pointer_events_none, pointer_events_auto, select_none, select_text, select_all, select_auto
     , shadow_n2xs, shadow_xs, shadow_sm, shadow_md, shadow_lg, shadow_xl, shadow_n2xl, shadow_inner
-    , text_color, bg_color, border_color, ring_color, placeholder_color
+    , text_color, bg_color, border_color, ring_color, placeholder_color, text_simple, bg_simple, border_simple
     , opacity_0, opacity_5, opacity_10, opacity_20, opacity_25, opacity_30, opacity_40, opacity_50, opacity_60, opacity_70, opacity_75, opacity_80, opacity_90, opacity_95, opacity_100
     , z_0, z_10, z_20, z_30, z_40, z_50, z_auto
     )
 
-{-| Tailwind CSS utility classes as Elm functions.
+{-| Type-safe Tailwind CSS for Elm.
 
-All functions return the opaque `Tailwind` type. Use `Tailwind.classes` to
-convert a list of Tailwind values to an Html.Attribute.
+This module provides the `Tailwind` type and all utility functions.
+Use `classes` to convert a list of Tailwind values to an `Html.Attribute`.
 
-Following elm-tailwind-modules naming conventions:
 
-  - Hyphens become underscores: `flex-col` → `flex_col`
-  - Numeric prefixes get 'n': `2xl` → `n2xl`
-  - Fractions use 'over': `w-1/2` → `w_1over2`
-  - Decimals use '_dot_': `p-0.5` → `p_0_dot_5`
+## The Tailwind Type
+
+@docs Tailwind
+
+
+## Converting to Attributes
+
+@docs classes
+
+
+## Combining Classes
+
+@docs batch
+
+
+## Escape Hatch
+
+@docs raw, toClass
 
 
 ## Spacing
@@ -79,7 +96,7 @@ Following elm-tailwind-modules naming conventions:
 
 ## Colors
 
-@docs text_color, bg_color, border_color, ring_color, placeholder_color
+@docs text_color, bg_color, border_color, ring_color, placeholder_color, text_simple, bg_simple, border_simple
 
 
 ## Opacity
@@ -93,8 +110,100 @@ Following elm-tailwind-modules naming conventions:
 
 -}
 
-import Tailwind exposing (Tailwind(..))
-import Tailwind.Theme exposing (Color, Spacing(..), colorToString, spacingToString)
+import Html exposing (Attribute)
+import Html.Attributes
+import Tailwind.Theme exposing (Color, SimpleColor(..), Spacing(..), colorToString, spacingToString)
+
+
+{-| A type representing a Tailwind CSS class or set of classes.
+
+While the constructor is exposed for internal use by Tailwind.Breakpoints,
+you should use the utility functions in this module to create values
+rather than constructing them directly.
+
+-}
+type Tailwind
+    = Tailwind String
+
+
+{-| Convert a list of Tailwind values to an Html.Attribute.
+
+This is the main entry point for using Tailwind classes in your view:
+
+    import Tailwind as Tw exposing (classes)
+    import Tailwind.Breakpoints exposing (hover, md)
+    import Tailwind.Theme exposing (blue, s4, s500, s8)
+
+    view =
+        div
+            [ classes
+                [ Tw.flex
+                , Tw.items_center
+                , Tw.p s4
+                , Tw.bg_color (blue s500)
+                , hover [ Tw.opacity_75 ]
+                , md [ Tw.p s8 ]
+                ]
+            ]
+            [ text "Hello!" ]
+
+-}
+classes : List Tailwind -> Attribute msg
+classes twClasses =
+    Html.Attributes.class (String.join " " (List.map toClassName twClasses))
+
+
+{-| Combine multiple Tailwind values into one.
+
+Useful for defining reusable style groups:
+
+    buttonStyles : Tailwind
+    buttonStyles =
+        batch
+            [ Tw.px s4
+            , Tw.py s2
+            , Tw.rounded
+            , Tw.bg_color (blue s500)
+            , hover [ Tw.bg_color (blue s600) ]
+            ]
+
+-}
+batch : List Tailwind -> Tailwind
+batch twClasses =
+    Tailwind (String.join " " (List.map toClassName twClasses))
+
+
+{-| Escape hatch for arbitrary class names not covered by the API.
+
+    raw "custom-class"
+
+    raw "[scroll-snap-type:x_mandatory]" -- Tailwind arbitrary value syntax
+
+Use sparingly - these won't be type-checked!
+
+-}
+raw : String -> Tailwind
+raw className =
+    Tailwind className
+
+
+{-| Extract the class string from a Tailwind value.
+
+Useful for interop with other libraries or debugging.
+
+-}
+toClass : Tailwind -> String
+toClass (Tailwind className) =
+    className
+
+
+
+-- Internal helper
+
+
+toClassName : Tailwind -> String
+toClassName (Tailwind className) =
+    className
 
 
 
@@ -2005,6 +2114,36 @@ ring_color color =
 placeholder_color : Color -> Tailwind
 placeholder_color color =
     Tailwind ("placeholder-" ++ colorToString color)
+
+
+{-| Set text color using a simple color.
+
+    text_simple white
+
+-}
+text_simple : SimpleColor -> Tailwind
+text_simple (SimpleColor c) =
+    Tailwind ("text-" ++ c)
+
+
+{-| Set background color using a simple color.
+
+    bg_simple white
+
+-}
+bg_simple : SimpleColor -> Tailwind
+bg_simple (SimpleColor c) =
+    Tailwind ("bg-" ++ c)
+
+
+{-| Set border color using a simple color.
+
+    border_simple black
+
+-}
+border_simple : SimpleColor -> Tailwind
+border_simple (SimpleColor c) =
+    Tailwind ("border-" ++ c)
 
 
 

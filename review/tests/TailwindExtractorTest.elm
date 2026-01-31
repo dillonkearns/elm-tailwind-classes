@@ -15,6 +15,8 @@ all =
         , parameterizedColorTests
         , simpleColorTests
         , variantTests
+        , rawStringTests
+        , conditionalTests
         ]
 
 
@@ -24,7 +26,7 @@ simpleConstantsTests =
         [ test "extracts flex" <|
             \() ->
                 """module A exposing (..)
-import Tailwind.Utilities as Tw
+import Tailwind as Tw
 
 view = Tw.flex
 """
@@ -33,7 +35,7 @@ view = Tw.flex
         , test "extracts items_center as items-center" <|
             \() ->
                 """module A exposing (..)
-import Tailwind.Utilities as Tw
+import Tailwind as Tw
 
 view = Tw.items_center
 """
@@ -42,7 +44,7 @@ view = Tw.items_center
         , test "extracts text_2xl as text-2xl" <|
             \() ->
                 """module A exposing (..)
-import Tailwind.Utilities as Tw
+import Tailwind as Tw
 
 view = Tw.text_2xl
 """
@@ -57,7 +59,7 @@ parameterizedSpacingTests =
         [ test "extracts p Theme.s4 as p-4" <|
             \() ->
                 """module A exposing (..)
-import Tailwind.Utilities as Tw
+import Tailwind as Tw
 import Tailwind.Theme as Theme
 
 view = Tw.p Theme.s4
@@ -67,7 +69,7 @@ view = Tw.p Theme.s4
         , test "extracts m Theme.s0_dot_5 as m-0.5" <|
             \() ->
                 """module A exposing (..)
-import Tailwind.Utilities as Tw
+import Tailwind as Tw
 import Tailwind.Theme as Theme
 
 view = Tw.m Theme.s0_dot_5
@@ -77,7 +79,7 @@ view = Tw.m Theme.s0_dot_5
         , test "extracts gap Theme.s8 as gap-8" <|
             \() ->
                 """module A exposing (..)
-import Tailwind.Utilities as Tw
+import Tailwind as Tw
 import Tailwind.Theme as Theme
 
 view = Tw.gap Theme.s8
@@ -93,7 +95,7 @@ parameterizedColorTests =
         [ test "extracts bg_color blue s500 as bg-blue-500 (two args)" <|
             \() ->
                 """module A exposing (..)
-import Tailwind.Utilities as Tw
+import Tailwind as Tw
 import Tailwind.Theme as Theme
 
 view = Tw.bg_color Theme.blue Theme.s500
@@ -103,7 +105,7 @@ view = Tw.bg_color Theme.blue Theme.s500
         , test "extracts text_color gray s800 as text-gray-800 (two args)" <|
             \() ->
                 """module A exposing (..)
-import Tailwind.Utilities as Tw
+import Tailwind as Tw
 import Tailwind.Theme as Theme
 
 view = Tw.text_color Theme.gray Theme.s800
@@ -113,7 +115,7 @@ view = Tw.text_color Theme.gray Theme.s800
         , test "extracts text_color red s400 as text-red-400 (two args)" <|
             \() ->
                 """module A exposing (..)
-import Tailwind.Utilities as Tw
+import Tailwind as Tw
 import Tailwind.Theme as Theme
 
 view = Tw.text_color Theme.red Theme.s400
@@ -129,7 +131,7 @@ simpleColorTests =
         [ test "extracts text_color white as text-white" <|
             \() ->
                 """module A exposing (..)
-import Tailwind.Utilities as Tw
+import Tailwind as Tw
 import Tailwind.Theme as Theme
 
 view = Tw.text_color Theme.white
@@ -139,13 +141,33 @@ view = Tw.text_color Theme.white
         , test "extracts bg_color black as bg-black" <|
             \() ->
                 """module A exposing (..)
-import Tailwind.Utilities as Tw
+import Tailwind as Tw
 import Tailwind.Theme as Theme
 
 view = Tw.bg_color Theme.black
 """
                     |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
                     |> Review.Test.expectDataExtract """{"classes":["bg-black"]}"""
+        , test "extracts text_simple white as text-white" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind as Tw
+import Tailwind.Theme as Theme
+
+view = Tw.text_simple Theme.white
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["text-white"]}"""
+        , test "extracts bg_simple white as bg-white" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind as Tw
+import Tailwind.Theme as Theme
+
+view = Tw.bg_simple Theme.white
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["bg-white"]}"""
         ]
 
 
@@ -155,7 +177,7 @@ variantTests =
         [ test "extracts hover variant" <|
             \() ->
                 """module A exposing (..)
-import Tailwind.Utilities as Tw
+import Tailwind as Tw
 import Tailwind.Breakpoints as Bp
 
 view = Bp.hover [ Tw.opacity_50 ]
@@ -165,7 +187,7 @@ view = Bp.hover [ Tw.opacity_50 ]
         , test "extracts md breakpoint" <|
             \() ->
                 """module A exposing (..)
-import Tailwind.Utilities as Tw
+import Tailwind as Tw
 import Tailwind.Breakpoints as Bp
 import Tailwind.Theme as Theme
 
@@ -176,7 +198,7 @@ view = Bp.md [ Tw.p Theme.s8 ]
         , test "extracts nested variant (md hover)" <|
             \() ->
                 """module A exposing (..)
-import Tailwind.Utilities as Tw
+import Tailwind as Tw
 import Tailwind.Breakpoints as Bp
 import Tailwind.Theme as Theme
 
@@ -187,14 +209,79 @@ view = Bp.md [ Bp.hover [ Tw.bg_color Theme.blue Theme.s600 ] ]
         ]
 
 
+rawStringTests : Test
+rawStringTests =
+    describe "raw strings"
+        [ test "extracts raw string literal" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind as Tw
+
+view = Tw.raw "custom-class"
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["custom-class"]}"""
+        , test "extracts raw string with parentheses" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind as Tw
+
+view = Tw.raw ("another-custom")
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["another-custom"]}"""
+        , test "extracts multiple raw strings in list" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind as Tw
+
+view = [ Tw.raw "class-a", Tw.raw "class-b" ]
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["class-a","class-b"]}"""
+        ]
+
+
+conditionalTests : Test
+conditionalTests =
+    describe "conditional expressions"
+        [ test "extracts both branches of if expression" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind as Tw
+import Tailwind.Theme as Theme
+
+view dark = if dark then Tw.p Theme.s4 else Tw.p Theme.s8
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["p-4","p-8"]}"""
+        , test "extracts all branches of case expression" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind as Tw
+import Tailwind.Theme as Theme
+
+type Size = Small | Medium | Large
+
+view size =
+    case size of
+        Small -> Tw.p Theme.s0
+        Medium -> Tw.p Theme.s4
+        Large -> Tw.p Theme.s8
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["p-0","p-4","p-8"]}"""
+        ]
+
+
 {-| Project with stub Tailwind modules for testing.
 -}
 projectWithTailwind : Project.Project
 projectWithTailwind =
     Review.Test.Dependencies.projectWithElmCore
         |> Project.addModule
-            { path = "src/Tailwind/Utilities.elm"
-            , source = tailwindUtilitiesStub
+            { path = "src/Tailwind.elm"
+            , source = tailwindStub
             }
         |> Project.addModule
             { path = "src/Tailwind/Theme.elm"
@@ -206,9 +293,9 @@ projectWithTailwind =
             }
 
 
-tailwindUtilitiesStub : String
-tailwindUtilitiesStub =
-    """module Tailwind.Utilities exposing (..)
+tailwindStub : String
+tailwindStub =
+    """module Tailwind exposing (..)
 
 import Html exposing (Attribute)
 import Html.Attributes exposing (class)
@@ -240,6 +327,15 @@ bg_color _ _ = class ""
 
 text_color : Color -> Shade -> Attribute msg
 text_color _ _ = class ""
+
+text_simple : Color -> Attribute msg
+text_simple _ = class ""
+
+bg_simple : Color -> Attribute msg
+bg_simple _ = class ""
+
+raw : String -> Attribute msg
+raw _ = class ""
 """
 
 
