@@ -1,2 +1,4 @@
 node_modules/
 elm-stuff/
+.elm-tailwind/
+dist/

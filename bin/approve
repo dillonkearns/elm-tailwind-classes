@@ -39,6 +39,10 @@ EXPECTED_CLASSES=(
   "lg:text-lg"
   "focus:shadow-lg"
   "custom-utility"
+  # Custom theme colors
+  "bg-brand-100"
+  "border-brand-500"
+  "text-brand-800"
 )
 
 MISSING=0

@@ -6,8 +6,9 @@ This file exercises various Tailwind patterns:
 
   - Simple constants
   - Parameterized spacing
-  - Parameterized colors
-  - Simple colors
+  - Parameterized colors (shaded)
+  - Simple colors (white, black)
+  - Custom theme colors (brand, brandLight, brandDark)
   - Variants (hover, focus)
   - Breakpoints (md, lg)
   - Nested variants
@@ -16,10 +17,9 @@ This file exercises various Tailwind patterns:
 -}
 
 import Html exposing (Html, button, div, h1, p, text)
-import Tailwind exposing (classes, raw)
-import Tailwind.Utilities as Tw
+import Tailwind as Tw exposing (classes, raw)
 import Tailwind.Breakpoints exposing (focus, hover, lg, md)
-import Tailwind.Theme exposing (blue, gray, s2, s4, s6, s8, s100, s500, s600, s800, s900, white)
+import Tailwind.Theme exposing (blue, brand, gray, s2, s4, s6, s8, s100, s500, s600, s800, s900, white)
 
 
 main : Html msg
@@ -82,4 +82,22 @@ main =
                 ]
             ]
             [ text "Custom raw class" ]
+        , div
+            [ classes
+                [ Tw.mt s4
+                , Tw.p s4
+                , Tw.bg_color (brand s100)
+                , Tw.border
+                , Tw.border_color (brand s500)
+                , Tw.rounded_lg
+                ]
+            ]
+            [ p
+                [ classes
+                    [ Tw.text_color (brand s800)
+                    , Tw.font_semibold
+                    ]
+                ]
+                [ text "Custom brand color from theme" ]
+            ]
         ]
