@@ -16,7 +16,8 @@ This file exercises various Tailwind patterns:
 -}
 
 import Html exposing (Html, button, div, h1, p, text)
-import Tailwind as Tw exposing (classes)
+import Tailwind exposing (classes, raw)
+import Tailwind.Utilities as Tw
 import Tailwind.Breakpoints exposing (focus, hover, lg, md)
 import Tailwind.Theme exposing (blue, gray, s2, s4, s6, s8, s100, s500, s600, s800, s900, white)
 
@@ -77,7 +78,7 @@ main =
         , div
             [ classes
                 [ Tw.mt s6
-                , Tw.raw "custom-utility"
+                , raw "custom-utility"
                 ]
             ]
             [ text "Custom raw class" ]
