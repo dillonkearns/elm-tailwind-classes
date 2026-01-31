@@ -276,7 +276,7 @@ Your custom colors, spacing, etc. are automatically included:
 After running Vite, you can use:
 
 ```elm
-Tw.bg_color brand s500  -- Uses your custom "brand" color
+Tw.bg_color (brand s500)  -- Uses your custom "brand" color
 ```
 
 ## Local Development

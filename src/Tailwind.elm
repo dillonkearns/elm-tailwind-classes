@@ -2064,7 +2064,7 @@ shadow_inner =
 
     text_color (blue s500)
 
-    text_color white
+    text_color (gray s800)
 
 -}
 text_color : Color -> Tailwind
@@ -2076,7 +2076,7 @@ text_color color =
 
     bg_color (blue s100)
 
-    bg_color white
+    bg_color (gray s50)
 
 -}
 bg_color : Color -> Tailwind
@@ -2088,7 +2088,7 @@ bg_color color =
 
     border_color (gray s300)
 
-    border_color black
+    border_color (slate s200)
 
 -}
 border_color : Color -> Tailwind
