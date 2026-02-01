@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-01-31
+
+### Changed
+
+- Internal refactoring of the elm-review extractor for better performance and maintainability ([#1](https://github.com/dillonkearns/elm-tailwind-classes/pull/1) by [@jfmengels](https://github.com/jfmengels))
+  - Uses work-list pattern instead of recursive list concatenation
+  - Centralizes class mappings in Dict lookups for single source of truth
+
 ## [0.1.0] - 2025-01-31
 
 ### Added
@@ -22,5 +30,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - **Zero config** - just add the Vite plugin and start coding
 - Support for `Tw.raw` escape hatch for custom classes
 
-[Unreleased]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/dillonkearns/elm-tailwind-classes/releases/tag/v0.1.0
