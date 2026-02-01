@@ -20,7 +20,7 @@ echo "Extracted $(wc -l < extracted-classes.txt | tr -d ' ') classes"
 
 echo ""
 echo "=== Compiling Elm ==="
-npx elm make Demo.elm --output=/dev/null 2>&1 | tail -1
+npx elm make src/Demo.elm --output=/dev/null 2>&1 | tail -1
 
 cd ..
 

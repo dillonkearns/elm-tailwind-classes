@@ -75,7 +75,7 @@ classes [ if isLarge then Tw.p s8 else Tw.p s4 ]
 ### 1. Install the packages
 
 ```bash
-npm install github:dillonkearns/elm-tailwind-classes @tailwindcss/vite elm-review
+npm install elm-tailwind-classes @tailwindcss/vite elm-review
 ```
 
 ### 2. Add the Vite plugins

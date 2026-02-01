@@ -1,13 +1,12 @@
 import { defineConfig } from 'vite';
 import tailwindcss from '@tailwindcss/vite';
-import { elmTailwind } from 'elm-tailwind-vite';
+import { elmTailwind } from 'elm-tailwind-classes';
 import elmPlugin from 'vite-plugin-elm';
 
 export default defineConfig({
   plugins: [
     // Our plugin - extracts classes from Elm and injects into CSS
     elmTailwind({
-      reviewConfig: '../extractor',
       debug: true
     }),
 
