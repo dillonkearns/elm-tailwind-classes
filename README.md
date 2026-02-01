@@ -30,7 +30,7 @@ Tools like [elm-tailwind-modules](https://github.com/matheus23/elm-tailwind-modu
 - **Performance degradation**: Real-world examples show style recomputation [taking ~3 seconds](https://github.com/rtfeldman/elm-css/pull/584#issue-1359649403) for pages with ~900 elements, each with ~20 styles applied
 - **Sequential bottleneck**: CSS and JS parsing can be done in parallel by browsers, but computing styles in JS means that work happens *after* all JS has been parsed
 
-These aren't theoretical concerns—the broader web development community has documented similar issues. In [Why We're Breaking Up with CSS-in-JS](https://dev.to/srmagura/why-were-breaking-up-wiht-css-in-js-4g9b), the Spot team found that switching from Emotion (a popular CSS-in-JS library) to build-time CSS reduced component render times by 48%. The runtime serialization overhead of CSS-in-JS libraries creates measurable performance bottlenecks, especially as component complexity grows.
+These aren't theoretical concerns—the broader web development community has documented similar issues. In [Why We're Breaking Up with CSS-in-JS](https://dev.to/srmagura/why-were-breaking-up-wiht-css-in-js-4g9b), the Spot team found that switching from Emotion (a popular CSS-in-JS library) to build-time CSS reduced render times by 48%. The runtime serialization overhead of CSS-in-JS libraries creates measurable performance bottlenecks, especially as UI complexity grows.
 
 ### This Solution: Best of Both Worlds
 
@@ -299,7 +299,7 @@ If CSS changes aren't hot-reloading:
    ```
 
 2. **Check the console** for messages like:
-   - `[elm-tailwind] Elm file changed: MyComponent.elm`
+   - `[elm-tailwind] Elm file changed: Button.elm`
    - `[elm-tailwind] Re-extracted classes: 42`
    - `[elm-tailwind] Classes changed! New classes: ...`
    - `[elm-tailwind] Triggered Vite CSS HMR`
