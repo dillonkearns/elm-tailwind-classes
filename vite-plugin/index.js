@@ -11,6 +11,35 @@ import { generateElmModules } from './codegen.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+/**
+ * @typedef {Object} ElmTailwindOptions
+ * @property {boolean} [debug=false] - Enable debug logging to see extraction details
+ * @property {string} [elmJson] - Path to elm.json (auto-detected if not specified)
+ * @property {string} [generateDir='.elm-tailwind'] - Directory for generated Elm modules
+ * @property {string} [cssPath] - Path to CSS file with Tailwind config (auto-detected if not specified)
+ */
+
+/**
+ * Vite plugin for type-safe Tailwind CSS in Elm.
+ *
+ * Generates Elm modules from your Tailwind config and extracts used classes
+ * at build time for optimal CSS output.
+ *
+ * @param {ElmTailwindOptions} [options] - Plugin configuration options
+ * @returns {import('vite').Plugin} Vite plugin
+ *
+ * @example
+ * // vite.config.js
+ * import { elmTailwind } from 'elm-tailwind-classes'
+ * import tailwindcss from '@tailwindcss/vite'
+ *
+ * export default {
+ *   plugins: [
+ *     elmTailwind(),      // Must come before tailwindcss
+ *     tailwindcss(),
+ *   ]
+ * }
+ */
 export function elmTailwind(options = {}) {
   const {
     debug = false,
@@ -186,7 +215,14 @@ export function elmTailwind(options = {}) {
     try {
       const elmJsonPath = findElmJson(cwd);
       if (!elmJsonPath) {
-        console.warn('[elm-tailwind] Could not find elm.json. Skipping extraction.');
+        console.warn('\n' + '='.repeat(60));
+        console.warn('[elm-tailwind] ⚠️  Could not find elm.json');
+        console.warn('='.repeat(60));
+        console.warn('\nSearched in:', cwd);
+        console.warn('Skipping class extraction - your Tailwind styles may be missing.\n');
+        console.warn('Fix: Specify the path with elmJson option:');
+        console.warn('  elmTailwind({ elmJson: "./path/to/elm.json" })');
+        console.warn('='.repeat(60) + '\n');
         return [];
       }
 
@@ -227,11 +263,18 @@ export function elmTailwind(options = {}) {
         } catch {}
       }
 
-      console.error('[elm-tailwind] Could not run elm-review extraction.');
-      console.error('  Make sure elm-review is installed: npm install -D elm-review');
-      console.error('  Error:', e.message);
-      if (debug && e.stderr) console.error('  Stderr:', e.stderr.toString());
-      if (debug && e.stdout) console.error('  Stdout (first 500 chars):', e.stdout.toString().slice(0, 500));
+      console.error('\n' + '='.repeat(60));
+      console.error('[elm-tailwind] ⚠️  CLASS EXTRACTION FAILED');
+      console.error('='.repeat(60));
+      console.error('\nYour Tailwind styles may be missing from the build.\n');
+      console.error('Error:', e.message);
+      console.error('\nTroubleshooting:');
+      console.error('  1. Make sure elm-review is installed: npm install -D elm-review');
+      console.error('  2. Check that your elm.json is valid');
+      console.error('  3. Run with debug:true for more details');
+      if (debug && e.stderr) console.error('\nStderr:', e.stderr.toString());
+      if (debug && e.stdout) console.error('\nStdout (first 500 chars):', e.stdout.toString().slice(0, 500));
+      console.error('='.repeat(60) + '\n');
 
       return [];
     }
@@ -250,7 +293,12 @@ export function elmTailwind(options = {}) {
       codegenComplete = await runCodegen(cwd);
 
       if (!codegenComplete) {
-        console.warn('[elm-tailwind] Code generation failed, extraction may not work correctly');
+        console.warn('\n' + '='.repeat(60));
+        console.warn('[elm-tailwind] ⚠️  Code generation failed');
+        console.warn('='.repeat(60));
+        console.warn('\nThe Elm modules could not be generated from your Tailwind config.');
+        console.warn('Check the error above for details.');
+        console.warn('='.repeat(60) + '\n');
       }
 
       // Step 2: Clean templates and run extraction
