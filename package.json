@@ -6,7 +6,7 @@
   "main": "./vite-plugin/index.js",
   "exports": {
     ".": "./vite-plugin/index.js",
-    "./vite-plugin": "./vite-plugin/index.js"
+    "./vite": "./vite-plugin/index.js"
   },
   "files": [
     "vite-plugin/",

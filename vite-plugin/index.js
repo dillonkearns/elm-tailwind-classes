@@ -30,7 +30,7 @@ const __dirname = path.dirname(__filename);
  *
  * @example
  * // vite.config.js
- * import { elmTailwind } from 'elm-tailwind-classes'
+ * import elmTailwind from 'elm-tailwind-classes/vite'
  * import tailwindcss from '@tailwindcss/vite'
  *
  * export default {

@@ -83,7 +83,7 @@ npm install elm-tailwind-classes @tailwindcss/vite elm-review
 ```javascript
 // vite.config.js
 import { defineConfig } from 'vite'
-import { elmTailwind } from 'elm-tailwind-classes'
+import elmTailwind from 'elm-tailwind-classes/vite'
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
@@ -249,7 +249,7 @@ Works with elm-pages out of the box:
 ```javascript
 // elm-pages.config.mjs
 import { defineConfig } from 'vite'
-import { elmTailwind } from 'elm-tailwind-classes'
+import elmTailwind from 'elm-tailwind-classes/vite'
 import tailwindcss from '@tailwindcss/vite'
 
 export default {
