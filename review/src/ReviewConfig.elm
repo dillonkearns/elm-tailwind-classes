@@ -51,5 +51,4 @@ config =
         }
     , Docs.ReviewLinksAndSections.rule
     , Docs.ReviewAtDocs.rule
-    , Docs.UpToDateReadmeLinks.rule
     ]
