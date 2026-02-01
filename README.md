@@ -342,6 +342,3 @@ npm install /path/to/elm-tailwind-classes
 npm test
 ```
 
-## License
-
-BSD-3-Clause. See [LICENSE](./LICENSE) for details.
