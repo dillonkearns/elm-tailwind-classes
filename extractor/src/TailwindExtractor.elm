@@ -6,10 +6,11 @@ Supports:
 
   - Simple constants: `Tw.flex` → "flex"
   - Parameterized spacing: `Tw.p s4` → "p-4"
-  - Parameterized colors: `Tw.bg_color red s500` → "bg-red-500"
-  - Simple colors: `Tw.text_color white` → "text-white"
+  - Parameterized colors: `Tw.bg_color (blue s500)` → "bg-blue-500"
+  - Simple colors: `Tw.text_simple white` → "text-white"
   - Variants: `hover [ Tw.opacity_50 ]` → "hover:opacity-50"
   - Responsive: `md [ Tw.p s8 ]` → "md:p-8"
+  - Raw strings: `Tw.raw "custom-class"` → "custom-class"
 
 @docs rule
 
@@ -168,8 +169,8 @@ extractClassesHelp variantPrefix lookupTable (Node nodeRange node) ( classes, ne
         -- Function application
         Expression.Application ((Node funcRange (Expression.FunctionOrValue _ funcName)) :: args) ->
             case ModuleNameLookupTable.moduleNameAt lookupTable funcRange of
-                Just [ "Tailwind", "Utilities" ] ->
-                    -- Utility function call
+                Just [ "Tailwind" ] ->
+                    -- Utility function call (merged module)
                     case extractUtilityClass funcName args lookupTable of
                         Just className ->
                             ( Set.insert (applyPrefix variantPrefix className) classes
@@ -178,6 +179,17 @@ extractClassesHelp variantPrefix lookupTable (Node nodeRange node) ( classes, ne
 
                         Nothing ->
                             -- Might be a simple constant used in application context
+                            ( classes, nextNodes )
+
+                Just [ "Tailwind", "Utilities" ] ->
+                    -- Utility function call (separate module - codegen output)
+                    case extractUtilityClass funcName args lookupTable of
+                        Just className ->
+                            ( Set.insert (applyPrefix variantPrefix className) classes
+                            , nextNodes
+                            )
+
+                        Nothing ->
                             ( classes, nextNodes )
 
                 Just [ "Tailwind", "Breakpoints" ] ->
@@ -204,7 +216,18 @@ extractClassesHelp variantPrefix lookupTable (Node nodeRange node) ( classes, ne
         -- Simple value reference: Tw.flex, Tw.items_center
         Expression.FunctionOrValue _ funcName ->
             case ModuleNameLookupTable.moduleNameAt lookupTable nodeRange of
+                Just [ "Tailwind" ] ->
+                    -- Merged module
+                    ( if isParameterizedFunction funcName || isNonUtilityFunction funcName then
+                        classes
+
+                      else
+                        Set.insert (applyPrefix variantPrefix (elmNameToClassName funcName)) classes
+                    , nextNodes
+                    )
+
                 Just [ "Tailwind", "Utilities" ] ->
+                    -- Separate module (codegen output)
                     ( if isParameterizedFunction funcName then
                         classes
 
@@ -274,12 +297,26 @@ getVariantPrefix funcName =
             funcName
 
 
+{-| Non-utility functions (type constructors, helper functions, etc.)
+-}
+isNonUtilityFunction : String -> Bool
+isNonUtilityFunction name =
+    List.member name
+        [ "Tailwind"
+        , "classes"
+        , "batch"
+        , "toClass"
+        ]
+
+
 {-| Functions that take parameters (should not be extracted as simple constants)
 -}
 isParameterizedFunction : String -> Bool
 isParameterizedFunction name =
     Dict.member name spacingClasses
         || Dict.member name colorFunctions
+        || isSimpleColorFunction name
+        || name == "raw"
 
 
 {-| Extract a class from a utility function application.
@@ -287,9 +324,14 @@ isParameterizedFunction name =
 extractUtilityClass : String -> List (Node Expression) -> ModuleNameLookupTable -> Maybe String
 extractUtilityClass funcName args lookupTable =
     case args of
-        -- One argument: spacing or simple color
+        -- One argument: spacing, simple color, or raw string
         [ arg ] ->
-            extractOneArg funcName arg lookupTable
+            -- Check for raw function with string literal
+            if funcName == "raw" then
+                extractRawString arg
+
+            else
+                extractOneArg funcName arg lookupTable
 
         -- Two arguments: color with shade (text_color red s500)
         [ colorArg, shadeArg ] ->
@@ -298,6 +340,21 @@ extractUtilityClass funcName args lookupTable =
 
             else
                 Nothing
+
+        _ ->
+            Nothing
+
+
+{-| Extract a string literal from a raw function call.
+-}
+extractRawString : Node Expression -> Maybe String
+extractRawString node =
+    case Node.value node of
+        Expression.Literal str ->
+            Just str
+
+        Expression.ParenthesizedExpression inner ->
+            extractRawString inner
 
         _ ->
             Nothing
@@ -313,8 +370,12 @@ extractOneArg funcName arg lookupTable =
             case ModuleNameLookupTable.moduleNameFor lookupTable arg of
                 Just [ "Tailwind", "Theme" ] ->
                     if isColorFunction funcName then
-                        -- Simple color like white, black
+                        -- Simple color like white, black (for text_color white)
                         Just (colorFunctionPrefix funcName ++ argName)
+
+                    else if isSimpleColorFunction funcName then
+                        -- Simple color function like text_simple white
+                        Just (simpleColorFunctionPrefix funcName ++ argName)
 
                     else
                         -- Spacing function
@@ -339,11 +400,18 @@ extractOneArg funcName arg lookupTable =
             Nothing
 
 
-{-| Check if function is a color function.
+{-| Check if function is a color function (takes Color argument).
 -}
 isColorFunction : String -> Bool
 isColorFunction name =
     Dict.member name colorFunctions
+
+
+{-| Check if function is a simple color function (takes SimpleColor argument).
+-}
+isSimpleColorFunction : String -> Bool
+isSimpleColorFunction name =
+    List.member name [ "text_simple", "bg_simple", "border_simple" ]
 
 
 {-| Get the CSS prefix for a color function.
@@ -352,6 +420,24 @@ colorFunctionPrefix : String -> String
 colorFunctionPrefix funcName =
     Dict.get funcName colorFunctions
         |> Maybe.withDefault ""
+
+
+{-| Get the CSS prefix for a simple color function.
+-}
+simpleColorFunctionPrefix : String -> String
+simpleColorFunctionPrefix funcName =
+    case funcName of
+        "text_simple" ->
+            "text-"
+
+        "bg_simple" ->
+            "bg-"
+
+        "border_simple" ->
+            "border-"
+
+        _ ->
+            ""
 
 
 {-| Extract from a color application like (blue s500).

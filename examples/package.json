@@ -13,7 +13,7 @@
     "@tailwindcss/cli": "^4.1.18",
     "@tailwindcss/vite": "^4.0.0",
     "elm-review": "^2.13.5",
-    "elm-tailwind-vite": "file:../vite-plugin",
+    "elm-tailwind-classes": "file:../vite-plugin",
     "tailwindcss": "^4.0.0",
     "vite": "^6.0.0",
     "vite-plugin-elm": "^3.0.1"

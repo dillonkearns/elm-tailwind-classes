@@ -3,7 +3,7 @@
 import { execSync } from 'child_process';
 import fs from 'fs';
 
-const output = execSync('cd /Users/dillonkearns/src/github.com/dillonkearns/elm-tailwind-classes/examples && elm-review --extract --report=json --config ../review 2>/dev/null', { encoding: 'utf-8' });
+const output = execSync('cd /Users/dillonkearns/src/github.com/dillonkearns/elm-tailwind-classes/examples && elm-review --extract --report=json --config ../extractor 2>/dev/null', { encoding: 'utf-8' });
 
 const result = JSON.parse(output);
 const classes = result.extracts?.TailwindExtractor?.classes || [];

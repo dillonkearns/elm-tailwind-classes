@@ -6,17 +6,16 @@ Demonstrates:
 
   - Opaque Tailwind type with `classes` converter
   - Type-safe spacing: `Tw.p s4`
-  - Parameterized colors: `Tw.bg_color blue s500`
+  - Parameterized colors: `Tw.bg_color (blue s500)`
   - Simple colors: `Tw.bg_simple white`
-  - Composable variants: `hover [ Tw.bg_color blue s600 ]`
+  - Composable variants: `hover [ Tw.bg_color (blue s600) ]`
 
 -}
 
 import Html exposing (Html, button, div, h1, text)
-import Tailwind exposing (classes)
+import Tailwind as Tw exposing (classes)
 import Tailwind.Breakpoints exposing (hover)
 import Tailwind.Theme exposing (blue, gray, s0, s100, s2, s200, s300, s4, s500, s6, s600, s8, s80, s800, s900, white)
-import Tailwind.Utilities as Tw
 
 
 main : Html msg
@@ -24,7 +23,7 @@ main =
     div
         [ classes
             [ Tw.p s8
-            , Tw.bg_color gray s100
+            , Tw.bg_color (gray s100)
             , Tw.min_h s0
             ]
         ]
@@ -33,7 +32,7 @@ main =
                 [ Tw.text_n2xl
                 , Tw.font_bold
                 , Tw.mb s4
-                , Tw.text_color gray s900
+                , Tw.text_color (gray s900)
                 ]
             ]
             [ text "Tailwind CSS + Elm Demo" ]
@@ -52,8 +51,8 @@ view =
             , Tw.justify_between
             , Tw.p s4
             , Tw.m s2
-            , Tw.bg_color blue s100
-            , Tw.text_color gray s800
+            , Tw.bg_color (blue s100)
+            , Tw.text_color (gray s800)
             , Tw.rounded_lg
             , Tw.shadow_md
             ]
@@ -78,17 +77,17 @@ cardExample =
                 [ Tw.text_xl
                 , Tw.font_semibold
                 , Tw.mb s2
-                , Tw.text_color gray s900
+                , Tw.text_color (gray s900)
                 ]
             ]
             [ text "Card Title" ]
         , div
             [ classes
-                [ Tw.text_color gray s600
+                [ Tw.text_color (gray s600)
                 , Tw.text_sm
                 ]
             ]
-            [ text "This card uses type-safe Tailwind utilities with parameterized colors: `Tw.bg_color blue s500`" ]
+            [ text "This card uses type-safe Tailwind utilities with parameterized colors: `Tw.bg_color (blue s500)`" ]
         ]
 
 
@@ -103,27 +102,27 @@ buttonExample =
         ]
         [ button
             [ classes
-                [ Tw.bg_color blue s500
+                [ Tw.bg_color (blue s500)
                 , Tw.text_simple white
                 , Tw.font_semibold
                 , Tw.py s2
                 , Tw.px s4
                 , Tw.rounded_lg
                 , Tw.transition
-                , hover [ Tw.bg_color blue s600 ]
+                , hover [ Tw.bg_color (blue s600) ]
                 ]
             ]
             [ text "Primary" ]
         , button
             [ classes
-                [ Tw.bg_color gray s200
-                , Tw.text_color gray s800
+                [ Tw.bg_color (gray s200)
+                , Tw.text_color (gray s800)
                 , Tw.font_semibold
                 , Tw.py s2
                 , Tw.px s4
                 , Tw.rounded_lg
                 , Tw.transition
-                , hover [ Tw.bg_color gray s300 ]
+                , hover [ Tw.bg_color (gray s300) ]
                 ]
             ]
             [ text "Secondary" ]

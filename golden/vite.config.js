@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [
     // Our plugin - extracts classes from Elm and injects into CSS
     elmTailwind({
-      debug: true
+      debug: false
     }),
 
     // Tailwind CSS
@@ -15,5 +15,9 @@ export default defineConfig({
 
     // Elm compilation
     elmPlugin()
-  ]
+  ],
+  build: {
+    outDir: 'dist',
+    emptyDirBeforeWrite: true
+  }
 });

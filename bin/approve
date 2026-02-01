@@ -1,0 +1,79 @@
+#!/usr/bin/env bash
+set -o errexit
+cd "$(dirname "${BASH_SOURCE[0]}")/.."
+
+echo "=== Running unit tests ==="
+cd extractor
+npx elm-test
+cd ..
+
+echo ""
+echo "=== Extracting classes from golden ==="
+cd golden
+
+# Extract classes and save to file
+npx elm-review --extract --report=json --config ../extractor 2>/dev/null \
+  | node -e "const d=require('fs').readFileSync(0,'utf8');const j=JSON.parse(d);console.log(j.extracts?.TailwindExtractor?.classes?.sort().join('\n'))" \
+  > extracted-classes.txt
+
+echo "Extracted $(wc -l < extracted-classes.txt | tr -d ' ') classes"
+
+echo ""
+echo "=== Compiling Elm ==="
+npx elm make src/Demo.elm --output=/dev/null 2>&1 | tail -1
+
+cd ..
+
+echo ""
+echo "=== Verifying expected classes ==="
+# Classes that MUST be present (from Demo.elm usage)
+EXPECTED_CLASSES=(
+  "flex"
+  "p-4"
+  "p-8"
+  "bg-blue-500"
+  "bg-white"
+  "text-white"
+  "hover:bg-blue-600"
+  "md:text-base"
+  "lg:text-lg"
+  "focus:shadow-lg"
+  "custom-utility"
+  # Custom theme colors
+  "bg-brand-100"
+  "border-brand-500"
+  "text-brand-800"
+)
+
+MISSING=0
+for class in "${EXPECTED_CLASSES[@]}"; do
+  if ! grep -q "^${class}$" golden/extracted-classes.txt; then
+    echo "FAILURE: Expected class '$class' not found in extracted classes"
+    MISSING=$((MISSING + 1))
+  fi
+done
+
+if [ $MISSING -eq 0 ]; then
+  echo "All ${#EXPECTED_CLASSES[@]} expected classes present"
+else
+  echo ""
+  echo "FAILURE: $MISSING expected classes missing"
+  exit 1
+fi
+
+echo ""
+echo "=== Checking for snapshot changes ==="
+changed_files=$(git diff --name-only golden/ src/ || true)
+
+if [[ -n $changed_files ]]; then
+  echo 'WARNING: Generated code has changed.'
+  echo 'Review the changes and commit to approve:'
+  echo "$changed_files"
+  echo ""
+  echo "Run 'git diff golden/ src/' to see changes"
+  exit 1
+fi
+
+echo ""
+echo '=== SUCCESS ==='
+echo "All tests passed. No snapshot changes detected."

@@ -31,14 +31,14 @@ jobs:
           path: node_modules
           key: node_modules-${{ hashFiles('package-lock.json') }}
 
-      # Re-use ~/.elm between runs until elm.json, elm-tooling.json or
-      # review/elm.json changes. The Elm compiler saves downloaded Elm packages
-      # to ~/.elm, and elm-tooling saves downloaded tool executables there.
+      # Re-use ~/.elm between runs until elm.json, elm-tooling.json,
+      # review/elm.json, or golden/elm.json changes. The Elm compiler saves downloaded
+      # Elm packages to ~/.elm, and elm-tooling saves downloaded tool executables there.
       - name: Cache ~/.elm
         uses: actions/cache@v4
         with:
           path: ~/.elm
-          key: elm-${{ hashFiles('elm.json', 'elm-tooling.json', 'review/elm.json') }}
+          key: elm-${{ hashFiles('elm.json', 'elm-tooling.json', 'review/elm.json', 'golden/elm.json') }}
 
       # Install npm packages, unless we restored them from cache.
       # Since `npm ci` removes the node_modules folder before running it’s
