@@ -16,6 +16,7 @@ Supports:
 
 -}
 
+import Dict exposing (Dict)
 import Elm.Syntax.Expression as Expression exposing (Expression)
 import Elm.Syntax.Node as Node exposing (Node(..))
 import Json.Encode as Encode
@@ -40,8 +41,7 @@ rule =
 
 
 type alias ProjectContext =
-    { classes : Set String
-    }
+    Set String
 
 
 type alias ModuleContext =
@@ -53,8 +53,7 @@ type alias ModuleContext =
 
 initialProjectContext : ProjectContext
 initialProjectContext =
-    { classes = Set.empty
-    }
+    Set.empty
 
 
 fromProjectToModule : Rule.ContextCreator ProjectContext ModuleContext
@@ -73,15 +72,13 @@ fromModuleToProject : Rule.ContextCreator ModuleContext ProjectContext
 fromModuleToProject =
     Rule.initContextCreator
         (\moduleContext ->
-            { classes = moduleContext.classes
-            }
+            moduleContext.classes
         )
 
 
 foldProjectContexts : ProjectContext -> ProjectContext -> ProjectContext
-foldProjectContexts new old =
-    { classes = Set.union new.classes old.classes
-    }
+foldProjectContexts =
+    Set.union
 
 
 moduleVisitor : Rule.ModuleRuleSchema {} ModuleContext -> Rule.ModuleRuleSchema { hasAtLeastOneVisitor : () } ModuleContext
@@ -120,11 +117,11 @@ expressionEnterVisitor node context =
             -- Top-level Breakpoints call: extract classes and increment depth
             let
                 extractedClasses =
-                    extractClasses "" node context.lookupTable
+                    extractClasses "" context.lookupTable ( context.classes, [ node ] )
             in
             ( []
             , { context
-                | classes = Set.union context.classes (Set.fromList extractedClasses)
+                | classes = extractedClasses
                 , breakpointsDepth = context.breakpointsDepth + 1
               }
             )
@@ -137,9 +134,9 @@ expressionEnterVisitor node context =
         -- Top-level: extract normally
         let
             extractedClasses =
-                extractClasses "" node context.lookupTable
+                extractClasses "" context.lookupTable ( context.classes, [ node ] )
         in
-        ( [], { context | classes = Set.union context.classes (Set.fromList extractedClasses) } )
+        ( [], { context | classes = extractedClasses } )
 
 
 expressionExitVisitor : Node Expression -> ModuleContext -> ( List (Rule.Error {}), ModuleContext )
@@ -154,9 +151,21 @@ expressionExitVisitor node context =
 
 {-| Extract classes from an expression, with an optional variant prefix.
 -}
-extractClasses : String -> Node Expression -> ModuleNameLookupTable -> List String
-extractClasses variantPrefix node lookupTable =
-    case Node.value node of
+extractClasses : String -> ModuleNameLookupTable -> ( Set String, List (Node Expression) ) -> Set String
+extractClasses variantPrefix lookupTable ( classes, nodes ) =
+    case nodes of
+        [] ->
+            classes
+
+        node :: nextNodes ->
+            extractClasses variantPrefix
+                lookupTable
+                (extractClassesHelp variantPrefix lookupTable node ( classes, nextNodes ))
+
+
+extractClassesHelp : String -> ModuleNameLookupTable -> Node Expression -> ( Set String, List (Node Expression) ) -> ( Set String, List (Node Expression) )
+extractClassesHelp variantPrefix lookupTable (Node nodeRange node) ( classes, nextNodes ) =
+    case node of
         -- Function application
         Expression.Application ((Node funcRange (Expression.FunctionOrValue _ funcName)) :: args) ->
             case ModuleNameLookupTable.moduleNameAt lookupTable funcRange of
@@ -164,92 +173,96 @@ extractClasses variantPrefix node lookupTable =
                     -- Utility function call (merged module)
                     case extractUtilityClass funcName args lookupTable of
                         Just className ->
-                            [ applyPrefix variantPrefix className ]
+                            ( Set.insert (applyPrefix variantPrefix className) classes
+                            , nextNodes
+                            )
 
                         Nothing ->
                             -- Might be a simple constant used in application context
-                            []
+                            ( classes, nextNodes )
 
                 Just [ "Tailwind", "Utilities" ] ->
                     -- Utility function call (separate module - codegen output)
                     case extractUtilityClass funcName args lookupTable of
                         Just className ->
-                            [ applyPrefix variantPrefix className ]
+                            ( Set.insert (applyPrefix variantPrefix className) classes
+                            , nextNodes
+                            )
 
                         Nothing ->
-                            []
+                            ( classes, nextNodes )
 
                 Just [ "Tailwind", "Breakpoints" ] ->
                     -- Variant/breakpoint function
-                    let
-                        newPrefix =
-                            getVariantPrefix funcName variantPrefix
-                    in
                     case args of
                         [ listArg ] ->
-                            extractFromListArg newPrefix listArg lookupTable
+                            let
+                                newPrefix =
+                                    applyPrefix variantPrefix (getVariantPrefix funcName)
+                            in
+                            ( extractFromListArg newPrefix listArg lookupTable classes
+                            , nextNodes
+                            )
 
                         _ ->
-                            []
+                            ( classes, nextNodes )
 
                 _ ->
-                    -- Not a Tailwind function, but recurse into args
-                    List.concatMap (\arg -> extractClasses variantPrefix arg lookupTable) args
+                    -- Not a Tailwind function, but visit other args
+                    ( classes
+                    , List.foldl (::) args nextNodes
+                    )
 
         -- Simple value reference: Tw.flex, Tw.items_center
         Expression.FunctionOrValue _ funcName ->
-            case ModuleNameLookupTable.moduleNameAt lookupTable (Node.range node) of
+            case ModuleNameLookupTable.moduleNameAt lookupTable nodeRange of
                 Just [ "Tailwind" ] ->
                     -- Merged module
-                    if isParameterizedFunction funcName || isNonUtilityFunction funcName then
-                        []
+                    ( if isParameterizedFunction funcName || isNonUtilityFunction funcName then
+                        classes
 
-                    else
-                        case elmNameToClassName funcName of
-                            Just className ->
-                                [ applyPrefix variantPrefix className ]
-
-                            Nothing ->
-                                []
+                      else
+                        Set.insert (applyPrefix variantPrefix (elmNameToClassName funcName)) classes
+                    , nextNodes
+                    )
 
                 Just [ "Tailwind", "Utilities" ] ->
                     -- Separate module (codegen output)
-                    if isParameterizedFunction funcName then
-                        []
+                    ( if isParameterizedFunction funcName then
+                        classes
 
-                    else
-                        case elmNameToClassName funcName of
-                            Just className ->
-                                [ applyPrefix variantPrefix className ]
-
-                            Nothing ->
-                                []
+                      else
+                        Set.insert (applyPrefix variantPrefix (elmNameToClassName funcName)) classes
+                    , nextNodes
+                    )
 
                 _ ->
-                    []
+                    ( classes, nextNodes )
 
         -- List expressions (for classes [ ... ])
         Expression.ListExpr items ->
-            List.concatMap (\item -> extractClasses variantPrefix item lookupTable) items
+            ( classes
+            , List.foldl (::) nextNodes items
+            )
 
         -- Parenthesized expressions
         Expression.ParenthesizedExpression inner ->
-            extractClasses variantPrefix inner lookupTable
+            ( classes, inner :: nextNodes )
 
         _ ->
-            []
+            ( classes, nextNodes )
 
 
 {-| Extract classes from a list argument to a variant function.
 -}
-extractFromListArg : String -> Node Expression -> ModuleNameLookupTable -> List String
-extractFromListArg variantPrefix node lookupTable =
+extractFromListArg : String -> Node Expression -> ModuleNameLookupTable -> Set String -> Set String
+extractFromListArg variantPrefix node lookupTable classes =
     case Node.value node of
         Expression.ListExpr items ->
-            List.concatMap (\item -> extractClasses variantPrefix item lookupTable) items
+            extractClasses variantPrefix lookupTable ( classes, items )
 
         _ ->
-            []
+            classes
 
 
 {-| Apply a variant prefix to a class name.
@@ -265,73 +278,23 @@ applyPrefix prefix className =
 
 {-| Get the CSS variant prefix for a breakpoint/variant function.
 -}
-getVariantPrefix : String -> String -> String
-getVariantPrefix funcName existingPrefix =
-    let
-        variantStr =
-            case funcName of
-                "sm" ->
-                    "sm"
+getVariantPrefix : String -> String
+getVariantPrefix funcName =
+    case funcName of
+        "xxl" ->
+            "2xl"
 
-                "md" ->
-                    "md"
+        "focus_within" ->
+            "focus-within"
 
-                "lg" ->
-                    "lg"
+        "focus_visible" ->
+            "focus-visible"
 
-                "xl" ->
-                    "xl"
+        "group_hover" ->
+            "group-hover"
 
-                "xxl" ->
-                    "2xl"
-
-                "hover" ->
-                    "hover"
-
-                "focus" ->
-                    "focus"
-
-                "active" ->
-                    "active"
-
-                "disabled" ->
-                    "disabled"
-
-                "visited" ->
-                    "visited"
-
-                "focus_within" ->
-                    "focus-within"
-
-                "focus_visible" ->
-                    "focus-visible"
-
-                "first" ->
-                    "first"
-
-                "last" ->
-                    "last"
-
-                "odd" ->
-                    "odd"
-
-                "even" ->
-                    "even"
-
-                "dark" ->
-                    "dark"
-
-                "group_hover" ->
-                    "group-hover"
-
-                _ ->
-                    funcName
-    in
-    if String.isEmpty existingPrefix then
-        variantStr
-
-    else
-        existingPrefix ++ ":" ++ variantStr
+        _ ->
+            funcName
 
 
 {-| Non-utility functions (type constructors, helper functions, etc.)
@@ -350,47 +313,10 @@ isNonUtilityFunction name =
 -}
 isParameterizedFunction : String -> Bool
 isParameterizedFunction name =
-    List.member name
-        [ "p"
-        , "px"
-        , "py"
-        , "pt"
-        , "pr"
-        , "pb"
-        , "pl"
-        , "m"
-        , "mx"
-        , "my"
-        , "mt"
-        , "mr"
-        , "mb"
-        , "ml"
-        , "gap"
-        , "gap_x"
-        , "gap_y"
-        , "w"
-        , "h"
-        , "min_w"
-        , "max_w"
-        , "min_h"
-        , "max_h"
-        , "text_color"
-        , "bg_color"
-        , "border_color"
-        , "ring_color"
-        , "placeholder_color"
-        , "neg_m"
-        , "neg_mx"
-        , "neg_my"
-        , "neg_mt"
-        , "neg_mr"
-        , "neg_mb"
-        , "neg_ml"
-        , "raw"
-        , "text_simple"
-        , "bg_simple"
-        , "border_simple"
-        ]
+    Dict.member name spacingClasses
+        || Dict.member name colorFunctions
+        || isSimpleColorFunction name
+        || name == "raw"
 
 
 {-| Extract a class from a utility function application.
@@ -441,7 +367,7 @@ extractOneArg funcName arg lookupTable =
     case Node.value arg of
         -- Simple value: Theme.white, Theme.s4
         Expression.FunctionOrValue _ argName ->
-            case ModuleNameLookupTable.moduleNameAt lookupTable (Node.range arg) of
+            case ModuleNameLookupTable.moduleNameFor lookupTable arg of
                 Just [ "Tailwind", "Theme" ] ->
                     if isColorFunction funcName then
                         -- Simple color like white, black (for text_color white)
@@ -478,7 +404,7 @@ extractOneArg funcName arg lookupTable =
 -}
 isColorFunction : String -> Bool
 isColorFunction name =
-    List.member name [ "text_color", "bg_color", "border_color", "ring_color", "placeholder_color" ]
+    Dict.member name colorFunctions
 
 
 {-| Check if function is a simple color function (takes SimpleColor argument).
@@ -492,24 +418,8 @@ isSimpleColorFunction name =
 -}
 colorFunctionPrefix : String -> String
 colorFunctionPrefix funcName =
-    case funcName of
-        "text_color" ->
-            "text-"
-
-        "bg_color" ->
-            "bg-"
-
-        "border_color" ->
-            "border-"
-
-        "ring_color" ->
-            "ring-"
-
-        "placeholder_color" ->
-            "placeholder-"
-
-        _ ->
-            ""
+    Dict.get funcName colorFunctions
+        |> Maybe.withDefault ""
 
 
 {-| Get the CSS prefix for a simple color function.
@@ -555,13 +465,13 @@ extractColorApplication funcName args lookupTable =
             Nothing
 
 
-{-| Extract from two-argument color function: text_color red s500
+{-| Extract from two-argument color function: `text_color red s500`
 -}
 extractTwoArgColor : String -> Node Expression -> Node Expression -> ModuleNameLookupTable -> Maybe String
 extractTwoArgColor funcName colorArg shadeArg lookupTable =
     case ( Node.value colorArg, Node.value shadeArg ) of
         ( Expression.FunctionOrValue _ colorName, Expression.FunctionOrValue _ shadeName ) ->
-            case ( ModuleNameLookupTable.moduleNameAt lookupTable (Node.range colorArg), ModuleNameLookupTable.moduleNameAt lookupTable (Node.range shadeArg) ) of
+            case ( ModuleNameLookupTable.moduleNameFor lookupTable colorArg, ModuleNameLookupTable.moduleNameFor lookupTable shadeArg ) of
                 ( Just [ "Tailwind", "Theme" ], Just [ "Tailwind", "Theme" ] ) ->
                     let
                         shadeStr =
@@ -584,110 +494,13 @@ extractTwoArgColor funcName colorArg shadeArg lookupTable =
 -}
 extractSpacingClass : String -> String -> Maybe String
 extractSpacingClass funcName argName =
-    let
-        prefix =
-            case funcName of
-                "p" ->
-                    Just "p"
-
-                "px" ->
-                    Just "px"
-
-                "py" ->
-                    Just "py"
-
-                "pt" ->
-                    Just "pt"
-
-                "pr" ->
-                    Just "pr"
-
-                "pb" ->
-                    Just "pb"
-
-                "pl" ->
-                    Just "pl"
-
-                "m" ->
-                    Just "m"
-
-                "mx" ->
-                    Just "mx"
-
-                "my" ->
-                    Just "my"
-
-                "mt" ->
-                    Just "mt"
-
-                "mr" ->
-                    Just "mr"
-
-                "mb" ->
-                    Just "mb"
-
-                "ml" ->
-                    Just "ml"
-
-                "gap" ->
-                    Just "gap"
-
-                "gap_x" ->
-                    Just "gap-x"
-
-                "gap_y" ->
-                    Just "gap-y"
-
-                "w" ->
-                    Just "w"
-
-                "h" ->
-                    Just "h"
-
-                "min_w" ->
-                    Just "min-w"
-
-                "max_w" ->
-                    Just "max-w"
-
-                "min_h" ->
-                    Just "min-h"
-
-                "max_h" ->
-                    Just "max-h"
-
-                "neg_m" ->
-                    Just "-m"
-
-                "neg_mx" ->
-                    Just "-mx"
-
-                "neg_my" ->
-                    Just "-my"
-
-                "neg_mt" ->
-                    Just "-mt"
-
-                "neg_mr" ->
-                    Just "-mr"
-
-                "neg_mb" ->
-                    Just "-mb"
-
-                "neg_ml" ->
-                    Just "-ml"
-
-                _ ->
-                    Nothing
-
-        spacingValue =
-            spacingArgToClass argName
-    in
-    Maybe.map2 (\p s -> p ++ "-" ++ s) prefix spacingValue
+    Maybe.map2 (\p s -> p ++ "-" ++ s)
+        (Dict.get funcName spacingClasses)
+        (spacingArgToClass argName)
 
 
 {-| Convert spacing argument name to class suffix.
-s4 → "4", s0\_dot\_5 → "0.5", spx → "px"
+`s4` → `"4"`, `s0_dot_5` → `"0.5"`, `spx` → `"px"`
 -}
 spacingArgToClass : String -> Maybe String
 spacingArgToClass argName =
@@ -708,28 +521,74 @@ spacingArgToClass argName =
 
 
 {-| Convert simple utility function name to CSS class.
-flex → "flex", items\_center → "items-center", text\_2xl → "text-2xl"
+`flex` → `"flex"`, `items_center` → `"items-center"`, `text_2xl` → `"text-2xl"`
 -}
-elmNameToClassName : String -> Maybe String
+elmNameToClassName : String -> String
 elmNameToClassName elmName =
-    let
+    elmName
         -- Convert _dot_ to .
-        withDots =
-            String.replace "_dot_" "." elmName
-
+        |> String.replace "_dot_" "."
         -- Convert remaining underscores to hyphens
-        className =
-            String.replace "_" "-" withDots
-    in
-    Just className
+        |> String.replace "_" "-"
 
 
 {-| Extract collected classes as JSON.
 -}
 dataExtractor : ProjectContext -> Encode.Value
-dataExtractor context =
+dataExtractor classes =
     Encode.object
         [ ( "classes"
-          , Encode.list Encode.string (Set.toList context.classes)
+          , Encode.set Encode.string classes
           )
+        ]
+
+
+
+-- CLASSES
+
+
+colorFunctions : Dict String String
+colorFunctions =
+    Dict.fromList
+        [ ( "text_color", "text-" )
+        , ( "bg_color", "bg-" )
+        , ( "border_color", "border-" )
+        , ( "ring_color", "ring-" )
+        , ( "placeholder_color", "placeholder-" )
+        ]
+
+
+spacingClasses : Dict.Dict String String
+spacingClasses =
+    Dict.fromList
+        [ ( "p", "p" )
+        , ( "px", "px" )
+        , ( "py", "py" )
+        , ( "pt", "pt" )
+        , ( "pr", "pr" )
+        , ( "pb", "pb" )
+        , ( "pl", "pl" )
+        , ( "m", "m" )
+        , ( "mx", "mx" )
+        , ( "my", "my" )
+        , ( "mt", "mt" )
+        , ( "mr", "mr" )
+        , ( "mb", "mb" )
+        , ( "ml", "ml" )
+        , ( "gap", "gap" )
+        , ( "gap_x", "gap-x" )
+        , ( "gap_y", "gap-y" )
+        , ( "w", "w" )
+        , ( "h", "h" )
+        , ( "min_w", "min-w" )
+        , ( "max_w", "max-w" )
+        , ( "min_h", "min-h" )
+        , ( "max_h", "max-h" )
+        , ( "neg_m", "-m" )
+        , ( "neg_mx", "-mx" )
+        , ( "neg_my", "-my" )
+        , ( "neg_mt", "-mt" )
+        , ( "neg_mr", "-mr" )
+        , ( "neg_mb", "-mb" )
+        , ( "neg_ml", "-ml" )
         ]
