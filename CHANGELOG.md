@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-02-23
+
+### Added
+
+- **CLI command `elm-tailwind-classes gen`** - generates Elm modules from your Tailwind config without running a full Vite build. Useful for CI or when Elm compilation needs the generated API before Vite runs (e.g. with elm-pages).
+
 ## [0.1.1] - 2026-01-31
 
 ### Changed
@@ -30,6 +36,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - **Zero config** - just add the Vite plugin and start coding
 - Support for `Tw.raw` escape hatch for custom classes
 
-[Unreleased]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.1.1...HEAD
+[Unreleased]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/dillonkearns/elm-tailwind-classes/releases/tag/v0.1.0

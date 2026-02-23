@@ -1,9 +1,12 @@
 {
   "name": "elm-tailwind-classes",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Type-safe Tailwind CSS for Elm with static class extraction",
   "type": "module",
   "main": "./vite-plugin/index.js",
+  "bin": {
+    "elm-tailwind-classes": "./vite-plugin/cli.js"
+  },
   "exports": {
     ".": "./vite-plugin/index.js",
     "./vite": "./vite-plugin/index.js"
