@@ -164,6 +164,31 @@ The generated modules are specific to your Tailwind config, so don't commit them
 .elm-tailwind/
 ```
 
+## CLI
+
+The `elm-tailwind-classes gen` command generates Elm modules from your Tailwind config without running Vite. This is useful for CI pipelines or any situation where Elm needs the generated API before Vite runs.
+
+```bash
+npx elm-tailwind-classes gen
+```
+
+**Options:**
+
+```
+--output <dir>    directory for generated Elm modules (default: .elm-tailwind)
+--css <path>      path to CSS file with Tailwind config (auto-detected)
+--debug           enable debug logging
+```
+
+### elm-pages CI builds
+
+In elm-pages projects, Elm compilation happens at the beginning of `elm-pages build`, before Vite runs. Since the Vite plugin normally generates the Elm modules, they won't exist yet when Elm tries to compile. Run `gen` first in your CI script:
+
+```bash
+npx elm-tailwind-classes gen
+npx elm-pages build
+```
+
 ## Plugin Options
 
 ```javascript
