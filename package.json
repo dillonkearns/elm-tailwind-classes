@@ -1,6 +1,6 @@
 {
   "name": "elm-tailwind-classes",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Type-safe Tailwind CSS for Elm with static class extraction",
   "type": "module",
   "main": "./vite-plugin/index.js",
@@ -48,14 +48,14 @@
     "elm-review": ">=2.10.0"
   },
   "dependencies": {
-    "tailwind-resolver": "^0.3.5"
+    "tailwind-resolver": "0.3.5"
   },
   "devDependencies": {
-    "elm-review": "^2.10.3",
-    "elm-test": "^0.19.1-revision9",
-    "elm-tooling": "^1.15.0",
+    "elm-review": "^2.13.5",
+    "elm-test": "^0.19.1-revision17",
+    "elm-tooling": "^1.17.0",
     "elm-verify-examples": "^6.0.3",
-    "prettier": "^3.2.5",
-    "vite": "^6.0.0"
+    "prettier": "^3.8.1",
+    "vite": "^7.3.1"
   }
 }

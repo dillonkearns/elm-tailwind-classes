@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-03-23
+
+### Fixed
+
+- Changed `postinstall` script to `prepare` so that `elm-tooling install` no longer runs when users install the package — fixes installation failures with yarn and nix-based setups
+
+### Changed
+
+- Updated devDependencies: elm-review 2.13.5, elm-test 0.19.1-revision17, elm-tooling 1.17.0, prettier 3.8.1, vite 7.3.1
+
 ## [0.2.0] - 2026-02-23
 
 ### Added
@@ -36,7 +46,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - **Zero config** - just add the Vite plugin and start coding
 - Support for `Tw.raw` escape hatch for custom classes
 
-[Unreleased]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.2.1...HEAD
+[0.2.1]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/dillonkearns/elm-tailwind-classes/releases/tag/v0.1.0
