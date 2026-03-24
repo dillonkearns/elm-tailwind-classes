@@ -28,8 +28,10 @@ jobs:
         id: cache-node_modules
         uses: actions/cache@v4
         with:
-          path: node_modules
-          key: node_modules-${{ hashFiles('package-lock.json') }}
+          path: |
+            node_modules
+            golden/node_modules
+          key: node_modules-${{ hashFiles('package-lock.json', 'golden/package-lock.json') }}
 
       # Re-use ~/.elm between runs until elm.json, elm-tooling.json,
       # review/elm.json, or golden/elm.json changes. The Elm compiler saves downloaded

@@ -23,6 +23,10 @@ echo "=== Compiling Elm ==="
 npx elm make src/Demo.elm --output=/dev/null 2>&1 | tail -1
 
 echo ""
+echo "=== Installing golden dependencies ==="
+npm install --ignore-scripts 2>&1
+
+echo ""
 echo "=== Building with Vite (tests CSS resolution) ==="
 npx vite build 2>&1
 echo "Vite build succeeded"
