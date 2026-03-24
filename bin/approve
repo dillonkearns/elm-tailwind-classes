@@ -72,7 +72,7 @@ fi
 
 echo ""
 echo "=== Checking for snapshot changes ==="
-changed_files=$(git diff --name-only golden/ src/ || true)
+changed_files=$(git diff --name-only -- golden/ src/ ':!golden/package-lock.json' || true)
 
 if [[ -n $changed_files ]]; then
   echo 'WARNING: Generated code has changed.'
