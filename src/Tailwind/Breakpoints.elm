@@ -1,6 +1,22 @@
 module Tailwind.Breakpoints exposing
-    ( sm, md, lg, xl, n2xl
-    , hover, focus, active, disabled, visited, focus_within, focus_visible, first, last, odd, even, dark, group_hover
+    ( sm
+    , md
+    , lg
+    , xl
+    , n2xl
+    , hover
+    , focus
+    , active
+    , disabled
+    , visited
+    , focus_within
+    , focus_visible
+    , first
+    , last
+    , odd
+    , even
+    , dark
+    , group_hover
     , withVariant
     )
 
@@ -11,14 +27,15 @@ with the appropriate variant prefix applied.
 
 Example:
 
-    import Tailwind as Tw exposing (classes)
+    import Tailwind exposing (classes)
+    import Tailwind.Utilities as Tw
     import Tailwind.Breakpoints exposing (hover, md)
-    import Tailwind.Theme exposing (blue, s4, s500, s600)
+    import Tailwind.Theme exposing (s4, blue, s500, s600)
 
     button
         [ classes
-            [ Tw.bg_color (blue s500)
-            , hover [ Tw.bg_color (blue s600) ]
+            [ Tw.bg_color blue_500
+            , hover [ Tw.bg_color blue_600 ]
             , md [ Tw.p s4 ]
             ]
         ]
@@ -60,7 +77,7 @@ sm twClasses =
 
     md [ Tw.flex, Tw.p s8 ]
 
-produces classes like "md:flex md:p-8"
+produces classes like "sm:flex sm:p-8"
 
 -}
 md : List Tailwind -> Tailwind
@@ -72,7 +89,7 @@ md twClasses =
 
     lg [ Tw.flex, Tw.p s8 ]
 
-produces classes like "lg:flex lg:p-8"
+produces classes like "sm:flex sm:p-8"
 
 -}
 lg : List Tailwind -> Tailwind
@@ -84,7 +101,7 @@ lg twClasses =
 
     xl [ Tw.flex, Tw.p s8 ]
 
-produces classes like "xl:flex xl:p-8"
+produces classes like "sm:flex sm:p-8"
 
 -}
 xl : List Tailwind -> Tailwind
@@ -96,7 +113,7 @@ xl twClasses =
 
     n2xl [ Tw.flex, Tw.p s8 ]
 
-produces classes like "2xl:flex 2xl:p-8"
+produces classes like "sm:flex sm:p-8"
 
 -}
 n2xl : List Tailwind -> Tailwind
@@ -104,9 +121,10 @@ n2xl twClasses =
     Tailwind (String.join " " (List.map (\(Tailwind c) -> "2xl:" ++ c) twClasses))
 
 
+
 {-| Apply classes with hover: variant.
 
-    hover [ Tw.bg_color (blue s500), Tw.text_simple white ]
+    hover [ Tw.bg_color blue_500, Tw.text_color white ]
 
 produces "hover:bg-blue-500 hover:text-white"
 
@@ -118,7 +136,7 @@ hover twClasses =
 
 {-| Apply classes with focus: variant.
 
-    focus [ Tw.bg_color (blue s500), Tw.text_simple white ]
+    focus [ Tw.bg_color blue_500, Tw.text_color white ]
 
 produces "focus:bg-blue-500 focus:text-white"
 
@@ -130,7 +148,7 @@ focus twClasses =
 
 {-| Apply classes with active: variant.
 
-    active [ Tw.bg_color (blue s500), Tw.text_simple white ]
+    active [ Tw.bg_color blue_500, Tw.text_color white ]
 
 produces "active:bg-blue-500 active:text-white"
 
@@ -142,7 +160,7 @@ active twClasses =
 
 {-| Apply classes with disabled: variant.
 
-    disabled [ Tw.bg_color (blue s500), Tw.text_simple white ]
+    disabled [ Tw.bg_color blue_500, Tw.text_color white ]
 
 produces "disabled:bg-blue-500 disabled:text-white"
 
@@ -154,7 +172,7 @@ disabled twClasses =
 
 {-| Apply classes with visited: variant.
 
-    visited [ Tw.bg_color (blue s500), Tw.text_simple white ]
+    visited [ Tw.bg_color blue_500, Tw.text_color white ]
 
 produces "visited:bg-blue-500 visited:text-white"
 
@@ -166,7 +184,7 @@ visited twClasses =
 
 {-| Apply classes with focus-within: variant.
 
-    focus_within [ Tw.bg_color (blue s500), Tw.text_simple white ]
+    focus_within [ Tw.bg_color blue_500, Tw.text_color white ]
 
 produces "focus-within:bg-blue-500 focus-within:text-white"
 
@@ -178,7 +196,7 @@ focus_within twClasses =
 
 {-| Apply classes with focus-visible: variant.
 
-    focus_visible [ Tw.bg_color (blue s500), Tw.text_simple white ]
+    focus_visible [ Tw.bg_color blue_500, Tw.text_color white ]
 
 produces "focus-visible:bg-blue-500 focus-visible:text-white"
 
@@ -190,7 +208,7 @@ focus_visible twClasses =
 
 {-| Apply classes with first: variant.
 
-    first [ Tw.bg_color (blue s500), Tw.text_simple white ]
+    first [ Tw.bg_color blue_500, Tw.text_color white ]
 
 produces "first:bg-blue-500 first:text-white"
 
@@ -202,7 +220,7 @@ first twClasses =
 
 {-| Apply classes with last: variant.
 
-    last [ Tw.bg_color (blue s500), Tw.text_simple white ]
+    last [ Tw.bg_color blue_500, Tw.text_color white ]
 
 produces "last:bg-blue-500 last:text-white"
 
@@ -214,7 +232,7 @@ last twClasses =
 
 {-| Apply classes with odd: variant.
 
-    odd [ Tw.bg_color (blue s500), Tw.text_simple white ]
+    odd [ Tw.bg_color blue_500, Tw.text_color white ]
 
 produces "odd:bg-blue-500 odd:text-white"
 
@@ -226,7 +244,7 @@ odd twClasses =
 
 {-| Apply classes with even: variant.
 
-    even [ Tw.bg_color (blue s500), Tw.text_simple white ]
+    even [ Tw.bg_color blue_500, Tw.text_color white ]
 
 produces "even:bg-blue-500 even:text-white"
 
@@ -238,7 +256,7 @@ even twClasses =
 
 {-| Apply classes with dark: variant.
 
-    dark [ Tw.bg_color (blue s500), Tw.text_simple white ]
+    dark [ Tw.bg_color blue_500, Tw.text_color white ]
 
 produces "dark:bg-blue-500 dark:text-white"
 
@@ -250,7 +268,7 @@ dark twClasses =
 
 {-| Apply classes with group-hover: variant.
 
-    group_hover [ Tw.bg_color (blue s500), Tw.text_simple white ]
+    group_hover [ Tw.bg_color blue_500, Tw.text_color white ]
 
 produces "group-hover:bg-blue-500 group-hover:text-white"
 
@@ -262,7 +280,7 @@ group_hover twClasses =
 
 {-| Apply a custom variant prefix to a list of Tailwind values.
 
-    withVariant "aria-selected" [ Tw.bg_color (blue s500), Tw.text_simple white ]
+    withVariant "aria-selected" [ Tw.bg_color blue_500, Tw.text_color white ]
 
 produces "aria-selected:bg-blue-500 aria-selected:text-white"
 
