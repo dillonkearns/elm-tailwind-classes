@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.2.2] - 2026-03-24
+
+### Fixed
+
+- Fix CSS resolution error when user styles contain relative `@import` paths. The plugin was copying CSS content into `.elm-tailwind/user-styles.css`, breaking relative paths like `@import "./print.css"`. The wrapper now imports the original file directly so all paths resolve naturally.
+
+### Changed
+
+- Moved utility functions to dedicated `Tailwind.Utilities` module, keeping the core `Tailwind` module focused on the `Tailwind` type, `classes`, `batch`, and `raw`.
+
 ## [0.2.1] - 2026-03-23
 
 ### Fixed
@@ -46,7 +56,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - **Zero config** - just add the Vite plugin and start coding
 - Support for `Tw.raw` escape hatch for custom classes
 
-[Unreleased]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.2.1...HEAD
+[Unreleased]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.2.2...HEAD
+[0.2.2]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.2.1...v0.2.2
 [0.2.1]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.1.0...v0.1.1
