@@ -20,19 +20,21 @@ run =
         [ Snapshot.taskTest "exposed utilities" <|
             (File.rawFile "../.elm-tailwind/Tailwind.elm"
                 |> BackendTask.allowFatal
-                |> BackendTask.map extractUtilityNames
+                |> BackendTask.map extractTypeSignatures
             )
         ]
 
 
-{-| Extract utility function names from the generated Tailwind.elm source.
+{-| Extract all type signatures from the generated Tailwind.elm source.
 
-Looks for lines matching the pattern `functionName : Tailwind` and extracts
-the function name. Sorts the result for stable diffing.
+Captures every top-level type annotation (lines matching `name : Type`)
+including both simple utilities (`flex : Tailwind`) and parameterized
+functions (`p : Spacing -> Tailwind`, `text_color : Color -> Tailwind`).
+Sorts for stable diffing.
 
 -}
-extractUtilityNames : String -> String
-extractUtilityNames source =
+extractTypeSignatures : String -> String
+extractTypeSignatures source =
     source
         |> String.lines
         |> List.filterMap
@@ -41,11 +43,25 @@ extractUtilityNames source =
                     trimmed =
                         String.trim line
                 in
-                if String.endsWith " : Tailwind" trimmed then
-                    Just (String.dropRight (String.length " : Tailwind") trimmed)
+                -- Match top-level type annotations: starts with lowercase, contains " : "
+                -- Skip lines that are part of doc comments or record fields
+                if isTypeAnnotation trimmed then
+                    Just trimmed
 
                 else
                     Nothing
             )
         |> List.sort
         |> String.join "\n"
+
+
+isTypeAnnotation : String -> Bool
+isTypeAnnotation line =
+    case String.uncons line of
+        Just ( firstChar, _ ) ->
+            Char.isLower firstChar
+                && String.contains " : " line
+                && not (String.contains "=" line)
+
+        Nothing ->
+            False

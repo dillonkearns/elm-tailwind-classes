@@ -1,933 +1,976 @@
-absolute
-accent_auto
-align_baseline
-align_bottom
-align_middle
-align_sub
-align_super
-align_text_bottom
-align_text_top
-align_top
-animate_bounce
-animate_none
-animate_ping
-animate_pulse
-animate_spin
-antialiased
-appearance_auto
-appearance_none
-backface_hidden
-backface_visible
-basis_auto
-basis_full
-basis_px
-bg_auto
-bg_blend_color
-bg_blend_color_burn
-bg_blend_color_dodge
-bg_blend_darken
-bg_blend_difference
-bg_blend_exclusion
-bg_blend_hard_light
-bg_blend_hue
-bg_blend_lighten
-bg_blend_luminosity
-bg_blend_multiply
-bg_blend_normal
-bg_blend_overlay
-bg_blend_saturation
-bg_blend_screen
-bg_blend_soft_light
-bg_bottom
-bg_bottom_left
-bg_bottom_right
-bg_center
-bg_clip_border
-bg_clip_content
-bg_clip_padding
-bg_clip_text
-bg_contain
-bg_cover
-bg_fixed
-bg_gradient_to_b
-bg_gradient_to_bl
-bg_gradient_to_br
-bg_gradient_to_l
-bg_gradient_to_r
-bg_gradient_to_t
-bg_gradient_to_tl
-bg_gradient_to_tr
-bg_left
-bg_left_bottom
-bg_left_top
-bg_local
-bg_no_repeat
-bg_none
-bg_origin_border
-bg_origin_content
-bg_origin_padding
-bg_repeat
-bg_repeat_round
-bg_repeat_space
-bg_repeat_x
-bg_repeat_y
-bg_right
-bg_right_bottom
-bg_right_top
-bg_scroll
-bg_top
-bg_top_left
-bg_top_right
-block
-border
-border_0
-border_2
-border_4
-border_8
-border_b
-border_collapse
-border_dashed
-border_dotted
-border_double
-border_hidden
-border_l
-border_none
-border_r
-border_separate
-border_solid
-border_spacing_px
-border_spacing_x_px
-border_spacing_y_px
-border_t
-bottom_auto
-bottom_full
-bottom_px
-box_border
-box_content
-box_decoration_clone
-box_decoration_slice
-break_after_all
-break_after_auto
-break_after_avoid
-break_after_avoid_page
-break_after_column
-break_after_left
-break_after_page
-break_after_right
-break_all
-break_before_all
-break_before_auto
-break_before_avoid
-break_before_avoid_page
-break_before_column
-break_before_left
-break_before_page
-break_before_right
-break_inside_auto
-break_inside_avoid
-break_inside_avoid_column
-break_inside_avoid_page
-break_keep
-break_normal
-break_words
-buttonStyles
-capitalize
-caption_bottom
-caption_top
-clear_both
-clear_end
-clear_left
-clear_none
-clear_right
-clear_start
-collapse
-contain_content
-contain_inline_size
-contain_layout
-contain_none
-contain_paint
-contain_size
-contain_strict
-contain_style
-container
-content_around
-content_baseline
-content_between
-content_center
-content_center_safe
-content_end
-content_end_safe
-content_evenly
-content_none
-content_normal
-content_start
-content_stretch
-contents
-cursor_alias
-cursor_all_scroll
-cursor_auto
-cursor_cell
-cursor_col_resize
-cursor_context_menu
-cursor_copy
-cursor_crosshair
-cursor_default
-cursor_e_resize
-cursor_ew_resize
-cursor_grab
-cursor_grabbing
-cursor_help
-cursor_move
-cursor_n_resize
-cursor_ne_resize
-cursor_nesw_resize
-cursor_no_drop
-cursor_none
-cursor_not_allowed
-cursor_ns_resize
-cursor_nw_resize
-cursor_nwse_resize
-cursor_pointer
-cursor_progress
-cursor_row_resize
-cursor_s_resize
-cursor_se_resize
-cursor_sw_resize
-cursor_text
-cursor_vertical_text
-cursor_w_resize
-cursor_wait
-cursor_zoom_in
-cursor_zoom_out
-decoration_auto
-decoration_clone
-decoration_dashed
-decoration_dotted
-decoration_double
-decoration_from_font
-decoration_slice
-decoration_solid
-decoration_wavy
-diagonal_fractions
-divide_dashed
-divide_dotted
-divide_double
-divide_none
-divide_solid
-divide_x_reverse
-divide_y_reverse
-drop_shadow_none
-duration_initial
-end_auto
-end_full
-end_px
-field_sizing_content
-field_sizing_fixed
-fill_none
-fixed
-flex
-flex_auto
-flex_col
-flex_col_reverse
-flex_initial
-flex_none
-flex_nowrap
-flex_row
-flex_row_reverse
-flex_wrap
-flex_wrap_reverse
-float_end
-float_left
-float_none
-float_right
-float_start
-flow_root
-font_black
-font_bold
-font_extrabold
-font_extralight
-font_light
-font_medium
-font_mono
-font_normal
-font_sans
-font_semibold
-font_serif
-font_stretch_condensed
-font_stretch_expanded
-font_stretch_extra_condensed
-font_stretch_extra_expanded
-font_stretch_normal
-font_stretch_semi_condensed
-font_stretch_semi_expanded
-font_stretch_ultra_condensed
-font_stretch_ultra_expanded
-font_thin
-forced_color_adjust_auto
-forced_color_adjust_none
-gap_px
-gap_x_px
-gap_y_px
-grid
-grid_flow_col
-grid_flow_col_dense
-grid_flow_dense
-grid_flow_row
-grid_flow_row_dense
-grow
-grow_0
-h_10over12
-h_11over12
-h_1over12
-h_1over2
-h_1over3
-h_1over4
-h_1over5
-h_1over6
-h_2over12
-h_2over3
-h_2over4
-h_2over5
-h_2over6
-h_3over12
-h_3over4
-h_3over5
-h_3over6
-h_4over12
-h_4over5
-h_4over6
-h_5over12
-h_5over6
-h_6over12
-h_7over12
-h_8over12
-h_9over12
-h_auto
-h_dvh
-h_dvw
-h_fit
-h_full
-h_lh
-h_lvh
-h_lvw
-h_max
-h_min
-h_px
-h_screen
-h_svh
-h_svw
-hidden
-hyphens_auto
-hyphens_manual
-hyphens_none
-indent_px
-inline
-inline_block
-inline_flex
-inline_grid
-inline_table
-inset_auto
-inset_full
-inset_px
-inset_shadow_initial
-inset_x_auto
-inset_x_full
-inset_x_px
-inset_y_auto
-inset_y_full
-inset_y_px
-invisible
-isolate
-isolation_auto
-italic
-items_baseline
-items_baseline_last
-items_center
-items_center_safe
-items_end
-items_end_safe
-items_start
-items_stretch
-justify_around
-justify_baseline
-justify_between
-justify_center
-justify_center_safe
-justify_end
-justify_end_safe
-justify_evenly
-justify_items_center
-justify_items_center_safe
-justify_items_end
-justify_items_end_safe
-justify_items_normal
-justify_items_start
-justify_items_stretch
-justify_normal
-justify_self_auto
-justify_self_center
-justify_self_center_safe
-justify_self_end
-justify_self_end_safe
-justify_self_start
-justify_self_stretch
-justify_start
-justify_stretch
-leading_px
-left_auto
-left_full
-left_px
-line_through
-lining_nums
-list_inside
-list_item
-list_outside
-lowercase
-m_auto
-m_px
-mask_add
-mask_alpha
-mask_auto
-mask_bottom
-mask_bottom_left
-mask_bottom_right
-mask_center
-mask_circle
-mask_clip_border
-mask_clip_content
-mask_clip_fill
-mask_clip_padding
-mask_clip_stroke
-mask_clip_view
-mask_contain
-mask_cover
-mask_ellipse
-mask_exclude
-mask_intersect
-mask_left
-mask_luminance
-mask_match
-mask_no_clip
-mask_no_repeat
-mask_none
-mask_origin_border
-mask_origin_content
-mask_origin_fill
-mask_origin_padding
-mask_origin_stroke
-mask_origin_view
-mask_radial_at_bottom
-mask_radial_at_bottom_left
-mask_radial_at_bottom_right
-mask_radial_at_center
-mask_radial_at_left
-mask_radial_at_right
-mask_radial_at_top
-mask_radial_at_top_left
-mask_radial_at_top_right
-mask_radial_closest_corner
-mask_radial_closest_side
-mask_radial_farthest_corner
-mask_radial_farthest_side
-mask_repeat
-mask_repeat_round
-mask_repeat_space
-mask_repeat_x
-mask_repeat_y
-mask_right
-mask_subtract
-mask_top
-mask_top_left
-mask_top_right
-mask_type_alpha
-mask_type_luminance
-max_h_dvh
-max_h_dvw
-max_h_fit
-max_h_full
-max_h_lh
-max_h_lvh
-max_h_lvw
-max_h_max
-max_h_min
-max_h_none
-max_h_px
-max_h_screen
-max_h_svh
-max_h_svw
-max_w_dvh
-max_w_dvw
-max_w_fit
-max_w_full
-max_w_lvh
-max_w_lvw
-max_w_max
-max_w_min
-max_w_none
-max_w_px
-max_w_screen
-max_w_svh
-max_w_svw
-mb_auto
-mb_px
-me_auto
-me_px
-min_h_auto
-min_h_dvh
-min_h_dvw
-min_h_fit
-min_h_full
-min_h_lh
-min_h_lvh
-min_h_lvw
-min_h_max
-min_h_min
-min_h_px
-min_h_screen
-min_h_svh
-min_h_svw
-min_w_auto
-min_w_dvh
-min_w_dvw
-min_w_fit
-min_w_full
-min_w_lvh
-min_w_lvw
-min_w_max
-min_w_min
-min_w_px
-min_w_screen
-min_w_svh
-min_w_svw
-mix_blend_color
-mix_blend_color_burn
-mix_blend_color_dodge
-mix_blend_darken
-mix_blend_difference
-mix_blend_exclusion
-mix_blend_hard_light
-mix_blend_hue
-mix_blend_lighten
-mix_blend_luminosity
-mix_blend_multiply
-mix_blend_normal
-mix_blend_overlay
-mix_blend_plus_darker
-mix_blend_plus_lighter
-mix_blend_saturation
-mix_blend_screen
-mix_blend_soft_light
-ml_auto
-ml_px
-mr_auto
-mr_px
-ms_auto
-ms_px
-mt_auto
-mt_px
-mx_auto
-mx_px
-my_auto
-my_px
-neg_bottom_full
-neg_bottom_px
-neg_end_full
-neg_end_px
-neg_indent_px
-neg_inset_full
-neg_inset_px
-neg_inset_x_full
-neg_inset_x_px
-neg_inset_y_full
-neg_inset_y_px
-neg_left_full
-neg_left_px
-neg_m_px
-neg_mb_px
-neg_me_px
-neg_ml_px
-neg_mr_px
-neg_ms_px
-neg_mt_px
-neg_mx_px
-neg_my_px
-neg_right_full
-neg_right_px
-neg_scroll_m_px
-neg_scroll_mb_px
-neg_scroll_me_px
-neg_scroll_ml_px
-neg_scroll_mr_px
-neg_scroll_ms_px
-neg_scroll_mt_px
-neg_scroll_mx_px
-neg_scroll_my_px
-neg_space_x_px
-neg_space_y_px
-neg_start_full
-neg_start_px
-neg_top_full
-neg_top_px
-neg_translate_full
-neg_translate_px
-neg_translate_x_full
-neg_translate_x_px
-neg_translate_y_full
-neg_translate_y_px
-neg_translate_z_px
-no_underline
-normal_case
-normal_nums
-not_italic
-not_sr_only
-object_contain
-object_cover
-object_fill
-object_left_bottom
-object_left_top
-object_none
-object_right_bottom
-object_right_top
-object_scale_down
-oldstyle_nums
-opacity_0
-opacity_10
-opacity_100
-opacity_20
-opacity_25
-opacity_30
-opacity_40
-opacity_5
-opacity_50
-opacity_60
-opacity_70
-opacity_75
-opacity_80
-opacity_90
-opacity_95
-order_none
-ordinal
-outline_dashed
-outline_dotted
-outline_double
-outline_hidden
-outline_none
-outline_solid
-overflow_auto
-overflow_clip
-overflow_ellipsis
-overflow_hidden
-overflow_scroll
-overflow_visible
-overflow_x_auto
-overflow_x_clip
-overflow_x_hidden
-overflow_x_scroll
-overflow_x_visible
-overflow_y_auto
-overflow_y_clip
-overflow_y_hidden
-overflow_y_scroll
-overflow_y_visible
-overline
-overscroll_auto
-overscroll_contain
-overscroll_none
-overscroll_x_auto
-overscroll_x_contain
-overscroll_x_none
-overscroll_y_auto
-overscroll_y_contain
-overscroll_y_none
-p_px
-pb_px
-pe_px
-pl_px
-place_content_around
-place_content_baseline
-place_content_between
-place_content_center
-place_content_center_safe
-place_content_end
-place_content_end_safe
-place_content_evenly
-place_content_start
-place_content_stretch
-place_items_baseline
-place_items_center
-place_items_center_safe
-place_items_end
-place_items_end_safe
-place_items_start
-place_items_stretch
-place_self_auto
-place_self_center
-place_self_center_safe
-place_self_end
-place_self_end_safe
-place_self_start
-place_self_stretch
-pointer_events_auto
-pointer_events_none
-pr_px
-proportional_nums
-ps_px
-pt_px
-px_px
-py_px
-relative
-resize
-resize_none
-resize_x
-resize_y
-right_auto
-right_full
-right_px
-ring_inset
-rotate_none
-rounded
-rounded_full
-rounded_lg
-rounded_md
-rounded_n2xl
-rounded_n3xl
-rounded_n4xl
-rounded_none
-rounded_sm
-rounded_xl
-rounded_xs
-scale_3d
-scale_none
-scheme_dark
-scheme_light
-scheme_light_dark
-scheme_normal
-scheme_only_dark
-scheme_only_light
-scroll_auto
-scroll_m_px
-scroll_mb_px
-scroll_me_px
-scroll_ml_px
-scroll_mr_px
-scroll_ms_px
-scroll_mt_px
-scroll_mx_px
-scroll_my_px
-scroll_p_px
-scroll_pb_px
-scroll_pe_px
-scroll_pl_px
-scroll_pr_px
-scroll_ps_px
-scroll_pt_px
-scroll_px_px
-scroll_py_px
-scroll_smooth
-select_all
-select_auto
-select_none
-select_text
-self_auto
-self_baseline
-self_baseline_last
-self_center
-self_center_safe
-self_end
-self_end_safe
-self_start
-self_stretch
-shadow
-shadow_initial
-shadow_inner
-shadow_lg
-shadow_md
-shadow_n2xl
-shadow_n2xs
-shadow_none
-shadow_sm
-shadow_xl
-shadow_xs
-shrink
-shrink_0
-size_auto
-size_dvh
-size_dvw
-size_fit
-size_full
-size_lvh
-size_lvw
-size_max
-size_min
-size_px
-size_svh
-size_svw
-slashed_zero
-snap_align_none
-snap_always
-snap_both
-snap_center
-snap_end
-snap_mandatory
-snap_none
-snap_normal
-snap_proximity
-snap_start
-snap_x
-snap_y
-space_x_px
-space_x_reverse
-space_y_px
-space_y_reverse
-sr_only
-stacked_fractions
-start_auto
-start_full
-start_px
-static
-sticky
-stroke_none
-subpixel_antialiased
-table
-table_auto
-table_caption
-table_cell
-table_column
-table_column_group
-table_fixed
-table_footer_group
-table_header_group
-table_row
-table_row_group
-tabular_nums
-text_balance
-text_base
-text_center
-text_clip
-text_ellipsis
-text_end
-text_justify
-text_left
-text_lg
-text_n2xl
-text_n3xl
-text_n4xl
-text_n5xl
-text_n6xl
-text_n7xl
-text_n8xl
-text_n9xl
-text_nowrap
-text_pretty
-text_right
-text_shadow_initial
-text_sm
-text_start
-text_wrap
-text_xl
-text_xs
-top_auto
-top_full
-top_px
-touch_auto
-touch_manipulation
-touch_none
-touch_pan_down
-touch_pan_left
-touch_pan_right
-touch_pan_up
-touch_pan_x
-touch_pan_y
-touch_pinch_zoom
-transform_3d
-transform_border
-transform_content
-transform_cpu
-transform_fill
-transform_flat
-transform_gpu
-transform_none
-transform_stroke
-transform_view
-transition
-transition_all
-transition_colors
-transition_discrete
-transition_none
-transition_normal
-transition_opacity
-transition_shadow
-transition_transform
-translate_3d
-translate_full
-translate_none
-translate_px
-translate_x_full
-translate_x_px
-translate_y_full
-translate_y_px
-translate_z_px
-truncate
-underline
-uppercase
-via_none
-visible
-w_10over12
-w_11over12
-w_1over12
-w_1over2
-w_1over3
-w_1over4
-w_1over5
-w_1over6
-w_2over12
-w_2over3
-w_2over4
-w_2over5
-w_2over6
-w_3over12
-w_3over4
-w_3over5
-w_3over6
-w_4over12
-w_4over5
-w_4over6
-w_5over12
-w_5over6
-w_6over12
-w_7over12
-w_8over12
-w_9over12
-w_auto
-w_dvh
-w_dvw
-w_fit
-w_full
-w_lvh
-w_lvw
-w_max
-w_min
-w_px
-w_screen
-w_svh
-w_svw
-whitespace_break_spaces
-whitespace_normal
-whitespace_nowrap
-whitespace_pre
-whitespace_pre_line
-whitespace_pre_wrap
-will_change_auto
-will_change_contents
-will_change_scroll
-will_change_transform
-wrap_anywhere
-wrap_break_word
-wrap_normal
-z_0
-z_10
-z_20
-z_30
-z_40
-z_50
-z_auto
+absolute : Tailwind
+accent_auto : Tailwind
+align_baseline : Tailwind
+align_bottom : Tailwind
+align_middle : Tailwind
+align_sub : Tailwind
+align_super : Tailwind
+align_text_bottom : Tailwind
+align_text_top : Tailwind
+align_top : Tailwind
+animate_bounce : Tailwind
+animate_none : Tailwind
+animate_ping : Tailwind
+animate_pulse : Tailwind
+animate_spin : Tailwind
+antialiased : Tailwind
+appearance_auto : Tailwind
+appearance_none : Tailwind
+backface_hidden : Tailwind
+backface_visible : Tailwind
+basis_auto : Tailwind
+basis_full : Tailwind
+basis_px : Tailwind
+batch : List Tailwind -> Tailwind
+bg_auto : Tailwind
+bg_blend_color : Tailwind
+bg_blend_color_burn : Tailwind
+bg_blend_color_dodge : Tailwind
+bg_blend_darken : Tailwind
+bg_blend_difference : Tailwind
+bg_blend_exclusion : Tailwind
+bg_blend_hard_light : Tailwind
+bg_blend_hue : Tailwind
+bg_blend_lighten : Tailwind
+bg_blend_luminosity : Tailwind
+bg_blend_multiply : Tailwind
+bg_blend_normal : Tailwind
+bg_blend_overlay : Tailwind
+bg_blend_saturation : Tailwind
+bg_blend_screen : Tailwind
+bg_blend_soft_light : Tailwind
+bg_bottom : Tailwind
+bg_bottom_left : Tailwind
+bg_bottom_right : Tailwind
+bg_center : Tailwind
+bg_clip_border : Tailwind
+bg_clip_content : Tailwind
+bg_clip_padding : Tailwind
+bg_clip_text : Tailwind
+bg_color : Color -> Tailwind
+bg_contain : Tailwind
+bg_cover : Tailwind
+bg_fixed : Tailwind
+bg_gradient_to_b : Tailwind
+bg_gradient_to_bl : Tailwind
+bg_gradient_to_br : Tailwind
+bg_gradient_to_l : Tailwind
+bg_gradient_to_r : Tailwind
+bg_gradient_to_t : Tailwind
+bg_gradient_to_tl : Tailwind
+bg_gradient_to_tr : Tailwind
+bg_left : Tailwind
+bg_left_bottom : Tailwind
+bg_left_top : Tailwind
+bg_local : Tailwind
+bg_no_repeat : Tailwind
+bg_none : Tailwind
+bg_origin_border : Tailwind
+bg_origin_content : Tailwind
+bg_origin_padding : Tailwind
+bg_repeat : Tailwind
+bg_repeat_round : Tailwind
+bg_repeat_space : Tailwind
+bg_repeat_x : Tailwind
+bg_repeat_y : Tailwind
+bg_right : Tailwind
+bg_right_bottom : Tailwind
+bg_right_top : Tailwind
+bg_scroll : Tailwind
+bg_simple : SimpleColor -> Tailwind
+bg_top : Tailwind
+bg_top_left : Tailwind
+bg_top_right : Tailwind
+block : Tailwind
+border : Tailwind
+border_0 : Tailwind
+border_2 : Tailwind
+border_4 : Tailwind
+border_8 : Tailwind
+border_b : Tailwind
+border_collapse : Tailwind
+border_color : Color -> Tailwind
+border_dashed : Tailwind
+border_dotted : Tailwind
+border_double : Tailwind
+border_hidden : Tailwind
+border_l : Tailwind
+border_none : Tailwind
+border_r : Tailwind
+border_separate : Tailwind
+border_simple : SimpleColor -> Tailwind
+border_solid : Tailwind
+border_spacing_px : Tailwind
+border_spacing_x_px : Tailwind
+border_spacing_y_px : Tailwind
+border_t : Tailwind
+bottom_auto : Tailwind
+bottom_full : Tailwind
+bottom_px : Tailwind
+box_border : Tailwind
+box_content : Tailwind
+box_decoration_clone : Tailwind
+box_decoration_slice : Tailwind
+break_after_all : Tailwind
+break_after_auto : Tailwind
+break_after_avoid : Tailwind
+break_after_avoid_page : Tailwind
+break_after_column : Tailwind
+break_after_left : Tailwind
+break_after_page : Tailwind
+break_after_right : Tailwind
+break_all : Tailwind
+break_before_all : Tailwind
+break_before_auto : Tailwind
+break_before_avoid : Tailwind
+break_before_avoid_page : Tailwind
+break_before_column : Tailwind
+break_before_left : Tailwind
+break_before_page : Tailwind
+break_before_right : Tailwind
+break_inside_auto : Tailwind
+break_inside_avoid : Tailwind
+break_inside_avoid_column : Tailwind
+break_inside_avoid_page : Tailwind
+break_keep : Tailwind
+break_normal : Tailwind
+break_words : Tailwind
+buttonStyles : Tailwind
+capitalize : Tailwind
+caption_bottom : Tailwind
+caption_top : Tailwind
+classes : List Tailwind -> Attribute msg
+clear_both : Tailwind
+clear_end : Tailwind
+clear_left : Tailwind
+clear_none : Tailwind
+clear_right : Tailwind
+clear_start : Tailwind
+collapse : Tailwind
+contain_content : Tailwind
+contain_inline_size : Tailwind
+contain_layout : Tailwind
+contain_none : Tailwind
+contain_paint : Tailwind
+contain_size : Tailwind
+contain_strict : Tailwind
+contain_style : Tailwind
+container : Tailwind
+content_around : Tailwind
+content_baseline : Tailwind
+content_between : Tailwind
+content_center : Tailwind
+content_center_safe : Tailwind
+content_end : Tailwind
+content_end_safe : Tailwind
+content_evenly : Tailwind
+content_none : Tailwind
+content_normal : Tailwind
+content_start : Tailwind
+content_stretch : Tailwind
+contents : Tailwind
+cursor_alias : Tailwind
+cursor_all_scroll : Tailwind
+cursor_auto : Tailwind
+cursor_cell : Tailwind
+cursor_col_resize : Tailwind
+cursor_context_menu : Tailwind
+cursor_copy : Tailwind
+cursor_crosshair : Tailwind
+cursor_default : Tailwind
+cursor_e_resize : Tailwind
+cursor_ew_resize : Tailwind
+cursor_grab : Tailwind
+cursor_grabbing : Tailwind
+cursor_help : Tailwind
+cursor_move : Tailwind
+cursor_n_resize : Tailwind
+cursor_ne_resize : Tailwind
+cursor_nesw_resize : Tailwind
+cursor_no_drop : Tailwind
+cursor_none : Tailwind
+cursor_not_allowed : Tailwind
+cursor_ns_resize : Tailwind
+cursor_nw_resize : Tailwind
+cursor_nwse_resize : Tailwind
+cursor_pointer : Tailwind
+cursor_progress : Tailwind
+cursor_row_resize : Tailwind
+cursor_s_resize : Tailwind
+cursor_se_resize : Tailwind
+cursor_sw_resize : Tailwind
+cursor_text : Tailwind
+cursor_vertical_text : Tailwind
+cursor_w_resize : Tailwind
+cursor_wait : Tailwind
+cursor_zoom_in : Tailwind
+cursor_zoom_out : Tailwind
+decoration_auto : Tailwind
+decoration_clone : Tailwind
+decoration_dashed : Tailwind
+decoration_dotted : Tailwind
+decoration_double : Tailwind
+decoration_from_font : Tailwind
+decoration_slice : Tailwind
+decoration_solid : Tailwind
+decoration_wavy : Tailwind
+diagonal_fractions : Tailwind
+divide_dashed : Tailwind
+divide_dotted : Tailwind
+divide_double : Tailwind
+divide_none : Tailwind
+divide_solid : Tailwind
+divide_x_reverse : Tailwind
+divide_y_reverse : Tailwind
+drop_shadow_none : Tailwind
+duration_initial : Tailwind
+end_auto : Tailwind
+end_full : Tailwind
+end_px : Tailwind
+field_sizing_content : Tailwind
+field_sizing_fixed : Tailwind
+fill_none : Tailwind
+fixed : Tailwind
+flex : Tailwind
+flex_auto : Tailwind
+flex_col : Tailwind
+flex_col_reverse : Tailwind
+flex_initial : Tailwind
+flex_none : Tailwind
+flex_nowrap : Tailwind
+flex_row : Tailwind
+flex_row_reverse : Tailwind
+flex_wrap : Tailwind
+flex_wrap_reverse : Tailwind
+float_end : Tailwind
+float_left : Tailwind
+float_none : Tailwind
+float_right : Tailwind
+float_start : Tailwind
+flow_root : Tailwind
+font_black : Tailwind
+font_bold : Tailwind
+font_extrabold : Tailwind
+font_extralight : Tailwind
+font_light : Tailwind
+font_medium : Tailwind
+font_mono : Tailwind
+font_normal : Tailwind
+font_sans : Tailwind
+font_semibold : Tailwind
+font_serif : Tailwind
+font_stretch_condensed : Tailwind
+font_stretch_expanded : Tailwind
+font_stretch_extra_condensed : Tailwind
+font_stretch_extra_expanded : Tailwind
+font_stretch_normal : Tailwind
+font_stretch_semi_condensed : Tailwind
+font_stretch_semi_expanded : Tailwind
+font_stretch_ultra_condensed : Tailwind
+font_stretch_ultra_expanded : Tailwind
+font_thin : Tailwind
+forced_color_adjust_auto : Tailwind
+forced_color_adjust_none : Tailwind
+gap : Spacing -> Tailwind
+gap_px : Tailwind
+gap_x : Spacing -> Tailwind
+gap_x_px : Tailwind
+gap_y : Spacing -> Tailwind
+gap_y_px : Tailwind
+grid : Tailwind
+grid_flow_col : Tailwind
+grid_flow_col_dense : Tailwind
+grid_flow_dense : Tailwind
+grid_flow_row : Tailwind
+grid_flow_row_dense : Tailwind
+grow : Tailwind
+grow_0 : Tailwind
+h : Spacing -> Tailwind
+h_10over12 : Tailwind
+h_11over12 : Tailwind
+h_1over12 : Tailwind
+h_1over2 : Tailwind
+h_1over3 : Tailwind
+h_1over4 : Tailwind
+h_1over5 : Tailwind
+h_1over6 : Tailwind
+h_2over12 : Tailwind
+h_2over3 : Tailwind
+h_2over4 : Tailwind
+h_2over5 : Tailwind
+h_2over6 : Tailwind
+h_3over12 : Tailwind
+h_3over4 : Tailwind
+h_3over5 : Tailwind
+h_3over6 : Tailwind
+h_4over12 : Tailwind
+h_4over5 : Tailwind
+h_4over6 : Tailwind
+h_5over12 : Tailwind
+h_5over6 : Tailwind
+h_6over12 : Tailwind
+h_7over12 : Tailwind
+h_8over12 : Tailwind
+h_9over12 : Tailwind
+h_auto : Tailwind
+h_dvh : Tailwind
+h_dvw : Tailwind
+h_fit : Tailwind
+h_full : Tailwind
+h_lh : Tailwind
+h_lvh : Tailwind
+h_lvw : Tailwind
+h_max : Tailwind
+h_min : Tailwind
+h_px : Tailwind
+h_screen : Tailwind
+h_svh : Tailwind
+h_svw : Tailwind
+hidden : Tailwind
+hyphens_auto : Tailwind
+hyphens_manual : Tailwind
+hyphens_none : Tailwind
+indent_px : Tailwind
+inline : Tailwind
+inline_block : Tailwind
+inline_flex : Tailwind
+inline_grid : Tailwind
+inline_table : Tailwind
+inset_auto : Tailwind
+inset_full : Tailwind
+inset_px : Tailwind
+inset_shadow_initial : Tailwind
+inset_x_auto : Tailwind
+inset_x_full : Tailwind
+inset_x_px : Tailwind
+inset_y_auto : Tailwind
+inset_y_full : Tailwind
+inset_y_px : Tailwind
+invisible : Tailwind
+isolate : Tailwind
+isolation_auto : Tailwind
+italic : Tailwind
+items_baseline : Tailwind
+items_baseline_last : Tailwind
+items_center : Tailwind
+items_center_safe : Tailwind
+items_end : Tailwind
+items_end_safe : Tailwind
+items_start : Tailwind
+items_stretch : Tailwind
+justify_around : Tailwind
+justify_baseline : Tailwind
+justify_between : Tailwind
+justify_center : Tailwind
+justify_center_safe : Tailwind
+justify_end : Tailwind
+justify_end_safe : Tailwind
+justify_evenly : Tailwind
+justify_items_center : Tailwind
+justify_items_center_safe : Tailwind
+justify_items_end : Tailwind
+justify_items_end_safe : Tailwind
+justify_items_normal : Tailwind
+justify_items_start : Tailwind
+justify_items_stretch : Tailwind
+justify_normal : Tailwind
+justify_self_auto : Tailwind
+justify_self_center : Tailwind
+justify_self_center_safe : Tailwind
+justify_self_end : Tailwind
+justify_self_end_safe : Tailwind
+justify_self_start : Tailwind
+justify_self_stretch : Tailwind
+justify_start : Tailwind
+justify_stretch : Tailwind
+leading_px : Tailwind
+left_auto : Tailwind
+left_full : Tailwind
+left_px : Tailwind
+line_through : Tailwind
+lining_nums : Tailwind
+list_inside : Tailwind
+list_item : Tailwind
+list_outside : Tailwind
+lowercase : Tailwind
+m : Spacing -> Tailwind
+m_auto : Tailwind
+m_px : Tailwind
+mask_add : Tailwind
+mask_alpha : Tailwind
+mask_auto : Tailwind
+mask_bottom : Tailwind
+mask_bottom_left : Tailwind
+mask_bottom_right : Tailwind
+mask_center : Tailwind
+mask_circle : Tailwind
+mask_clip_border : Tailwind
+mask_clip_content : Tailwind
+mask_clip_fill : Tailwind
+mask_clip_padding : Tailwind
+mask_clip_stroke : Tailwind
+mask_clip_view : Tailwind
+mask_contain : Tailwind
+mask_cover : Tailwind
+mask_ellipse : Tailwind
+mask_exclude : Tailwind
+mask_intersect : Tailwind
+mask_left : Tailwind
+mask_luminance : Tailwind
+mask_match : Tailwind
+mask_no_clip : Tailwind
+mask_no_repeat : Tailwind
+mask_none : Tailwind
+mask_origin_border : Tailwind
+mask_origin_content : Tailwind
+mask_origin_fill : Tailwind
+mask_origin_padding : Tailwind
+mask_origin_stroke : Tailwind
+mask_origin_view : Tailwind
+mask_radial_at_bottom : Tailwind
+mask_radial_at_bottom_left : Tailwind
+mask_radial_at_bottom_right : Tailwind
+mask_radial_at_center : Tailwind
+mask_radial_at_left : Tailwind
+mask_radial_at_right : Tailwind
+mask_radial_at_top : Tailwind
+mask_radial_at_top_left : Tailwind
+mask_radial_at_top_right : Tailwind
+mask_radial_closest_corner : Tailwind
+mask_radial_closest_side : Tailwind
+mask_radial_farthest_corner : Tailwind
+mask_radial_farthest_side : Tailwind
+mask_repeat : Tailwind
+mask_repeat_round : Tailwind
+mask_repeat_space : Tailwind
+mask_repeat_x : Tailwind
+mask_repeat_y : Tailwind
+mask_right : Tailwind
+mask_subtract : Tailwind
+mask_top : Tailwind
+mask_top_left : Tailwind
+mask_top_right : Tailwind
+mask_type_alpha : Tailwind
+mask_type_luminance : Tailwind
+max_h : Spacing -> Tailwind
+max_h_dvh : Tailwind
+max_h_dvw : Tailwind
+max_h_fit : Tailwind
+max_h_full : Tailwind
+max_h_lh : Tailwind
+max_h_lvh : Tailwind
+max_h_lvw : Tailwind
+max_h_max : Tailwind
+max_h_min : Tailwind
+max_h_none : Tailwind
+max_h_px : Tailwind
+max_h_screen : Tailwind
+max_h_svh : Tailwind
+max_h_svw : Tailwind
+max_w : Spacing -> Tailwind
+max_w_dvh : Tailwind
+max_w_dvw : Tailwind
+max_w_fit : Tailwind
+max_w_full : Tailwind
+max_w_lvh : Tailwind
+max_w_lvw : Tailwind
+max_w_max : Tailwind
+max_w_min : Tailwind
+max_w_none : Tailwind
+max_w_px : Tailwind
+max_w_screen : Tailwind
+max_w_svh : Tailwind
+max_w_svw : Tailwind
+mb : Spacing -> Tailwind
+mb_auto : Tailwind
+mb_px : Tailwind
+me_auto : Tailwind
+me_px : Tailwind
+min_h : Spacing -> Tailwind
+min_h_auto : Tailwind
+min_h_dvh : Tailwind
+min_h_dvw : Tailwind
+min_h_fit : Tailwind
+min_h_full : Tailwind
+min_h_lh : Tailwind
+min_h_lvh : Tailwind
+min_h_lvw : Tailwind
+min_h_max : Tailwind
+min_h_min : Tailwind
+min_h_px : Tailwind
+min_h_screen : Tailwind
+min_h_svh : Tailwind
+min_h_svw : Tailwind
+min_w : Spacing -> Tailwind
+min_w_auto : Tailwind
+min_w_dvh : Tailwind
+min_w_dvw : Tailwind
+min_w_fit : Tailwind
+min_w_full : Tailwind
+min_w_lvh : Tailwind
+min_w_lvw : Tailwind
+min_w_max : Tailwind
+min_w_min : Tailwind
+min_w_px : Tailwind
+min_w_screen : Tailwind
+min_w_svh : Tailwind
+min_w_svw : Tailwind
+mix_blend_color : Tailwind
+mix_blend_color_burn : Tailwind
+mix_blend_color_dodge : Tailwind
+mix_blend_darken : Tailwind
+mix_blend_difference : Tailwind
+mix_blend_exclusion : Tailwind
+mix_blend_hard_light : Tailwind
+mix_blend_hue : Tailwind
+mix_blend_lighten : Tailwind
+mix_blend_luminosity : Tailwind
+mix_blend_multiply : Tailwind
+mix_blend_normal : Tailwind
+mix_blend_overlay : Tailwind
+mix_blend_plus_darker : Tailwind
+mix_blend_plus_lighter : Tailwind
+mix_blend_saturation : Tailwind
+mix_blend_screen : Tailwind
+mix_blend_soft_light : Tailwind
+ml : Spacing -> Tailwind
+ml_auto : Tailwind
+ml_px : Tailwind
+mr : Spacing -> Tailwind
+mr_auto : Tailwind
+mr_px : Tailwind
+ms_auto : Tailwind
+ms_px : Tailwind
+mt : Spacing -> Tailwind
+mt_auto : Tailwind
+mt_px : Tailwind
+mx : Spacing -> Tailwind
+mx_auto : Tailwind
+mx_px : Tailwind
+my : Spacing -> Tailwind
+my_auto : Tailwind
+my_px : Tailwind
+neg_bottom_full : Tailwind
+neg_bottom_px : Tailwind
+neg_end_full : Tailwind
+neg_end_px : Tailwind
+neg_indent_px : Tailwind
+neg_inset_full : Tailwind
+neg_inset_px : Tailwind
+neg_inset_x_full : Tailwind
+neg_inset_x_px : Tailwind
+neg_inset_y_full : Tailwind
+neg_inset_y_px : Tailwind
+neg_left_full : Tailwind
+neg_left_px : Tailwind
+neg_m : Spacing -> Tailwind
+neg_m_px : Tailwind
+neg_mb : Spacing -> Tailwind
+neg_mb_px : Tailwind
+neg_me_px : Tailwind
+neg_ml : Spacing -> Tailwind
+neg_ml_px : Tailwind
+neg_mr : Spacing -> Tailwind
+neg_mr_px : Tailwind
+neg_ms_px : Tailwind
+neg_mt : Spacing -> Tailwind
+neg_mt_px : Tailwind
+neg_mx : Spacing -> Tailwind
+neg_mx_px : Tailwind
+neg_my : Spacing -> Tailwind
+neg_my_px : Tailwind
+neg_right_full : Tailwind
+neg_right_px : Tailwind
+neg_scroll_m_px : Tailwind
+neg_scroll_mb_px : Tailwind
+neg_scroll_me_px : Tailwind
+neg_scroll_ml_px : Tailwind
+neg_scroll_mr_px : Tailwind
+neg_scroll_ms_px : Tailwind
+neg_scroll_mt_px : Tailwind
+neg_scroll_mx_px : Tailwind
+neg_scroll_my_px : Tailwind
+neg_space_x_px : Tailwind
+neg_space_y_px : Tailwind
+neg_start_full : Tailwind
+neg_start_px : Tailwind
+neg_top_full : Tailwind
+neg_top_px : Tailwind
+neg_translate_full : Tailwind
+neg_translate_px : Tailwind
+neg_translate_x_full : Tailwind
+neg_translate_x_px : Tailwind
+neg_translate_y_full : Tailwind
+neg_translate_y_px : Tailwind
+neg_translate_z_px : Tailwind
+no_underline : Tailwind
+normal_case : Tailwind
+normal_nums : Tailwind
+not_italic : Tailwind
+not_sr_only : Tailwind
+object_contain : Tailwind
+object_cover : Tailwind
+object_fill : Tailwind
+object_left_bottom : Tailwind
+object_left_top : Tailwind
+object_none : Tailwind
+object_right_bottom : Tailwind
+object_right_top : Tailwind
+object_scale_down : Tailwind
+oldstyle_nums : Tailwind
+opacity_0 : Tailwind
+opacity_10 : Tailwind
+opacity_100 : Tailwind
+opacity_20 : Tailwind
+opacity_25 : Tailwind
+opacity_30 : Tailwind
+opacity_40 : Tailwind
+opacity_5 : Tailwind
+opacity_50 : Tailwind
+opacity_60 : Tailwind
+opacity_70 : Tailwind
+opacity_75 : Tailwind
+opacity_80 : Tailwind
+opacity_90 : Tailwind
+opacity_95 : Tailwind
+order_none : Tailwind
+ordinal : Tailwind
+outline_dashed : Tailwind
+outline_dotted : Tailwind
+outline_double : Tailwind
+outline_hidden : Tailwind
+outline_none : Tailwind
+outline_solid : Tailwind
+overflow_auto : Tailwind
+overflow_clip : Tailwind
+overflow_ellipsis : Tailwind
+overflow_hidden : Tailwind
+overflow_scroll : Tailwind
+overflow_visible : Tailwind
+overflow_x_auto : Tailwind
+overflow_x_clip : Tailwind
+overflow_x_hidden : Tailwind
+overflow_x_scroll : Tailwind
+overflow_x_visible : Tailwind
+overflow_y_auto : Tailwind
+overflow_y_clip : Tailwind
+overflow_y_hidden : Tailwind
+overflow_y_scroll : Tailwind
+overflow_y_visible : Tailwind
+overline : Tailwind
+overscroll_auto : Tailwind
+overscroll_contain : Tailwind
+overscroll_none : Tailwind
+overscroll_x_auto : Tailwind
+overscroll_x_contain : Tailwind
+overscroll_x_none : Tailwind
+overscroll_y_auto : Tailwind
+overscroll_y_contain : Tailwind
+overscroll_y_none : Tailwind
+p : Spacing -> Tailwind
+p_px : Tailwind
+pb : Spacing -> Tailwind
+pb_px : Tailwind
+pe_px : Tailwind
+pl : Spacing -> Tailwind
+pl_px : Tailwind
+place_content_around : Tailwind
+place_content_baseline : Tailwind
+place_content_between : Tailwind
+place_content_center : Tailwind
+place_content_center_safe : Tailwind
+place_content_end : Tailwind
+place_content_end_safe : Tailwind
+place_content_evenly : Tailwind
+place_content_start : Tailwind
+place_content_stretch : Tailwind
+place_items_baseline : Tailwind
+place_items_center : Tailwind
+place_items_center_safe : Tailwind
+place_items_end : Tailwind
+place_items_end_safe : Tailwind
+place_items_start : Tailwind
+place_items_stretch : Tailwind
+place_self_auto : Tailwind
+place_self_center : Tailwind
+place_self_center_safe : Tailwind
+place_self_end : Tailwind
+place_self_end_safe : Tailwind
+place_self_start : Tailwind
+place_self_stretch : Tailwind
+placeholder_color : Color -> Tailwind
+pointer_events_auto : Tailwind
+pointer_events_none : Tailwind
+pr : Spacing -> Tailwind
+pr_px : Tailwind
+proportional_nums : Tailwind
+ps_px : Tailwind
+pt : Spacing -> Tailwind
+pt_px : Tailwind
+px : Spacing -> Tailwind
+px_px : Tailwind
+py : Spacing -> Tailwind
+py_px : Tailwind
+raw : String -> Tailwind
+relative : Tailwind
+resize : Tailwind
+resize_none : Tailwind
+resize_x : Tailwind
+resize_y : Tailwind
+right_auto : Tailwind
+right_full : Tailwind
+right_px : Tailwind
+ring_color : Color -> Tailwind
+ring_inset : Tailwind
+rotate_none : Tailwind
+rounded : Tailwind
+rounded_full : Tailwind
+rounded_lg : Tailwind
+rounded_md : Tailwind
+rounded_n2xl : Tailwind
+rounded_n3xl : Tailwind
+rounded_n4xl : Tailwind
+rounded_none : Tailwind
+rounded_sm : Tailwind
+rounded_xl : Tailwind
+rounded_xs : Tailwind
+scale_3d : Tailwind
+scale_none : Tailwind
+scheme_dark : Tailwind
+scheme_light : Tailwind
+scheme_light_dark : Tailwind
+scheme_normal : Tailwind
+scheme_only_dark : Tailwind
+scheme_only_light : Tailwind
+scroll_auto : Tailwind
+scroll_m_px : Tailwind
+scroll_mb_px : Tailwind
+scroll_me_px : Tailwind
+scroll_ml_px : Tailwind
+scroll_mr_px : Tailwind
+scroll_ms_px : Tailwind
+scroll_mt_px : Tailwind
+scroll_mx_px : Tailwind
+scroll_my_px : Tailwind
+scroll_p_px : Tailwind
+scroll_pb_px : Tailwind
+scroll_pe_px : Tailwind
+scroll_pl_px : Tailwind
+scroll_pr_px : Tailwind
+scroll_ps_px : Tailwind
+scroll_pt_px : Tailwind
+scroll_px_px : Tailwind
+scroll_py_px : Tailwind
+scroll_smooth : Tailwind
+select_all : Tailwind
+select_auto : Tailwind
+select_none : Tailwind
+select_text : Tailwind
+self_auto : Tailwind
+self_baseline : Tailwind
+self_baseline_last : Tailwind
+self_center : Tailwind
+self_center_safe : Tailwind
+self_end : Tailwind
+self_end_safe : Tailwind
+self_start : Tailwind
+self_stretch : Tailwind
+shadow : Tailwind
+shadow_initial : Tailwind
+shadow_inner : Tailwind
+shadow_lg : Tailwind
+shadow_md : Tailwind
+shadow_n2xl : Tailwind
+shadow_n2xs : Tailwind
+shadow_none : Tailwind
+shadow_sm : Tailwind
+shadow_xl : Tailwind
+shadow_xs : Tailwind
+shrink : Tailwind
+shrink_0 : Tailwind
+size_auto : Tailwind
+size_dvh : Tailwind
+size_dvw : Tailwind
+size_fit : Tailwind
+size_full : Tailwind
+size_lvh : Tailwind
+size_lvw : Tailwind
+size_max : Tailwind
+size_min : Tailwind
+size_px : Tailwind
+size_svh : Tailwind
+size_svw : Tailwind
+slashed_zero : Tailwind
+snap_align_none : Tailwind
+snap_always : Tailwind
+snap_both : Tailwind
+snap_center : Tailwind
+snap_end : Tailwind
+snap_mandatory : Tailwind
+snap_none : Tailwind
+snap_normal : Tailwind
+snap_proximity : Tailwind
+snap_start : Tailwind
+snap_x : Tailwind
+snap_y : Tailwind
+space_x_px : Tailwind
+space_x_reverse : Tailwind
+space_y_px : Tailwind
+space_y_reverse : Tailwind
+sr_only : Tailwind
+stacked_fractions : Tailwind
+start_auto : Tailwind
+start_full : Tailwind
+start_px : Tailwind
+static : Tailwind
+sticky : Tailwind
+stroke_none : Tailwind
+subpixel_antialiased : Tailwind
+table : Tailwind
+table_auto : Tailwind
+table_caption : Tailwind
+table_cell : Tailwind
+table_column : Tailwind
+table_column_group : Tailwind
+table_fixed : Tailwind
+table_footer_group : Tailwind
+table_header_group : Tailwind
+table_row : Tailwind
+table_row_group : Tailwind
+tabular_nums : Tailwind
+text_balance : Tailwind
+text_base : Tailwind
+text_center : Tailwind
+text_clip : Tailwind
+text_color : Color -> Tailwind
+text_ellipsis : Tailwind
+text_end : Tailwind
+text_justify : Tailwind
+text_left : Tailwind
+text_lg : Tailwind
+text_n2xl : Tailwind
+text_n3xl : Tailwind
+text_n4xl : Tailwind
+text_n5xl : Tailwind
+text_n6xl : Tailwind
+text_n7xl : Tailwind
+text_n8xl : Tailwind
+text_n9xl : Tailwind
+text_nowrap : Tailwind
+text_pretty : Tailwind
+text_right : Tailwind
+text_shadow_initial : Tailwind
+text_simple : SimpleColor -> Tailwind
+text_sm : Tailwind
+text_start : Tailwind
+text_wrap : Tailwind
+text_xl : Tailwind
+text_xs : Tailwind
+toClass : Tailwind -> String
+toClassName : Tailwind -> String
+top_auto : Tailwind
+top_full : Tailwind
+top_px : Tailwind
+touch_auto : Tailwind
+touch_manipulation : Tailwind
+touch_none : Tailwind
+touch_pan_down : Tailwind
+touch_pan_left : Tailwind
+touch_pan_right : Tailwind
+touch_pan_up : Tailwind
+touch_pan_x : Tailwind
+touch_pan_y : Tailwind
+touch_pinch_zoom : Tailwind
+transform_3d : Tailwind
+transform_border : Tailwind
+transform_content : Tailwind
+transform_cpu : Tailwind
+transform_fill : Tailwind
+transform_flat : Tailwind
+transform_gpu : Tailwind
+transform_none : Tailwind
+transform_stroke : Tailwind
+transform_view : Tailwind
+transition : Tailwind
+transition_all : Tailwind
+transition_colors : Tailwind
+transition_discrete : Tailwind
+transition_none : Tailwind
+transition_normal : Tailwind
+transition_opacity : Tailwind
+transition_shadow : Tailwind
+transition_transform : Tailwind
+translate_3d : Tailwind
+translate_full : Tailwind
+translate_none : Tailwind
+translate_px : Tailwind
+translate_x_full : Tailwind
+translate_x_px : Tailwind
+translate_y_full : Tailwind
+translate_y_px : Tailwind
+translate_z_px : Tailwind
+truncate : Tailwind
+underline : Tailwind
+uppercase : Tailwind
+via_none : Tailwind
+visible : Tailwind
+w : Spacing -> Tailwind
+w_10over12 : Tailwind
+w_11over12 : Tailwind
+w_1over12 : Tailwind
+w_1over2 : Tailwind
+w_1over3 : Tailwind
+w_1over4 : Tailwind
+w_1over5 : Tailwind
+w_1over6 : Tailwind
+w_2over12 : Tailwind
+w_2over3 : Tailwind
+w_2over4 : Tailwind
+w_2over5 : Tailwind
+w_2over6 : Tailwind
+w_3over12 : Tailwind
+w_3over4 : Tailwind
+w_3over5 : Tailwind
+w_3over6 : Tailwind
+w_4over12 : Tailwind
+w_4over5 : Tailwind
+w_4over6 : Tailwind
+w_5over12 : Tailwind
+w_5over6 : Tailwind
+w_6over12 : Tailwind
+w_7over12 : Tailwind
+w_8over12 : Tailwind
+w_9over12 : Tailwind
+w_auto : Tailwind
+w_dvh : Tailwind
+w_dvw : Tailwind
+w_fit : Tailwind
+w_full : Tailwind
+w_lvh : Tailwind
+w_lvw : Tailwind
+w_max : Tailwind
+w_min : Tailwind
+w_px : Tailwind
+w_screen : Tailwind
+w_svh : Tailwind
+w_svw : Tailwind
+whitespace_break_spaces : Tailwind
+whitespace_normal : Tailwind
+whitespace_nowrap : Tailwind
+whitespace_pre : Tailwind
+whitespace_pre_line : Tailwind
+whitespace_pre_wrap : Tailwind
+will_change_auto : Tailwind
+will_change_contents : Tailwind
+will_change_scroll : Tailwind
+will_change_transform : Tailwind
+wrap_anywhere : Tailwind
+wrap_break_word : Tailwind
+wrap_normal : Tailwind
+z_0 : Tailwind
+z_10 : Tailwind
+z_20 : Tailwind
+z_30 : Tailwind
+z_40 : Tailwind
+z_50 : Tailwind
+z_auto : Tailwind
