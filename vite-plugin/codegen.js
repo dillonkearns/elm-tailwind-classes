@@ -193,27 +193,33 @@ function generateTailwindWithUtilities(theme, designSystem) {
     'animate-none', 'animate-spin', 'animate-ping', 'animate-pulse', 'animate-bounce',
   ];
 
-  if (designSystem) {
-    // Generate from static utility registry
-    const staticKeys = [...designSystem.utilities.keys('static')].sort();
-    // Combine static keys + explicit functional utilities
-    const allClassNames = [...new Set([...staticKeys, ...functionalUtilitiesToInclude])].sort();
-    for (const className of allClassNames) {
-      const elmName = toElmName(className);
-      if (existingExports.has(elmName)) continue;
+  if (!designSystem) {
+    throw new Error(
+      '[elm-tailwind] Failed to load Tailwind design system. ' +
+      'This is required to generate utility classes. ' +
+      'Make sure tailwindcss v4+ is installed in your project.'
+    );
+  }
 
-      const cssArray = designSystem.candidatesToCss([className]);
-      if (!cssArray || cssArray.length === 0) continue; // skip if not valid
-      const cssBody = cssDocComment(cssArray[0], className);
+  // Generate from static utility registry
+  const staticKeys = [...designSystem.utilities.keys('static')].sort();
+  // Combine static keys + explicit functional utilities
+  const allClassNames = [...new Set([...staticKeys, ...functionalUtilitiesToInclude])].sort();
+  for (const className of allClassNames) {
+    const elmName = toElmName(className);
+    if (existingExports.has(elmName)) continue;
 
-      designSystemStaticDefs.push(`
+    const cssArray = designSystem.candidatesToCss([className]);
+    if (!cssArray || cssArray.length === 0) continue; // skip if not valid
+    const cssBody = cssDocComment(cssArray[0], className);
+
+    designSystemStaticDefs.push(`
 {-| ${cssBody}
 -}
 ${elmName} : Tailwind
 ${elmName} =
     Tailwind "${className}"`);
-      designSystemStaticExports.push(elmName);
-    }
+    designSystemStaticExports.push(elmName);
   }
 
   const allUtilityExports = [
