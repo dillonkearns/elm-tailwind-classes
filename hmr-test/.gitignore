@@ -1,0 +1,7 @@
+node_modules/
+elm-stuff/
+.elm-tailwind/
+dist/
+cypress/screenshots/
+cypress/videos/
+debug-dom.json
