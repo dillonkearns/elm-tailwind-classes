@@ -52,6 +52,8 @@ EXPECTED_CLASSES=(
   "bg-brand-100"
   "border-brand-500"
   "text-brand-800"
+  # Design system static utilities (text-wrap)
+  "text-balance"
 )
 
 MISSING=0

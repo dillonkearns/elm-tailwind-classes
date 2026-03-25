@@ -2,8 +2,43 @@
 // Generates type-safe Elm modules from Tailwind configuration
 
 import { resolveTheme } from 'tailwind-resolver';
+import { createRequire } from 'module';
 import fs from 'fs';
 import path from 'path';
+
+/**
+ * Load the Tailwind design system to discover all static utilities.
+ * Dynamically imports tailwindcss from the user's project.
+ * @param {string} cssPath - Path to CSS file with Tailwind config
+ * @returns {Promise<object|null>} Design system object or null if unavailable
+ */
+async function loadDesignSystem(cssPath) {
+  try {
+    // Resolve tailwindcss from the user's project (where the CSS file lives),
+    // not from this plugin's directory
+    const cssDir = path.dirname(path.resolve(cssPath));
+    const requireFromProject = createRequire(path.join(cssDir, '_'));
+    const tw = requireFromProject('tailwindcss');
+    const { __unstable__loadDesignSystem } = tw;
+    // require.resolve gives dist/lib.js — go up one level to get the package root
+    const twDir = path.resolve(path.dirname(requireFromProject.resolve('tailwindcss')), '..');
+
+    const ds = await __unstable__loadDesignSystem('@import "tailwindcss";', {
+      loadStylesheet: async (id, base) => {
+        let resolved;
+        if (id === 'tailwindcss') resolved = path.join(twDir, 'index.css');
+        else if (id.startsWith('tailwindcss/')) resolved = path.join(twDir, id.replace('tailwindcss/', ''));
+        else resolved = path.resolve(base, id);
+        return { content: fs.readFileSync(resolved, 'utf8'), base: path.dirname(resolved) };
+      },
+    });
+    return ds;
+  } catch (e) {
+    // tailwindcss not available or API changed — fall back gracefully
+    console.warn('[elm-tailwind] Could not load design system:', e.message);
+    return null;
+  }
+}
 
 /**
  * Generate Elm modules from a Tailwind CSS file
@@ -20,12 +55,15 @@ export async function generateElmModules(cssPath, outputDir) {
       return { success: false, error: 'Failed to resolve Tailwind theme' };
     }
 
+    // Load design system for static utility discovery
+    const designSystem = await loadDesignSystem(cssPath);
+
     // Ensure output directories exist
     ensureDir(outputDir);
     ensureDir(path.join(outputDir, 'Tailwind'));
 
     // Generate all modules
-    writeElmFile(outputDir, 'Tailwind.elm', generateTailwindWithUtilities(theme));
+    writeElmFile(outputDir, 'Tailwind.elm', generateTailwindWithUtilities(theme, designSystem));
     writeElmFile(outputDir, 'Tailwind/Theme.elm', generateTheme(theme));
     writeElmFile(outputDir, 'Tailwind/Breakpoints.elm', generateBreakpoints(theme));
 
@@ -57,7 +95,7 @@ function toElmName(className) {
   return name;
 }
 
-function generateTailwindWithUtilities(theme) {
+function generateTailwindWithUtilities(theme, designSystem) {
   const fontSizes = Object.keys(theme.fontSize || {});
   const fontWeights = Object.keys(theme.fontWeight || {});
   const radiusSizes = Object.keys(theme.radius || {}).filter(k => k !== 'default');
@@ -144,7 +182,8 @@ function generateTailwindWithUtilities(theme) {
 
   const zIndexExports = ['z_0', 'z_10', 'z_20', 'z_30', 'z_40', 'z_50', 'z_auto'];
 
-  const allUtilityExports = [
+  // Generate static utilities from Tailwind's design system
+  const existingExports = new Set([
     ...spacingExports,
     ...layoutExports,
     ...sizingExports,
@@ -158,6 +197,37 @@ function generateTailwindWithUtilities(theme) {
     ...colorUtilExports,
     ...opacityExports,
     ...zIndexExports,
+  ]);
+
+  const designSystemStaticDefs = [];
+  const designSystemStaticExports = [];
+
+  if (designSystem) {
+    const staticKeys = [...designSystem.utilities.keys('static')].sort();
+    for (const className of staticKeys) {
+      const elmName = toElmName(className);
+      if (existingExports.has(elmName)) continue;
+      if (className.startsWith('-')) continue;
+
+      const cssArray = designSystem.candidatesToCss([className]);
+      const cssBody = cssArray?.[0]
+        ?.replace(/^\.[\w-]+\s*\{\n?/, '')
+        ?.replace(/\}\n?$/, '')
+        ?.trim() || className;
+
+      designSystemStaticDefs.push(`
+{-| ${cssBody}
+-}
+${elmName} : Tailwind
+${elmName} =
+    Tailwind "${className}"`);
+      designSystemStaticExports.push(elmName);
+    }
+  }
+
+  const allUtilityExports = [
+    ...Array.from(existingExports),
+    ...designSystemStaticExports,
   ];
 
   // Generate function definitions
@@ -1237,6 +1307,9 @@ z_50 =
 z_auto : Tailwind
 z_auto =
     Tailwind "z-auto"
+
+-- ADDITIONAL UTILITIES (from Tailwind design system)
+${designSystemStaticDefs.join('\n')}
 `;
 }
 

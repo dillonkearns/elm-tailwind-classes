@@ -1,9 +1,13 @@
 // Main code generator for elm-tailwind-classes
 // Generates an opaque Tailwind type with type-safe utilities
 import { resolveTheme } from 'tailwind-resolver';
+import { __unstable__loadDesignSystem } from 'tailwindcss';
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const OUTPUT_DIR = '../src';
 
 async function main() {
@@ -18,6 +22,18 @@ async function main() {
     process.exit(1);
   }
 
+  console.log('Loading Tailwind design system...');
+  const twDir = path.join(__dirname, 'node_modules', 'tailwindcss');
+  const designSystem = await __unstable__loadDesignSystem('@import "tailwindcss";', {
+    loadStylesheet: async (id, base) => {
+      let resolved;
+      if (id === 'tailwindcss') resolved = path.join(twDir, 'index.css');
+      else if (id.startsWith('tailwindcss/')) resolved = path.join(twDir, id.replace('tailwindcss/', ''));
+      else resolved = path.resolve(base, id);
+      return { content: fs.readFileSync(resolved, 'utf8'), base: path.dirname(resolved) };
+    },
+  });
+
   console.log('Generating Elm modules...');
 
   // Ensure output directories exist
@@ -26,7 +42,7 @@ async function main() {
   // Generate modules
   generateTailwindCore();      // Main Tailwind module with opaque type
   generateTheme(theme);        // Colors, spacing, opacity types
-  generateUtilities(theme);    // All utility functions
+  generateUtilities(theme, designSystem);    // All utility functions
   generateBreakpoints(theme);  // Responsive & state variants
 
   console.log('Done!');
@@ -468,7 +484,7 @@ ${opacityDefs.join('\n')}
 }
 
 // Generate Tailwind/Utilities.elm - all utility functions returning Tailwind type
-function generateUtilities(theme) {
+function generateUtilities(theme, designSystem) {
   const fontSizes = Object.keys(theme.fontSize);
   const fontWeights = Object.keys(theme.fontWeight);
   const radiusSizes = Object.keys(theme.radius).filter(k => k !== 'default');
@@ -1954,6 +1970,55 @@ z_auto : Tailwind
 z_auto =
     Tailwind "z-auto"`);
 
+  // Generate static utilities from Tailwind's design system
+  // This automatically picks up all static utilities (like text-balance, text-pretty, etc.)
+  // without needing to hardcode them.
+  const existingExports = new Set([
+    ...spacingExports,
+    ...layoutExports,
+    ...sizingExports,
+    ...typographyExports,
+    ...fontSizeExports,
+    ...fontWeightExports,
+    ...borderExports,
+    ...radiusExports,
+    ...effectExports,
+    ...shadowExports,
+    ...colorUtilExports,
+    ...opacityExports,
+    ...zIndexExports,
+  ]);
+
+  const designSystemStaticDefs = [];
+  const designSystemStaticExports = [];
+
+  if (designSystem) {
+    const staticKeys = [...designSystem.utilities.keys('static')].sort();
+    for (const className of staticKeys) {
+      const elmName = toElmName(className);
+      // Skip if already covered by existing handwritten sections
+      if (existingExports.has(elmName)) continue;
+      // Skip utilities starting with - (negative values like -m-px) for now
+      if (className.startsWith('-')) continue;
+
+      // Get the CSS this utility generates for the doc comment
+      const cssArray = designSystem.candidatesToCss([className]);
+      const cssBody = cssArray?.[0]
+        ?.replace(/^\.[\w-]+\s*\{\n?/, '')  // strip selector
+        ?.replace(/\}\n?$/, '')              // strip closing brace
+        ?.trim() || className;
+
+      designSystemStaticDefs.push(`
+{-| ${cssBody}
+-}
+${elmName} : Tailwind
+${elmName} =
+    Tailwind "${className}"`);
+      designSystemStaticExports.push(elmName);
+    }
+    console.log(`  Generated ${designSystemStaticExports.length} static utilities from design system`);
+  }
+
   const allExports = [
     ...spacingExports,
     ...layoutExports,
@@ -1968,6 +2033,7 @@ z_auto =
     ...colorUtilExports,
     ...opacityExports,
     ...zIndexExports,
+    ...designSystemStaticExports,
   ];
 
   const content = `module Tailwind.Utilities exposing
@@ -2051,6 +2117,13 @@ Following elm-tailwind-modules naming conventions:
 
 @docs ${zIndexExports.join(', ')}
 
+${designSystemStaticExports.length > 0 ? `
+
+## Additional Utilities
+
+@docs ${designSystemStaticExports.join(', ')}
+
+` : ''}
 -}
 
 import Tailwind exposing (Tailwind(..))
@@ -2089,6 +2162,9 @@ ${opacityDefs}
 
 -- Z-INDEX
 ${zIndexDefs.join('\n')}
+
+-- ADDITIONAL UTILITIES (from Tailwind design system)
+${designSystemStaticDefs.join('\n')}
 `;
 
   writeElmFile('Tailwind/Utilities.elm', content);

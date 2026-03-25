@@ -82,6 +82,14 @@ main =
                 ]
             ]
             [ text "Custom raw class" ]
+        , h1
+            [ classes
+                [ Tw.text_n3xl
+                , Tw.font_bold
+                , Tw.text_balance
+                ]
+            ]
+            [ text "This heading should have balanced text wrapping" ]
         , div
             [ classes
                 [ Tw.mt s4
