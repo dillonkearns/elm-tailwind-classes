@@ -3163,12 +3163,6 @@ neg_scroll_my_px =
     --tw-space-x-reverse: 0;
     margin-inline-start: calc(-1px * var(--tw-space-x-reverse));
     margin-inline-end: calc(-1px * calc(1 - var(--tw-space-x-reverse)));
-  }
-}
-@property --tw-space-x-reverse {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
 -}
 neg_space_x_px : Tailwind
 neg_space_x_px =
@@ -3178,12 +3172,6 @@ neg_space_x_px =
     --tw-space-y-reverse: 0;
     margin-block-start: calc(-1px * var(--tw-space-y-reverse));
     margin-block-end: calc(-1px * calc(1 - var(--tw-space-y-reverse)));
-  }
-}
-@property --tw-space-y-reverse {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
 -}
 neg_space_y_px : Tailwind
 neg_space_y_px =
@@ -3216,21 +3204,6 @@ neg_top_px =
 {-| --tw-translate-x: -100%;
   --tw-translate-y: -100%;
   translate: var(--tw-translate-x) var(--tw-translate-y);
-}
-@property --tw-translate-x {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
-}
-@property --tw-translate-y {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
-}
-@property --tw-translate-z {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
 -}
 neg_translate_full : Tailwind
 neg_translate_full =
@@ -3239,21 +3212,6 @@ neg_translate_full =
 {-| --tw-translate-x: -1px;
   --tw-translate-y: -1px;
   translate: var(--tw-translate-x) var(--tw-translate-y);
-}
-@property --tw-translate-x {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
-}
-@property --tw-translate-y {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
-}
-@property --tw-translate-z {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
 -}
 neg_translate_px : Tailwind
 neg_translate_px =
@@ -3261,21 +3219,6 @@ neg_translate_px =
 
 {-| --tw-translate-x: -100%;
   translate: var(--tw-translate-x) var(--tw-translate-y);
-}
-@property --tw-translate-x {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
-}
-@property --tw-translate-y {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
-}
-@property --tw-translate-z {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
 -}
 neg_translate_x_full : Tailwind
 neg_translate_x_full =
@@ -3283,21 +3226,6 @@ neg_translate_x_full =
 
 {-| --tw-translate-x: -1px;
   translate: var(--tw-translate-x) var(--tw-translate-y);
-}
-@property --tw-translate-x {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
-}
-@property --tw-translate-y {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
-}
-@property --tw-translate-z {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
 -}
 neg_translate_x_px : Tailwind
 neg_translate_x_px =
@@ -3305,21 +3233,6 @@ neg_translate_x_px =
 
 {-| --tw-translate-y: -100%;
   translate: var(--tw-translate-x) var(--tw-translate-y);
-}
-@property --tw-translate-x {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
-}
-@property --tw-translate-y {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
-}
-@property --tw-translate-z {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
 -}
 neg_translate_y_full : Tailwind
 neg_translate_y_full =
@@ -3327,21 +3240,6 @@ neg_translate_y_full =
 
 {-| --tw-translate-y: -1px;
   translate: var(--tw-translate-x) var(--tw-translate-y);
-}
-@property --tw-translate-x {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
-}
-@property --tw-translate-y {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
-}
-@property --tw-translate-z {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
 -}
 neg_translate_y_px : Tailwind
 neg_translate_y_px =
@@ -3349,25 +3247,6 @@ neg_translate_y_px =
 
 {-| --tw-translate-z: -1px;
   translate: var(--tw-translate-x) var(--tw-translate-y) var(--tw-translate-z);
-}
-.-translate-z-px {
-  --tw-translate-z: -1px;
-  translate: var(--tw-translate-x) var(--tw-translate-y) var(--tw-translate-z);
-}
-@property --tw-translate-x {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
-}
-@property --tw-translate-y {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
-}
-@property --tw-translate-z {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
 -}
 neg_translate_z_px : Tailwind
 neg_translate_z_px =
@@ -3509,42 +3388,6 @@ auto_rows_min =
 {-| --tw-backdrop-blur:  ;
   -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
   backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
-}
-@property --tw-backdrop-blur {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-backdrop-brightness {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-backdrop-contrast {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-backdrop-grayscale {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-backdrop-hue-rotate {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-backdrop-invert {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-backdrop-opacity {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-backdrop-saturate {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-backdrop-sepia {
-  syntax: "*";
-  inherits: false;
 -}
 backdrop_blur_none : Tailwind
 backdrop_blur_none =
@@ -3908,42 +3751,6 @@ bg_top =
 
 {-| --tw-blur:  ;
   filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
-}
-@property --tw-blur {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-brightness {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-contrast {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-grayscale {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-hue-rotate {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-invert {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-opacity {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-saturate {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-sepia {
-  syntax: "*";
-  inherits: false;
 -}
 blur_none : Tailwind
 blur_none =
@@ -4006,16 +3813,6 @@ border_solid =
 {-| --tw-border-spacing-x: 1px;
   --tw-border-spacing-y: 1px;
   border-spacing: var(--tw-border-spacing-x) var(--tw-border-spacing-y);
-}
-@property --tw-border-spacing-x {
-  syntax: "<length>";
-  inherits: false;
-  initial-value: 0;
-}
-@property --tw-border-spacing-y {
-  syntax: "<length>";
-  inherits: false;
-  initial-value: 0;
 -}
 border_spacing_px : Tailwind
 border_spacing_px =
@@ -4023,16 +3820,6 @@ border_spacing_px =
 
 {-| --tw-border-spacing-x: 1px;
   border-spacing: var(--tw-border-spacing-x) var(--tw-border-spacing-y);
-}
-@property --tw-border-spacing-x {
-  syntax: "<length>";
-  inherits: false;
-  initial-value: 0;
-}
-@property --tw-border-spacing-y {
-  syntax: "<length>";
-  inherits: false;
-  initial-value: 0;
 -}
 border_spacing_x_px : Tailwind
 border_spacing_x_px =
@@ -4040,16 +3827,6 @@ border_spacing_x_px =
 
 {-| --tw-border-spacing-y: 1px;
   border-spacing: var(--tw-border-spacing-x) var(--tw-border-spacing-y);
-}
-@property --tw-border-spacing-x {
-  syntax: "<length>";
-  inherits: false;
-  initial-value: 0;
-}
-@property --tw-border-spacing-y {
-  syntax: "<length>";
-  inherits: false;
-  initial-value: 0;
 -}
 border_spacing_y_px : Tailwind
 border_spacing_y_px =
@@ -4336,22 +4113,6 @@ contain_content =
 
 {-| --tw-contain-size: inline-size;
   contain: var(--tw-contain-size,) var(--tw-contain-layout,) var(--tw-contain-paint,) var(--tw-contain-style,);
-}
-@property --tw-contain-size {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-contain-layout {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-contain-paint {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-contain-style {
-  syntax: "*";
-  inherits: false;
 -}
 contain_inline_size : Tailwind
 contain_inline_size =
@@ -4359,22 +4120,6 @@ contain_inline_size =
 
 {-| --tw-contain-layout: layout;
   contain: var(--tw-contain-size,) var(--tw-contain-layout,) var(--tw-contain-paint,) var(--tw-contain-style,);
-}
-@property --tw-contain-size {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-contain-layout {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-contain-paint {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-contain-style {
-  syntax: "*";
-  inherits: false;
 -}
 contain_layout : Tailwind
 contain_layout =
@@ -4388,22 +4133,6 @@ contain_none =
 
 {-| --tw-contain-paint: paint;
   contain: var(--tw-contain-size,) var(--tw-contain-layout,) var(--tw-contain-paint,) var(--tw-contain-style,);
-}
-@property --tw-contain-size {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-contain-layout {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-contain-paint {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-contain-style {
-  syntax: "*";
-  inherits: false;
 -}
 contain_paint : Tailwind
 contain_paint =
@@ -4411,22 +4140,6 @@ contain_paint =
 
 {-| --tw-contain-size: size;
   contain: var(--tw-contain-size,) var(--tw-contain-layout,) var(--tw-contain-paint,) var(--tw-contain-style,);
-}
-@property --tw-contain-size {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-contain-layout {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-contain-paint {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-contain-style {
-  syntax: "*";
-  inherits: false;
 -}
 contain_size : Tailwind
 contain_size =
@@ -4440,22 +4153,6 @@ contain_strict =
 
 {-| --tw-contain-style: style;
   contain: var(--tw-contain-size,) var(--tw-contain-layout,) var(--tw-contain-paint,) var(--tw-contain-style,);
-}
-@property --tw-contain-size {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-contain-layout {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-contain-paint {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-contain-style {
-  syntax: "*";
-  inherits: false;
 -}
 contain_style : Tailwind
 contain_style =
@@ -4464,19 +4161,6 @@ contain_style =
 {-| width: 100%;
   @media (width >= 40rem) {
     max-width: 40rem;
-  }
-  @media (width >= 48rem) {
-    max-width: 48rem;
-  }
-  @media (width >= 64rem) {
-    max-width: 64rem;
-  }
-  @media (width >= 80rem) {
-    max-width: 80rem;
-  }
-  @media (width >= 96rem) {
-    max-width: 96rem;
-  }
 -}
 container : Tailwind
 container =
@@ -4781,26 +4465,6 @@ decoration_wavy =
 
 {-| --tw-numeric-fraction: diagonal-fractions;
   font-variant-numeric: var(--tw-ordinal,) var(--tw-slashed-zero,) var(--tw-numeric-figure,) var(--tw-numeric-spacing,) var(--tw-numeric-fraction,);
-}
-@property --tw-ordinal {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-slashed-zero {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-numeric-figure {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-numeric-spacing {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-numeric-fraction {
-  syntax: "*";
-  inherits: false;
 -}
 diagonal_fractions : Tailwind
 diagonal_fractions =
@@ -4809,7 +4473,6 @@ diagonal_fractions =
 {-| :where(& > :not(:last-child)) {
     --tw-border-style: dashed;
     border-style: dashed;
-  }
 -}
 divide_dashed : Tailwind
 divide_dashed =
@@ -4818,7 +4481,6 @@ divide_dashed =
 {-| :where(& > :not(:last-child)) {
     --tw-border-style: dotted;
     border-style: dotted;
-  }
 -}
 divide_dotted : Tailwind
 divide_dotted =
@@ -4827,7 +4489,6 @@ divide_dotted =
 {-| :where(& > :not(:last-child)) {
     --tw-border-style: double;
     border-style: double;
-  }
 -}
 divide_double : Tailwind
 divide_double =
@@ -4836,7 +4497,6 @@ divide_double =
 {-| :where(& > :not(:last-child)) {
     --tw-border-style: none;
     border-style: none;
-  }
 -}
 divide_none : Tailwind
 divide_none =
@@ -4845,7 +4505,6 @@ divide_none =
 {-| :where(& > :not(:last-child)) {
     --tw-border-style: solid;
     border-style: solid;
-  }
 -}
 divide_solid : Tailwind
 divide_solid =
@@ -4853,12 +4512,6 @@ divide_solid =
 
 {-| :where(& > :not(:last-child)) {
     --tw-divide-x-reverse: 1;
-  }
-}
-@property --tw-divide-x-reverse {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
 -}
 divide_x_reverse : Tailwind
 divide_x_reverse =
@@ -4866,12 +4519,6 @@ divide_x_reverse =
 
 {-| :where(& > :not(:last-child)) {
     --tw-divide-y-reverse: 1;
-  }
-}
-@property --tw-divide-y-reverse {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
 -}
 divide_y_reverse : Tailwind
 divide_y_reverse =
@@ -4879,62 +4526,18 @@ divide_y_reverse =
 
 {-| --tw-drop-shadow:  ;
   filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
-}
-@property --tw-blur {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-brightness {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-contrast {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-grayscale {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-hue-rotate {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-invert {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-opacity {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-saturate {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-sepia {
-  syntax: "*";
-  inherits: false;
 -}
 drop_shadow_none : Tailwind
 drop_shadow_none =
     Tailwind "drop-shadow-none"
 
 {-| --tw-duration: initial;
-}
-@property --tw-duration {
-  syntax: "*";
-  inherits: false;
 -}
 duration_initial : Tailwind
 duration_initial =
     Tailwind "duration-initial"
 
 {-| --tw-ease: initial;
-}
-@property --tw-ease {
-  syntax: "*";
-  inherits: false;
 -}
 ease_initial : Tailwind
 ease_initial =
@@ -4942,10 +4545,6 @@ ease_initial =
 
 {-| --tw-ease: linear;
   transition-timing-function: linear;
-}
-@property --tw-ease {
-  syntax: "*";
-  inherits: false;
 -}
 ease_linear : Tailwind
 ease_linear =
@@ -5279,61 +4878,6 @@ inset_px =
     Tailwind "inset-px"
 
 {-| --tw-inset-shadow-color: initial;
-}
-@property --tw-shadow {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0 0 #0000;
-}
-@property --tw-shadow-color {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-inset-shadow {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0 0 #0000;
-}
-@property --tw-inset-shadow-color {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-ring-color {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-ring-shadow {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0 0 #0000;
-}
-@property --tw-inset-ring-color {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-inset-ring-shadow {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0 0 #0000;
-}
-@property --tw-ring-inset {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-ring-offset-width {
-  syntax: "<length>";
-  inherits: false;
-  initial-value: 0px;
-}
-@property --tw-ring-offset-color {
-  syntax: "*";
-  inherits: false;
-  initial-value: #fff;
-}
-@property --tw-ring-offset-shadow {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0 0 #0000;
 -}
 inset_shadow_initial : Tailwind
 inset_shadow_initial =
@@ -5467,10 +5011,6 @@ justify_stretch =
 
 {-| --tw-leading: 1;
   line-height: 1;
-}
-@property --tw-leading {
-  syntax: "*";
-  inherits: false;
 -}
 leading_none : Tailwind
 leading_none =
@@ -5478,10 +5018,6 @@ leading_none =
 
 {-| --tw-leading: 1px;
   line-height: 1px;
-}
-@property --tw-leading {
-  syntax: "*";
-  inherits: false;
 -}
 leading_px : Tailwind
 leading_px =
@@ -5516,26 +5052,6 @@ line_clamp_none =
 
 {-| --tw-numeric-figure: lining-nums;
   font-variant-numeric: var(--tw-ordinal,) var(--tw-slashed-zero,) var(--tw-numeric-figure,) var(--tw-numeric-spacing,) var(--tw-numeric-fraction,);
-}
-@property --tw-ordinal {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-slashed-zero {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-numeric-figure {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-numeric-spacing {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-numeric-fraction {
-  syntax: "*";
-  inherits: false;
 -}
 lining_nums : Tailwind
 lining_nums =
@@ -6240,26 +5756,6 @@ object_top =
 
 {-| --tw-numeric-figure: oldstyle-nums;
   font-variant-numeric: var(--tw-ordinal,) var(--tw-slashed-zero,) var(--tw-numeric-figure,) var(--tw-numeric-spacing,) var(--tw-numeric-fraction,);
-}
-@property --tw-ordinal {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-slashed-zero {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-numeric-figure {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-numeric-spacing {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-numeric-fraction {
-  syntax: "*";
-  inherits: false;
 -}
 oldstyle_nums : Tailwind
 oldstyle_nums =
@@ -6285,26 +5781,6 @@ order_none =
 
 {-| --tw-ordinal: ordinal;
   font-variant-numeric: var(--tw-ordinal,) var(--tw-slashed-zero,) var(--tw-numeric-figure,) var(--tw-numeric-spacing,) var(--tw-numeric-fraction,);
-}
-@property --tw-ordinal {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-slashed-zero {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-numeric-figure {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-numeric-spacing {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-numeric-fraction {
-  syntax: "*";
-  inherits: false;
 -}
 ordinal : Tailwind
 ordinal =
@@ -6389,7 +5865,6 @@ outline_double =
   @media (forced-colors: active) {
     outline: 2px solid transparent;
     outline-offset: 2px;
-  }
 -}
 outline_hidden : Tailwind
 outline_hidden =
@@ -6717,26 +6192,6 @@ pr_px =
 
 {-| --tw-numeric-spacing: proportional-nums;
   font-variant-numeric: var(--tw-ordinal,) var(--tw-slashed-zero,) var(--tw-numeric-figure,) var(--tw-numeric-spacing,) var(--tw-numeric-fraction,);
-}
-@property --tw-ordinal {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-slashed-zero {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-numeric-figure {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-numeric-spacing {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-numeric-fraction {
-  syntax: "*";
-  inherits: false;
 -}
 proportional_nums : Tailwind
 proportional_nums =
@@ -6809,61 +6264,6 @@ right_px =
     Tailwind "right-px"
 
 {-| --tw-ring-inset: inset;
-}
-@property --tw-shadow {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0 0 #0000;
-}
-@property --tw-shadow-color {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-inset-shadow {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0 0 #0000;
-}
-@property --tw-inset-shadow-color {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-ring-color {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-ring-shadow {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0 0 #0000;
-}
-@property --tw-inset-ring-color {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-inset-ring-shadow {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0 0 #0000;
-}
-@property --tw-ring-inset {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-ring-offset-width {
-  syntax: "<length>";
-  inherits: false;
-  initial-value: 0px;
-}
-@property --tw-ring-offset-color {
-  syntax: "*";
-  inherits: false;
-  initial-value: #fff;
-}
-@property --tw-ring-offset-shadow {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0 0 #0000;
 -}
 ring_inset : Tailwind
 ring_inset =
@@ -7080,21 +6480,6 @@ row_start_auto =
     Tailwind "row-start-auto"
 
 {-| scale: var(--tw-scale-x) var(--tw-scale-y) var(--tw-scale-z);
-}
-@property --tw-scale-x {
-  syntax: "*";
-  inherits: false;
-  initial-value: 1;
-}
-@property --tw-scale-y {
-  syntax: "*";
-  inherits: false;
-  initial-value: 1;
-}
-@property --tw-scale-z {
-  syntax: "*";
-  inherits: false;
-  initial-value: 1;
 -}
 scale_3d : Tailwind
 scale_3d =
@@ -7299,61 +6684,6 @@ self_stretch =
     Tailwind "self-stretch"
 
 {-| --tw-shadow-color: initial;
-}
-@property --tw-shadow {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0 0 #0000;
-}
-@property --tw-shadow-color {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-inset-shadow {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0 0 #0000;
-}
-@property --tw-inset-shadow-color {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-ring-color {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-ring-shadow {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0 0 #0000;
-}
-@property --tw-inset-ring-color {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-inset-ring-shadow {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0 0 #0000;
-}
-@property --tw-ring-inset {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-ring-offset-width {
-  syntax: "<length>";
-  inherits: false;
-  initial-value: 0px;
-}
-@property --tw-ring-offset-color {
-  syntax: "*";
-  inherits: false;
-  initial-value: #fff;
-}
-@property --tw-ring-offset-shadow {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0 0 #0000;
 -}
 shadow_initial : Tailwind
 shadow_initial =
@@ -7445,26 +6775,6 @@ size_svw =
 
 {-| --tw-slashed-zero: slashed-zero;
   font-variant-numeric: var(--tw-ordinal,) var(--tw-slashed-zero,) var(--tw-numeric-figure,) var(--tw-numeric-spacing,) var(--tw-numeric-fraction,);
-}
-@property --tw-ordinal {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-slashed-zero {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-numeric-figure {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-numeric-spacing {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-numeric-fraction {
-  syntax: "*";
-  inherits: false;
 -}
 slashed_zero : Tailwind
 slashed_zero =
@@ -7483,11 +6793,6 @@ snap_always =
     Tailwind "snap-always"
 
 {-| scroll-snap-type: both var(--tw-scroll-snap-strictness);
-}
-@property --tw-scroll-snap-strictness {
-  syntax: "*";
-  inherits: false;
-  initial-value: proximity;
 -}
 snap_both : Tailwind
 snap_both =
@@ -7506,11 +6811,6 @@ snap_end =
     Tailwind "snap-end"
 
 {-| --tw-scroll-snap-strictness: mandatory;
-}
-@property --tw-scroll-snap-strictness {
-  syntax: "*";
-  inherits: false;
-  initial-value: proximity;
 -}
 snap_mandatory : Tailwind
 snap_mandatory =
@@ -7529,11 +6829,6 @@ snap_normal =
     Tailwind "snap-normal"
 
 {-| --tw-scroll-snap-strictness: proximity;
-}
-@property --tw-scroll-snap-strictness {
-  syntax: "*";
-  inherits: false;
-  initial-value: proximity;
 -}
 snap_proximity : Tailwind
 snap_proximity =
@@ -7546,22 +6841,12 @@ snap_start =
     Tailwind "snap-start"
 
 {-| scroll-snap-type: x var(--tw-scroll-snap-strictness);
-}
-@property --tw-scroll-snap-strictness {
-  syntax: "*";
-  inherits: false;
-  initial-value: proximity;
 -}
 snap_x : Tailwind
 snap_x =
     Tailwind "snap-x"
 
 {-| scroll-snap-type: y var(--tw-scroll-snap-strictness);
-}
-@property --tw-scroll-snap-strictness {
-  syntax: "*";
-  inherits: false;
-  initial-value: proximity;
 -}
 snap_y : Tailwind
 snap_y =
@@ -7571,12 +6856,6 @@ snap_y =
     --tw-space-x-reverse: 0;
     margin-inline-start: calc(1px * var(--tw-space-x-reverse));
     margin-inline-end: calc(1px * calc(1 - var(--tw-space-x-reverse)));
-  }
-}
-@property --tw-space-x-reverse {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
 -}
 space_x_px : Tailwind
 space_x_px =
@@ -7584,12 +6863,6 @@ space_x_px =
 
 {-| :where(& > :not(:last-child)) {
     --tw-space-x-reverse: 1;
-  }
-}
-@property --tw-space-x-reverse {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
 -}
 space_x_reverse : Tailwind
 space_x_reverse =
@@ -7599,12 +6872,6 @@ space_x_reverse =
     --tw-space-y-reverse: 0;
     margin-block-start: calc(1px * var(--tw-space-y-reverse));
     margin-block-end: calc(1px * calc(1 - var(--tw-space-y-reverse)));
-  }
-}
-@property --tw-space-y-reverse {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
 -}
 space_y_px : Tailwind
 space_y_px =
@@ -7612,12 +6879,6 @@ space_y_px =
 
 {-| :where(& > :not(:last-child)) {
     --tw-space-y-reverse: 1;
-  }
-}
-@property --tw-space-y-reverse {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
 -}
 space_y_reverse : Tailwind
 space_y_reverse =
@@ -7639,26 +6900,6 @@ sr_only =
 
 {-| --tw-numeric-fraction: stacked-fractions;
   font-variant-numeric: var(--tw-ordinal,) var(--tw-slashed-zero,) var(--tw-numeric-figure,) var(--tw-numeric-spacing,) var(--tw-numeric-fraction,);
-}
-@property --tw-ordinal {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-slashed-zero {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-numeric-figure {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-numeric-spacing {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-numeric-fraction {
-  syntax: "*";
-  inherits: false;
 -}
 stacked_fractions : Tailwind
 stacked_fractions =
@@ -7763,26 +7004,6 @@ table_row_group =
 
 {-| --tw-numeric-spacing: tabular-nums;
   font-variant-numeric: var(--tw-ordinal,) var(--tw-slashed-zero,) var(--tw-numeric-figure,) var(--tw-numeric-spacing,) var(--tw-numeric-fraction,);
-}
-@property --tw-ordinal {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-slashed-zero {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-numeric-figure {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-numeric-spacing {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-numeric-fraction {
-  syntax: "*";
-  inherits: false;
 -}
 tabular_nums : Tailwind
 tabular_nums =
@@ -7862,18 +7083,6 @@ touch_none =
 
 {-| --tw-pan-y: pan-down;
   touch-action: var(--tw-pan-x,) var(--tw-pan-y,) var(--tw-pinch-zoom,);
-}
-@property --tw-pan-x {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-pan-y {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-pinch-zoom {
-  syntax: "*";
-  inherits: false;
 -}
 touch_pan_down : Tailwind
 touch_pan_down =
@@ -7881,18 +7090,6 @@ touch_pan_down =
 
 {-| --tw-pan-x: pan-left;
   touch-action: var(--tw-pan-x,) var(--tw-pan-y,) var(--tw-pinch-zoom,);
-}
-@property --tw-pan-x {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-pan-y {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-pinch-zoom {
-  syntax: "*";
-  inherits: false;
 -}
 touch_pan_left : Tailwind
 touch_pan_left =
@@ -7900,18 +7097,6 @@ touch_pan_left =
 
 {-| --tw-pan-x: pan-right;
   touch-action: var(--tw-pan-x,) var(--tw-pan-y,) var(--tw-pinch-zoom,);
-}
-@property --tw-pan-x {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-pan-y {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-pinch-zoom {
-  syntax: "*";
-  inherits: false;
 -}
 touch_pan_right : Tailwind
 touch_pan_right =
@@ -7919,18 +7104,6 @@ touch_pan_right =
 
 {-| --tw-pan-y: pan-up;
   touch-action: var(--tw-pan-x,) var(--tw-pan-y,) var(--tw-pinch-zoom,);
-}
-@property --tw-pan-x {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-pan-y {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-pinch-zoom {
-  syntax: "*";
-  inherits: false;
 -}
 touch_pan_up : Tailwind
 touch_pan_up =
@@ -7938,18 +7111,6 @@ touch_pan_up =
 
 {-| --tw-pan-x: pan-x;
   touch-action: var(--tw-pan-x,) var(--tw-pan-y,) var(--tw-pinch-zoom,);
-}
-@property --tw-pan-x {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-pan-y {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-pinch-zoom {
-  syntax: "*";
-  inherits: false;
 -}
 touch_pan_x : Tailwind
 touch_pan_x =
@@ -7957,18 +7118,6 @@ touch_pan_x =
 
 {-| --tw-pan-y: pan-y;
   touch-action: var(--tw-pan-x,) var(--tw-pan-y,) var(--tw-pinch-zoom,);
-}
-@property --tw-pan-x {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-pan-y {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-pinch-zoom {
-  syntax: "*";
-  inherits: false;
 -}
 touch_pan_y : Tailwind
 touch_pan_y =
@@ -7976,18 +7125,6 @@ touch_pan_y =
 
 {-| --tw-pinch-zoom: pinch-zoom;
   touch-action: var(--tw-pan-x,) var(--tw-pan-y,) var(--tw-pinch-zoom,);
-}
-@property --tw-pan-x {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-pan-y {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-pinch-zoom {
-  syntax: "*";
-  inherits: false;
 -}
 touch_pinch_zoom : Tailwind
 touch_pinch_zoom =
@@ -8066,21 +7203,6 @@ transition_normal =
     Tailwind "transition-normal"
 
 {-| translate: var(--tw-translate-x) var(--tw-translate-y) var(--tw-translate-z);
-}
-@property --tw-translate-x {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
-}
-@property --tw-translate-y {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
-}
-@property --tw-translate-z {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
 -}
 translate_3d : Tailwind
 translate_3d =
@@ -8089,21 +7211,6 @@ translate_3d =
 {-| --tw-translate-x: 100%;
   --tw-translate-y: 100%;
   translate: var(--tw-translate-x) var(--tw-translate-y);
-}
-@property --tw-translate-x {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
-}
-@property --tw-translate-y {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
-}
-@property --tw-translate-z {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
 -}
 translate_full : Tailwind
 translate_full =
@@ -8118,21 +7225,6 @@ translate_none =
 {-| --tw-translate-x: 1px;
   --tw-translate-y: 1px;
   translate: var(--tw-translate-x) var(--tw-translate-y);
-}
-@property --tw-translate-x {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
-}
-@property --tw-translate-y {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
-}
-@property --tw-translate-z {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
 -}
 translate_px : Tailwind
 translate_px =
@@ -8140,21 +7232,6 @@ translate_px =
 
 {-| --tw-translate-x: 100%;
   translate: var(--tw-translate-x) var(--tw-translate-y);
-}
-@property --tw-translate-x {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
-}
-@property --tw-translate-y {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
-}
-@property --tw-translate-z {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
 -}
 translate_x_full : Tailwind
 translate_x_full =
@@ -8162,21 +7239,6 @@ translate_x_full =
 
 {-| --tw-translate-x: 1px;
   translate: var(--tw-translate-x) var(--tw-translate-y);
-}
-@property --tw-translate-x {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
-}
-@property --tw-translate-y {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
-}
-@property --tw-translate-z {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
 -}
 translate_x_px : Tailwind
 translate_x_px =
@@ -8184,21 +7246,6 @@ translate_x_px =
 
 {-| --tw-translate-y: 100%;
   translate: var(--tw-translate-x) var(--tw-translate-y);
-}
-@property --tw-translate-x {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
-}
-@property --tw-translate-y {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
-}
-@property --tw-translate-z {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
 -}
 translate_y_full : Tailwind
 translate_y_full =
@@ -8206,21 +7253,6 @@ translate_y_full =
 
 {-| --tw-translate-y: 1px;
   translate: var(--tw-translate-x) var(--tw-translate-y);
-}
-@property --tw-translate-x {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
-}
-@property --tw-translate-y {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
-}
-@property --tw-translate-z {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
 -}
 translate_y_px : Tailwind
 translate_y_px =
@@ -8228,25 +7260,6 @@ translate_y_px =
 
 {-| --tw-translate-z: 1px;
   translate: var(--tw-translate-x) var(--tw-translate-y) var(--tw-translate-z);
-}
-.translate-z-px {
-  --tw-translate-z: 1px;
-  translate: var(--tw-translate-x) var(--tw-translate-y) var(--tw-translate-z);
-}
-@property --tw-translate-x {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
-}
-@property --tw-translate-y {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
-}
-@property --tw-translate-z {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
 -}
 translate_z_px : Tailwind
 translate_z_px =

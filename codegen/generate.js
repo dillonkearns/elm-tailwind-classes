@@ -213,6 +213,19 @@ function toElmName(className) {
   return name;
 }
 
+// Extract a clean one-line CSS doc comment from candidatesToCss output.
+// Strips the selector, @property blocks, and escapes -{- / -}- for Elm comments.
+function cssDocComment(css, fallback) {
+  if (!css) return fallback;
+  // Extract just the first rule's declarations
+  const match = css.match(/^\.[^\s{]+\s*\{([^}]*)\}/);
+  if (!match) return fallback;
+  const body = match[1].trim()
+    .replace(/-\}/g, '- }')   // escape Elm comment close
+    .replace(/\{-/g, '{ -');  // escape Elm comment open
+  return body || fallback;
+}
+
 // Generate Tailwind/Theme.elm - colors, spacing, and opacity values
 function generateTheme(theme) {
   const colors = theme.colors;
@@ -2005,10 +2018,7 @@ z_auto =
 
       // Get the CSS this utility generates for the doc comment
       const cssArray = designSystem.candidatesToCss([className]);
-      const cssBody = cssArray?.[0]
-        ?.replace(/^\.[\w-]+\s*\{\n?/, '')  // strip selector
-        ?.replace(/\}\n?$/, '')              // strip closing brace
-        ?.trim() || className;
+      const cssBody = cssDocComment(cssArray?.[0], className);
 
       designSystemStaticDefs.push(`
 {-| ${cssBody}
