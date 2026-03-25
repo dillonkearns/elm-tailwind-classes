@@ -16,12 +16,16 @@ import Snapshot
 
 run : Script
 run =
+    let
+        tailwindSource =
+            File.rawFile "../.elm-tailwind/Tailwind.elm"
+                |> BackendTask.allowFatal
+    in
     Snapshot.run "Snapshots"
         [ Snapshot.taskTest "exposed utilities" <|
-            (File.rawFile "../.elm-tailwind/Tailwind.elm"
-                |> BackendTask.allowFatal
-                |> BackendTask.map extractTypeSignatures
-            )
+            BackendTask.map extractTypeSignatures tailwindSource
+        , Snapshot.taskTest "class mappings" <|
+            BackendTask.map extractClassMappings tailwindSource
         ]
 
 
@@ -53,6 +57,79 @@ extractTypeSignatures source =
             )
         |> List.sort
         |> String.join "\n"
+
+
+{-| Extract function-name-to-class-string mappings from the source.
+
+Parses patterns like:
+
+    flex =
+        Tailwind "flex"
+
+and produces sorted lines like:
+
+    flex -> flex
+    text_balance -> text-balance
+    neg_m_px -> -m-px
+
+This catches if a utility's CSS class string silently changes.
+Only covers static utilities (not parameterized ones like `p : Spacing -> Tailwind`).
+
+-}
+extractClassMappings : String -> String
+extractClassMappings source =
+    let
+        lines =
+            String.lines source |> List.indexedMap Tuple.pair
+    in
+    lines
+        |> List.filterMap
+            (\( i, line ) ->
+                -- Look for `    Tailwind "some-class"` and pair with the function name
+                -- from the line two above (pattern: `name =\n    Tailwind "class"`)
+                case extractClassName (String.trim line) of
+                    Just className ->
+                        -- The function name is on the line before (name =) or two before
+                        findFunctionName lines i
+                            |> Maybe.map (\name -> name ++ " -> " ++ className)
+
+                    Nothing ->
+                        Nothing
+            )
+        |> List.sort
+        |> String.join "\n"
+
+
+extractClassName : String -> Maybe String
+extractClassName line =
+    if String.startsWith "Tailwind \"" line && String.endsWith "\"" line then
+        line
+            |> String.dropLeft (String.length "Tailwind \"")
+            |> String.dropRight 1
+            |> Just
+
+    else
+        Nothing
+
+
+findFunctionName : List ( Int, String ) -> Int -> Maybe String
+findFunctionName lines currentIndex =
+    -- Look at the previous line for `name =`
+    lines
+        |> List.filter (\( i, _ ) -> i == currentIndex - 1)
+        |> List.head
+        |> Maybe.andThen
+            (\( _, prevLine ) ->
+                let
+                    trimmed =
+                        String.trim prevLine
+                in
+                if String.endsWith " =" trimmed then
+                    Just (String.dropRight 2 trimmed)
+
+                else
+                    Nothing
+            )
 
 
 isTypeAnnotation : String -> Bool
