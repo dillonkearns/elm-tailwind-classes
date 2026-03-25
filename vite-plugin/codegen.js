@@ -202,15 +202,27 @@ function generateTailwindWithUtilities(theme, designSystem) {
   }
 
   // Generate from static utility registry
-  const staticKeys = [...designSystem.utilities.keys('static')].sort();
+  const staticKeys = new Set(designSystem.utilities.keys('static'));
   // Combine static keys + explicit functional utilities
   const allClassNames = [...new Set([...staticKeys, ...functionalUtilitiesToInclude])].sort();
+
+  // Warn about stale entries in functionalUtilitiesToInclude
+  for (const className of functionalUtilitiesToInclude) {
+    const cssArray = designSystem.candidatesToCss([className]);
+    if (!cssArray || cssArray.length === 0) {
+      console.warn(`[elm-tailwind] Warning: '${className}' in functionalUtilitiesToInclude is not recognized by Tailwind. Remove it?`);
+    }
+    if (staticKeys.has(className)) {
+      console.warn(`[elm-tailwind] Note: '${className}' is now a static utility in Tailwind — it can be removed from functionalUtilitiesToInclude.`);
+    }
+  }
+
   for (const className of allClassNames) {
     const elmName = toElmName(className);
     if (existingExports.has(elmName)) continue;
 
     const cssArray = designSystem.candidatesToCss([className]);
-    if (!cssArray || cssArray.length === 0) continue; // skip if not valid
+    if (!cssArray || cssArray.length === 0) continue;
     const cssBody = cssDocComment(cssArray[0], className);
 
     designSystemStaticDefs.push(`
