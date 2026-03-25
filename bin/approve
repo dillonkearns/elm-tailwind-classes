@@ -31,6 +31,13 @@ echo "=== Building with Vite (tests CSS resolution) ==="
 npx vite build 2>&1
 echo "Vite build succeeded"
 
+echo ""
+echo "=== Snapshot testing utility list ==="
+cd snapshot-tests
+elm-pages run src/Snapshots.elm 2>&1
+echo "Snapshot test passed"
+cd ..
+
 cd ..
 
 echo ""
