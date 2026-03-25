@@ -23,6 +23,50 @@ module Tailwind.Utilities exposing
     , gap
     , gap_x
     , gap_y
+    , flex
+    , inline_flex
+    , block
+    , inline_block
+    , inline
+    , grid
+    , hidden
+    , flex_row
+    , flex_row_reverse
+    , flex_col
+    , flex_col_reverse
+    , flex_wrap
+    , flex_wrap_reverse
+    , flex_nowrap
+    , grow
+    , grow_0
+    , shrink
+    , shrink_0
+    , items_start
+    , items_end
+    , items_center
+    , items_baseline
+    , items_stretch
+    , justify_start
+    , justify_end
+    , justify_center
+    , justify_between
+    , justify_around
+    , justify_evenly
+    , relative
+    , absolute
+    , fixed
+    , sticky
+    , static
+    , visible
+    , invisible
+    , overflow_auto
+    , overflow_hidden
+    , overflow_visible
+    , overflow_scroll
+    , overflow_x_auto
+    , overflow_y_auto
+    , overflow_x_hidden
+    , overflow_y_hidden
     , w
     , w_1over2
     , w_1over3
@@ -93,6 +137,30 @@ module Tailwind.Utilities exposing
     , max_w
     , min_h
     , max_h
+    , text_left
+    , text_center
+    , text_right
+    , text_justify
+    , font_sans
+    , font_serif
+    , font_mono
+    , italic
+    , not_italic
+    , uppercase
+    , lowercase
+    , capitalize
+    , normal_case
+    , underline
+    , line_through
+    , no_underline
+    , whitespace_normal
+    , whitespace_nowrap
+    , whitespace_pre
+    , whitespace_pre_line
+    , whitespace_pre_wrap
+    , truncate
+    , text_ellipsis
+    , text_clip
     , text_xs
     , text_sm
     , text_base
@@ -115,6 +183,18 @@ module Tailwind.Utilities exposing
     , font_bold
     , font_extrabold
     , font_black
+    , border
+    , border_0
+    , border_2
+    , border_4
+    , border_8
+    , border_t
+    , border_r
+    , border_b
+    , border_l
+    , rounded
+    , rounded_none
+    , rounded_full
     , rounded_xs
     , rounded_sm
     , rounded_md
@@ -123,6 +203,33 @@ module Tailwind.Utilities exposing
     , rounded_n2xl
     , rounded_n3xl
     , rounded_n4xl
+    , shadow
+    , shadow_none
+    , transition
+    , transition_all
+    , transition_none
+    , transition_colors
+    , transition_opacity
+    , transition_shadow
+    , transition_transform
+    , animate_none
+    , animate_spin
+    , animate_ping
+    , animate_pulse
+    , animate_bounce
+    , cursor_auto
+    , cursor_default
+    , cursor_pointer
+    , cursor_wait
+    , cursor_text
+    , cursor_move
+    , cursor_not_allowed
+    , pointer_events_none
+    , pointer_events_auto
+    , select_none
+    , select_text
+    , select_all
+    , select_auto
     , shadow_n2xs
     , shadow_xs
     , shadow_sm
@@ -204,7 +311,6 @@ module Tailwind.Utilities exposing
     , neg_translate_y_full
     , neg_translate_y_px
     , neg_translate_z_px
-    , absolute
     , accent_auto
     , align_baseline
     , align_bottom
@@ -214,7 +320,6 @@ module Tailwind.Utilities exposing
     , align_text_bottom
     , align_text_top
     , align_top
-    , animate_none
     , antialiased
     , appearance_auto
     , appearance_none
@@ -287,7 +392,6 @@ module Tailwind.Utilities exposing
     , bg_right_top
     , bg_scroll
     , bg_top
-    , block
     , blur_none
     , border_collapse
     , border_dashed
@@ -331,7 +435,6 @@ module Tailwind.Utilities exposing
     , break_keep
     , break_normal
     , break_words
-    , capitalize
     , caption_bottom
     , caption_top
     , clear_both
@@ -368,38 +471,31 @@ module Tailwind.Utilities exposing
     , contents
     , cursor_alias
     , cursor_all_scroll
-    , cursor_auto
     , cursor_cell
     , cursor_col_resize
     , cursor_context_menu
     , cursor_copy
     , cursor_crosshair
-    , cursor_default
     , cursor_e_resize
     , cursor_ew_resize
     , cursor_grab
     , cursor_grabbing
     , cursor_help
-    , cursor_move
     , cursor_n_resize
     , cursor_ne_resize
     , cursor_nesw_resize
     , cursor_no_drop
     , cursor_none
-    , cursor_not_allowed
     , cursor_ns_resize
     , cursor_nw_resize
     , cursor_nwse_resize
-    , cursor_pointer
     , cursor_progress
     , cursor_row_resize
     , cursor_s_resize
     , cursor_se_resize
     , cursor_sw_resize
-    , cursor_text
     , cursor_vertical_text
     , cursor_w_resize
-    , cursor_wait
     , cursor_zoom_in
     , cursor_zoom_out
     , decoration_auto
@@ -429,18 +525,9 @@ module Tailwind.Utilities exposing
     , field_sizing_content
     , field_sizing_fixed
     , fill_none
-    , fixed
-    , flex
     , flex_auto
-    , flex_col
-    , flex_col_reverse
     , flex_initial
     , flex_none
-    , flex_nowrap
-    , flex_row
-    , flex_row_reverse
-    , flex_wrap
-    , flex_wrap_reverse
     , float_end
     , float_left
     , float_none
@@ -461,7 +548,6 @@ module Tailwind.Utilities exposing
     , gap_px
     , gap_x_px
     , gap_y_px
-    , grid
     , grid_cols_none
     , grid_cols_subgrid
     , grid_flow_col
@@ -478,14 +564,10 @@ module Tailwind.Utilities exposing
     , h_px
     , h_svh
     , h_svw
-    , hidden
     , hyphens_auto
     , hyphens_manual
     , hyphens_none
     , indent_px
-    , inline
-    , inline_block
-    , inline_flex
     , inline_grid
     , inline_table
     , inset_auto
@@ -498,21 +580,9 @@ module Tailwind.Utilities exposing
     , inset_y_auto
     , inset_y_full
     , inset_y_px
-    , invisible
     , isolate
     , isolation_auto
-    , italic
-    , items_baseline
-    , items_center
-    , items_end
-    , items_start
-    , items_stretch
-    , justify_around
     , justify_baseline
-    , justify_between
-    , justify_center
-    , justify_end
-    , justify_evenly
     , justify_items_center
     , justify_items_end
     , justify_items_normal
@@ -524,7 +594,6 @@ module Tailwind.Utilities exposing
     , justify_self_end
     , justify_self_start
     , justify_self_stretch
-    , justify_start
     , justify_stretch
     , leading_none
     , leading_px
@@ -532,7 +601,6 @@ module Tailwind.Utilities exposing
     , left_full
     , left_px
     , line_clamp_none
-    , line_through
     , lining_nums
     , list_decimal
     , list_disc
@@ -541,7 +609,6 @@ module Tailwind.Utilities exposing
     , list_item
     , list_none
     , list_outside
-    , lowercase
     , m_auto
     , m_px
     , max_h_auto
@@ -634,10 +701,7 @@ module Tailwind.Utilities exposing
     , mx_px
     , my_auto
     , my_px
-    , no_underline
-    , normal_case
     , normal_nums
-    , not_italic
     , not_sr_only
     , object_bottom
     , object_center
@@ -673,20 +737,12 @@ module Tailwind.Utilities exposing
     , outline_hidden
     , outline_none
     , outline_solid
-    , overflow_auto
     , overflow_clip
     , overflow_ellipsis
-    , overflow_hidden
-    , overflow_scroll
-    , overflow_visible
-    , overflow_x_auto
     , overflow_x_clip
-    , overflow_x_hidden
     , overflow_x_scroll
     , overflow_x_visible
-    , overflow_y_auto
     , overflow_y_clip
-    , overflow_y_hidden
     , overflow_y_scroll
     , overflow_y_visible
     , overline
@@ -731,15 +787,12 @@ module Tailwind.Utilities exposing
     , place_self_end
     , place_self_start
     , place_self_stretch
-    , pointer_events_auto
-    , pointer_events_none
     , pr_px
     , proportional_nums
     , ps_px
     , pt_px
     , px_px
     , py_px
-    , relative
     , resize
     , resize_none
     , resize_x
@@ -761,10 +814,8 @@ module Tailwind.Utilities exposing
     , rounded_ee_none
     , rounded_es_full
     , rounded_es_none
-    , rounded_full
     , rounded_l_full
     , rounded_l_none
-    , rounded_none
     , rounded_r_full
     , rounded_r_none
     , rounded_s_full
@@ -811,10 +862,6 @@ module Tailwind.Utilities exposing
     , scroll_px_px
     , scroll_py_px
     , scroll_smooth
-    , select_all
-    , select_auto
-    , select_none
-    , select_text
     , self_auto
     , self_baseline
     , self_center
@@ -856,8 +903,6 @@ module Tailwind.Utilities exposing
     , start_auto
     , start_full
     , start_px
-    , static
-    , sticky
     , stroke_none
     , subpixel_antialiased
     , table
@@ -873,15 +918,9 @@ module Tailwind.Utilities exposing
     , table_row_group
     , tabular_nums
     , text_balance
-    , text_center
-    , text_clip
-    , text_ellipsis
     , text_end
-    , text_justify
-    , text_left
     , text_nowrap
     , text_pretty
-    , text_right
     , text_start
     , text_wrap
     , top_auto
@@ -907,14 +946,8 @@ module Tailwind.Utilities exposing
     , transform_none
     , transform_stroke
     , transform_view
-    , transition_all
-    , transition_colors
     , transition_discrete
-    , transition_none
     , transition_normal
-    , transition_opacity
-    , transition_shadow
-    , transition_transform
     , translate_3d
     , translate_full
     , translate_none
@@ -924,12 +957,8 @@ module Tailwind.Utilities exposing
     , translate_y_full
     , translate_y_px
     , translate_z_px
-    , truncate
-    , underline
     , underline_offset_auto
-    , uppercase
     , via_none
-    , visible
     , w_dvh
     , w_dvw
     , w_lvh
@@ -938,11 +967,6 @@ module Tailwind.Utilities exposing
     , w_svh
     , w_svw
     , whitespace_break_spaces
-    , whitespace_normal
-    , whitespace_nowrap
-    , whitespace_pre
-    , whitespace_pre_line
-    , whitespace_pre_wrap
     , will_change_auto
     , will_change_contents
     , will_change_scroll
@@ -969,7 +993,7 @@ Following elm-tailwind-modules naming conventions:
 
 ## Layout
 
-@docs 
+@docs flex, inline_flex, block, inline_block, inline, grid, hidden, flex_row, flex_row_reverse, flex_col, flex_col_reverse, flex_wrap, flex_wrap_reverse, flex_nowrap, grow, grow_0, shrink, shrink_0, items_start, items_end, items_center, items_baseline, items_stretch, justify_start, justify_end, justify_center, justify_between, justify_around, justify_evenly, relative, absolute, fixed, sticky, static, visible, invisible, overflow_auto, overflow_hidden, overflow_visible, overflow_scroll, overflow_x_auto, overflow_y_auto, overflow_x_hidden, overflow_y_hidden
 
 
 ## Sizing
@@ -979,7 +1003,7 @@ Following elm-tailwind-modules naming conventions:
 
 ## Typography
 
-@docs 
+@docs text_left, text_center, text_right, text_justify, font_sans, font_serif, font_mono, italic, not_italic, uppercase, lowercase, capitalize, normal_case, underline, line_through, no_underline, whitespace_normal, whitespace_nowrap, whitespace_pre, whitespace_pre_line, whitespace_pre_wrap, truncate, text_ellipsis, text_clip
 
 
 ## Font Sizes
@@ -994,7 +1018,7 @@ Following elm-tailwind-modules naming conventions:
 
 ## Borders
 
-@docs 
+@docs border, border_0, border_2, border_4, border_8, border_t, border_r, border_b, border_l, rounded, rounded_none, rounded_full
 
 
 ## Border Radius
@@ -1004,7 +1028,7 @@ Following elm-tailwind-modules naming conventions:
 
 ## Effects
 
-@docs 
+@docs shadow, shadow_none, transition, transition_all, transition_none, transition_colors, transition_opacity, transition_shadow, transition_transform, animate_none, animate_spin, animate_ping, animate_pulse, animate_bounce, cursor_auto, cursor_default, cursor_pointer, cursor_wait, cursor_text, cursor_move, cursor_not_allowed, pointer_events_none, pointer_events_auto, select_none, select_text, select_all, select_auto
 
 
 ## Shadows
@@ -1030,7 +1054,7 @@ Following elm-tailwind-modules naming conventions:
 
 ## Additional Utilities
 
-@docs neg_bottom_full, neg_bottom_px, neg_end_full, neg_end_px, neg_indent_px, neg_inset_full, neg_inset_px, neg_inset_x_full, neg_inset_x_px, neg_inset_y_full, neg_inset_y_px, neg_left_full, neg_left_px, neg_m_px, neg_mb_px, neg_me_px, neg_ml_px, neg_mr_px, neg_ms_px, neg_mt_px, neg_mx_px, neg_my_px, neg_right_full, neg_right_px, neg_scroll_m_px, neg_scroll_mb_px, neg_scroll_me_px, neg_scroll_ml_px, neg_scroll_mr_px, neg_scroll_ms_px, neg_scroll_mt_px, neg_scroll_mx_px, neg_scroll_my_px, neg_space_x_px, neg_space_y_px, neg_start_full, neg_start_px, neg_top_full, neg_top_px, neg_translate_full, neg_translate_px, neg_translate_x_full, neg_translate_x_px, neg_translate_y_full, neg_translate_y_px, neg_translate_z_px, absolute, accent_auto, align_baseline, align_bottom, align_middle, align_sub, align_super, align_text_bottom, align_text_top, align_top, animate_none, antialiased, appearance_auto, appearance_none, aspect_auto, aspect_square, auto_cols_auto, auto_cols_fr, auto_cols_max, auto_cols_min, auto_rows_auto, auto_rows_fr, auto_rows_max, auto_rows_min, backdrop_blur_none, backface_hidden, backface_visible, basis_auto, basis_full, basis_px, bg_auto, bg_blend_color, bg_blend_color_burn, bg_blend_color_dodge, bg_blend_darken, bg_blend_difference, bg_blend_exclusion, bg_blend_hard_light, bg_blend_hue, bg_blend_lighten, bg_blend_luminosity, bg_blend_multiply, bg_blend_normal, bg_blend_overlay, bg_blend_saturation, bg_blend_screen, bg_blend_soft_light, bg_bottom, bg_center, bg_clip_border, bg_clip_content, bg_clip_padding, bg_clip_text, bg_contain, bg_cover, bg_fixed, bg_gradient_to_b, bg_gradient_to_bl, bg_gradient_to_br, bg_gradient_to_l, bg_gradient_to_r, bg_gradient_to_t, bg_gradient_to_tl, bg_gradient_to_tr, bg_left, bg_left_bottom, bg_left_top, bg_local, bg_no_repeat, bg_none, bg_origin_border, bg_origin_content, bg_origin_padding, bg_repeat, bg_repeat_round, bg_repeat_space, bg_repeat_x, bg_repeat_y, bg_right, bg_right_bottom, bg_right_top, bg_scroll, bg_top, block, blur_none, border_collapse, border_dashed, border_dotted, border_double, border_hidden, border_none, border_separate, border_solid, border_spacing_px, border_spacing_x_px, border_spacing_y_px, bottom_auto, bottom_full, bottom_px, box_border, box_content, box_decoration_clone, box_decoration_slice, break_after_all, break_after_auto, break_after_avoid, break_after_avoid_page, break_after_column, break_after_left, break_after_page, break_after_right, break_all, break_before_all, break_before_auto, break_before_avoid, break_before_avoid_page, break_before_column, break_before_left, break_before_page, break_before_right, break_inside_auto, break_inside_avoid, break_inside_avoid_column, break_inside_avoid_page, break_keep, break_normal, break_words, capitalize, caption_bottom, caption_top, clear_both, clear_end, clear_left, clear_none, clear_right, clear_start, col_auto, col_end_auto, col_span_full, col_start_auto, collapse, columns_auto, contain_content, contain_inline_size, contain_layout, contain_none, contain_paint, contain_size, contain_strict, contain_style, container, content_around, content_baseline, content_between, content_center, content_end, content_evenly, content_none, content_normal, content_start, content_stretch, contents, cursor_alias, cursor_all_scroll, cursor_auto, cursor_cell, cursor_col_resize, cursor_context_menu, cursor_copy, cursor_crosshair, cursor_default, cursor_e_resize, cursor_ew_resize, cursor_grab, cursor_grabbing, cursor_help, cursor_move, cursor_n_resize, cursor_ne_resize, cursor_nesw_resize, cursor_no_drop, cursor_none, cursor_not_allowed, cursor_ns_resize, cursor_nw_resize, cursor_nwse_resize, cursor_pointer, cursor_progress, cursor_row_resize, cursor_s_resize, cursor_se_resize, cursor_sw_resize, cursor_text, cursor_vertical_text, cursor_w_resize, cursor_wait, cursor_zoom_in, cursor_zoom_out, decoration_auto, decoration_clone, decoration_dashed, decoration_dotted, decoration_double, decoration_from_font, decoration_slice, decoration_solid, decoration_wavy, diagonal_fractions, divide_dashed, divide_dotted, divide_double, divide_none, divide_solid, divide_x_reverse, divide_y_reverse, drop_shadow_none, duration_initial, ease_initial, ease_linear, end_auto, end_full, end_px, field_sizing_content, field_sizing_fixed, fill_none, fixed, flex, flex_auto, flex_col, flex_col_reverse, flex_initial, flex_none, flex_nowrap, flex_row, flex_row_reverse, flex_wrap, flex_wrap_reverse, float_end, float_left, float_none, float_right, float_start, flow_root, font_stretch_condensed, font_stretch_expanded, font_stretch_extra_condensed, font_stretch_extra_expanded, font_stretch_normal, font_stretch_semi_condensed, font_stretch_semi_expanded, font_stretch_ultra_condensed, font_stretch_ultra_expanded, forced_color_adjust_auto, forced_color_adjust_none, gap_px, gap_x_px, gap_y_px, grid, grid_cols_none, grid_cols_subgrid, grid_flow_col, grid_flow_col_dense, grid_flow_dense, grid_flow_row, grid_flow_row_dense, grid_rows_none, grid_rows_subgrid, h_dvh, h_dvw, h_lvh, h_lvw, h_px, h_svh, h_svw, hidden, hyphens_auto, hyphens_manual, hyphens_none, indent_px, inline, inline_block, inline_flex, inline_grid, inline_table, inset_auto, inset_full, inset_px, inset_shadow_initial, inset_x_auto, inset_x_full, inset_x_px, inset_y_auto, inset_y_full, inset_y_px, invisible, isolate, isolation_auto, italic, items_baseline, items_center, items_end, items_start, items_stretch, justify_around, justify_baseline, justify_between, justify_center, justify_end, justify_evenly, justify_items_center, justify_items_end, justify_items_normal, justify_items_start, justify_items_stretch, justify_normal, justify_self_auto, justify_self_center, justify_self_end, justify_self_start, justify_self_stretch, justify_start, justify_stretch, leading_none, leading_px, left_auto, left_full, left_px, line_clamp_none, line_through, lining_nums, list_decimal, list_disc, list_image_none, list_inside, list_item, list_none, list_outside, lowercase, m_auto, m_px, max_h_auto, max_h_dvh, max_h_dvw, max_h_fit, max_h_full, max_h_lvh, max_h_lvw, max_h_max, max_h_min, max_h_none, max_h_px, max_h_screen, max_h_svh, max_h_svw, max_w_auto, max_w_dvh, max_w_dvw, max_w_fit, max_w_full, max_w_lvh, max_w_lvw, max_w_max, max_w_min, max_w_none, max_w_px, max_w_screen, max_w_svh, max_w_svw, mb_auto, mb_px, me_auto, me_px, min_h_auto, min_h_dvh, min_h_dvw, min_h_fit, min_h_full, min_h_lvh, min_h_lvw, min_h_max, min_h_min, min_h_none, min_h_px, min_h_screen, min_h_svh, min_h_svw, min_w_auto, min_w_dvh, min_w_dvw, min_w_fit, min_w_full, min_w_lvh, min_w_lvw, min_w_max, min_w_min, min_w_none, min_w_px, min_w_screen, min_w_svh, min_w_svw, mix_blend_color, mix_blend_color_burn, mix_blend_color_dodge, mix_blend_darken, mix_blend_difference, mix_blend_exclusion, mix_blend_hard_light, mix_blend_hue, mix_blend_lighten, mix_blend_luminosity, mix_blend_multiply, mix_blend_normal, mix_blend_overlay, mix_blend_plus_darker, mix_blend_plus_lighter, mix_blend_saturation, mix_blend_screen, mix_blend_soft_light, ml_auto, ml_px, mr_auto, mr_px, ms_auto, ms_px, mt_auto, mt_px, mx_auto, mx_px, my_auto, my_px, no_underline, normal_case, normal_nums, not_italic, not_sr_only, object_bottom, object_center, object_contain, object_cover, object_fill, object_left, object_left_bottom, object_left_top, object_none, object_right, object_right_bottom, object_right_top, object_scale_down, object_top, oldstyle_nums, order_first, order_last, order_none, ordinal, origin_bottom, origin_bottom_left, origin_bottom_right, origin_center, origin_left, origin_right, origin_top, origin_top_left, origin_top_right, outline_dashed, outline_dotted, outline_double, outline_hidden, outline_none, outline_solid, overflow_auto, overflow_clip, overflow_ellipsis, overflow_hidden, overflow_scroll, overflow_visible, overflow_x_auto, overflow_x_clip, overflow_x_hidden, overflow_x_scroll, overflow_x_visible, overflow_y_auto, overflow_y_clip, overflow_y_hidden, overflow_y_scroll, overflow_y_visible, overline, overscroll_auto, overscroll_contain, overscroll_none, overscroll_x_auto, overscroll_x_contain, overscroll_x_none, overscroll_y_auto, overscroll_y_contain, overscroll_y_none, p_px, pb_px, pe_px, perspective_none, perspective_origin_bottom, perspective_origin_bottom_left, perspective_origin_bottom_right, perspective_origin_center, perspective_origin_left, perspective_origin_right, perspective_origin_top, perspective_origin_top_left, perspective_origin_top_right, pl_px, place_content_around, place_content_baseline, place_content_between, place_content_center, place_content_end, place_content_evenly, place_content_start, place_content_stretch, place_items_baseline, place_items_center, place_items_end, place_items_start, place_items_stretch, place_self_auto, place_self_center, place_self_end, place_self_start, place_self_stretch, pointer_events_auto, pointer_events_none, pr_px, proportional_nums, ps_px, pt_px, px_px, py_px, relative, resize, resize_none, resize_x, resize_y, right_auto, right_full, right_px, ring_inset, rotate_none, rounded_b_full, rounded_b_none, rounded_bl_full, rounded_bl_none, rounded_br_full, rounded_br_none, rounded_e_full, rounded_e_none, rounded_ee_full, rounded_ee_none, rounded_es_full, rounded_es_none, rounded_full, rounded_l_full, rounded_l_none, rounded_none, rounded_r_full, rounded_r_none, rounded_s_full, rounded_s_none, rounded_se_full, rounded_se_none, rounded_ss_full, rounded_ss_none, rounded_t_full, rounded_t_none, rounded_tl_full, rounded_tl_none, rounded_tr_full, rounded_tr_none, row_auto, row_end_auto, row_span_full, row_start_auto, scale_3d, scale_none, scheme_dark, scheme_light, scheme_light_dark, scheme_normal, scheme_only_dark, scheme_only_light, scroll_auto, scroll_m_px, scroll_mb_px, scroll_me_px, scroll_ml_px, scroll_mr_px, scroll_ms_px, scroll_mt_px, scroll_mx_px, scroll_my_px, scroll_p_px, scroll_pb_px, scroll_pe_px, scroll_pl_px, scroll_pr_px, scroll_ps_px, scroll_pt_px, scroll_px_px, scroll_py_px, scroll_smooth, select_all, select_auto, select_none, select_text, self_auto, self_baseline, self_center, self_end, self_start, self_stretch, shadow_initial, size_auto, size_dvh, size_dvw, size_fit, size_full, size_lvh, size_lvw, size_max, size_min, size_px, size_svh, size_svw, slashed_zero, snap_align_none, snap_always, snap_both, snap_center, snap_end, snap_mandatory, snap_none, snap_normal, snap_proximity, snap_start, snap_x, snap_y, space_x_px, space_x_reverse, space_y_px, space_y_reverse, sr_only, stacked_fractions, start_auto, start_full, start_px, static, sticky, stroke_none, subpixel_antialiased, table, table_auto, table_caption, table_cell, table_column, table_column_group, table_fixed, table_footer_group, table_header_group, table_row, table_row_group, tabular_nums, text_balance, text_center, text_clip, text_ellipsis, text_end, text_justify, text_left, text_nowrap, text_pretty, text_right, text_start, text_wrap, top_auto, top_full, top_px, touch_auto, touch_manipulation, touch_none, touch_pan_down, touch_pan_left, touch_pan_right, touch_pan_up, touch_pan_x, touch_pan_y, touch_pinch_zoom, transform_3d, transform_border, transform_content, transform_cpu, transform_fill, transform_flat, transform_gpu, transform_none, transform_stroke, transform_view, transition_all, transition_colors, transition_discrete, transition_none, transition_normal, transition_opacity, transition_shadow, transition_transform, translate_3d, translate_full, translate_none, translate_px, translate_x_full, translate_x_px, translate_y_full, translate_y_px, translate_z_px, truncate, underline, underline_offset_auto, uppercase, via_none, visible, w_dvh, w_dvw, w_lvh, w_lvw, w_px, w_svh, w_svw, whitespace_break_spaces, whitespace_normal, whitespace_nowrap, whitespace_pre, whitespace_pre_line, whitespace_pre_wrap, will_change_auto, will_change_contents, will_change_scroll, will_change_transform
+@docs neg_bottom_full, neg_bottom_px, neg_end_full, neg_end_px, neg_indent_px, neg_inset_full, neg_inset_px, neg_inset_x_full, neg_inset_x_px, neg_inset_y_full, neg_inset_y_px, neg_left_full, neg_left_px, neg_m_px, neg_mb_px, neg_me_px, neg_ml_px, neg_mr_px, neg_ms_px, neg_mt_px, neg_mx_px, neg_my_px, neg_right_full, neg_right_px, neg_scroll_m_px, neg_scroll_mb_px, neg_scroll_me_px, neg_scroll_ml_px, neg_scroll_mr_px, neg_scroll_ms_px, neg_scroll_mt_px, neg_scroll_mx_px, neg_scroll_my_px, neg_space_x_px, neg_space_y_px, neg_start_full, neg_start_px, neg_top_full, neg_top_px, neg_translate_full, neg_translate_px, neg_translate_x_full, neg_translate_x_px, neg_translate_y_full, neg_translate_y_px, neg_translate_z_px, accent_auto, align_baseline, align_bottom, align_middle, align_sub, align_super, align_text_bottom, align_text_top, align_top, antialiased, appearance_auto, appearance_none, aspect_auto, aspect_square, auto_cols_auto, auto_cols_fr, auto_cols_max, auto_cols_min, auto_rows_auto, auto_rows_fr, auto_rows_max, auto_rows_min, backdrop_blur_none, backface_hidden, backface_visible, basis_auto, basis_full, basis_px, bg_auto, bg_blend_color, bg_blend_color_burn, bg_blend_color_dodge, bg_blend_darken, bg_blend_difference, bg_blend_exclusion, bg_blend_hard_light, bg_blend_hue, bg_blend_lighten, bg_blend_luminosity, bg_blend_multiply, bg_blend_normal, bg_blend_overlay, bg_blend_saturation, bg_blend_screen, bg_blend_soft_light, bg_bottom, bg_center, bg_clip_border, bg_clip_content, bg_clip_padding, bg_clip_text, bg_contain, bg_cover, bg_fixed, bg_gradient_to_b, bg_gradient_to_bl, bg_gradient_to_br, bg_gradient_to_l, bg_gradient_to_r, bg_gradient_to_t, bg_gradient_to_tl, bg_gradient_to_tr, bg_left, bg_left_bottom, bg_left_top, bg_local, bg_no_repeat, bg_none, bg_origin_border, bg_origin_content, bg_origin_padding, bg_repeat, bg_repeat_round, bg_repeat_space, bg_repeat_x, bg_repeat_y, bg_right, bg_right_bottom, bg_right_top, bg_scroll, bg_top, blur_none, border_collapse, border_dashed, border_dotted, border_double, border_hidden, border_none, border_separate, border_solid, border_spacing_px, border_spacing_x_px, border_spacing_y_px, bottom_auto, bottom_full, bottom_px, box_border, box_content, box_decoration_clone, box_decoration_slice, break_after_all, break_after_auto, break_after_avoid, break_after_avoid_page, break_after_column, break_after_left, break_after_page, break_after_right, break_all, break_before_all, break_before_auto, break_before_avoid, break_before_avoid_page, break_before_column, break_before_left, break_before_page, break_before_right, break_inside_auto, break_inside_avoid, break_inside_avoid_column, break_inside_avoid_page, break_keep, break_normal, break_words, caption_bottom, caption_top, clear_both, clear_end, clear_left, clear_none, clear_right, clear_start, col_auto, col_end_auto, col_span_full, col_start_auto, collapse, columns_auto, contain_content, contain_inline_size, contain_layout, contain_none, contain_paint, contain_size, contain_strict, contain_style, container, content_around, content_baseline, content_between, content_center, content_end, content_evenly, content_none, content_normal, content_start, content_stretch, contents, cursor_alias, cursor_all_scroll, cursor_cell, cursor_col_resize, cursor_context_menu, cursor_copy, cursor_crosshair, cursor_e_resize, cursor_ew_resize, cursor_grab, cursor_grabbing, cursor_help, cursor_n_resize, cursor_ne_resize, cursor_nesw_resize, cursor_no_drop, cursor_none, cursor_ns_resize, cursor_nw_resize, cursor_nwse_resize, cursor_progress, cursor_row_resize, cursor_s_resize, cursor_se_resize, cursor_sw_resize, cursor_vertical_text, cursor_w_resize, cursor_zoom_in, cursor_zoom_out, decoration_auto, decoration_clone, decoration_dashed, decoration_dotted, decoration_double, decoration_from_font, decoration_slice, decoration_solid, decoration_wavy, diagonal_fractions, divide_dashed, divide_dotted, divide_double, divide_none, divide_solid, divide_x_reverse, divide_y_reverse, drop_shadow_none, duration_initial, ease_initial, ease_linear, end_auto, end_full, end_px, field_sizing_content, field_sizing_fixed, fill_none, flex_auto, flex_initial, flex_none, float_end, float_left, float_none, float_right, float_start, flow_root, font_stretch_condensed, font_stretch_expanded, font_stretch_extra_condensed, font_stretch_extra_expanded, font_stretch_normal, font_stretch_semi_condensed, font_stretch_semi_expanded, font_stretch_ultra_condensed, font_stretch_ultra_expanded, forced_color_adjust_auto, forced_color_adjust_none, gap_px, gap_x_px, gap_y_px, grid_cols_none, grid_cols_subgrid, grid_flow_col, grid_flow_col_dense, grid_flow_dense, grid_flow_row, grid_flow_row_dense, grid_rows_none, grid_rows_subgrid, h_dvh, h_dvw, h_lvh, h_lvw, h_px, h_svh, h_svw, hyphens_auto, hyphens_manual, hyphens_none, indent_px, inline_grid, inline_table, inset_auto, inset_full, inset_px, inset_shadow_initial, inset_x_auto, inset_x_full, inset_x_px, inset_y_auto, inset_y_full, inset_y_px, isolate, isolation_auto, justify_baseline, justify_items_center, justify_items_end, justify_items_normal, justify_items_start, justify_items_stretch, justify_normal, justify_self_auto, justify_self_center, justify_self_end, justify_self_start, justify_self_stretch, justify_stretch, leading_none, leading_px, left_auto, left_full, left_px, line_clamp_none, lining_nums, list_decimal, list_disc, list_image_none, list_inside, list_item, list_none, list_outside, m_auto, m_px, max_h_auto, max_h_dvh, max_h_dvw, max_h_fit, max_h_full, max_h_lvh, max_h_lvw, max_h_max, max_h_min, max_h_none, max_h_px, max_h_screen, max_h_svh, max_h_svw, max_w_auto, max_w_dvh, max_w_dvw, max_w_fit, max_w_full, max_w_lvh, max_w_lvw, max_w_max, max_w_min, max_w_none, max_w_px, max_w_screen, max_w_svh, max_w_svw, mb_auto, mb_px, me_auto, me_px, min_h_auto, min_h_dvh, min_h_dvw, min_h_fit, min_h_full, min_h_lvh, min_h_lvw, min_h_max, min_h_min, min_h_none, min_h_px, min_h_screen, min_h_svh, min_h_svw, min_w_auto, min_w_dvh, min_w_dvw, min_w_fit, min_w_full, min_w_lvh, min_w_lvw, min_w_max, min_w_min, min_w_none, min_w_px, min_w_screen, min_w_svh, min_w_svw, mix_blend_color, mix_blend_color_burn, mix_blend_color_dodge, mix_blend_darken, mix_blend_difference, mix_blend_exclusion, mix_blend_hard_light, mix_blend_hue, mix_blend_lighten, mix_blend_luminosity, mix_blend_multiply, mix_blend_normal, mix_blend_overlay, mix_blend_plus_darker, mix_blend_plus_lighter, mix_blend_saturation, mix_blend_screen, mix_blend_soft_light, ml_auto, ml_px, mr_auto, mr_px, ms_auto, ms_px, mt_auto, mt_px, mx_auto, mx_px, my_auto, my_px, normal_nums, not_sr_only, object_bottom, object_center, object_contain, object_cover, object_fill, object_left, object_left_bottom, object_left_top, object_none, object_right, object_right_bottom, object_right_top, object_scale_down, object_top, oldstyle_nums, order_first, order_last, order_none, ordinal, origin_bottom, origin_bottom_left, origin_bottom_right, origin_center, origin_left, origin_right, origin_top, origin_top_left, origin_top_right, outline_dashed, outline_dotted, outline_double, outline_hidden, outline_none, outline_solid, overflow_clip, overflow_ellipsis, overflow_x_clip, overflow_x_scroll, overflow_x_visible, overflow_y_clip, overflow_y_scroll, overflow_y_visible, overline, overscroll_auto, overscroll_contain, overscroll_none, overscroll_x_auto, overscroll_x_contain, overscroll_x_none, overscroll_y_auto, overscroll_y_contain, overscroll_y_none, p_px, pb_px, pe_px, perspective_none, perspective_origin_bottom, perspective_origin_bottom_left, perspective_origin_bottom_right, perspective_origin_center, perspective_origin_left, perspective_origin_right, perspective_origin_top, perspective_origin_top_left, perspective_origin_top_right, pl_px, place_content_around, place_content_baseline, place_content_between, place_content_center, place_content_end, place_content_evenly, place_content_start, place_content_stretch, place_items_baseline, place_items_center, place_items_end, place_items_start, place_items_stretch, place_self_auto, place_self_center, place_self_end, place_self_start, place_self_stretch, pr_px, proportional_nums, ps_px, pt_px, px_px, py_px, resize, resize_none, resize_x, resize_y, right_auto, right_full, right_px, ring_inset, rotate_none, rounded_b_full, rounded_b_none, rounded_bl_full, rounded_bl_none, rounded_br_full, rounded_br_none, rounded_e_full, rounded_e_none, rounded_ee_full, rounded_ee_none, rounded_es_full, rounded_es_none, rounded_l_full, rounded_l_none, rounded_r_full, rounded_r_none, rounded_s_full, rounded_s_none, rounded_se_full, rounded_se_none, rounded_ss_full, rounded_ss_none, rounded_t_full, rounded_t_none, rounded_tl_full, rounded_tl_none, rounded_tr_full, rounded_tr_none, row_auto, row_end_auto, row_span_full, row_start_auto, scale_3d, scale_none, scheme_dark, scheme_light, scheme_light_dark, scheme_normal, scheme_only_dark, scheme_only_light, scroll_auto, scroll_m_px, scroll_mb_px, scroll_me_px, scroll_ml_px, scroll_mr_px, scroll_ms_px, scroll_mt_px, scroll_mx_px, scroll_my_px, scroll_p_px, scroll_pb_px, scroll_pe_px, scroll_pl_px, scroll_pr_px, scroll_ps_px, scroll_pt_px, scroll_px_px, scroll_py_px, scroll_smooth, self_auto, self_baseline, self_center, self_end, self_start, self_stretch, shadow_initial, size_auto, size_dvh, size_dvw, size_fit, size_full, size_lvh, size_lvw, size_max, size_min, size_px, size_svh, size_svw, slashed_zero, snap_align_none, snap_always, snap_both, snap_center, snap_end, snap_mandatory, snap_none, snap_normal, snap_proximity, snap_start, snap_x, snap_y, space_x_px, space_x_reverse, space_y_px, space_y_reverse, sr_only, stacked_fractions, start_auto, start_full, start_px, stroke_none, subpixel_antialiased, table, table_auto, table_caption, table_cell, table_column, table_column_group, table_fixed, table_footer_group, table_header_group, table_row, table_row_group, tabular_nums, text_balance, text_end, text_nowrap, text_pretty, text_start, text_wrap, top_auto, top_full, top_px, touch_auto, touch_manipulation, touch_none, touch_pan_down, touch_pan_left, touch_pan_right, touch_pan_up, touch_pan_x, touch_pan_y, touch_pinch_zoom, transform_3d, transform_border, transform_content, transform_cpu, transform_fill, transform_flat, transform_gpu, transform_none, transform_stroke, transform_view, transition_discrete, transition_normal, translate_3d, translate_full, translate_none, translate_px, translate_x_full, translate_x_px, translate_y_full, translate_y_px, translate_z_px, underline_offset_auto, via_none, w_dvh, w_dvw, w_lvh, w_lvw, w_px, w_svh, w_svw, whitespace_break_spaces, will_change_auto, will_change_contents, will_change_scroll, will_change_transform
 
 
 -}
@@ -1226,6 +1250,331 @@ gap_y spacing =
     Tailwind ("gap-y-" ++ spacingToString spacing)
 
 
+
+-- DISPLAY
+
+{-| display: flex
+-}
+flex : Tailwind
+flex =
+    Tailwind "flex"
+
+
+{-| display: inline-flex
+-}
+inline_flex : Tailwind
+inline_flex =
+    Tailwind "inline-flex"
+
+
+{-| display: block
+-}
+block : Tailwind
+block =
+    Tailwind "block"
+
+
+{-| display: inline-block
+-}
+inline_block : Tailwind
+inline_block =
+    Tailwind "inline-block"
+
+
+{-| display: inline
+-}
+inline : Tailwind
+inline =
+    Tailwind "inline"
+
+
+{-| display: grid
+-}
+grid : Tailwind
+grid =
+    Tailwind "grid"
+
+
+{-| display: none
+-}
+hidden : Tailwind
+hidden =
+    Tailwind "hidden"
+
+
+-- FLEX DIRECTION
+
+{-| flex-direction: row
+-}
+flex_row : Tailwind
+flex_row =
+    Tailwind "flex-row"
+
+
+{-| flex-direction: row-reverse
+-}
+flex_row_reverse : Tailwind
+flex_row_reverse =
+    Tailwind "flex-row-reverse"
+
+
+{-| flex-direction: column
+-}
+flex_col : Tailwind
+flex_col =
+    Tailwind "flex-col"
+
+
+{-| flex-direction: column-reverse
+-}
+flex_col_reverse : Tailwind
+flex_col_reverse =
+    Tailwind "flex-col-reverse"
+
+
+-- FLEX WRAP
+
+{-| flex-wrap: wrap
+-}
+flex_wrap : Tailwind
+flex_wrap =
+    Tailwind "flex-wrap"
+
+
+{-| flex-wrap: wrap-reverse
+-}
+flex_wrap_reverse : Tailwind
+flex_wrap_reverse =
+    Tailwind "flex-wrap-reverse"
+
+
+{-| flex-wrap: nowrap
+-}
+flex_nowrap : Tailwind
+flex_nowrap =
+    Tailwind "flex-nowrap"
+
+
+-- FLEX GROW/SHRINK
+
+{-| flex-grow: 1
+-}
+grow : Tailwind
+grow =
+    Tailwind "grow"
+
+
+{-| flex-grow: 0
+-}
+grow_0 : Tailwind
+grow_0 =
+    Tailwind "grow-0"
+
+
+{-| flex-shrink: 1
+-}
+shrink : Tailwind
+shrink =
+    Tailwind "shrink"
+
+
+{-| flex-shrink: 0
+-}
+shrink_0 : Tailwind
+shrink_0 =
+    Tailwind "shrink-0"
+
+
+-- ALIGN ITEMS
+
+{-| align-items: flex-start
+-}
+items_start : Tailwind
+items_start =
+    Tailwind "items-start"
+
+
+{-| align-items: flex-end
+-}
+items_end : Tailwind
+items_end =
+    Tailwind "items-end"
+
+
+{-| align-items: center
+-}
+items_center : Tailwind
+items_center =
+    Tailwind "items-center"
+
+
+{-| align-items: baseline
+-}
+items_baseline : Tailwind
+items_baseline =
+    Tailwind "items-baseline"
+
+
+{-| align-items: stretch
+-}
+items_stretch : Tailwind
+items_stretch =
+    Tailwind "items-stretch"
+
+
+-- JUSTIFY CONTENT
+
+{-| justify-content: flex-start
+-}
+justify_start : Tailwind
+justify_start =
+    Tailwind "justify-start"
+
+
+{-| justify-content: flex-end
+-}
+justify_end : Tailwind
+justify_end =
+    Tailwind "justify-end"
+
+
+{-| justify-content: center
+-}
+justify_center : Tailwind
+justify_center =
+    Tailwind "justify-center"
+
+
+{-| justify-content: space-between
+-}
+justify_between : Tailwind
+justify_between =
+    Tailwind "justify-between"
+
+
+{-| justify-content: space-around
+-}
+justify_around : Tailwind
+justify_around =
+    Tailwind "justify-around"
+
+
+{-| justify-content: space-evenly
+-}
+justify_evenly : Tailwind
+justify_evenly =
+    Tailwind "justify-evenly"
+
+
+-- POSITIONING
+
+{-| position: relative
+-}
+relative : Tailwind
+relative =
+    Tailwind "relative"
+
+
+{-| position: absolute
+-}
+absolute : Tailwind
+absolute =
+    Tailwind "absolute"
+
+
+{-| position: fixed
+-}
+fixed : Tailwind
+fixed =
+    Tailwind "fixed"
+
+
+{-| position: sticky
+-}
+sticky : Tailwind
+sticky =
+    Tailwind "sticky"
+
+
+{-| position: static
+-}
+static : Tailwind
+static =
+    Tailwind "static"
+
+
+-- VISIBILITY
+
+{-| visibility: visible
+-}
+visible : Tailwind
+visible =
+    Tailwind "visible"
+
+
+{-| visibility: hidden
+-}
+invisible : Tailwind
+invisible =
+    Tailwind "invisible"
+
+
+-- OVERFLOW
+
+{-| overflow: auto
+-}
+overflow_auto : Tailwind
+overflow_auto =
+    Tailwind "overflow-auto"
+
+
+{-| overflow: hidden
+-}
+overflow_hidden : Tailwind
+overflow_hidden =
+    Tailwind "overflow-hidden"
+
+
+{-| overflow: visible
+-}
+overflow_visible : Tailwind
+overflow_visible =
+    Tailwind "overflow-visible"
+
+
+{-| overflow: scroll
+-}
+overflow_scroll : Tailwind
+overflow_scroll =
+    Tailwind "overflow-scroll"
+
+
+{-| overflow-x: auto
+-}
+overflow_x_auto : Tailwind
+overflow_x_auto =
+    Tailwind "overflow-x-auto"
+
+
+{-| overflow-y: auto
+-}
+overflow_y_auto : Tailwind
+overflow_y_auto =
+    Tailwind "overflow-y-auto"
+
+
+{-| overflow-x: hidden
+-}
+overflow_x_hidden : Tailwind
+overflow_x_hidden =
+    Tailwind "overflow-x-hidden"
+
+
+{-| overflow-y: hidden
+-}
+overflow_y_hidden : Tailwind
+overflow_y_hidden =
+    Tailwind "overflow-y-hidden"
 
 
 -- SIZING
@@ -1693,6 +2042,187 @@ max_h spacing =
 
 
 
+-- TEXT ALIGNMENT
+
+{-| text-align: left
+-}
+text_left : Tailwind
+text_left =
+    Tailwind "text-left"
+
+
+{-| text-align: center
+-}
+text_center : Tailwind
+text_center =
+    Tailwind "text-center"
+
+
+{-| text-align: right
+-}
+text_right : Tailwind
+text_right =
+    Tailwind "text-right"
+
+
+{-| text-align: justify
+-}
+text_justify : Tailwind
+text_justify =
+    Tailwind "text-justify"
+
+
+-- FONT FAMILY
+
+{-| font-family: sans-serif
+-}
+font_sans : Tailwind
+font_sans =
+    Tailwind "font-sans"
+
+
+{-| font-family: serif
+-}
+font_serif : Tailwind
+font_serif =
+    Tailwind "font-serif"
+
+
+{-| font-family: monospace
+-}
+font_mono : Tailwind
+font_mono =
+    Tailwind "font-mono"
+
+
+-- FONT STYLE
+
+{-| font-style: italic
+-}
+italic : Tailwind
+italic =
+    Tailwind "italic"
+
+
+{-| font-style: normal
+-}
+not_italic : Tailwind
+not_italic =
+    Tailwind "not-italic"
+
+
+-- TEXT TRANSFORM
+
+{-| text-transform: uppercase
+-}
+uppercase : Tailwind
+uppercase =
+    Tailwind "uppercase"
+
+
+{-| text-transform: lowercase
+-}
+lowercase : Tailwind
+lowercase =
+    Tailwind "lowercase"
+
+
+{-| text-transform: capitalize
+-}
+capitalize : Tailwind
+capitalize =
+    Tailwind "capitalize"
+
+
+{-| text-transform: none
+-}
+normal_case : Tailwind
+normal_case =
+    Tailwind "normal-case"
+
+
+-- TEXT DECORATION
+
+{-| text-decoration: underline
+-}
+underline : Tailwind
+underline =
+    Tailwind "underline"
+
+
+{-| text-decoration: line-through
+-}
+line_through : Tailwind
+line_through =
+    Tailwind "line-through"
+
+
+{-| text-decoration: none
+-}
+no_underline : Tailwind
+no_underline =
+    Tailwind "no-underline"
+
+
+-- WHITESPACE
+
+{-| white-space: normal
+-}
+whitespace_normal : Tailwind
+whitespace_normal =
+    Tailwind "whitespace-normal"
+
+
+{-| white-space: nowrap
+-}
+whitespace_nowrap : Tailwind
+whitespace_nowrap =
+    Tailwind "whitespace-nowrap"
+
+
+{-| white-space: pre
+-}
+whitespace_pre : Tailwind
+whitespace_pre =
+    Tailwind "whitespace-pre"
+
+
+{-| white-space: pre-line
+-}
+whitespace_pre_line : Tailwind
+whitespace_pre_line =
+    Tailwind "whitespace-pre-line"
+
+
+{-| white-space: pre-wrap
+-}
+whitespace_pre_wrap : Tailwind
+whitespace_pre_wrap =
+    Tailwind "whitespace-pre-wrap"
+
+
+-- TEXT OVERFLOW
+
+{-| Truncate text with ellipsis
+-}
+truncate : Tailwind
+truncate =
+    Tailwind "truncate"
+
+
+{-| text-overflow: ellipsis
+-}
+text_ellipsis : Tailwind
+text_ellipsis =
+    Tailwind "text-ellipsis"
+
+
+{-| text-overflow: clip
+-}
+text_clip : Tailwind
+text_clip =
+    Tailwind "text-clip"
+
 
 -- FONT SIZE
 
@@ -1831,6 +2361,93 @@ font_black =
     Tailwind "font-black"
 
 
+-- BORDER WIDTH
+
+{-| border-width: 1px
+-}
+border : Tailwind
+border =
+    Tailwind "border"
+
+
+{-| border-width: 0px
+-}
+border_0 : Tailwind
+border_0 =
+    Tailwind "border-0"
+
+
+{-| border-width: 2px
+-}
+border_2 : Tailwind
+border_2 =
+    Tailwind "border-2"
+
+
+{-| border-width: 4px
+-}
+border_4 : Tailwind
+border_4 =
+    Tailwind "border-4"
+
+
+{-| border-width: 8px
+-}
+border_8 : Tailwind
+border_8 =
+    Tailwind "border-8"
+
+
+{-| border-top-width: 1px
+-}
+border_t : Tailwind
+border_t =
+    Tailwind "border-t"
+
+
+{-| border-right-width: 1px
+-}
+border_r : Tailwind
+border_r =
+    Tailwind "border-r"
+
+
+{-| border-bottom-width: 1px
+-}
+border_b : Tailwind
+border_b =
+    Tailwind "border-b"
+
+
+{-| border-left-width: 1px
+-}
+border_l : Tailwind
+border_l =
+    Tailwind "border-l"
+
+
+-- BORDER RADIUS
+
+{-| border-radius: 0.25rem
+-}
+rounded : Tailwind
+rounded =
+    Tailwind "rounded"
+
+
+{-| border-radius: 0
+-}
+rounded_none : Tailwind
+rounded_none =
+    Tailwind "rounded-none"
+
+
+{-| border-radius: 9999px
+-}
+rounded_full : Tailwind
+rounded_full =
+    Tailwind "rounded-full"
+
 
 -- BORDER RADIUS
 
@@ -1882,6 +2499,206 @@ rounded_n4xl : Tailwind
 rounded_n4xl =
     Tailwind "rounded-4xl"
 
+
+-- SHADOW
+
+{-| Default shadow
+-}
+shadow : Tailwind
+shadow =
+    Tailwind "shadow"
+
+
+{-| No shadow
+-}
+shadow_none : Tailwind
+shadow_none =
+    Tailwind "shadow-none"
+
+
+-- TRANSITIONS
+
+{-| Default transition
+-}
+transition : Tailwind
+transition =
+    Tailwind "transition"
+
+
+{-| Transition all properties
+-}
+transition_all : Tailwind
+transition_all =
+    Tailwind "transition-all"
+
+
+{-| No transition
+-}
+transition_none : Tailwind
+transition_none =
+    Tailwind "transition-none"
+
+
+{-| Transition colors
+-}
+transition_colors : Tailwind
+transition_colors =
+    Tailwind "transition-colors"
+
+
+{-| Transition opacity
+-}
+transition_opacity : Tailwind
+transition_opacity =
+    Tailwind "transition-opacity"
+
+
+{-| Transition shadow
+-}
+transition_shadow : Tailwind
+transition_shadow =
+    Tailwind "transition-shadow"
+
+
+{-| Transition transform
+-}
+transition_transform : Tailwind
+transition_transform =
+    Tailwind "transition-transform"
+
+
+-- ANIMATIONS
+
+{-| No animation
+-}
+animate_none : Tailwind
+animate_none =
+    Tailwind "animate-none"
+
+
+{-| Spinning animation
+-}
+animate_spin : Tailwind
+animate_spin =
+    Tailwind "animate-spin"
+
+
+{-| Ping animation
+-}
+animate_ping : Tailwind
+animate_ping =
+    Tailwind "animate-ping"
+
+
+{-| Pulse animation
+-}
+animate_pulse : Tailwind
+animate_pulse =
+    Tailwind "animate-pulse"
+
+
+{-| Bounce animation
+-}
+animate_bounce : Tailwind
+animate_bounce =
+    Tailwind "animate-bounce"
+
+
+-- CURSOR
+
+{-| cursor: auto
+-}
+cursor_auto : Tailwind
+cursor_auto =
+    Tailwind "cursor-auto"
+
+
+{-| cursor: default
+-}
+cursor_default : Tailwind
+cursor_default =
+    Tailwind "cursor-default"
+
+
+{-| cursor: pointer
+-}
+cursor_pointer : Tailwind
+cursor_pointer =
+    Tailwind "cursor-pointer"
+
+
+{-| cursor: wait
+-}
+cursor_wait : Tailwind
+cursor_wait =
+    Tailwind "cursor-wait"
+
+
+{-| cursor: text
+-}
+cursor_text : Tailwind
+cursor_text =
+    Tailwind "cursor-text"
+
+
+{-| cursor: move
+-}
+cursor_move : Tailwind
+cursor_move =
+    Tailwind "cursor-move"
+
+
+{-| cursor: not-allowed
+-}
+cursor_not_allowed : Tailwind
+cursor_not_allowed =
+    Tailwind "cursor-not-allowed"
+
+
+-- POINTER EVENTS
+
+{-| pointer-events: none
+-}
+pointer_events_none : Tailwind
+pointer_events_none =
+    Tailwind "pointer-events-none"
+
+
+{-| pointer-events: auto
+-}
+pointer_events_auto : Tailwind
+pointer_events_auto =
+    Tailwind "pointer-events-auto"
+
+
+-- USER SELECT
+
+{-| user-select: none
+-}
+select_none : Tailwind
+select_none =
+    Tailwind "select-none"
+
+
+{-| user-select: text
+-}
+select_text : Tailwind
+select_text =
+    Tailwind "select-text"
+
+
+{-| user-select: all
+-}
+select_all : Tailwind
+select_all =
+    Tailwind "select-all"
+
+
+{-| user-select: auto
+-}
+select_auto : Tailwind
+select_auto =
+    Tailwind "select-auto"
 
 
 -- SHADOW SIZES
@@ -2435,12 +3252,6 @@ neg_translate_z_px : Tailwind
 neg_translate_z_px =
     Tailwind "-translate-z-px"
 
-{-| position: absolute;
--}
-absolute : Tailwind
-absolute =
-    Tailwind "absolute"
-
 {-| accent-color: auto;
 -}
 accent_auto : Tailwind
@@ -2494,12 +3305,6 @@ align_text_top =
 align_top : Tailwind
 align_top =
     Tailwind "align-top"
-
-{-| animation: none;
--}
-animate_none : Tailwind
-animate_none =
-    Tailwind "animate-none"
 
 {-| -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -2944,12 +3749,6 @@ bg_top : Tailwind
 bg_top =
     Tailwind "bg-top"
 
-{-| display: block;
--}
-block : Tailwind
-block =
-    Tailwind "block"
-
 {-| --tw-blur:  ;
   filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
 -}
@@ -3222,12 +4021,6 @@ break_words : Tailwind
 break_words =
     Tailwind "break-words"
 
-{-| text-transform: capitalize;
--}
-capitalize : Tailwind
-capitalize =
-    Tailwind "capitalize"
-
 {-| caption-side: bottom;
 -}
 caption_bottom : Tailwind
@@ -3452,12 +4245,6 @@ cursor_all_scroll : Tailwind
 cursor_all_scroll =
     Tailwind "cursor-all-scroll"
 
-{-| cursor: auto;
--}
-cursor_auto : Tailwind
-cursor_auto =
-    Tailwind "cursor-auto"
-
 {-| cursor: cell;
 -}
 cursor_cell : Tailwind
@@ -3487,12 +4274,6 @@ cursor_copy =
 cursor_crosshair : Tailwind
 cursor_crosshair =
     Tailwind "cursor-crosshair"
-
-{-| cursor: default;
--}
-cursor_default : Tailwind
-cursor_default =
-    Tailwind "cursor-default"
 
 {-| cursor: e-resize;
 -}
@@ -3524,12 +4305,6 @@ cursor_help : Tailwind
 cursor_help =
     Tailwind "cursor-help"
 
-{-| cursor: move;
--}
-cursor_move : Tailwind
-cursor_move =
-    Tailwind "cursor-move"
-
 {-| cursor: n-resize;
 -}
 cursor_n_resize : Tailwind
@@ -3560,12 +4335,6 @@ cursor_none : Tailwind
 cursor_none =
     Tailwind "cursor-none"
 
-{-| cursor: not-allowed;
--}
-cursor_not_allowed : Tailwind
-cursor_not_allowed =
-    Tailwind "cursor-not-allowed"
-
 {-| cursor: ns-resize;
 -}
 cursor_ns_resize : Tailwind
@@ -3583,12 +4352,6 @@ cursor_nw_resize =
 cursor_nwse_resize : Tailwind
 cursor_nwse_resize =
     Tailwind "cursor-nwse-resize"
-
-{-| cursor: pointer;
--}
-cursor_pointer : Tailwind
-cursor_pointer =
-    Tailwind "cursor-pointer"
 
 {-| cursor: progress;
 -}
@@ -3620,12 +4383,6 @@ cursor_sw_resize : Tailwind
 cursor_sw_resize =
     Tailwind "cursor-sw-resize"
 
-{-| cursor: text;
--}
-cursor_text : Tailwind
-cursor_text =
-    Tailwind "cursor-text"
-
 {-| cursor: vertical-text;
 -}
 cursor_vertical_text : Tailwind
@@ -3637,12 +4394,6 @@ cursor_vertical_text =
 cursor_w_resize : Tailwind
 cursor_w_resize =
     Tailwind "cursor-w-resize"
-
-{-| cursor: wait;
--}
-cursor_wait : Tailwind
-cursor_wait =
-    Tailwind "cursor-wait"
 
 {-| cursor: zoom-in;
 -}
@@ -3835,35 +4586,11 @@ fill_none : Tailwind
 fill_none =
     Tailwind "fill-none"
 
-{-| position: fixed;
--}
-fixed : Tailwind
-fixed =
-    Tailwind "fixed"
-
-{-| display: flex;
--}
-flex : Tailwind
-flex =
-    Tailwind "flex"
-
 {-| flex: auto;
 -}
 flex_auto : Tailwind
 flex_auto =
     Tailwind "flex-auto"
-
-{-| flex-direction: column;
--}
-flex_col : Tailwind
-flex_col =
-    Tailwind "flex-col"
-
-{-| flex-direction: column-reverse;
--}
-flex_col_reverse : Tailwind
-flex_col_reverse =
-    Tailwind "flex-col-reverse"
 
 {-| flex: 0 auto;
 -}
@@ -3876,36 +4603,6 @@ flex_initial =
 flex_none : Tailwind
 flex_none =
     Tailwind "flex-none"
-
-{-| flex-wrap: nowrap;
--}
-flex_nowrap : Tailwind
-flex_nowrap =
-    Tailwind "flex-nowrap"
-
-{-| flex-direction: row;
--}
-flex_row : Tailwind
-flex_row =
-    Tailwind "flex-row"
-
-{-| flex-direction: row-reverse;
--}
-flex_row_reverse : Tailwind
-flex_row_reverse =
-    Tailwind "flex-row-reverse"
-
-{-| flex-wrap: wrap;
--}
-flex_wrap : Tailwind
-flex_wrap =
-    Tailwind "flex-wrap"
-
-{-| flex-wrap: wrap-reverse;
--}
-flex_wrap_reverse : Tailwind
-flex_wrap_reverse =
-    Tailwind "flex-wrap-reverse"
 
 {-| float: inline-end;
 -}
@@ -4027,12 +4724,6 @@ gap_y_px : Tailwind
 gap_y_px =
     Tailwind "gap-y-px"
 
-{-| display: grid;
--}
-grid : Tailwind
-grid =
-    Tailwind "grid"
-
 {-| grid-template-columns: none;
 -}
 grid_cols_none : Tailwind
@@ -4129,12 +4820,6 @@ h_svw : Tailwind
 h_svw =
     Tailwind "h-svw"
 
-{-| display: none;
--}
-hidden : Tailwind
-hidden =
-    Tailwind "hidden"
-
 {-| -webkit-hyphens: auto;
   hyphens: auto;
 -}
@@ -4161,24 +4846,6 @@ hyphens_none =
 indent_px : Tailwind
 indent_px =
     Tailwind "indent-px"
-
-{-| display: inline;
--}
-inline : Tailwind
-inline =
-    Tailwind "inline"
-
-{-| display: inline-block;
--}
-inline_block : Tailwind
-inline_block =
-    Tailwind "inline-block"
-
-{-| display: inline-flex;
--}
-inline_flex : Tailwind
-inline_flex =
-    Tailwind "inline-flex"
 
 {-| display: inline-grid;
 -}
@@ -4252,12 +4919,6 @@ inset_y_px : Tailwind
 inset_y_px =
     Tailwind "inset-y-px"
 
-{-| visibility: hidden;
--}
-invisible : Tailwind
-invisible =
-    Tailwind "invisible"
-
 {-| isolation: isolate;
 -}
 isolate : Tailwind
@@ -4270,77 +4931,11 @@ isolation_auto : Tailwind
 isolation_auto =
     Tailwind "isolation-auto"
 
-{-| font-style: italic;
--}
-italic : Tailwind
-italic =
-    Tailwind "italic"
-
-{-| align-items: baseline;
--}
-items_baseline : Tailwind
-items_baseline =
-    Tailwind "items-baseline"
-
-{-| align-items: center;
--}
-items_center : Tailwind
-items_center =
-    Tailwind "items-center"
-
-{-| align-items: flex-end;
--}
-items_end : Tailwind
-items_end =
-    Tailwind "items-end"
-
-{-| align-items: flex-start;
--}
-items_start : Tailwind
-items_start =
-    Tailwind "items-start"
-
-{-| align-items: stretch;
--}
-items_stretch : Tailwind
-items_stretch =
-    Tailwind "items-stretch"
-
-{-| justify-content: space-around;
--}
-justify_around : Tailwind
-justify_around =
-    Tailwind "justify-around"
-
 {-| justify-content: baseline;
 -}
 justify_baseline : Tailwind
 justify_baseline =
     Tailwind "justify-baseline"
-
-{-| justify-content: space-between;
--}
-justify_between : Tailwind
-justify_between =
-    Tailwind "justify-between"
-
-{-| justify-content: center;
--}
-justify_center : Tailwind
-justify_center =
-    Tailwind "justify-center"
-
-{-| justify-content: flex-end;
--}
-justify_end : Tailwind
-justify_end =
-    Tailwind "justify-end"
-
-{-| justify-content: space-evenly;
--}
-justify_evenly : Tailwind
-justify_evenly =
-    Tailwind "justify-evenly"
 
 {-| justify-items: center;
 -}
@@ -4408,12 +5003,6 @@ justify_self_stretch : Tailwind
 justify_self_stretch =
     Tailwind "justify-self-stretch"
 
-{-| justify-content: flex-start;
--}
-justify_start : Tailwind
-justify_start =
-    Tailwind "justify-start"
-
 {-| justify-content: stretch;
 -}
 justify_stretch : Tailwind
@@ -4460,12 +5049,6 @@ left_px =
 line_clamp_none : Tailwind
 line_clamp_none =
     Tailwind "line-clamp-none"
-
-{-| text-decoration-line: line-through;
--}
-line_through : Tailwind
-line_through =
-    Tailwind "line-through"
 
 {-| --tw-numeric-figure: lining-nums;
   font-variant-numeric: var(--tw-ordinal,) var(--tw-slashed-zero,) var(--tw-numeric-figure,) var(--tw-numeric-spacing,) var(--tw-numeric-fraction,);
@@ -4515,12 +5098,6 @@ list_none =
 list_outside : Tailwind
 list_outside =
     Tailwind "list-outside"
-
-{-| text-transform: lowercase;
--}
-lowercase : Tailwind
-lowercase =
-    Tailwind "lowercase"
 
 {-| margin: auto;
 -}
@@ -5074,29 +5651,11 @@ my_px : Tailwind
 my_px =
     Tailwind "my-px"
 
-{-| text-decoration-line: none;
--}
-no_underline : Tailwind
-no_underline =
-    Tailwind "no-underline"
-
-{-| text-transform: none;
--}
-normal_case : Tailwind
-normal_case =
-    Tailwind "normal-case"
-
 {-| font-variant-numeric: normal;
 -}
 normal_nums : Tailwind
 normal_nums =
     Tailwind "normal-nums"
-
-{-| font-style: normal;
--}
-not_italic : Tailwind
-not_italic =
-    Tailwind "not-italic"
 
 {-| position: static;
   width: auto;
@@ -5325,12 +5884,6 @@ outline_solid : Tailwind
 outline_solid =
     Tailwind "outline-solid"
 
-{-| overflow: auto;
--}
-overflow_auto : Tailwind
-overflow_auto =
-    Tailwind "overflow-auto"
-
 {-| overflow: clip;
 -}
 overflow_clip : Tailwind
@@ -5343,41 +5896,11 @@ overflow_ellipsis : Tailwind
 overflow_ellipsis =
     Tailwind "overflow-ellipsis"
 
-{-| overflow: hidden;
--}
-overflow_hidden : Tailwind
-overflow_hidden =
-    Tailwind "overflow-hidden"
-
-{-| overflow: scroll;
--}
-overflow_scroll : Tailwind
-overflow_scroll =
-    Tailwind "overflow-scroll"
-
-{-| overflow: visible;
--}
-overflow_visible : Tailwind
-overflow_visible =
-    Tailwind "overflow-visible"
-
-{-| overflow-x: auto;
--}
-overflow_x_auto : Tailwind
-overflow_x_auto =
-    Tailwind "overflow-x-auto"
-
 {-| overflow-x: clip;
 -}
 overflow_x_clip : Tailwind
 overflow_x_clip =
     Tailwind "overflow-x-clip"
-
-{-| overflow-x: hidden;
--}
-overflow_x_hidden : Tailwind
-overflow_x_hidden =
-    Tailwind "overflow-x-hidden"
 
 {-| overflow-x: scroll;
 -}
@@ -5391,23 +5914,11 @@ overflow_x_visible : Tailwind
 overflow_x_visible =
     Tailwind "overflow-x-visible"
 
-{-| overflow-y: auto;
--}
-overflow_y_auto : Tailwind
-overflow_y_auto =
-    Tailwind "overflow-y-auto"
-
 {-| overflow-y: clip;
 -}
 overflow_y_clip : Tailwind
 overflow_y_clip =
     Tailwind "overflow-y-clip"
-
-{-| overflow-y: hidden;
--}
-overflow_y_hidden : Tailwind
-overflow_y_hidden =
-    Tailwind "overflow-y-hidden"
 
 {-| overflow-y: scroll;
 -}
@@ -5673,18 +6184,6 @@ place_self_stretch : Tailwind
 place_self_stretch =
     Tailwind "place-self-stretch"
 
-{-| pointer-events: auto;
--}
-pointer_events_auto : Tailwind
-pointer_events_auto =
-    Tailwind "pointer-events-auto"
-
-{-| pointer-events: none;
--}
-pointer_events_none : Tailwind
-pointer_events_none =
-    Tailwind "pointer-events-none"
-
 {-| padding-right: 1px;
 -}
 pr_px : Tailwind
@@ -5721,12 +6220,6 @@ px_px =
 py_px : Tailwind
 py_px =
     Tailwind "py-px"
-
-{-| position: relative;
--}
-relative : Tailwind
-relative =
-    Tailwind "relative"
 
 {-| resize: both;
 -}
@@ -5858,12 +6351,6 @@ rounded_es_none : Tailwind
 rounded_es_none =
     Tailwind "rounded-es-none"
 
-{-| border-radius: calc(infinity * 1px);
--}
-rounded_full : Tailwind
-rounded_full =
-    Tailwind "rounded-full"
-
 {-| border-top-left-radius: calc(infinity * 1px);
   border-bottom-left-radius: calc(infinity * 1px);
 -}
@@ -5877,12 +6364,6 @@ rounded_l_full =
 rounded_l_none : Tailwind
 rounded_l_none =
     Tailwind "rounded-l-none"
-
-{-| border-radius: 0;
--}
-rounded_none : Tailwind
-rounded_none =
-    Tailwind "rounded-none"
 
 {-| border-top-right-radius: calc(infinity * 1px);
   border-bottom-right-radius: calc(infinity * 1px);
@@ -6166,34 +6647,6 @@ scroll_smooth : Tailwind
 scroll_smooth =
     Tailwind "scroll-smooth"
 
-{-| -webkit-user-select: all;
-  user-select: all;
--}
-select_all : Tailwind
-select_all =
-    Tailwind "select-all"
-
-{-| -webkit-user-select: auto;
-  user-select: auto;
--}
-select_auto : Tailwind
-select_auto =
-    Tailwind "select-auto"
-
-{-| -webkit-user-select: none;
-  user-select: none;
--}
-select_none : Tailwind
-select_none =
-    Tailwind "select-none"
-
-{-| -webkit-user-select: text;
-  user-select: text;
--}
-select_text : Tailwind
-select_text =
-    Tailwind "select-text"
-
 {-| align-self: auto;
 -}
 self_auto : Tailwind
@@ -6470,18 +6923,6 @@ start_px : Tailwind
 start_px =
     Tailwind "start-px"
 
-{-| position: static;
--}
-static : Tailwind
-static =
-    Tailwind "static"
-
-{-| position: sticky;
--}
-sticky : Tailwind
-sticky =
-    Tailwind "sticky"
-
 {-| stroke: none;
 -}
 stroke_none : Tailwind
@@ -6574,41 +7015,11 @@ text_balance : Tailwind
 text_balance =
     Tailwind "text-balance"
 
-{-| text-align: center;
--}
-text_center : Tailwind
-text_center =
-    Tailwind "text-center"
-
-{-| text-overflow: clip;
--}
-text_clip : Tailwind
-text_clip =
-    Tailwind "text-clip"
-
-{-| text-overflow: ellipsis;
--}
-text_ellipsis : Tailwind
-text_ellipsis =
-    Tailwind "text-ellipsis"
-
 {-| text-align: end;
 -}
 text_end : Tailwind
 text_end =
     Tailwind "text-end"
-
-{-| text-align: justify;
--}
-text_justify : Tailwind
-text_justify =
-    Tailwind "text-justify"
-
-{-| text-align: left;
--}
-text_left : Tailwind
-text_left =
-    Tailwind "text-left"
 
 {-| text-wrap: nowrap;
 -}
@@ -6621,12 +7032,6 @@ text_nowrap =
 text_pretty : Tailwind
 text_pretty =
     Tailwind "text-pretty"
-
-{-| text-align: right;
--}
-text_right : Tailwind
-text_right =
-    Tailwind "text-right"
 
 {-| text-align: start;
 -}
@@ -6785,63 +7190,17 @@ transform_view : Tailwind
 transform_view =
     Tailwind "transform-view"
 
-{-| transition-property: all;
-  transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
-  transition-duration: var(--tw-duration, var(--default-transition-duration));
--}
-transition_all : Tailwind
-transition_all =
-    Tailwind "transition-all"
-
-{-| transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;
-  transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
-  transition-duration: var(--tw-duration, var(--default-transition-duration));
--}
-transition_colors : Tailwind
-transition_colors =
-    Tailwind "transition-colors"
-
 {-| transition-behavior: allow-discrete;
 -}
 transition_discrete : Tailwind
 transition_discrete =
     Tailwind "transition-discrete"
 
-{-| transition-property: none;
--}
-transition_none : Tailwind
-transition_none =
-    Tailwind "transition-none"
-
 {-| transition-behavior: normal;
 -}
 transition_normal : Tailwind
 transition_normal =
     Tailwind "transition-normal"
-
-{-| transition-property: opacity;
-  transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
-  transition-duration: var(--tw-duration, var(--default-transition-duration));
--}
-transition_opacity : Tailwind
-transition_opacity =
-    Tailwind "transition-opacity"
-
-{-| transition-property: box-shadow;
-  transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
-  transition-duration: var(--tw-duration, var(--default-transition-duration));
--}
-transition_shadow : Tailwind
-transition_shadow =
-    Tailwind "transition-shadow"
-
-{-| transition-property: transform, translate, scale, rotate;
-  transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
-  transition-duration: var(--tw-duration, var(--default-transition-duration));
--}
-transition_transform : Tailwind
-transition_transform =
-    Tailwind "transition-transform"
 
 {-| translate: var(--tw-translate-x) var(--tw-translate-y) var(--tw-translate-z);
 -}
@@ -6906,43 +7265,17 @@ translate_z_px : Tailwind
 translate_z_px =
     Tailwind "translate-z-px"
 
-{-| overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
--}
-truncate : Tailwind
-truncate =
-    Tailwind "truncate"
-
-{-| text-decoration-line: underline;
--}
-underline : Tailwind
-underline =
-    Tailwind "underline"
-
 {-| text-underline-offset: auto;
 -}
 underline_offset_auto : Tailwind
 underline_offset_auto =
     Tailwind "underline-offset-auto"
 
-{-| text-transform: uppercase;
--}
-uppercase : Tailwind
-uppercase =
-    Tailwind "uppercase"
-
 {-| --tw-gradient-via-stops: initial;
 -}
 via_none : Tailwind
 via_none =
     Tailwind "via-none"
-
-{-| visibility: visible;
--}
-visible : Tailwind
-visible =
-    Tailwind "visible"
 
 {-| width: 100dvh;
 -}
@@ -6991,36 +7324,6 @@ w_svw =
 whitespace_break_spaces : Tailwind
 whitespace_break_spaces =
     Tailwind "whitespace-break-spaces"
-
-{-| white-space: normal;
--}
-whitespace_normal : Tailwind
-whitespace_normal =
-    Tailwind "whitespace-normal"
-
-{-| white-space: nowrap;
--}
-whitespace_nowrap : Tailwind
-whitespace_nowrap =
-    Tailwind "whitespace-nowrap"
-
-{-| white-space: pre;
--}
-whitespace_pre : Tailwind
-whitespace_pre =
-    Tailwind "whitespace-pre"
-
-{-| white-space: pre-line;
--}
-whitespace_pre_line : Tailwind
-whitespace_pre_line =
-    Tailwind "whitespace-pre-line"
-
-{-| white-space: pre-wrap;
--}
-whitespace_pre_wrap : Tailwind
-whitespace_pre_wrap =
-    Tailwind "whitespace-pre-wrap"
 
 {-| will-change: auto;
 -}
