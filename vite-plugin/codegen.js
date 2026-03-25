@@ -125,8 +125,6 @@ function generateTailwindWithUtilities(theme, designSystem) {
     'gap', 'gap_x', 'gap_y'
   ];
 
-  const layoutExports = [];
-
   const widthFractions = [
     '1/2', '1/3', '2/3', '1/4', '2/4', '3/4',
     '1/5', '2/5', '3/5', '4/5',
@@ -143,16 +141,10 @@ function generateTailwindWithUtilities(theme, designSystem) {
     'min_w', 'max_w', 'min_h', 'max_h'
   ];
 
-  const typographyExports = [];
-
   const fontSizeExports = fontSizes.map(size => `text_${toElmName(size)}`);
   const fontWeightExports = fontWeights.map(weight => `font_${toElmName(weight)}`);
 
-  const borderExports = [];
-
   const radiusExports = radiusSizes.map(size => `rounded_${toElmName(size)}`);
-
-  const effectExports = [];
 
   const shadowExports = shadowSizes.map(size => `shadow_${toElmName(size)}`);
 
@@ -169,16 +161,14 @@ function generateTailwindWithUtilities(theme, designSystem) {
   const zIndexExports = ['z_0', 'z_10', 'z_20', 'z_30', 'z_40', 'z_50', 'z_auto'];
 
   // Generate static utilities from Tailwind's design system
+  // Exports from handwritten sections (parameterized/theme-driven utilities).
+  // The design system loop skips these to avoid duplicates.
   const existingExports = new Set([
     ...spacingExports,
-    ...layoutExports,
     ...sizingExports,
-    ...typographyExports,
     ...fontSizeExports,
     ...fontWeightExports,
-    ...borderExports,
     ...radiusExports,
-    ...effectExports,
     ...shadowExports,
     ...colorUtilExports,
     ...opacityExports,
