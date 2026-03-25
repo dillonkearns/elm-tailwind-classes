@@ -197,8 +197,12 @@ function writeElmFile(modulePath, content) {
 // Convert Tailwind class name to Elm identifier
 // Following elm-tailwind-modules: hyphens become underscores
 function toElmName(className) {
-  // Handle numeric prefixes (2xl -> n2xl)
   let name = className;
+  // Handle leading negative sign (-m-px -> neg_m_px)
+  if (name.startsWith('-')) {
+    name = 'neg_' + name.slice(1);
+  }
+  // Handle numeric prefixes (2xl -> n2xl)
   if (/^\d/.test(name)) {
     name = 'n' + name;
   }
@@ -1998,8 +2002,6 @@ z_auto =
       const elmName = toElmName(className);
       // Skip if already covered by existing handwritten sections
       if (existingExports.has(elmName)) continue;
-      // Skip utilities starting with - (negative values like -m-px) for now
-      if (className.startsWith('-')) continue;
 
       // Get the CSS this utility generates for the doc comment
       const cssArray = designSystem.candidatesToCss([className]);

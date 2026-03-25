@@ -87,6 +87,11 @@ function writeElmFile(outputDir, modulePath, content) {
 // Convert Tailwind class name to Elm identifier
 function toElmName(className) {
   let name = className;
+  // Handle leading negative sign (-m-px -> neg_m_px)
+  if (name.startsWith('-')) {
+    name = 'neg_' + name.slice(1);
+  }
+  // Handle numeric prefixes (2xl -> n2xl)
   if (/^\d/.test(name)) {
     name = 'n' + name;
   }
@@ -207,7 +212,6 @@ function generateTailwindWithUtilities(theme, designSystem) {
     for (const className of staticKeys) {
       const elmName = toElmName(className);
       if (existingExports.has(elmName)) continue;
-      if (className.startsWith('-')) continue;
 
       const cssArray = designSystem.candidatesToCss([className]);
       const cssBody = cssArray?.[0]

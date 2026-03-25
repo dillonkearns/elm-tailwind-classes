@@ -265,6 +265,52 @@ module Tailwind.Utilities exposing
     , z_40
     , z_50
     , z_auto
+    , neg_bottom_full
+    , neg_bottom_px
+    , neg_end_full
+    , neg_end_px
+    , neg_indent_px
+    , neg_inset_full
+    , neg_inset_px
+    , neg_inset_x_full
+    , neg_inset_x_px
+    , neg_inset_y_full
+    , neg_inset_y_px
+    , neg_left_full
+    , neg_left_px
+    , neg_m_px
+    , neg_mb_px
+    , neg_me_px
+    , neg_ml_px
+    , neg_mr_px
+    , neg_ms_px
+    , neg_mt_px
+    , neg_mx_px
+    , neg_my_px
+    , neg_right_full
+    , neg_right_px
+    , neg_scroll_m_px
+    , neg_scroll_mb_px
+    , neg_scroll_me_px
+    , neg_scroll_ml_px
+    , neg_scroll_mr_px
+    , neg_scroll_ms_px
+    , neg_scroll_mt_px
+    , neg_scroll_mx_px
+    , neg_scroll_my_px
+    , neg_space_x_px
+    , neg_space_y_px
+    , neg_start_full
+    , neg_start_px
+    , neg_top_full
+    , neg_top_px
+    , neg_translate_full
+    , neg_translate_px
+    , neg_translate_x_full
+    , neg_translate_x_px
+    , neg_translate_y_full
+    , neg_translate_y_px
+    , neg_translate_z_px
     , accent_auto
     , align_baseline
     , align_bottom
@@ -1008,7 +1054,7 @@ Following elm-tailwind-modules naming conventions:
 
 ## Additional Utilities
 
-@docs accent_auto, align_baseline, align_bottom, align_middle, align_sub, align_super, align_text_bottom, align_text_top, align_top, antialiased, appearance_auto, appearance_none, aspect_auto, aspect_square, auto_cols_auto, auto_cols_fr, auto_cols_max, auto_cols_min, auto_rows_auto, auto_rows_fr, auto_rows_max, auto_rows_min, backdrop_blur_none, backface_hidden, backface_visible, basis_auto, basis_full, basis_px, bg_auto, bg_blend_color, bg_blend_color_burn, bg_blend_color_dodge, bg_blend_darken, bg_blend_difference, bg_blend_exclusion, bg_blend_hard_light, bg_blend_hue, bg_blend_lighten, bg_blend_luminosity, bg_blend_multiply, bg_blend_normal, bg_blend_overlay, bg_blend_saturation, bg_blend_screen, bg_blend_soft_light, bg_bottom, bg_center, bg_clip_border, bg_clip_content, bg_clip_padding, bg_clip_text, bg_contain, bg_cover, bg_fixed, bg_gradient_to_b, bg_gradient_to_bl, bg_gradient_to_br, bg_gradient_to_l, bg_gradient_to_r, bg_gradient_to_t, bg_gradient_to_tl, bg_gradient_to_tr, bg_left, bg_left_bottom, bg_left_top, bg_local, bg_no_repeat, bg_none, bg_origin_border, bg_origin_content, bg_origin_padding, bg_repeat, bg_repeat_round, bg_repeat_space, bg_repeat_x, bg_repeat_y, bg_right, bg_right_bottom, bg_right_top, bg_scroll, bg_top, blur_none, border_collapse, border_dashed, border_dotted, border_double, border_hidden, border_none, border_separate, border_solid, border_spacing_px, border_spacing_x_px, border_spacing_y_px, bottom_auto, bottom_full, bottom_px, box_border, box_content, box_decoration_clone, box_decoration_slice, break_after_all, break_after_auto, break_after_avoid, break_after_avoid_page, break_after_column, break_after_left, break_after_page, break_after_right, break_all, break_before_all, break_before_auto, break_before_avoid, break_before_avoid_page, break_before_column, break_before_left, break_before_page, break_before_right, break_inside_auto, break_inside_avoid, break_inside_avoid_column, break_inside_avoid_page, break_keep, break_normal, break_words, caption_bottom, caption_top, clear_both, clear_end, clear_left, clear_none, clear_right, clear_start, col_auto, col_end_auto, col_span_full, col_start_auto, collapse, columns_auto, contain_content, contain_inline_size, contain_layout, contain_none, contain_paint, contain_size, contain_strict, contain_style, container, content_around, content_baseline, content_between, content_center, content_end, content_evenly, content_none, content_normal, content_start, content_stretch, contents, cursor_alias, cursor_all_scroll, cursor_cell, cursor_col_resize, cursor_context_menu, cursor_copy, cursor_crosshair, cursor_e_resize, cursor_ew_resize, cursor_grab, cursor_grabbing, cursor_help, cursor_n_resize, cursor_ne_resize, cursor_nesw_resize, cursor_no_drop, cursor_none, cursor_ns_resize, cursor_nw_resize, cursor_nwse_resize, cursor_progress, cursor_row_resize, cursor_s_resize, cursor_se_resize, cursor_sw_resize, cursor_vertical_text, cursor_w_resize, cursor_zoom_in, cursor_zoom_out, decoration_auto, decoration_clone, decoration_dashed, decoration_dotted, decoration_double, decoration_from_font, decoration_slice, decoration_solid, decoration_wavy, diagonal_fractions, divide_dashed, divide_dotted, divide_double, divide_none, divide_solid, divide_x_reverse, divide_y_reverse, drop_shadow_none, duration_initial, ease_initial, ease_linear, end_auto, end_full, end_px, field_sizing_content, field_sizing_fixed, fill_none, flex_auto, flex_initial, flex_none, float_end, float_left, float_none, float_right, float_start, flow_root, font_stretch_condensed, font_stretch_expanded, font_stretch_extra_condensed, font_stretch_extra_expanded, font_stretch_normal, font_stretch_semi_condensed, font_stretch_semi_expanded, font_stretch_ultra_condensed, font_stretch_ultra_expanded, forced_color_adjust_auto, forced_color_adjust_none, gap_px, gap_x_px, gap_y_px, grid_cols_none, grid_cols_subgrid, grid_flow_col, grid_flow_col_dense, grid_flow_dense, grid_flow_row, grid_flow_row_dense, grid_rows_none, grid_rows_subgrid, h_dvh, h_dvw, h_lvh, h_lvw, h_px, h_svh, h_svw, hyphens_auto, hyphens_manual, hyphens_none, indent_px, inline_grid, inline_table, inset_auto, inset_full, inset_px, inset_shadow_initial, inset_x_auto, inset_x_full, inset_x_px, inset_y_auto, inset_y_full, inset_y_px, isolate, isolation_auto, justify_baseline, justify_items_center, justify_items_end, justify_items_normal, justify_items_start, justify_items_stretch, justify_normal, justify_self_auto, justify_self_center, justify_self_end, justify_self_start, justify_self_stretch, justify_stretch, leading_none, leading_px, left_auto, left_full, left_px, line_clamp_none, lining_nums, list_decimal, list_disc, list_image_none, list_inside, list_item, list_none, list_outside, m_auto, m_px, max_h_auto, max_h_dvh, max_h_dvw, max_h_fit, max_h_full, max_h_lvh, max_h_lvw, max_h_max, max_h_min, max_h_none, max_h_px, max_h_screen, max_h_svh, max_h_svw, max_w_auto, max_w_dvh, max_w_dvw, max_w_fit, max_w_full, max_w_lvh, max_w_lvw, max_w_max, max_w_min, max_w_none, max_w_px, max_w_screen, max_w_svh, max_w_svw, mb_auto, mb_px, me_auto, me_px, min_h_auto, min_h_dvh, min_h_dvw, min_h_fit, min_h_full, min_h_lvh, min_h_lvw, min_h_max, min_h_min, min_h_none, min_h_px, min_h_screen, min_h_svh, min_h_svw, min_w_auto, min_w_dvh, min_w_dvw, min_w_fit, min_w_full, min_w_lvh, min_w_lvw, min_w_max, min_w_min, min_w_none, min_w_px, min_w_screen, min_w_svh, min_w_svw, mix_blend_color, mix_blend_color_burn, mix_blend_color_dodge, mix_blend_darken, mix_blend_difference, mix_blend_exclusion, mix_blend_hard_light, mix_blend_hue, mix_blend_lighten, mix_blend_luminosity, mix_blend_multiply, mix_blend_normal, mix_blend_overlay, mix_blend_plus_darker, mix_blend_plus_lighter, mix_blend_saturation, mix_blend_screen, mix_blend_soft_light, ml_auto, ml_px, mr_auto, mr_px, ms_auto, ms_px, mt_auto, mt_px, mx_auto, mx_px, my_auto, my_px, normal_nums, not_sr_only, object_bottom, object_center, object_contain, object_cover, object_fill, object_left, object_left_bottom, object_left_top, object_none, object_right, object_right_bottom, object_right_top, object_scale_down, object_top, oldstyle_nums, order_first, order_last, order_none, ordinal, origin_bottom, origin_bottom_left, origin_bottom_right, origin_center, origin_left, origin_right, origin_top, origin_top_left, origin_top_right, outline_dashed, outline_dotted, outline_double, outline_hidden, outline_none, outline_solid, overflow_clip, overflow_ellipsis, overflow_x_clip, overflow_x_scroll, overflow_x_visible, overflow_y_clip, overflow_y_scroll, overflow_y_visible, overline, overscroll_auto, overscroll_contain, overscroll_none, overscroll_x_auto, overscroll_x_contain, overscroll_x_none, overscroll_y_auto, overscroll_y_contain, overscroll_y_none, p_px, pb_px, pe_px, perspective_none, perspective_origin_bottom, perspective_origin_bottom_left, perspective_origin_bottom_right, perspective_origin_center, perspective_origin_left, perspective_origin_right, perspective_origin_top, perspective_origin_top_left, perspective_origin_top_right, pl_px, place_content_around, place_content_baseline, place_content_between, place_content_center, place_content_end, place_content_evenly, place_content_start, place_content_stretch, place_items_baseline, place_items_center, place_items_end, place_items_start, place_items_stretch, place_self_auto, place_self_center, place_self_end, place_self_start, place_self_stretch, pr_px, proportional_nums, ps_px, pt_px, px_px, py_px, resize, resize_none, resize_x, resize_y, right_auto, right_full, right_px, ring_inset, rotate_none, rounded_b_full, rounded_b_none, rounded_bl_full, rounded_bl_none, rounded_br_full, rounded_br_none, rounded_e_full, rounded_e_none, rounded_ee_full, rounded_ee_none, rounded_es_full, rounded_es_none, rounded_l_full, rounded_l_none, rounded_r_full, rounded_r_none, rounded_s_full, rounded_s_none, rounded_se_full, rounded_se_none, rounded_ss_full, rounded_ss_none, rounded_t_full, rounded_t_none, rounded_tl_full, rounded_tl_none, rounded_tr_full, rounded_tr_none, row_auto, row_end_auto, row_span_full, row_start_auto, scale_3d, scale_none, scheme_dark, scheme_light, scheme_light_dark, scheme_normal, scheme_only_dark, scheme_only_light, scroll_auto, scroll_m_px, scroll_mb_px, scroll_me_px, scroll_ml_px, scroll_mr_px, scroll_ms_px, scroll_mt_px, scroll_mx_px, scroll_my_px, scroll_p_px, scroll_pb_px, scroll_pe_px, scroll_pl_px, scroll_pr_px, scroll_ps_px, scroll_pt_px, scroll_px_px, scroll_py_px, scroll_smooth, self_auto, self_baseline, self_center, self_end, self_start, self_stretch, shadow_initial, size_auto, size_dvh, size_dvw, size_fit, size_full, size_lvh, size_lvw, size_max, size_min, size_px, size_svh, size_svw, slashed_zero, snap_align_none, snap_always, snap_both, snap_center, snap_end, snap_mandatory, snap_none, snap_normal, snap_proximity, snap_start, snap_x, snap_y, space_x_px, space_x_reverse, space_y_px, space_y_reverse, sr_only, stacked_fractions, start_auto, start_full, start_px, stroke_none, subpixel_antialiased, table, table_auto, table_caption, table_cell, table_column, table_column_group, table_fixed, table_footer_group, table_header_group, table_row, table_row_group, tabular_nums, text_balance, text_end, text_nowrap, text_pretty, text_start, text_wrap, top_auto, top_full, top_px, touch_auto, touch_manipulation, touch_none, touch_pan_down, touch_pan_left, touch_pan_right, touch_pan_up, touch_pan_x, touch_pan_y, touch_pinch_zoom, transform_3d, transform_border, transform_content, transform_cpu, transform_fill, transform_flat, transform_gpu, transform_none, transform_stroke, transform_view, transition_discrete, transition_normal, translate_3d, translate_full, translate_none, translate_px, translate_x_full, translate_x_px, translate_y_full, translate_y_px, translate_z_px, underline_offset_auto, via_none, w_dvh, w_dvw, w_lvh, w_lvw, w_px, w_svh, w_svw, whitespace_break_spaces, will_change_auto, will_change_contents, will_change_scroll, will_change_transform
+@docs neg_bottom_full, neg_bottom_px, neg_end_full, neg_end_px, neg_indent_px, neg_inset_full, neg_inset_px, neg_inset_x_full, neg_inset_x_px, neg_inset_y_full, neg_inset_y_px, neg_left_full, neg_left_px, neg_m_px, neg_mb_px, neg_me_px, neg_ml_px, neg_mr_px, neg_ms_px, neg_mt_px, neg_mx_px, neg_my_px, neg_right_full, neg_right_px, neg_scroll_m_px, neg_scroll_mb_px, neg_scroll_me_px, neg_scroll_ml_px, neg_scroll_mr_px, neg_scroll_ms_px, neg_scroll_mt_px, neg_scroll_mx_px, neg_scroll_my_px, neg_space_x_px, neg_space_y_px, neg_start_full, neg_start_px, neg_top_full, neg_top_px, neg_translate_full, neg_translate_px, neg_translate_x_full, neg_translate_x_px, neg_translate_y_full, neg_translate_y_px, neg_translate_z_px, accent_auto, align_baseline, align_bottom, align_middle, align_sub, align_super, align_text_bottom, align_text_top, align_top, antialiased, appearance_auto, appearance_none, aspect_auto, aspect_square, auto_cols_auto, auto_cols_fr, auto_cols_max, auto_cols_min, auto_rows_auto, auto_rows_fr, auto_rows_max, auto_rows_min, backdrop_blur_none, backface_hidden, backface_visible, basis_auto, basis_full, basis_px, bg_auto, bg_blend_color, bg_blend_color_burn, bg_blend_color_dodge, bg_blend_darken, bg_blend_difference, bg_blend_exclusion, bg_blend_hard_light, bg_blend_hue, bg_blend_lighten, bg_blend_luminosity, bg_blend_multiply, bg_blend_normal, bg_blend_overlay, bg_blend_saturation, bg_blend_screen, bg_blend_soft_light, bg_bottom, bg_center, bg_clip_border, bg_clip_content, bg_clip_padding, bg_clip_text, bg_contain, bg_cover, bg_fixed, bg_gradient_to_b, bg_gradient_to_bl, bg_gradient_to_br, bg_gradient_to_l, bg_gradient_to_r, bg_gradient_to_t, bg_gradient_to_tl, bg_gradient_to_tr, bg_left, bg_left_bottom, bg_left_top, bg_local, bg_no_repeat, bg_none, bg_origin_border, bg_origin_content, bg_origin_padding, bg_repeat, bg_repeat_round, bg_repeat_space, bg_repeat_x, bg_repeat_y, bg_right, bg_right_bottom, bg_right_top, bg_scroll, bg_top, blur_none, border_collapse, border_dashed, border_dotted, border_double, border_hidden, border_none, border_separate, border_solid, border_spacing_px, border_spacing_x_px, border_spacing_y_px, bottom_auto, bottom_full, bottom_px, box_border, box_content, box_decoration_clone, box_decoration_slice, break_after_all, break_after_auto, break_after_avoid, break_after_avoid_page, break_after_column, break_after_left, break_after_page, break_after_right, break_all, break_before_all, break_before_auto, break_before_avoid, break_before_avoid_page, break_before_column, break_before_left, break_before_page, break_before_right, break_inside_auto, break_inside_avoid, break_inside_avoid_column, break_inside_avoid_page, break_keep, break_normal, break_words, caption_bottom, caption_top, clear_both, clear_end, clear_left, clear_none, clear_right, clear_start, col_auto, col_end_auto, col_span_full, col_start_auto, collapse, columns_auto, contain_content, contain_inline_size, contain_layout, contain_none, contain_paint, contain_size, contain_strict, contain_style, container, content_around, content_baseline, content_between, content_center, content_end, content_evenly, content_none, content_normal, content_start, content_stretch, contents, cursor_alias, cursor_all_scroll, cursor_cell, cursor_col_resize, cursor_context_menu, cursor_copy, cursor_crosshair, cursor_e_resize, cursor_ew_resize, cursor_grab, cursor_grabbing, cursor_help, cursor_n_resize, cursor_ne_resize, cursor_nesw_resize, cursor_no_drop, cursor_none, cursor_ns_resize, cursor_nw_resize, cursor_nwse_resize, cursor_progress, cursor_row_resize, cursor_s_resize, cursor_se_resize, cursor_sw_resize, cursor_vertical_text, cursor_w_resize, cursor_zoom_in, cursor_zoom_out, decoration_auto, decoration_clone, decoration_dashed, decoration_dotted, decoration_double, decoration_from_font, decoration_slice, decoration_solid, decoration_wavy, diagonal_fractions, divide_dashed, divide_dotted, divide_double, divide_none, divide_solid, divide_x_reverse, divide_y_reverse, drop_shadow_none, duration_initial, ease_initial, ease_linear, end_auto, end_full, end_px, field_sizing_content, field_sizing_fixed, fill_none, flex_auto, flex_initial, flex_none, float_end, float_left, float_none, float_right, float_start, flow_root, font_stretch_condensed, font_stretch_expanded, font_stretch_extra_condensed, font_stretch_extra_expanded, font_stretch_normal, font_stretch_semi_condensed, font_stretch_semi_expanded, font_stretch_ultra_condensed, font_stretch_ultra_expanded, forced_color_adjust_auto, forced_color_adjust_none, gap_px, gap_x_px, gap_y_px, grid_cols_none, grid_cols_subgrid, grid_flow_col, grid_flow_col_dense, grid_flow_dense, grid_flow_row, grid_flow_row_dense, grid_rows_none, grid_rows_subgrid, h_dvh, h_dvw, h_lvh, h_lvw, h_px, h_svh, h_svw, hyphens_auto, hyphens_manual, hyphens_none, indent_px, inline_grid, inline_table, inset_auto, inset_full, inset_px, inset_shadow_initial, inset_x_auto, inset_x_full, inset_x_px, inset_y_auto, inset_y_full, inset_y_px, isolate, isolation_auto, justify_baseline, justify_items_center, justify_items_end, justify_items_normal, justify_items_start, justify_items_stretch, justify_normal, justify_self_auto, justify_self_center, justify_self_end, justify_self_start, justify_self_stretch, justify_stretch, leading_none, leading_px, left_auto, left_full, left_px, line_clamp_none, lining_nums, list_decimal, list_disc, list_image_none, list_inside, list_item, list_none, list_outside, m_auto, m_px, max_h_auto, max_h_dvh, max_h_dvw, max_h_fit, max_h_full, max_h_lvh, max_h_lvw, max_h_max, max_h_min, max_h_none, max_h_px, max_h_screen, max_h_svh, max_h_svw, max_w_auto, max_w_dvh, max_w_dvw, max_w_fit, max_w_full, max_w_lvh, max_w_lvw, max_w_max, max_w_min, max_w_none, max_w_px, max_w_screen, max_w_svh, max_w_svw, mb_auto, mb_px, me_auto, me_px, min_h_auto, min_h_dvh, min_h_dvw, min_h_fit, min_h_full, min_h_lvh, min_h_lvw, min_h_max, min_h_min, min_h_none, min_h_px, min_h_screen, min_h_svh, min_h_svw, min_w_auto, min_w_dvh, min_w_dvw, min_w_fit, min_w_full, min_w_lvh, min_w_lvw, min_w_max, min_w_min, min_w_none, min_w_px, min_w_screen, min_w_svh, min_w_svw, mix_blend_color, mix_blend_color_burn, mix_blend_color_dodge, mix_blend_darken, mix_blend_difference, mix_blend_exclusion, mix_blend_hard_light, mix_blend_hue, mix_blend_lighten, mix_blend_luminosity, mix_blend_multiply, mix_blend_normal, mix_blend_overlay, mix_blend_plus_darker, mix_blend_plus_lighter, mix_blend_saturation, mix_blend_screen, mix_blend_soft_light, ml_auto, ml_px, mr_auto, mr_px, ms_auto, ms_px, mt_auto, mt_px, mx_auto, mx_px, my_auto, my_px, normal_nums, not_sr_only, object_bottom, object_center, object_contain, object_cover, object_fill, object_left, object_left_bottom, object_left_top, object_none, object_right, object_right_bottom, object_right_top, object_scale_down, object_top, oldstyle_nums, order_first, order_last, order_none, ordinal, origin_bottom, origin_bottom_left, origin_bottom_right, origin_center, origin_left, origin_right, origin_top, origin_top_left, origin_top_right, outline_dashed, outline_dotted, outline_double, outline_hidden, outline_none, outline_solid, overflow_clip, overflow_ellipsis, overflow_x_clip, overflow_x_scroll, overflow_x_visible, overflow_y_clip, overflow_y_scroll, overflow_y_visible, overline, overscroll_auto, overscroll_contain, overscroll_none, overscroll_x_auto, overscroll_x_contain, overscroll_x_none, overscroll_y_auto, overscroll_y_contain, overscroll_y_none, p_px, pb_px, pe_px, perspective_none, perspective_origin_bottom, perspective_origin_bottom_left, perspective_origin_bottom_right, perspective_origin_center, perspective_origin_left, perspective_origin_right, perspective_origin_top, perspective_origin_top_left, perspective_origin_top_right, pl_px, place_content_around, place_content_baseline, place_content_between, place_content_center, place_content_end, place_content_evenly, place_content_start, place_content_stretch, place_items_baseline, place_items_center, place_items_end, place_items_start, place_items_stretch, place_self_auto, place_self_center, place_self_end, place_self_start, place_self_stretch, pr_px, proportional_nums, ps_px, pt_px, px_px, py_px, resize, resize_none, resize_x, resize_y, right_auto, right_full, right_px, ring_inset, rotate_none, rounded_b_full, rounded_b_none, rounded_bl_full, rounded_bl_none, rounded_br_full, rounded_br_none, rounded_e_full, rounded_e_none, rounded_ee_full, rounded_ee_none, rounded_es_full, rounded_es_none, rounded_l_full, rounded_l_none, rounded_r_full, rounded_r_none, rounded_s_full, rounded_s_none, rounded_se_full, rounded_se_none, rounded_ss_full, rounded_ss_none, rounded_t_full, rounded_t_none, rounded_tl_full, rounded_tl_none, rounded_tr_full, rounded_tr_none, row_auto, row_end_auto, row_span_full, row_start_auto, scale_3d, scale_none, scheme_dark, scheme_light, scheme_light_dark, scheme_normal, scheme_only_dark, scheme_only_light, scroll_auto, scroll_m_px, scroll_mb_px, scroll_me_px, scroll_ml_px, scroll_mr_px, scroll_ms_px, scroll_mt_px, scroll_mx_px, scroll_my_px, scroll_p_px, scroll_pb_px, scroll_pe_px, scroll_pl_px, scroll_pr_px, scroll_ps_px, scroll_pt_px, scroll_px_px, scroll_py_px, scroll_smooth, self_auto, self_baseline, self_center, self_end, self_start, self_stretch, shadow_initial, size_auto, size_dvh, size_dvw, size_fit, size_full, size_lvh, size_lvw, size_max, size_min, size_px, size_svh, size_svw, slashed_zero, snap_align_none, snap_always, snap_both, snap_center, snap_end, snap_mandatory, snap_none, snap_normal, snap_proximity, snap_start, snap_x, snap_y, space_x_px, space_x_reverse, space_y_px, space_y_reverse, sr_only, stacked_fractions, start_auto, start_full, start_px, stroke_none, subpixel_antialiased, table, table_auto, table_caption, table_cell, table_column, table_column_group, table_fixed, table_footer_group, table_header_group, table_row, table_row_group, tabular_nums, text_balance, text_end, text_nowrap, text_pretty, text_start, text_wrap, top_auto, top_full, top_px, touch_auto, touch_manipulation, touch_none, touch_pan_down, touch_pan_left, touch_pan_right, touch_pan_up, touch_pan_x, touch_pan_y, touch_pinch_zoom, transform_3d, transform_border, transform_content, transform_cpu, transform_fill, transform_flat, transform_gpu, transform_none, transform_stroke, transform_view, transition_discrete, transition_normal, translate_3d, translate_full, translate_none, translate_px, translate_x_full, translate_x_px, translate_y_full, translate_y_px, translate_z_px, underline_offset_auto, via_none, w_dvh, w_dvw, w_lvh, w_lvw, w_px, w_svh, w_svw, whitespace_break_spaces, will_change_auto, will_change_contents, will_change_scroll, will_change_transform
 
 
 -}
@@ -2914,6 +2960,418 @@ z_auto =
     Tailwind "z-auto"
 
 -- ADDITIONAL UTILITIES (from Tailwind design system)
+
+{-| bottom: -100%;
+-}
+neg_bottom_full : Tailwind
+neg_bottom_full =
+    Tailwind "-bottom-full"
+
+{-| bottom: -1px;
+-}
+neg_bottom_px : Tailwind
+neg_bottom_px =
+    Tailwind "-bottom-px"
+
+{-| inset-inline-end: -100%;
+-}
+neg_end_full : Tailwind
+neg_end_full =
+    Tailwind "-end-full"
+
+{-| inset-inline-end: -1px;
+-}
+neg_end_px : Tailwind
+neg_end_px =
+    Tailwind "-end-px"
+
+{-| text-indent: -1px;
+-}
+neg_indent_px : Tailwind
+neg_indent_px =
+    Tailwind "-indent-px"
+
+{-| inset: -100%;
+-}
+neg_inset_full : Tailwind
+neg_inset_full =
+    Tailwind "-inset-full"
+
+{-| inset: -1px;
+-}
+neg_inset_px : Tailwind
+neg_inset_px =
+    Tailwind "-inset-px"
+
+{-| inset-inline: -100%;
+-}
+neg_inset_x_full : Tailwind
+neg_inset_x_full =
+    Tailwind "-inset-x-full"
+
+{-| inset-inline: -1px;
+-}
+neg_inset_x_px : Tailwind
+neg_inset_x_px =
+    Tailwind "-inset-x-px"
+
+{-| inset-block: -100%;
+-}
+neg_inset_y_full : Tailwind
+neg_inset_y_full =
+    Tailwind "-inset-y-full"
+
+{-| inset-block: -1px;
+-}
+neg_inset_y_px : Tailwind
+neg_inset_y_px =
+    Tailwind "-inset-y-px"
+
+{-| left: -100%;
+-}
+neg_left_full : Tailwind
+neg_left_full =
+    Tailwind "-left-full"
+
+{-| left: -1px;
+-}
+neg_left_px : Tailwind
+neg_left_px =
+    Tailwind "-left-px"
+
+{-| margin: -1px;
+-}
+neg_m_px : Tailwind
+neg_m_px =
+    Tailwind "-m-px"
+
+{-| margin-bottom: -1px;
+-}
+neg_mb_px : Tailwind
+neg_mb_px =
+    Tailwind "-mb-px"
+
+{-| margin-inline-end: -1px;
+-}
+neg_me_px : Tailwind
+neg_me_px =
+    Tailwind "-me-px"
+
+{-| margin-left: -1px;
+-}
+neg_ml_px : Tailwind
+neg_ml_px =
+    Tailwind "-ml-px"
+
+{-| margin-right: -1px;
+-}
+neg_mr_px : Tailwind
+neg_mr_px =
+    Tailwind "-mr-px"
+
+{-| margin-inline-start: -1px;
+-}
+neg_ms_px : Tailwind
+neg_ms_px =
+    Tailwind "-ms-px"
+
+{-| margin-top: -1px;
+-}
+neg_mt_px : Tailwind
+neg_mt_px =
+    Tailwind "-mt-px"
+
+{-| margin-inline: -1px;
+-}
+neg_mx_px : Tailwind
+neg_mx_px =
+    Tailwind "-mx-px"
+
+{-| margin-block: -1px;
+-}
+neg_my_px : Tailwind
+neg_my_px =
+    Tailwind "-my-px"
+
+{-| right: -100%;
+-}
+neg_right_full : Tailwind
+neg_right_full =
+    Tailwind "-right-full"
+
+{-| right: -1px;
+-}
+neg_right_px : Tailwind
+neg_right_px =
+    Tailwind "-right-px"
+
+{-| scroll-margin: -1px;
+-}
+neg_scroll_m_px : Tailwind
+neg_scroll_m_px =
+    Tailwind "-scroll-m-px"
+
+{-| scroll-margin-bottom: -1px;
+-}
+neg_scroll_mb_px : Tailwind
+neg_scroll_mb_px =
+    Tailwind "-scroll-mb-px"
+
+{-| scroll-margin-inline-end: -1px;
+-}
+neg_scroll_me_px : Tailwind
+neg_scroll_me_px =
+    Tailwind "-scroll-me-px"
+
+{-| scroll-margin-left: -1px;
+-}
+neg_scroll_ml_px : Tailwind
+neg_scroll_ml_px =
+    Tailwind "-scroll-ml-px"
+
+{-| scroll-margin-right: -1px;
+-}
+neg_scroll_mr_px : Tailwind
+neg_scroll_mr_px =
+    Tailwind "-scroll-mr-px"
+
+{-| scroll-margin-inline-start: -1px;
+-}
+neg_scroll_ms_px : Tailwind
+neg_scroll_ms_px =
+    Tailwind "-scroll-ms-px"
+
+{-| scroll-margin-top: -1px;
+-}
+neg_scroll_mt_px : Tailwind
+neg_scroll_mt_px =
+    Tailwind "-scroll-mt-px"
+
+{-| scroll-margin-inline: -1px;
+-}
+neg_scroll_mx_px : Tailwind
+neg_scroll_mx_px =
+    Tailwind "-scroll-mx-px"
+
+{-| scroll-margin-block: -1px;
+-}
+neg_scroll_my_px : Tailwind
+neg_scroll_my_px =
+    Tailwind "-scroll-my-px"
+
+{-| :where(& > :not(:last-child)) {
+    --tw-space-x-reverse: 0;
+    margin-inline-start: calc(-1px * var(--tw-space-x-reverse));
+    margin-inline-end: calc(-1px * calc(1 - var(--tw-space-x-reverse)));
+  }
+}
+@property --tw-space-x-reverse {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+-}
+neg_space_x_px : Tailwind
+neg_space_x_px =
+    Tailwind "-space-x-px"
+
+{-| :where(& > :not(:last-child)) {
+    --tw-space-y-reverse: 0;
+    margin-block-start: calc(-1px * var(--tw-space-y-reverse));
+    margin-block-end: calc(-1px * calc(1 - var(--tw-space-y-reverse)));
+  }
+}
+@property --tw-space-y-reverse {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+-}
+neg_space_y_px : Tailwind
+neg_space_y_px =
+    Tailwind "-space-y-px"
+
+{-| inset-inline-start: -100%;
+-}
+neg_start_full : Tailwind
+neg_start_full =
+    Tailwind "-start-full"
+
+{-| inset-inline-start: -1px;
+-}
+neg_start_px : Tailwind
+neg_start_px =
+    Tailwind "-start-px"
+
+{-| top: -100%;
+-}
+neg_top_full : Tailwind
+neg_top_full =
+    Tailwind "-top-full"
+
+{-| top: -1px;
+-}
+neg_top_px : Tailwind
+neg_top_px =
+    Tailwind "-top-px"
+
+{-| --tw-translate-x: -100%;
+  --tw-translate-y: -100%;
+  translate: var(--tw-translate-x) var(--tw-translate-y);
+}
+@property --tw-translate-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-translate-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-translate-z {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+-}
+neg_translate_full : Tailwind
+neg_translate_full =
+    Tailwind "-translate-full"
+
+{-| --tw-translate-x: -1px;
+  --tw-translate-y: -1px;
+  translate: var(--tw-translate-x) var(--tw-translate-y);
+}
+@property --tw-translate-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-translate-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-translate-z {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+-}
+neg_translate_px : Tailwind
+neg_translate_px =
+    Tailwind "-translate-px"
+
+{-| --tw-translate-x: -100%;
+  translate: var(--tw-translate-x) var(--tw-translate-y);
+}
+@property --tw-translate-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-translate-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-translate-z {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+-}
+neg_translate_x_full : Tailwind
+neg_translate_x_full =
+    Tailwind "-translate-x-full"
+
+{-| --tw-translate-x: -1px;
+  translate: var(--tw-translate-x) var(--tw-translate-y);
+}
+@property --tw-translate-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-translate-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-translate-z {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+-}
+neg_translate_x_px : Tailwind
+neg_translate_x_px =
+    Tailwind "-translate-x-px"
+
+{-| --tw-translate-y: -100%;
+  translate: var(--tw-translate-x) var(--tw-translate-y);
+}
+@property --tw-translate-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-translate-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-translate-z {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+-}
+neg_translate_y_full : Tailwind
+neg_translate_y_full =
+    Tailwind "-translate-y-full"
+
+{-| --tw-translate-y: -1px;
+  translate: var(--tw-translate-x) var(--tw-translate-y);
+}
+@property --tw-translate-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-translate-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-translate-z {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+-}
+neg_translate_y_px : Tailwind
+neg_translate_y_px =
+    Tailwind "-translate-y-px"
+
+{-| --tw-translate-z: -1px;
+  translate: var(--tw-translate-x) var(--tw-translate-y) var(--tw-translate-z);
+}
+.-translate-z-px {
+  --tw-translate-z: -1px;
+  translate: var(--tw-translate-x) var(--tw-translate-y) var(--tw-translate-z);
+}
+@property --tw-translate-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-translate-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-translate-z {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+-}
+neg_translate_z_px : Tailwind
+neg_translate_z_px =
+    Tailwind "-translate-z-px"
 
 {-| accent-color: auto;
 -}
