@@ -28,50 +28,6 @@ module Tailwind exposing
     , gap
     , gap_x
     , gap_y
-    , flex
-    , inline_flex
-    , block
-    , inline_block
-    , inline
-    , grid
-    , hidden
-    , flex_row
-    , flex_row_reverse
-    , flex_col
-    , flex_col_reverse
-    , flex_wrap
-    , flex_wrap_reverse
-    , flex_nowrap
-    , grow
-    , grow_0
-    , shrink
-    , shrink_0
-    , items_start
-    , items_end
-    , items_center
-    , items_baseline
-    , items_stretch
-    , justify_start
-    , justify_end
-    , justify_center
-    , justify_between
-    , justify_around
-    , justify_evenly
-    , relative
-    , absolute
-    , fixed
-    , sticky
-    , static
-    , visible
-    , invisible
-    , overflow_auto
-    , overflow_hidden
-    , overflow_visible
-    , overflow_scroll
-    , overflow_x_auto
-    , overflow_y_auto
-    , overflow_x_hidden
-    , overflow_y_hidden
     , w
     , w_1over2
     , w_1over3
@@ -142,30 +98,6 @@ module Tailwind exposing
     , max_w
     , min_h
     , max_h
-    , text_left
-    , text_center
-    , text_right
-    , text_justify
-    , font_sans
-    , font_serif
-    , font_mono
-    , italic
-    , not_italic
-    , uppercase
-    , lowercase
-    , capitalize
-    , normal_case
-    , underline
-    , line_through
-    , no_underline
-    , whitespace_normal
-    , whitespace_nowrap
-    , whitespace_pre
-    , whitespace_pre_line
-    , whitespace_pre_wrap
-    , truncate
-    , text_ellipsis
-    , text_clip
     , text_xs
     , text_sm
     , text_base
@@ -188,18 +120,6 @@ module Tailwind exposing
     , font_bold
     , font_extrabold
     , font_black
-    , border
-    , border_0
-    , border_2
-    , border_4
-    , border_8
-    , border_t
-    , border_r
-    , border_b
-    , border_l
-    , rounded
-    , rounded_none
-    , rounded_full
     , rounded_xs
     , rounded_sm
     , rounded_md
@@ -208,33 +128,6 @@ module Tailwind exposing
     , rounded_n2xl
     , rounded_n3xl
     , rounded_n4xl
-    , shadow
-    , shadow_none
-    , transition
-    , transition_all
-    , transition_none
-    , transition_colors
-    , transition_opacity
-    , transition_shadow
-    , transition_transform
-    , animate_none
-    , animate_spin
-    , animate_ping
-    , animate_pulse
-    , animate_bounce
-    , cursor_auto
-    , cursor_default
-    , cursor_pointer
-    , cursor_wait
-    , cursor_text
-    , cursor_move
-    , cursor_not_allowed
-    , pointer_events_none
-    , pointer_events_auto
-    , select_none
-    , select_text
-    , select_all
-    , select_auto
     , shadow_n2xs
     , shadow_xs
     , shadow_sm
@@ -319,6 +212,7 @@ module Tailwind exposing
     , neg_translate_y_full
     , neg_translate_y_px
     , neg_translate_z_px
+    , absolute
     , accent_auto
     , align_baseline
     , align_bottom
@@ -328,6 +222,11 @@ module Tailwind exposing
     , align_text_bottom
     , align_text_top
     , align_top
+    , animate_bounce
+    , animate_none
+    , animate_ping
+    , animate_pulse
+    , animate_spin
     , antialiased
     , appearance_auto
     , appearance_none
@@ -400,18 +299,28 @@ module Tailwind exposing
     , bg_right_top
     , bg_scroll
     , bg_top
+    , block
     , blur_none
+    , border
+    , border_0
+    , border_2
+    , border_4
+    , border_8
+    , border_b
     , border_collapse
     , border_dashed
     , border_dotted
     , border_double
     , border_hidden
+    , border_l
     , border_none
+    , border_r
     , border_separate
     , border_solid
     , border_spacing_px
     , border_spacing_x_px
     , border_spacing_y_px
+    , border_t
     , bottom_auto
     , bottom_full
     , bottom_px
@@ -443,6 +352,7 @@ module Tailwind exposing
     , break_keep
     , break_normal
     , break_words
+    , capitalize
     , caption_bottom
     , caption_top
     , clear_both
@@ -479,31 +389,38 @@ module Tailwind exposing
     , contents
     , cursor_alias
     , cursor_all_scroll
+    , cursor_auto
     , cursor_cell
     , cursor_col_resize
     , cursor_context_menu
     , cursor_copy
     , cursor_crosshair
+    , cursor_default
     , cursor_e_resize
     , cursor_ew_resize
     , cursor_grab
     , cursor_grabbing
     , cursor_help
+    , cursor_move
     , cursor_n_resize
     , cursor_ne_resize
     , cursor_nesw_resize
     , cursor_no_drop
     , cursor_none
+    , cursor_not_allowed
     , cursor_ns_resize
     , cursor_nw_resize
     , cursor_nwse_resize
+    , cursor_pointer
     , cursor_progress
     , cursor_row_resize
     , cursor_s_resize
     , cursor_se_resize
     , cursor_sw_resize
+    , cursor_text
     , cursor_vertical_text
     , cursor_w_resize
+    , cursor_wait
     , cursor_zoom_in
     , cursor_zoom_out
     , decoration_auto
@@ -533,15 +450,27 @@ module Tailwind exposing
     , field_sizing_content
     , field_sizing_fixed
     , fill_none
+    , fixed
+    , flex
     , flex_auto
+    , flex_col
+    , flex_col_reverse
     , flex_initial
     , flex_none
+    , flex_nowrap
+    , flex_row
+    , flex_row_reverse
+    , flex_wrap
+    , flex_wrap_reverse
     , float_end
     , float_left
     , float_none
     , float_right
     , float_start
     , flow_root
+    , font_mono
+    , font_sans
+    , font_serif
     , font_stretch_condensed
     , font_stretch_expanded
     , font_stretch_extra_condensed
@@ -556,6 +485,7 @@ module Tailwind exposing
     , gap_px
     , gap_x_px
     , gap_y_px
+    , grid
     , grid_cols_none
     , grid_cols_subgrid
     , grid_flow_col
@@ -565,6 +495,8 @@ module Tailwind exposing
     , grid_flow_row_dense
     , grid_rows_none
     , grid_rows_subgrid
+    , grow
+    , grow_0
     , h_dvh
     , h_dvw
     , h_lvh
@@ -572,10 +504,14 @@ module Tailwind exposing
     , h_px
     , h_svh
     , h_svw
+    , hidden
     , hyphens_auto
     , hyphens_manual
     , hyphens_none
     , indent_px
+    , inline
+    , inline_block
+    , inline_flex
     , inline_grid
     , inline_table
     , inset_auto
@@ -588,9 +524,21 @@ module Tailwind exposing
     , inset_y_auto
     , inset_y_full
     , inset_y_px
+    , invisible
     , isolate
     , isolation_auto
+    , italic
+    , items_baseline
+    , items_center
+    , items_end
+    , items_start
+    , items_stretch
+    , justify_around
     , justify_baseline
+    , justify_between
+    , justify_center
+    , justify_end
+    , justify_evenly
     , justify_items_center
     , justify_items_end
     , justify_items_normal
@@ -602,6 +550,7 @@ module Tailwind exposing
     , justify_self_end
     , justify_self_start
     , justify_self_stretch
+    , justify_start
     , justify_stretch
     , leading_none
     , leading_px
@@ -609,6 +558,7 @@ module Tailwind exposing
     , left_full
     , left_px
     , line_clamp_none
+    , line_through
     , lining_nums
     , list_decimal
     , list_disc
@@ -617,6 +567,7 @@ module Tailwind exposing
     , list_item
     , list_none
     , list_outside
+    , lowercase
     , m_auto
     , m_px
     , max_h_auto
@@ -709,7 +660,10 @@ module Tailwind exposing
     , mx_px
     , my_auto
     , my_px
+    , no_underline
+    , normal_case
     , normal_nums
+    , not_italic
     , not_sr_only
     , object_bottom
     , object_center
@@ -745,12 +699,20 @@ module Tailwind exposing
     , outline_hidden
     , outline_none
     , outline_solid
+    , overflow_auto
     , overflow_clip
     , overflow_ellipsis
+    , overflow_hidden
+    , overflow_scroll
+    , overflow_visible
+    , overflow_x_auto
     , overflow_x_clip
+    , overflow_x_hidden
     , overflow_x_scroll
     , overflow_x_visible
+    , overflow_y_auto
     , overflow_y_clip
+    , overflow_y_hidden
     , overflow_y_scroll
     , overflow_y_visible
     , overline
@@ -795,12 +757,15 @@ module Tailwind exposing
     , place_self_end
     , place_self_start
     , place_self_stretch
+    , pointer_events_auto
+    , pointer_events_none
     , pr_px
     , proportional_nums
     , ps_px
     , pt_px
     , px_px
     , py_px
+    , relative
     , resize
     , resize_none
     , resize_x
@@ -810,6 +775,7 @@ module Tailwind exposing
     , right_px
     , ring_inset
     , rotate_none
+    , rounded
     , rounded_b_full
     , rounded_b_none
     , rounded_bl_full
@@ -822,8 +788,10 @@ module Tailwind exposing
     , rounded_ee_none
     , rounded_es_full
     , rounded_es_none
+    , rounded_full
     , rounded_l_full
     , rounded_l_none
+    , rounded_none
     , rounded_r_full
     , rounded_r_none
     , rounded_s_full
@@ -870,13 +838,21 @@ module Tailwind exposing
     , scroll_px_px
     , scroll_py_px
     , scroll_smooth
+    , select_all
+    , select_auto
+    , select_none
+    , select_text
     , self_auto
     , self_baseline
     , self_center
     , self_end
     , self_start
     , self_stretch
+    , shadow
     , shadow_initial
+    , shadow_none
+    , shrink
+    , shrink_0
     , size_auto
     , size_dvh
     , size_dvw
@@ -911,6 +887,8 @@ module Tailwind exposing
     , start_auto
     , start_full
     , start_px
+    , static
+    , sticky
     , stroke_none
     , subpixel_antialiased
     , table
@@ -926,9 +904,15 @@ module Tailwind exposing
     , table_row_group
     , tabular_nums
     , text_balance
+    , text_center
+    , text_clip
+    , text_ellipsis
     , text_end
+    , text_justify
+    , text_left
     , text_nowrap
     , text_pretty
+    , text_right
     , text_start
     , text_wrap
     , top_auto
@@ -954,8 +938,15 @@ module Tailwind exposing
     , transform_none
     , transform_stroke
     , transform_view
+    , transition
+    , transition_all
+    , transition_colors
     , transition_discrete
+    , transition_none
     , transition_normal
+    , transition_opacity
+    , transition_shadow
+    , transition_transform
     , translate_3d
     , translate_full
     , translate_none
@@ -965,8 +956,12 @@ module Tailwind exposing
     , translate_y_full
     , translate_y_px
     , translate_z_px
+    , truncate
+    , underline
     , underline_offset_auto
+    , uppercase
     , via_none
+    , visible
     , w_dvh
     , w_dvw
     , w_lvh
@@ -975,6 +970,11 @@ module Tailwind exposing
     , w_svh
     , w_svw
     , whitespace_break_spaces
+    , whitespace_normal
+    , whitespace_nowrap
+    , whitespace_pre
+    , whitespace_pre_line
+    , whitespace_pre_wrap
     , will_change_auto
     , will_change_contents
     , will_change_scroll
@@ -1199,228 +1199,6 @@ gap_x spacing =
 gap_y : Spacing -> Tailwind
 gap_y spacing =
     Tailwind ("gap-y-" ++ spacingToString spacing)
-
-
--- LAYOUT
-
-flex : Tailwind
-flex =
-    Tailwind "flex"
-
-
-inline_flex : Tailwind
-inline_flex =
-    Tailwind "inline-flex"
-
-
-block : Tailwind
-block =
-    Tailwind "block"
-
-
-inline_block : Tailwind
-inline_block =
-    Tailwind "inline-block"
-
-
-inline : Tailwind
-inline =
-    Tailwind "inline"
-
-
-grid : Tailwind
-grid =
-    Tailwind "grid"
-
-
-hidden : Tailwind
-hidden =
-    Tailwind "hidden"
-
-
-flex_row : Tailwind
-flex_row =
-    Tailwind "flex-row"
-
-
-flex_row_reverse : Tailwind
-flex_row_reverse =
-    Tailwind "flex-row-reverse"
-
-
-flex_col : Tailwind
-flex_col =
-    Tailwind "flex-col"
-
-
-flex_col_reverse : Tailwind
-flex_col_reverse =
-    Tailwind "flex-col-reverse"
-
-
-flex_wrap : Tailwind
-flex_wrap =
-    Tailwind "flex-wrap"
-
-
-flex_wrap_reverse : Tailwind
-flex_wrap_reverse =
-    Tailwind "flex-wrap-reverse"
-
-
-flex_nowrap : Tailwind
-flex_nowrap =
-    Tailwind "flex-nowrap"
-
-
-grow : Tailwind
-grow =
-    Tailwind "grow"
-
-
-grow_0 : Tailwind
-grow_0 =
-    Tailwind "grow-0"
-
-
-shrink : Tailwind
-shrink =
-    Tailwind "shrink"
-
-
-shrink_0 : Tailwind
-shrink_0 =
-    Tailwind "shrink-0"
-
-
-items_start : Tailwind
-items_start =
-    Tailwind "items-start"
-
-
-items_end : Tailwind
-items_end =
-    Tailwind "items-end"
-
-
-items_center : Tailwind
-items_center =
-    Tailwind "items-center"
-
-
-items_baseline : Tailwind
-items_baseline =
-    Tailwind "items-baseline"
-
-
-items_stretch : Tailwind
-items_stretch =
-    Tailwind "items-stretch"
-
-
-justify_start : Tailwind
-justify_start =
-    Tailwind "justify-start"
-
-
-justify_end : Tailwind
-justify_end =
-    Tailwind "justify-end"
-
-
-justify_center : Tailwind
-justify_center =
-    Tailwind "justify-center"
-
-
-justify_between : Tailwind
-justify_between =
-    Tailwind "justify-between"
-
-
-justify_around : Tailwind
-justify_around =
-    Tailwind "justify-around"
-
-
-justify_evenly : Tailwind
-justify_evenly =
-    Tailwind "justify-evenly"
-
-
-relative : Tailwind
-relative =
-    Tailwind "relative"
-
-
-absolute : Tailwind
-absolute =
-    Tailwind "absolute"
-
-
-fixed : Tailwind
-fixed =
-    Tailwind "fixed"
-
-
-sticky : Tailwind
-sticky =
-    Tailwind "sticky"
-
-
-static : Tailwind
-static =
-    Tailwind "static"
-
-
-visible : Tailwind
-visible =
-    Tailwind "visible"
-
-
-invisible : Tailwind
-invisible =
-    Tailwind "invisible"
-
-
-overflow_auto : Tailwind
-overflow_auto =
-    Tailwind "overflow-auto"
-
-
-overflow_hidden : Tailwind
-overflow_hidden =
-    Tailwind "overflow-hidden"
-
-
-overflow_visible : Tailwind
-overflow_visible =
-    Tailwind "overflow-visible"
-
-
-overflow_scroll : Tailwind
-overflow_scroll =
-    Tailwind "overflow-scroll"
-
-
-overflow_x_auto : Tailwind
-overflow_x_auto =
-    Tailwind "overflow-x-auto"
-
-
-overflow_y_auto : Tailwind
-overflow_y_auto =
-    Tailwind "overflow-y-auto"
-
-
-overflow_x_hidden : Tailwind
-overflow_x_hidden =
-    Tailwind "overflow-x-hidden"
-
-
-overflow_y_hidden : Tailwind
-overflow_y_hidden =
-    Tailwind "overflow-y-hidden"
 
 
 -- SIZING
@@ -1725,128 +1503,6 @@ max_h spacing =
     Tailwind ("max-h-" ++ spacingToString spacing)
 
 
--- TYPOGRAPHY
-
-text_left : Tailwind
-text_left =
-    Tailwind "text-left"
-
-
-text_center : Tailwind
-text_center =
-    Tailwind "text-center"
-
-
-text_right : Tailwind
-text_right =
-    Tailwind "text-right"
-
-
-text_justify : Tailwind
-text_justify =
-    Tailwind "text-justify"
-
-
-font_sans : Tailwind
-font_sans =
-    Tailwind "font-sans"
-
-
-font_serif : Tailwind
-font_serif =
-    Tailwind "font-serif"
-
-
-font_mono : Tailwind
-font_mono =
-    Tailwind "font-mono"
-
-
-italic : Tailwind
-italic =
-    Tailwind "italic"
-
-
-not_italic : Tailwind
-not_italic =
-    Tailwind "not-italic"
-
-
-uppercase : Tailwind
-uppercase =
-    Tailwind "uppercase"
-
-
-lowercase : Tailwind
-lowercase =
-    Tailwind "lowercase"
-
-
-capitalize : Tailwind
-capitalize =
-    Tailwind "capitalize"
-
-
-normal_case : Tailwind
-normal_case =
-    Tailwind "normal-case"
-
-
-underline : Tailwind
-underline =
-    Tailwind "underline"
-
-
-line_through : Tailwind
-line_through =
-    Tailwind "line-through"
-
-
-no_underline : Tailwind
-no_underline =
-    Tailwind "no-underline"
-
-
-whitespace_normal : Tailwind
-whitespace_normal =
-    Tailwind "whitespace-normal"
-
-
-whitespace_nowrap : Tailwind
-whitespace_nowrap =
-    Tailwind "whitespace-nowrap"
-
-
-whitespace_pre : Tailwind
-whitespace_pre =
-    Tailwind "whitespace-pre"
-
-
-whitespace_pre_line : Tailwind
-whitespace_pre_line =
-    Tailwind "whitespace-pre-line"
-
-
-whitespace_pre_wrap : Tailwind
-whitespace_pre_wrap =
-    Tailwind "whitespace-pre-wrap"
-
-
-truncate : Tailwind
-truncate =
-    Tailwind "truncate"
-
-
-text_ellipsis : Tailwind
-text_ellipsis =
-    Tailwind "text-ellipsis"
-
-
-text_clip : Tailwind
-text_clip =
-    Tailwind "text-clip"
-
-
 -- FONT SIZE
 
 text_xs : Tailwind
@@ -1941,67 +1597,7 @@ font_black =
     Tailwind "font-black"
 
 
--- BORDER
-
-border : Tailwind
-border =
-    Tailwind "border"
-
-
-border_0 : Tailwind
-border_0 =
-    Tailwind "border-0"
-
-
-border_2 : Tailwind
-border_2 =
-    Tailwind "border-2"
-
-
-border_4 : Tailwind
-border_4 =
-    Tailwind "border-4"
-
-
-border_8 : Tailwind
-border_8 =
-    Tailwind "border-8"
-
-
-border_t : Tailwind
-border_t =
-    Tailwind "border-t"
-
-
-border_r : Tailwind
-border_r =
-    Tailwind "border-r"
-
-
-border_b : Tailwind
-border_b =
-    Tailwind "border-b"
-
-
-border_l : Tailwind
-border_l =
-    Tailwind "border-l"
-
-
-rounded : Tailwind
-rounded =
-    Tailwind "rounded"
-
-
-rounded_none : Tailwind
-rounded_none =
-    Tailwind "rounded-none"
-
-
-rounded_full : Tailwind
-rounded_full =
-    Tailwind "rounded-full"
-
+-- BORDER RADIUS (from theme)
 
 rounded_xs : Tailwind
 rounded_xs =
@@ -2036,17 +1632,7 @@ rounded_n4xl =
     Tailwind "rounded-4xl"
 
 
--- EFFECTS
-
-shadow : Tailwind
-shadow =
-    Tailwind "shadow"
-
-
-shadow_none : Tailwind
-shadow_none =
-    Tailwind "shadow-none"
-
+-- SHADOW SIZES (from theme)
 
 shadow_n2xs : Tailwind
 shadow_n2xs =
@@ -2079,131 +1665,6 @@ shadow_n2xl =
 shadow_inner : Tailwind
 shadow_inner =
     Tailwind "shadow-inner"
-
-
-transition : Tailwind
-transition =
-    Tailwind "transition"
-
-
-transition_all : Tailwind
-transition_all =
-    Tailwind "transition-all"
-
-
-transition_none : Tailwind
-transition_none =
-    Tailwind "transition-none"
-
-
-transition_colors : Tailwind
-transition_colors =
-    Tailwind "transition-colors"
-
-
-transition_opacity : Tailwind
-transition_opacity =
-    Tailwind "transition-opacity"
-
-
-transition_shadow : Tailwind
-transition_shadow =
-    Tailwind "transition-shadow"
-
-
-transition_transform : Tailwind
-transition_transform =
-    Tailwind "transition-transform"
-
-
-animate_none : Tailwind
-animate_none =
-    Tailwind "animate-none"
-
-
-animate_spin : Tailwind
-animate_spin =
-    Tailwind "animate-spin"
-
-
-animate_ping : Tailwind
-animate_ping =
-    Tailwind "animate-ping"
-
-
-animate_pulse : Tailwind
-animate_pulse =
-    Tailwind "animate-pulse"
-
-
-animate_bounce : Tailwind
-animate_bounce =
-    Tailwind "animate-bounce"
-
-
-cursor_auto : Tailwind
-cursor_auto =
-    Tailwind "cursor-auto"
-
-
-cursor_default : Tailwind
-cursor_default =
-    Tailwind "cursor-default"
-
-
-cursor_pointer : Tailwind
-cursor_pointer =
-    Tailwind "cursor-pointer"
-
-
-cursor_wait : Tailwind
-cursor_wait =
-    Tailwind "cursor-wait"
-
-
-cursor_text : Tailwind
-cursor_text =
-    Tailwind "cursor-text"
-
-
-cursor_move : Tailwind
-cursor_move =
-    Tailwind "cursor-move"
-
-
-cursor_not_allowed : Tailwind
-cursor_not_allowed =
-    Tailwind "cursor-not-allowed"
-
-
-pointer_events_none : Tailwind
-pointer_events_none =
-    Tailwind "pointer-events-none"
-
-
-pointer_events_auto : Tailwind
-pointer_events_auto =
-    Tailwind "pointer-events-auto"
-
-
-select_none : Tailwind
-select_none =
-    Tailwind "select-none"
-
-
-select_text : Tailwind
-select_text =
-    Tailwind "select-text"
-
-
-select_all : Tailwind
-select_all =
-    Tailwind "select-all"
-
-
-select_auto : Tailwind
-select_auto =
-    Tailwind "select-auto"
 
 
 -- COLOR UTILITIES
@@ -2654,6 +2115,12 @@ neg_translate_z_px : Tailwind
 neg_translate_z_px =
     Tailwind "-translate-z-px"
 
+{-| position: absolute;
+-}
+absolute : Tailwind
+absolute =
+    Tailwind "absolute"
+
 {-| accent-color: auto;
 -}
 accent_auto : Tailwind
@@ -2707,6 +2174,36 @@ align_text_top =
 align_top : Tailwind
 align_top =
     Tailwind "align-top"
+
+{-| animation: var(--animate-bounce);
+-}
+animate_bounce : Tailwind
+animate_bounce =
+    Tailwind "animate-bounce"
+
+{-| animation: none;
+-}
+animate_none : Tailwind
+animate_none =
+    Tailwind "animate-none"
+
+{-| animation: var(--animate-ping);
+-}
+animate_ping : Tailwind
+animate_ping =
+    Tailwind "animate-ping"
+
+{-| animation: var(--animate-pulse);
+-}
+animate_pulse : Tailwind
+animate_pulse =
+    Tailwind "animate-pulse"
+
+{-| animation: var(--animate-spin);
+-}
+animate_spin : Tailwind
+animate_spin =
+    Tailwind "animate-spin"
 
 {-| -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -3151,12 +2648,60 @@ bg_top : Tailwind
 bg_top =
     Tailwind "bg-top"
 
+{-| display: block;
+-}
+block : Tailwind
+block =
+    Tailwind "block"
+
 {-| --tw-blur:  ;
   filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
 -}
 blur_none : Tailwind
 blur_none =
     Tailwind "blur-none"
+
+{-| border-style: var(--tw-border-style);
+  border-width: 1px;
+-}
+border : Tailwind
+border =
+    Tailwind "border"
+
+{-| border-style: var(--tw-border-style);
+  border-width: 0px;
+-}
+border_0 : Tailwind
+border_0 =
+    Tailwind "border-0"
+
+{-| border-style: var(--tw-border-style);
+  border-width: 2px;
+-}
+border_2 : Tailwind
+border_2 =
+    Tailwind "border-2"
+
+{-| border-style: var(--tw-border-style);
+  border-width: 4px;
+-}
+border_4 : Tailwind
+border_4 =
+    Tailwind "border-4"
+
+{-| border-style: var(--tw-border-style);
+  border-width: 8px;
+-}
+border_8 : Tailwind
+border_8 =
+    Tailwind "border-8"
+
+{-| border-bottom-style: var(--tw-border-style);
+  border-bottom-width: 1px;
+-}
+border_b : Tailwind
+border_b =
+    Tailwind "border-b"
 
 {-| border-collapse: collapse;
 -}
@@ -3192,12 +2737,26 @@ border_hidden : Tailwind
 border_hidden =
     Tailwind "border-hidden"
 
+{-| border-left-style: var(--tw-border-style);
+  border-left-width: 1px;
+-}
+border_l : Tailwind
+border_l =
+    Tailwind "border-l"
+
 {-| --tw-border-style: none;
   border-style: none;
 -}
 border_none : Tailwind
 border_none =
     Tailwind "border-none"
+
+{-| border-right-style: var(--tw-border-style);
+  border-right-width: 1px;
+-}
+border_r : Tailwind
+border_r =
+    Tailwind "border-r"
 
 {-| border-collapse: separate;
 -}
@@ -3233,6 +2792,13 @@ border_spacing_x_px =
 border_spacing_y_px : Tailwind
 border_spacing_y_px =
     Tailwind "border-spacing-y-px"
+
+{-| border-top-style: var(--tw-border-style);
+  border-top-width: 1px;
+-}
+border_t : Tailwind
+border_t =
+    Tailwind "border-t"
 
 {-| bottom: auto;
 -}
@@ -3422,6 +2988,12 @@ break_normal =
 break_words : Tailwind
 break_words =
     Tailwind "break-words"
+
+{-| text-transform: capitalize;
+-}
+capitalize : Tailwind
+capitalize =
+    Tailwind "capitalize"
 
 {-| caption-side: bottom;
 -}
@@ -3647,6 +3219,12 @@ cursor_all_scroll : Tailwind
 cursor_all_scroll =
     Tailwind "cursor-all-scroll"
 
+{-| cursor: auto;
+-}
+cursor_auto : Tailwind
+cursor_auto =
+    Tailwind "cursor-auto"
+
 {-| cursor: cell;
 -}
 cursor_cell : Tailwind
@@ -3676,6 +3254,12 @@ cursor_copy =
 cursor_crosshair : Tailwind
 cursor_crosshair =
     Tailwind "cursor-crosshair"
+
+{-| cursor: default;
+-}
+cursor_default : Tailwind
+cursor_default =
+    Tailwind "cursor-default"
 
 {-| cursor: e-resize;
 -}
@@ -3707,6 +3291,12 @@ cursor_help : Tailwind
 cursor_help =
     Tailwind "cursor-help"
 
+{-| cursor: move;
+-}
+cursor_move : Tailwind
+cursor_move =
+    Tailwind "cursor-move"
+
 {-| cursor: n-resize;
 -}
 cursor_n_resize : Tailwind
@@ -3737,6 +3327,12 @@ cursor_none : Tailwind
 cursor_none =
     Tailwind "cursor-none"
 
+{-| cursor: not-allowed;
+-}
+cursor_not_allowed : Tailwind
+cursor_not_allowed =
+    Tailwind "cursor-not-allowed"
+
 {-| cursor: ns-resize;
 -}
 cursor_ns_resize : Tailwind
@@ -3754,6 +3350,12 @@ cursor_nw_resize =
 cursor_nwse_resize : Tailwind
 cursor_nwse_resize =
     Tailwind "cursor-nwse-resize"
+
+{-| cursor: pointer;
+-}
+cursor_pointer : Tailwind
+cursor_pointer =
+    Tailwind "cursor-pointer"
 
 {-| cursor: progress;
 -}
@@ -3785,6 +3387,12 @@ cursor_sw_resize : Tailwind
 cursor_sw_resize =
     Tailwind "cursor-sw-resize"
 
+{-| cursor: text;
+-}
+cursor_text : Tailwind
+cursor_text =
+    Tailwind "cursor-text"
+
 {-| cursor: vertical-text;
 -}
 cursor_vertical_text : Tailwind
@@ -3796,6 +3404,12 @@ cursor_vertical_text =
 cursor_w_resize : Tailwind
 cursor_w_resize =
     Tailwind "cursor-w-resize"
+
+{-| cursor: wait;
+-}
+cursor_wait : Tailwind
+cursor_wait =
+    Tailwind "cursor-wait"
 
 {-| cursor: zoom-in;
 -}
@@ -3988,11 +3602,35 @@ fill_none : Tailwind
 fill_none =
     Tailwind "fill-none"
 
+{-| position: fixed;
+-}
+fixed : Tailwind
+fixed =
+    Tailwind "fixed"
+
+{-| display: flex;
+-}
+flex : Tailwind
+flex =
+    Tailwind "flex"
+
 {-| flex: auto;
 -}
 flex_auto : Tailwind
 flex_auto =
     Tailwind "flex-auto"
+
+{-| flex-direction: column;
+-}
+flex_col : Tailwind
+flex_col =
+    Tailwind "flex-col"
+
+{-| flex-direction: column-reverse;
+-}
+flex_col_reverse : Tailwind
+flex_col_reverse =
+    Tailwind "flex-col-reverse"
 
 {-| flex: 0 auto;
 -}
@@ -4005,6 +3643,36 @@ flex_initial =
 flex_none : Tailwind
 flex_none =
     Tailwind "flex-none"
+
+{-| flex-wrap: nowrap;
+-}
+flex_nowrap : Tailwind
+flex_nowrap =
+    Tailwind "flex-nowrap"
+
+{-| flex-direction: row;
+-}
+flex_row : Tailwind
+flex_row =
+    Tailwind "flex-row"
+
+{-| flex-direction: row-reverse;
+-}
+flex_row_reverse : Tailwind
+flex_row_reverse =
+    Tailwind "flex-row-reverse"
+
+{-| flex-wrap: wrap;
+-}
+flex_wrap : Tailwind
+flex_wrap =
+    Tailwind "flex-wrap"
+
+{-| flex-wrap: wrap-reverse;
+-}
+flex_wrap_reverse : Tailwind
+flex_wrap_reverse =
+    Tailwind "flex-wrap-reverse"
 
 {-| float: inline-end;
 -}
@@ -4041,6 +3709,24 @@ float_start =
 flow_root : Tailwind
 flow_root =
     Tailwind "flow-root"
+
+{-| font-family: var(--font-mono);
+-}
+font_mono : Tailwind
+font_mono =
+    Tailwind "font-mono"
+
+{-| font-family: var(--font-sans);
+-}
+font_sans : Tailwind
+font_sans =
+    Tailwind "font-sans"
+
+{-| font-family: var(--font-serif);
+-}
+font_serif : Tailwind
+font_serif =
+    Tailwind "font-serif"
 
 {-| font-stretch: condensed;
 -}
@@ -4126,6 +3812,12 @@ gap_y_px : Tailwind
 gap_y_px =
     Tailwind "gap-y-px"
 
+{-| display: grid;
+-}
+grid : Tailwind
+grid =
+    Tailwind "grid"
+
 {-| grid-template-columns: none;
 -}
 grid_cols_none : Tailwind
@@ -4180,6 +3872,18 @@ grid_rows_subgrid : Tailwind
 grid_rows_subgrid =
     Tailwind "grid-rows-subgrid"
 
+{-| flex-grow: 1;
+-}
+grow : Tailwind
+grow =
+    Tailwind "grow"
+
+{-| flex-grow: 0;
+-}
+grow_0 : Tailwind
+grow_0 =
+    Tailwind "grow-0"
+
 {-| height: 100dvh;
 -}
 h_dvh : Tailwind
@@ -4222,6 +3926,12 @@ h_svw : Tailwind
 h_svw =
     Tailwind "h-svw"
 
+{-| display: none;
+-}
+hidden : Tailwind
+hidden =
+    Tailwind "hidden"
+
 {-| -webkit-hyphens: auto;
   hyphens: auto;
 -}
@@ -4248,6 +3958,24 @@ hyphens_none =
 indent_px : Tailwind
 indent_px =
     Tailwind "indent-px"
+
+{-| display: inline;
+-}
+inline : Tailwind
+inline =
+    Tailwind "inline"
+
+{-| display: inline-block;
+-}
+inline_block : Tailwind
+inline_block =
+    Tailwind "inline-block"
+
+{-| display: inline-flex;
+-}
+inline_flex : Tailwind
+inline_flex =
+    Tailwind "inline-flex"
 
 {-| display: inline-grid;
 -}
@@ -4321,6 +4049,12 @@ inset_y_px : Tailwind
 inset_y_px =
     Tailwind "inset-y-px"
 
+{-| visibility: hidden;
+-}
+invisible : Tailwind
+invisible =
+    Tailwind "invisible"
+
 {-| isolation: isolate;
 -}
 isolate : Tailwind
@@ -4333,11 +4067,77 @@ isolation_auto : Tailwind
 isolation_auto =
     Tailwind "isolation-auto"
 
+{-| font-style: italic;
+-}
+italic : Tailwind
+italic =
+    Tailwind "italic"
+
+{-| align-items: baseline;
+-}
+items_baseline : Tailwind
+items_baseline =
+    Tailwind "items-baseline"
+
+{-| align-items: center;
+-}
+items_center : Tailwind
+items_center =
+    Tailwind "items-center"
+
+{-| align-items: flex-end;
+-}
+items_end : Tailwind
+items_end =
+    Tailwind "items-end"
+
+{-| align-items: flex-start;
+-}
+items_start : Tailwind
+items_start =
+    Tailwind "items-start"
+
+{-| align-items: stretch;
+-}
+items_stretch : Tailwind
+items_stretch =
+    Tailwind "items-stretch"
+
+{-| justify-content: space-around;
+-}
+justify_around : Tailwind
+justify_around =
+    Tailwind "justify-around"
+
 {-| justify-content: baseline;
 -}
 justify_baseline : Tailwind
 justify_baseline =
     Tailwind "justify-baseline"
+
+{-| justify-content: space-between;
+-}
+justify_between : Tailwind
+justify_between =
+    Tailwind "justify-between"
+
+{-| justify-content: center;
+-}
+justify_center : Tailwind
+justify_center =
+    Tailwind "justify-center"
+
+{-| justify-content: flex-end;
+-}
+justify_end : Tailwind
+justify_end =
+    Tailwind "justify-end"
+
+{-| justify-content: space-evenly;
+-}
+justify_evenly : Tailwind
+justify_evenly =
+    Tailwind "justify-evenly"
 
 {-| justify-items: center;
 -}
@@ -4405,6 +4205,12 @@ justify_self_stretch : Tailwind
 justify_self_stretch =
     Tailwind "justify-self-stretch"
 
+{-| justify-content: flex-start;
+-}
+justify_start : Tailwind
+justify_start =
+    Tailwind "justify-start"
+
 {-| justify-content: stretch;
 -}
 justify_stretch : Tailwind
@@ -4451,6 +4257,12 @@ left_px =
 line_clamp_none : Tailwind
 line_clamp_none =
     Tailwind "line-clamp-none"
+
+{-| text-decoration-line: line-through;
+-}
+line_through : Tailwind
+line_through =
+    Tailwind "line-through"
 
 {-| --tw-numeric-figure: lining-nums;
   font-variant-numeric: var(--tw-ordinal,) var(--tw-slashed-zero,) var(--tw-numeric-figure,) var(--tw-numeric-spacing,) var(--tw-numeric-fraction,);
@@ -4500,6 +4312,12 @@ list_none =
 list_outside : Tailwind
 list_outside =
     Tailwind "list-outside"
+
+{-| text-transform: lowercase;
+-}
+lowercase : Tailwind
+lowercase =
+    Tailwind "lowercase"
 
 {-| margin: auto;
 -}
@@ -5053,11 +4871,29 @@ my_px : Tailwind
 my_px =
     Tailwind "my-px"
 
+{-| text-decoration-line: none;
+-}
+no_underline : Tailwind
+no_underline =
+    Tailwind "no-underline"
+
+{-| text-transform: none;
+-}
+normal_case : Tailwind
+normal_case =
+    Tailwind "normal-case"
+
 {-| font-variant-numeric: normal;
 -}
 normal_nums : Tailwind
 normal_nums =
     Tailwind "normal-nums"
+
+{-| font-style: normal;
+-}
+not_italic : Tailwind
+not_italic =
+    Tailwind "not-italic"
 
 {-| position: static;
   width: auto;
@@ -5286,6 +5122,12 @@ outline_solid : Tailwind
 outline_solid =
     Tailwind "outline-solid"
 
+{-| overflow: auto;
+-}
+overflow_auto : Tailwind
+overflow_auto =
+    Tailwind "overflow-auto"
+
 {-| overflow: clip;
 -}
 overflow_clip : Tailwind
@@ -5298,11 +5140,41 @@ overflow_ellipsis : Tailwind
 overflow_ellipsis =
     Tailwind "overflow-ellipsis"
 
+{-| overflow: hidden;
+-}
+overflow_hidden : Tailwind
+overflow_hidden =
+    Tailwind "overflow-hidden"
+
+{-| overflow: scroll;
+-}
+overflow_scroll : Tailwind
+overflow_scroll =
+    Tailwind "overflow-scroll"
+
+{-| overflow: visible;
+-}
+overflow_visible : Tailwind
+overflow_visible =
+    Tailwind "overflow-visible"
+
+{-| overflow-x: auto;
+-}
+overflow_x_auto : Tailwind
+overflow_x_auto =
+    Tailwind "overflow-x-auto"
+
 {-| overflow-x: clip;
 -}
 overflow_x_clip : Tailwind
 overflow_x_clip =
     Tailwind "overflow-x-clip"
+
+{-| overflow-x: hidden;
+-}
+overflow_x_hidden : Tailwind
+overflow_x_hidden =
+    Tailwind "overflow-x-hidden"
 
 {-| overflow-x: scroll;
 -}
@@ -5316,11 +5188,23 @@ overflow_x_visible : Tailwind
 overflow_x_visible =
     Tailwind "overflow-x-visible"
 
+{-| overflow-y: auto;
+-}
+overflow_y_auto : Tailwind
+overflow_y_auto =
+    Tailwind "overflow-y-auto"
+
 {-| overflow-y: clip;
 -}
 overflow_y_clip : Tailwind
 overflow_y_clip =
     Tailwind "overflow-y-clip"
+
+{-| overflow-y: hidden;
+-}
+overflow_y_hidden : Tailwind
+overflow_y_hidden =
+    Tailwind "overflow-y-hidden"
 
 {-| overflow-y: scroll;
 -}
@@ -5586,6 +5470,18 @@ place_self_stretch : Tailwind
 place_self_stretch =
     Tailwind "place-self-stretch"
 
+{-| pointer-events: auto;
+-}
+pointer_events_auto : Tailwind
+pointer_events_auto =
+    Tailwind "pointer-events-auto"
+
+{-| pointer-events: none;
+-}
+pointer_events_none : Tailwind
+pointer_events_none =
+    Tailwind "pointer-events-none"
+
 {-| padding-right: 1px;
 -}
 pr_px : Tailwind
@@ -5622,6 +5518,12 @@ px_px =
 py_px : Tailwind
 py_px =
     Tailwind "py-px"
+
+{-| position: relative;
+-}
+relative : Tailwind
+relative =
+    Tailwind "relative"
 
 {-| resize: both;
 -}
@@ -5676,6 +5578,12 @@ ring_inset =
 rotate_none : Tailwind
 rotate_none =
     Tailwind "rotate-none"
+
+{-| border-radius: 0.25rem;
+-}
+rounded : Tailwind
+rounded =
+    Tailwind "rounded"
 
 {-| border-bottom-right-radius: calc(infinity * 1px);
   border-bottom-left-radius: calc(infinity * 1px);
@@ -5753,6 +5661,12 @@ rounded_es_none : Tailwind
 rounded_es_none =
     Tailwind "rounded-es-none"
 
+{-| border-radius: calc(infinity * 1px);
+-}
+rounded_full : Tailwind
+rounded_full =
+    Tailwind "rounded-full"
+
 {-| border-top-left-radius: calc(infinity * 1px);
   border-bottom-left-radius: calc(infinity * 1px);
 -}
@@ -5766,6 +5680,12 @@ rounded_l_full =
 rounded_l_none : Tailwind
 rounded_l_none =
     Tailwind "rounded-l-none"
+
+{-| border-radius: 0;
+-}
+rounded_none : Tailwind
+rounded_none =
+    Tailwind "rounded-none"
 
 {-| border-top-right-radius: calc(infinity * 1px);
   border-bottom-right-radius: calc(infinity * 1px);
@@ -6049,6 +5969,34 @@ scroll_smooth : Tailwind
 scroll_smooth =
     Tailwind "scroll-smooth"
 
+{-| -webkit-user-select: all;
+  user-select: all;
+-}
+select_all : Tailwind
+select_all =
+    Tailwind "select-all"
+
+{-| -webkit-user-select: auto;
+  user-select: auto;
+-}
+select_auto : Tailwind
+select_auto =
+    Tailwind "select-auto"
+
+{-| -webkit-user-select: none;
+  user-select: none;
+-}
+select_none : Tailwind
+select_none =
+    Tailwind "select-none"
+
+{-| -webkit-user-select: text;
+  user-select: text;
+-}
+select_text : Tailwind
+select_text =
+    Tailwind "select-text"
+
 {-| align-self: auto;
 -}
 self_auto : Tailwind
@@ -6085,11 +6033,37 @@ self_stretch : Tailwind
 self_stretch =
     Tailwind "self-stretch"
 
+{-| --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 1px 2px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+-}
+shadow : Tailwind
+shadow =
+    Tailwind "shadow"
+
 {-| --tw-shadow-color: initial;
 -}
 shadow_initial : Tailwind
 shadow_initial =
     Tailwind "shadow-initial"
+
+{-| --tw-shadow: 0 0 #0000;
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+-}
+shadow_none : Tailwind
+shadow_none =
+    Tailwind "shadow-none"
+
+{-| flex-shrink: 1;
+-}
+shrink : Tailwind
+shrink =
+    Tailwind "shrink"
+
+{-| flex-shrink: 0;
+-}
+shrink_0 : Tailwind
+shrink_0 =
+    Tailwind "shrink-0"
 
 {-| width: auto;
   height: auto;
@@ -6325,6 +6299,18 @@ start_px : Tailwind
 start_px =
     Tailwind "start-px"
 
+{-| position: static;
+-}
+static : Tailwind
+static =
+    Tailwind "static"
+
+{-| position: sticky;
+-}
+sticky : Tailwind
+sticky =
+    Tailwind "sticky"
+
 {-| stroke: none;
 -}
 stroke_none : Tailwind
@@ -6417,11 +6403,41 @@ text_balance : Tailwind
 text_balance =
     Tailwind "text-balance"
 
+{-| text-align: center;
+-}
+text_center : Tailwind
+text_center =
+    Tailwind "text-center"
+
+{-| text-overflow: clip;
+-}
+text_clip : Tailwind
+text_clip =
+    Tailwind "text-clip"
+
+{-| text-overflow: ellipsis;
+-}
+text_ellipsis : Tailwind
+text_ellipsis =
+    Tailwind "text-ellipsis"
+
 {-| text-align: end;
 -}
 text_end : Tailwind
 text_end =
     Tailwind "text-end"
+
+{-| text-align: justify;
+-}
+text_justify : Tailwind
+text_justify =
+    Tailwind "text-justify"
+
+{-| text-align: left;
+-}
+text_left : Tailwind
+text_left =
+    Tailwind "text-left"
 
 {-| text-wrap: nowrap;
 -}
@@ -6434,6 +6450,12 @@ text_nowrap =
 text_pretty : Tailwind
 text_pretty =
     Tailwind "text-pretty"
+
+{-| text-align: right;
+-}
+text_right : Tailwind
+text_right =
+    Tailwind "text-right"
 
 {-| text-align: start;
 -}
@@ -6592,17 +6614,71 @@ transform_view : Tailwind
 transform_view =
     Tailwind "transform-view"
 
+{-| transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter;
+  transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+  transition-duration: var(--tw-duration, var(--default-transition-duration));
+-}
+transition : Tailwind
+transition =
+    Tailwind "transition"
+
+{-| transition-property: all;
+  transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+  transition-duration: var(--tw-duration, var(--default-transition-duration));
+-}
+transition_all : Tailwind
+transition_all =
+    Tailwind "transition-all"
+
+{-| transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;
+  transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+  transition-duration: var(--tw-duration, var(--default-transition-duration));
+-}
+transition_colors : Tailwind
+transition_colors =
+    Tailwind "transition-colors"
+
 {-| transition-behavior: allow-discrete;
 -}
 transition_discrete : Tailwind
 transition_discrete =
     Tailwind "transition-discrete"
 
+{-| transition-property: none;
+-}
+transition_none : Tailwind
+transition_none =
+    Tailwind "transition-none"
+
 {-| transition-behavior: normal;
 -}
 transition_normal : Tailwind
 transition_normal =
     Tailwind "transition-normal"
+
+{-| transition-property: opacity;
+  transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+  transition-duration: var(--tw-duration, var(--default-transition-duration));
+-}
+transition_opacity : Tailwind
+transition_opacity =
+    Tailwind "transition-opacity"
+
+{-| transition-property: box-shadow;
+  transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+  transition-duration: var(--tw-duration, var(--default-transition-duration));
+-}
+transition_shadow : Tailwind
+transition_shadow =
+    Tailwind "transition-shadow"
+
+{-| transition-property: transform, translate, scale, rotate;
+  transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+  transition-duration: var(--tw-duration, var(--default-transition-duration));
+-}
+transition_transform : Tailwind
+transition_transform =
+    Tailwind "transition-transform"
 
 {-| translate: var(--tw-translate-x) var(--tw-translate-y) var(--tw-translate-z);
 -}
@@ -6667,17 +6743,43 @@ translate_z_px : Tailwind
 translate_z_px =
     Tailwind "translate-z-px"
 
+{-| overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+-}
+truncate : Tailwind
+truncate =
+    Tailwind "truncate"
+
+{-| text-decoration-line: underline;
+-}
+underline : Tailwind
+underline =
+    Tailwind "underline"
+
 {-| text-underline-offset: auto;
 -}
 underline_offset_auto : Tailwind
 underline_offset_auto =
     Tailwind "underline-offset-auto"
 
+{-| text-transform: uppercase;
+-}
+uppercase : Tailwind
+uppercase =
+    Tailwind "uppercase"
+
 {-| --tw-gradient-via-stops: initial;
 -}
 via_none : Tailwind
 via_none =
     Tailwind "via-none"
+
+{-| visibility: visible;
+-}
+visible : Tailwind
+visible =
+    Tailwind "visible"
 
 {-| width: 100dvh;
 -}
@@ -6726,6 +6828,36 @@ w_svw =
 whitespace_break_spaces : Tailwind
 whitespace_break_spaces =
     Tailwind "whitespace-break-spaces"
+
+{-| white-space: normal;
+-}
+whitespace_normal : Tailwind
+whitespace_normal =
+    Tailwind "whitespace-normal"
+
+{-| white-space: nowrap;
+-}
+whitespace_nowrap : Tailwind
+whitespace_nowrap =
+    Tailwind "whitespace-nowrap"
+
+{-| white-space: pre;
+-}
+whitespace_pre : Tailwind
+whitespace_pre =
+    Tailwind "whitespace-pre"
+
+{-| white-space: pre-line;
+-}
+whitespace_pre_line : Tailwind
+whitespace_pre_line =
+    Tailwind "whitespace-pre-line"
+
+{-| white-space: pre-wrap;
+-}
+whitespace_pre_wrap : Tailwind
+whitespace_pre_wrap =
+    Tailwind "whitespace-pre-wrap"
 
 {-| will-change: auto;
 -}

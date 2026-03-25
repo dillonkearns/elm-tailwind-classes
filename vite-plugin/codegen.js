@@ -125,18 +125,7 @@ function generateTailwindWithUtilities(theme, designSystem) {
     'gap', 'gap_x', 'gap_y'
   ];
 
-  const layoutExports = [
-    'flex', 'inline_flex', 'block', 'inline_block', 'inline', 'grid', 'hidden',
-    'flex_row', 'flex_row_reverse', 'flex_col', 'flex_col_reverse',
-    'flex_wrap', 'flex_wrap_reverse', 'flex_nowrap',
-    'grow', 'grow_0', 'shrink', 'shrink_0',
-    'items_start', 'items_end', 'items_center', 'items_baseline', 'items_stretch',
-    'justify_start', 'justify_end', 'justify_center', 'justify_between', 'justify_around', 'justify_evenly',
-    'relative', 'absolute', 'fixed', 'sticky', 'static',
-    'visible', 'invisible',
-    'overflow_auto', 'overflow_hidden', 'overflow_visible', 'overflow_scroll',
-    'overflow_x_auto', 'overflow_y_auto', 'overflow_x_hidden', 'overflow_y_hidden'
-  ];
+  const layoutExports = [];
 
   const widthFractions = [
     '1/2', '1/3', '2/3', '1/4', '2/4', '3/4',
@@ -154,35 +143,16 @@ function generateTailwindWithUtilities(theme, designSystem) {
     'min_w', 'max_w', 'min_h', 'max_h'
   ];
 
-  const typographyExports = [
-    'text_left', 'text_center', 'text_right', 'text_justify',
-    'font_sans', 'font_serif', 'font_mono',
-    'italic', 'not_italic',
-    'uppercase', 'lowercase', 'capitalize', 'normal_case',
-    'underline', 'line_through', 'no_underline',
-    'whitespace_normal', 'whitespace_nowrap', 'whitespace_pre', 'whitespace_pre_line', 'whitespace_pre_wrap',
-    'truncate', 'text_ellipsis', 'text_clip'
-  ];
+  const typographyExports = [];
 
   const fontSizeExports = fontSizes.map(size => `text_${toElmName(size)}`);
   const fontWeightExports = fontWeights.map(weight => `font_${toElmName(weight)}`);
 
-  const borderExports = [
-    'border', 'border_0', 'border_2', 'border_4', 'border_8',
-    'border_t', 'border_r', 'border_b', 'border_l',
-    'rounded', 'rounded_none', 'rounded_full'
-  ];
+  const borderExports = [];
 
   const radiusExports = radiusSizes.map(size => `rounded_${toElmName(size)}`);
 
-  const effectExports = [
-    'shadow', 'shadow_none',
-    'transition', 'transition_all', 'transition_none', 'transition_colors', 'transition_opacity', 'transition_shadow', 'transition_transform',
-    'animate_none', 'animate_spin', 'animate_ping', 'animate_pulse', 'animate_bounce',
-    'cursor_auto', 'cursor_default', 'cursor_pointer', 'cursor_wait', 'cursor_text', 'cursor_move', 'cursor_not_allowed',
-    'pointer_events_none', 'pointer_events_auto',
-    'select_none', 'select_text', 'select_all', 'select_auto'
-  ];
+  const effectExports = [];
 
   const shadowExports = shadowSizes.map(size => `shadow_${toElmName(size)}`);
 
@@ -218,14 +188,33 @@ function generateTailwindWithUtilities(theme, designSystem) {
   const designSystemStaticDefs = [];
   const designSystemStaticExports = [];
 
+  // Functional utilities that Tailwind considers "functional" (not "static")
+  // but have fixed values we want to expose. These are class names that exist
+  // in getClassList() but not in utilities.keys('static').
+  const functionalUtilitiesToInclude = [
+    'grow', 'grow-0', 'shrink', 'shrink-0',
+    'font-sans', 'font-serif', 'font-mono',
+    'border', 'border-0', 'border-2', 'border-4', 'border-8',
+    'border-t', 'border-r', 'border-b', 'border-l',
+    'rounded', 'rounded-none', 'rounded-full',
+    'shadow', 'shadow-none',
+    'transition', 'transition-all', 'transition-none',
+    'transition-colors', 'transition-opacity', 'transition-shadow', 'transition-transform',
+    'animate-none', 'animate-spin', 'animate-ping', 'animate-pulse', 'animate-bounce',
+  ];
+
   if (designSystem) {
+    // Generate from static utility registry
     const staticKeys = [...designSystem.utilities.keys('static')].sort();
-    for (const className of staticKeys) {
+    // Combine static keys + explicit functional utilities
+    const allClassNames = [...new Set([...staticKeys, ...functionalUtilitiesToInclude])].sort();
+    for (const className of allClassNames) {
       const elmName = toElmName(className);
       if (existingExports.has(elmName)) continue;
 
       const cssArray = designSystem.candidatesToCss([className]);
-      const cssBody = cssDocComment(cssArray?.[0], className);
+      if (!cssArray || cssArray.length === 0) continue; // skip if not valid
+      const cssBody = cssDocComment(cssArray[0], className);
 
       designSystemStaticDefs.push(`
 {-| ${cssBody}
@@ -514,228 +503,6 @@ gap_y spacing =
     Tailwind ("gap-y-" ++ spacingToString spacing)
 
 
--- LAYOUT
-
-flex : Tailwind
-flex =
-    Tailwind "flex"
-
-
-inline_flex : Tailwind
-inline_flex =
-    Tailwind "inline-flex"
-
-
-block : Tailwind
-block =
-    Tailwind "block"
-
-
-inline_block : Tailwind
-inline_block =
-    Tailwind "inline-block"
-
-
-inline : Tailwind
-inline =
-    Tailwind "inline"
-
-
-grid : Tailwind
-grid =
-    Tailwind "grid"
-
-
-hidden : Tailwind
-hidden =
-    Tailwind "hidden"
-
-
-flex_row : Tailwind
-flex_row =
-    Tailwind "flex-row"
-
-
-flex_row_reverse : Tailwind
-flex_row_reverse =
-    Tailwind "flex-row-reverse"
-
-
-flex_col : Tailwind
-flex_col =
-    Tailwind "flex-col"
-
-
-flex_col_reverse : Tailwind
-flex_col_reverse =
-    Tailwind "flex-col-reverse"
-
-
-flex_wrap : Tailwind
-flex_wrap =
-    Tailwind "flex-wrap"
-
-
-flex_wrap_reverse : Tailwind
-flex_wrap_reverse =
-    Tailwind "flex-wrap-reverse"
-
-
-flex_nowrap : Tailwind
-flex_nowrap =
-    Tailwind "flex-nowrap"
-
-
-grow : Tailwind
-grow =
-    Tailwind "grow"
-
-
-grow_0 : Tailwind
-grow_0 =
-    Tailwind "grow-0"
-
-
-shrink : Tailwind
-shrink =
-    Tailwind "shrink"
-
-
-shrink_0 : Tailwind
-shrink_0 =
-    Tailwind "shrink-0"
-
-
-items_start : Tailwind
-items_start =
-    Tailwind "items-start"
-
-
-items_end : Tailwind
-items_end =
-    Tailwind "items-end"
-
-
-items_center : Tailwind
-items_center =
-    Tailwind "items-center"
-
-
-items_baseline : Tailwind
-items_baseline =
-    Tailwind "items-baseline"
-
-
-items_stretch : Tailwind
-items_stretch =
-    Tailwind "items-stretch"
-
-
-justify_start : Tailwind
-justify_start =
-    Tailwind "justify-start"
-
-
-justify_end : Tailwind
-justify_end =
-    Tailwind "justify-end"
-
-
-justify_center : Tailwind
-justify_center =
-    Tailwind "justify-center"
-
-
-justify_between : Tailwind
-justify_between =
-    Tailwind "justify-between"
-
-
-justify_around : Tailwind
-justify_around =
-    Tailwind "justify-around"
-
-
-justify_evenly : Tailwind
-justify_evenly =
-    Tailwind "justify-evenly"
-
-
-relative : Tailwind
-relative =
-    Tailwind "relative"
-
-
-absolute : Tailwind
-absolute =
-    Tailwind "absolute"
-
-
-fixed : Tailwind
-fixed =
-    Tailwind "fixed"
-
-
-sticky : Tailwind
-sticky =
-    Tailwind "sticky"
-
-
-static : Tailwind
-static =
-    Tailwind "static"
-
-
-visible : Tailwind
-visible =
-    Tailwind "visible"
-
-
-invisible : Tailwind
-invisible =
-    Tailwind "invisible"
-
-
-overflow_auto : Tailwind
-overflow_auto =
-    Tailwind "overflow-auto"
-
-
-overflow_hidden : Tailwind
-overflow_hidden =
-    Tailwind "overflow-hidden"
-
-
-overflow_visible : Tailwind
-overflow_visible =
-    Tailwind "overflow-visible"
-
-
-overflow_scroll : Tailwind
-overflow_scroll =
-    Tailwind "overflow-scroll"
-
-
-overflow_x_auto : Tailwind
-overflow_x_auto =
-    Tailwind "overflow-x-auto"
-
-
-overflow_y_auto : Tailwind
-overflow_y_auto =
-    Tailwind "overflow-y-auto"
-
-
-overflow_x_hidden : Tailwind
-overflow_x_hidden =
-    Tailwind "overflow-x-hidden"
-
-
-overflow_y_hidden : Tailwind
-overflow_y_hidden =
-    Tailwind "overflow-y-hidden"
-
-
 -- SIZING
 
 w : Spacing -> Tailwind
@@ -832,128 +599,6 @@ max_h spacing =
     Tailwind ("max-h-" ++ spacingToString spacing)
 
 
--- TYPOGRAPHY
-
-text_left : Tailwind
-text_left =
-    Tailwind "text-left"
-
-
-text_center : Tailwind
-text_center =
-    Tailwind "text-center"
-
-
-text_right : Tailwind
-text_right =
-    Tailwind "text-right"
-
-
-text_justify : Tailwind
-text_justify =
-    Tailwind "text-justify"
-
-
-font_sans : Tailwind
-font_sans =
-    Tailwind "font-sans"
-
-
-font_serif : Tailwind
-font_serif =
-    Tailwind "font-serif"
-
-
-font_mono : Tailwind
-font_mono =
-    Tailwind "font-mono"
-
-
-italic : Tailwind
-italic =
-    Tailwind "italic"
-
-
-not_italic : Tailwind
-not_italic =
-    Tailwind "not-italic"
-
-
-uppercase : Tailwind
-uppercase =
-    Tailwind "uppercase"
-
-
-lowercase : Tailwind
-lowercase =
-    Tailwind "lowercase"
-
-
-capitalize : Tailwind
-capitalize =
-    Tailwind "capitalize"
-
-
-normal_case : Tailwind
-normal_case =
-    Tailwind "normal-case"
-
-
-underline : Tailwind
-underline =
-    Tailwind "underline"
-
-
-line_through : Tailwind
-line_through =
-    Tailwind "line-through"
-
-
-no_underline : Tailwind
-no_underline =
-    Tailwind "no-underline"
-
-
-whitespace_normal : Tailwind
-whitespace_normal =
-    Tailwind "whitespace-normal"
-
-
-whitespace_nowrap : Tailwind
-whitespace_nowrap =
-    Tailwind "whitespace-nowrap"
-
-
-whitespace_pre : Tailwind
-whitespace_pre =
-    Tailwind "whitespace-pre"
-
-
-whitespace_pre_line : Tailwind
-whitespace_pre_line =
-    Tailwind "whitespace-pre-line"
-
-
-whitespace_pre_wrap : Tailwind
-whitespace_pre_wrap =
-    Tailwind "whitespace-pre-wrap"
-
-
-truncate : Tailwind
-truncate =
-    Tailwind "truncate"
-
-
-text_ellipsis : Tailwind
-text_ellipsis =
-    Tailwind "text-ellipsis"
-
-
-text_clip : Tailwind
-text_clip =
-    Tailwind "text-clip"
-
-
 -- FONT SIZE
 ${fontSizeFunctions.join('\n')}
 
@@ -962,207 +607,12 @@ ${fontSizeFunctions.join('\n')}
 ${fontWeightFunctions.join('\n')}
 
 
--- BORDER
-
-border : Tailwind
-border =
-    Tailwind "border"
-
-
-border_0 : Tailwind
-border_0 =
-    Tailwind "border-0"
-
-
-border_2 : Tailwind
-border_2 =
-    Tailwind "border-2"
-
-
-border_4 : Tailwind
-border_4 =
-    Tailwind "border-4"
-
-
-border_8 : Tailwind
-border_8 =
-    Tailwind "border-8"
-
-
-border_t : Tailwind
-border_t =
-    Tailwind "border-t"
-
-
-border_r : Tailwind
-border_r =
-    Tailwind "border-r"
-
-
-border_b : Tailwind
-border_b =
-    Tailwind "border-b"
-
-
-border_l : Tailwind
-border_l =
-    Tailwind "border-l"
-
-
-rounded : Tailwind
-rounded =
-    Tailwind "rounded"
-
-
-rounded_none : Tailwind
-rounded_none =
-    Tailwind "rounded-none"
-
-
-rounded_full : Tailwind
-rounded_full =
-    Tailwind "rounded-full"
-
+-- BORDER RADIUS (from theme)
 ${radiusFunctions.join('\n')}
 
 
--- EFFECTS
-
-shadow : Tailwind
-shadow =
-    Tailwind "shadow"
-
-
-shadow_none : Tailwind
-shadow_none =
-    Tailwind "shadow-none"
-
+-- SHADOW SIZES (from theme)
 ${shadowFunctions.join('\n')}
-
-
-transition : Tailwind
-transition =
-    Tailwind "transition"
-
-
-transition_all : Tailwind
-transition_all =
-    Tailwind "transition-all"
-
-
-transition_none : Tailwind
-transition_none =
-    Tailwind "transition-none"
-
-
-transition_colors : Tailwind
-transition_colors =
-    Tailwind "transition-colors"
-
-
-transition_opacity : Tailwind
-transition_opacity =
-    Tailwind "transition-opacity"
-
-
-transition_shadow : Tailwind
-transition_shadow =
-    Tailwind "transition-shadow"
-
-
-transition_transform : Tailwind
-transition_transform =
-    Tailwind "transition-transform"
-
-
-animate_none : Tailwind
-animate_none =
-    Tailwind "animate-none"
-
-
-animate_spin : Tailwind
-animate_spin =
-    Tailwind "animate-spin"
-
-
-animate_ping : Tailwind
-animate_ping =
-    Tailwind "animate-ping"
-
-
-animate_pulse : Tailwind
-animate_pulse =
-    Tailwind "animate-pulse"
-
-
-animate_bounce : Tailwind
-animate_bounce =
-    Tailwind "animate-bounce"
-
-
-cursor_auto : Tailwind
-cursor_auto =
-    Tailwind "cursor-auto"
-
-
-cursor_default : Tailwind
-cursor_default =
-    Tailwind "cursor-default"
-
-
-cursor_pointer : Tailwind
-cursor_pointer =
-    Tailwind "cursor-pointer"
-
-
-cursor_wait : Tailwind
-cursor_wait =
-    Tailwind "cursor-wait"
-
-
-cursor_text : Tailwind
-cursor_text =
-    Tailwind "cursor-text"
-
-
-cursor_move : Tailwind
-cursor_move =
-    Tailwind "cursor-move"
-
-
-cursor_not_allowed : Tailwind
-cursor_not_allowed =
-    Tailwind "cursor-not-allowed"
-
-
-pointer_events_none : Tailwind
-pointer_events_none =
-    Tailwind "pointer-events-none"
-
-
-pointer_events_auto : Tailwind
-pointer_events_auto =
-    Tailwind "pointer-events-auto"
-
-
-select_none : Tailwind
-select_none =
-    Tailwind "select-none"
-
-
-select_text : Tailwind
-select_text =
-    Tailwind "select-text"
-
-
-select_all : Tailwind
-select_all =
-    Tailwind "select-all"
-
-
-select_auto : Tailwind
-select_auto =
-    Tailwind "select-auto"
 
 
 -- COLOR UTILITIES
