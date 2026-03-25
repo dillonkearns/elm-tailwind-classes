@@ -2,14 +2,14 @@
     "type": "application",
     "source-directories": [
         "src",
-        "../.elm-tailwind",
-        "../../../elm-snapshot/src"
+        "../.elm-tailwind"
     ],
     "elm-version": "0.19.1",
     "dependencies": {
         "direct": {
             "dillonkearns/elm-cli-options-parser": "5.0.1",
             "dillonkearns/elm-pages": "12.1.0",
+            "dillonkearns/elm-snapshot": "1.1.1",
             "elm/browser": "1.0.2",
             "elm/core": "1.0.5",
             "elm/html": "1.0.1",
@@ -23,6 +23,8 @@
             "Chadtech/elm-bool-extra": "2.4.2",
             "MaybeJustJames/yaml": "2.1.7",
             "avh4/elm-color": "1.0.0",
+            "avh4/elm-fifo": "1.0.4",
+            "avh4/elm-program-test": "4.0.1",
             "danyx23/elm-mimetype": "4.0.1",
             "dillonkearns/elm-bcp47-language-tag": "2.0.0",
             "dillonkearns/elm-date-or-date-time": "2.0.0",
@@ -43,9 +45,11 @@
             "elm-explorations/test": "2.2.1",
             "elmcraft/core-extra": "2.3.0",
             "fredcy/elm-parseint": "2.0.1",
+            "hecrj/html-parser": "2.4.0",
             "jluckyiv/elm-utc-date-strings": "1.0.0",
             "justinmimbs/date": "4.1.0",
             "mdgriffith/elm-codegen": "6.0.1",
+            "mgold/elm-nonempty-list": "4.2.0",
             "miniBill/elm-codec": "2.3.0",
             "miniBill/elm-unicode": "1.1.1",
             "noahzgordon/elm-color-extra": "1.0.2",
