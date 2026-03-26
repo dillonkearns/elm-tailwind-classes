@@ -40,7 +40,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.elm
-          key: elm-${{ hashFiles('elm.json', 'elm-tooling.json', 'review/elm.json', 'golden/elm.json') }}
+          key: elm-${{ hashFiles('elm.json', 'elm-tooling.json', 'review/elm.json', 'golden/elm.json', 'golden/snapshot-tests/elm.json') }}
 
       # Install npm packages, unless we restored them from cache.
       # Since `npm ci` removes the node_modules folder before running it’s

@@ -34,7 +34,7 @@ echo "Vite build succeeded"
 echo ""
 echo "=== Snapshot testing utility list ==="
 cd snapshot-tests
-elm-pages run src/Snapshots.elm 2>&1
+npx elm-pages run src/Snapshots.elm 2>&1
 echo "Snapshot test passed"
 cd ..
 
