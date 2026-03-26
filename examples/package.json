@@ -10,11 +10,11 @@
     "build:manual": "npm run extract && npm run build:css && elm make Demo.elm --output=demo.js"
   },
   "devDependencies": {
-    "@tailwindcss/cli": "^4.1.18",
-    "@tailwindcss/vite": "^4.0.0",
+    "@tailwindcss/cli": "^4.2.2",
+    "@tailwindcss/vite": "^4.2.2",
     "elm-review": "^2.13.5",
     "elm-tailwind-classes": "file:..",
-    "tailwindcss": "^4.0.0",
+    "tailwindcss": "^4.2.2",
     "vite": "^6.0.0",
     "vite-plugin-elm": "^3.0.1"
   }
