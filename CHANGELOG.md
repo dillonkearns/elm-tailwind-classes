@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-03-25
+
+### Added
+
+- **Auto-discover static utilities from Tailwind's design system.** All ~800 static utility classes (like `text-balance`, `text-pretty`, `sr-only`, `isolate`, etc.) are now generated automatically from Tailwind's `__unstable__loadDesignSystem` API instead of being manually hardcoded. New utilities added by Tailwind will be picked up automatically on upgrade.
+- **Negative utility support** with the `neg_` prefix convention (e.g., `neg_m_px`, `neg_translate_x_full`), matching the existing `neg_m`, `neg_mx` pattern.
+- **Snapshot tests** using `dillonkearns/elm-snapshot` to catch any silent addition or removal of utility functions (975 type signatures) and class string mappings (931 pairs).
+
+### Changed
+
+- Utilities are back in the main `Tailwind` module (combined `Tailwind.elm`), reversing the v0.2.2 split into `Tailwind.Utilities`. This simplifies imports — use `import Tailwind as Tw` as before.
+- Consolidated codegen to a single source of truth (`vite-plugin/codegen.js`). The standalone `codegen/generate.js` is now a thin wrapper.
+- The plugin now **requires tailwindcss v4+** and fails with a clear error message if the design system cannot be loaded.
+
+### Fixed
+
+- Missing utility classes like `text-balance`, `text-pretty`, `text-wrap`, `text-nowrap`, and hundreds of other static utilities that were not previously exposed.
+- Examples project now correctly references the root package and uses `src/` directory layout.
+
 ## [0.2.2] - 2026-03-24
 
 ### Fixed
@@ -56,7 +75,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - **Zero config** - just add the Vite plugin and start coding
 - Support for `Tw.raw` escape hatch for custom classes
 
-[Unreleased]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.2.2...HEAD
+[Unreleased]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.2.2...v0.3.0
 [0.2.2]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.2.1...v0.2.2
 [0.2.1]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.1.1...v0.2.0
