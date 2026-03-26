@@ -84,6 +84,27 @@ function writeElmFile(outputDir, modulePath, content) {
   fs.writeFileSync(fullPath, content);
 }
 
+// Ensure every top-level type annotation has a doc comment.
+// Elm's --docs flag requires this for every @docs-referenced name.
+function ensureDocComments(source) {
+  const lines = source.split('\n');
+  const result = [];
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    // Match top-level type annotations (not indented)
+    if (/^[a-z_]\w* : /.test(line)) {
+      // Check if previous non-blank line is a doc comment closing
+      let j = i - 1;
+      while (j >= 0 && lines[j].trim() === '') j--;
+      if (j < 0 || !lines[j].trim().endsWith('-}')) {
+        result.push('{-| -}');
+      }
+    }
+    result.push(line);
+  }
+  return result.join('\n');
+}
+
 // Convert Tailwind class name to Elm identifier
 function toElmName(className) {
   let name = className;
@@ -282,7 +303,7 @@ ${elmName} =
     Tailwind "h-${f}"`;
   });
 
-  return `module Tailwind exposing
+  const module = `module Tailwind exposing
     ( Tailwind(..)
     , classes
     , batch
@@ -295,6 +316,16 @@ ${elmName} =
 
 This module provides the \`Tailwind\` type and all utility functions.
 Use \`classes\` to convert a list of Tailwind values to an \`Html.Attribute\`.
+
+
+## Core
+
+@docs Tailwind, classes, batch, raw, toClass
+
+
+## Utilities
+
+@docs ${allUtilityExports.join(', ')}
 
 -}
 
@@ -781,6 +812,8 @@ z_auto =
 -- ADDITIONAL UTILITIES (from Tailwind design system)
 ${designSystemStaticDefs.join('\n')}
 `;
+
+  return ensureDocComments(module);
 }
 
 function generateTheme(theme) {
@@ -1043,13 +1076,17 @@ ${name} twClasses =
 
   const stateExports = stateVariants.map(([name]) => name);
 
-  return `module Tailwind.Breakpoints exposing
+  const allBreakpointExports = [...breakpointExports, ...stateExports, 'withVariant'];
+
+  const breakpointsModule = `module Tailwind.Breakpoints exposing
     ( ${breakpointExports.join('\n    , ')}
     , ${stateExports.join('\n    , ')}
     , withVariant
     )
 
 {-| Responsive breakpoints and state variants for Tailwind CSS.
+
+@docs ${allBreakpointExports.join(', ')}
 
 -}
 
@@ -1060,8 +1097,12 @@ ${breakpointFunctions.join('\n')}
 ${stateFunctions.join('\n')}
 
 
+{-| Apply a custom variant prefix.
+-}
 withVariant : String -> List Tailwind -> Tailwind
 withVariant variant twClasses =
     Tailwind (String.join " " (List.map (\\(Tailwind c) -> variant ++ ":" ++ c) twClasses))
 `;
+
+  return ensureDocComments(breakpointsModule);
 }

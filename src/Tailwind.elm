@@ -986,6 +986,16 @@ module Tailwind exposing
 This module provides the `Tailwind` type and all utility functions.
 Use `classes` to convert a list of Tailwind values to an `Html.Attribute`.
 
+
+## Core
+
+@docs Tailwind, classes, batch, raw, toClass
+
+
+## Utilities
+
+@docs p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml, neg_m, neg_mx, neg_my, neg_mt, neg_mr, neg_mb, neg_ml, gap, gap_x, gap_y, w, w_1over2, w_1over3, w_2over3, w_1over4, w_2over4, w_3over4, w_1over5, w_2over5, w_3over5, w_4over5, w_1over6, w_2over6, w_3over6, w_4over6, w_5over6, w_1over12, w_2over12, w_3over12, w_4over12, w_5over12, w_6over12, w_7over12, w_8over12, w_9over12, w_10over12, w_11over12, w_full, w_screen, w_auto, w_min, w_max, w_fit, h, h_1over2, h_1over3, h_2over3, h_1over4, h_2over4, h_3over4, h_1over5, h_2over5, h_3over5, h_4over5, h_1over6, h_2over6, h_3over6, h_4over6, h_5over6, h_1over12, h_2over12, h_3over12, h_4over12, h_5over12, h_6over12, h_7over12, h_8over12, h_9over12, h_10over12, h_11over12, h_full, h_screen, h_auto, h_min, h_max, h_fit, min_w, max_w, min_h, max_h, text_xs, text_sm, text_base, text_lg, text_xl, text_n2xl, text_n3xl, text_n4xl, text_n5xl, text_n6xl, text_n7xl, text_n8xl, text_n9xl, font_thin, font_extralight, font_light, font_normal, font_medium, font_semibold, font_bold, font_extrabold, font_black, rounded_xs, rounded_sm, rounded_md, rounded_lg, rounded_xl, rounded_n2xl, rounded_n3xl, rounded_n4xl, shadow_n2xs, shadow_xs, shadow_sm, shadow_md, shadow_lg, shadow_xl, shadow_n2xl, shadow_inner, text_color, bg_color, border_color, ring_color, placeholder_color, text_simple, bg_simple, border_simple, opacity_0, opacity_5, opacity_10, opacity_20, opacity_25, opacity_30, opacity_40, opacity_50, opacity_60, opacity_70, opacity_75, opacity_80, opacity_90, opacity_95, opacity_100, z_0, z_10, z_20, z_30, z_40, z_50, z_auto, neg_bottom_full, neg_bottom_px, neg_end_full, neg_end_px, neg_indent_px, neg_inset_full, neg_inset_px, neg_inset_x_full, neg_inset_x_px, neg_inset_y_full, neg_inset_y_px, neg_left_full, neg_left_px, neg_m_px, neg_mb_px, neg_me_px, neg_ml_px, neg_mr_px, neg_ms_px, neg_mt_px, neg_mx_px, neg_my_px, neg_right_full, neg_right_px, neg_scroll_m_px, neg_scroll_mb_px, neg_scroll_me_px, neg_scroll_ml_px, neg_scroll_mr_px, neg_scroll_ms_px, neg_scroll_mt_px, neg_scroll_mx_px, neg_scroll_my_px, neg_space_x_px, neg_space_y_px, neg_start_full, neg_start_px, neg_top_full, neg_top_px, neg_translate_full, neg_translate_px, neg_translate_x_full, neg_translate_x_px, neg_translate_y_full, neg_translate_y_px, neg_translate_z_px, absolute, accent_auto, align_baseline, align_bottom, align_middle, align_sub, align_super, align_text_bottom, align_text_top, align_top, animate_bounce, animate_none, animate_ping, animate_pulse, animate_spin, antialiased, appearance_auto, appearance_none, aspect_auto, aspect_square, auto_cols_auto, auto_cols_fr, auto_cols_max, auto_cols_min, auto_rows_auto, auto_rows_fr, auto_rows_max, auto_rows_min, backdrop_blur_none, backface_hidden, backface_visible, basis_auto, basis_full, basis_px, bg_auto, bg_blend_color, bg_blend_color_burn, bg_blend_color_dodge, bg_blend_darken, bg_blend_difference, bg_blend_exclusion, bg_blend_hard_light, bg_blend_hue, bg_blend_lighten, bg_blend_luminosity, bg_blend_multiply, bg_blend_normal, bg_blend_overlay, bg_blend_saturation, bg_blend_screen, bg_blend_soft_light, bg_bottom, bg_center, bg_clip_border, bg_clip_content, bg_clip_padding, bg_clip_text, bg_contain, bg_cover, bg_fixed, bg_gradient_to_b, bg_gradient_to_bl, bg_gradient_to_br, bg_gradient_to_l, bg_gradient_to_r, bg_gradient_to_t, bg_gradient_to_tl, bg_gradient_to_tr, bg_left, bg_left_bottom, bg_left_top, bg_local, bg_no_repeat, bg_none, bg_origin_border, bg_origin_content, bg_origin_padding, bg_repeat, bg_repeat_round, bg_repeat_space, bg_repeat_x, bg_repeat_y, bg_right, bg_right_bottom, bg_right_top, bg_scroll, bg_top, block, blur_none, border, border_0, border_2, border_4, border_8, border_b, border_collapse, border_dashed, border_dotted, border_double, border_hidden, border_l, border_none, border_r, border_separate, border_solid, border_spacing_px, border_spacing_x_px, border_spacing_y_px, border_t, bottom_auto, bottom_full, bottom_px, box_border, box_content, box_decoration_clone, box_decoration_slice, break_after_all, break_after_auto, break_after_avoid, break_after_avoid_page, break_after_column, break_after_left, break_after_page, break_after_right, break_all, break_before_all, break_before_auto, break_before_avoid, break_before_avoid_page, break_before_column, break_before_left, break_before_page, break_before_right, break_inside_auto, break_inside_avoid, break_inside_avoid_column, break_inside_avoid_page, break_keep, break_normal, break_words, capitalize, caption_bottom, caption_top, clear_both, clear_end, clear_left, clear_none, clear_right, clear_start, col_auto, col_end_auto, col_span_full, col_start_auto, collapse, columns_auto, contain_content, contain_inline_size, contain_layout, contain_none, contain_paint, contain_size, contain_strict, contain_style, container, content_around, content_baseline, content_between, content_center, content_end, content_evenly, content_none, content_normal, content_start, content_stretch, contents, cursor_alias, cursor_all_scroll, cursor_auto, cursor_cell, cursor_col_resize, cursor_context_menu, cursor_copy, cursor_crosshair, cursor_default, cursor_e_resize, cursor_ew_resize, cursor_grab, cursor_grabbing, cursor_help, cursor_move, cursor_n_resize, cursor_ne_resize, cursor_nesw_resize, cursor_no_drop, cursor_none, cursor_not_allowed, cursor_ns_resize, cursor_nw_resize, cursor_nwse_resize, cursor_pointer, cursor_progress, cursor_row_resize, cursor_s_resize, cursor_se_resize, cursor_sw_resize, cursor_text, cursor_vertical_text, cursor_w_resize, cursor_wait, cursor_zoom_in, cursor_zoom_out, decoration_auto, decoration_clone, decoration_dashed, decoration_dotted, decoration_double, decoration_from_font, decoration_slice, decoration_solid, decoration_wavy, diagonal_fractions, divide_dashed, divide_dotted, divide_double, divide_none, divide_solid, divide_x_reverse, divide_y_reverse, drop_shadow_none, duration_initial, ease_initial, ease_linear, end_auto, end_full, end_px, field_sizing_content, field_sizing_fixed, fill_none, fixed, flex, flex_auto, flex_col, flex_col_reverse, flex_initial, flex_none, flex_nowrap, flex_row, flex_row_reverse, flex_wrap, flex_wrap_reverse, float_end, float_left, float_none, float_right, float_start, flow_root, font_mono, font_sans, font_serif, font_stretch_condensed, font_stretch_expanded, font_stretch_extra_condensed, font_stretch_extra_expanded, font_stretch_normal, font_stretch_semi_condensed, font_stretch_semi_expanded, font_stretch_ultra_condensed, font_stretch_ultra_expanded, forced_color_adjust_auto, forced_color_adjust_none, gap_px, gap_x_px, gap_y_px, grid, grid_cols_none, grid_cols_subgrid, grid_flow_col, grid_flow_col_dense, grid_flow_dense, grid_flow_row, grid_flow_row_dense, grid_rows_none, grid_rows_subgrid, grow, grow_0, h_dvh, h_dvw, h_lvh, h_lvw, h_px, h_svh, h_svw, hidden, hyphens_auto, hyphens_manual, hyphens_none, indent_px, inline, inline_block, inline_flex, inline_grid, inline_table, inset_auto, inset_full, inset_px, inset_shadow_initial, inset_x_auto, inset_x_full, inset_x_px, inset_y_auto, inset_y_full, inset_y_px, invisible, isolate, isolation_auto, italic, items_baseline, items_center, items_end, items_start, items_stretch, justify_around, justify_baseline, justify_between, justify_center, justify_end, justify_evenly, justify_items_center, justify_items_end, justify_items_normal, justify_items_start, justify_items_stretch, justify_normal, justify_self_auto, justify_self_center, justify_self_end, justify_self_start, justify_self_stretch, justify_start, justify_stretch, leading_none, leading_px, left_auto, left_full, left_px, line_clamp_none, line_through, lining_nums, list_decimal, list_disc, list_image_none, list_inside, list_item, list_none, list_outside, lowercase, m_auto, m_px, max_h_auto, max_h_dvh, max_h_dvw, max_h_fit, max_h_full, max_h_lvh, max_h_lvw, max_h_max, max_h_min, max_h_none, max_h_px, max_h_screen, max_h_svh, max_h_svw, max_w_auto, max_w_dvh, max_w_dvw, max_w_fit, max_w_full, max_w_lvh, max_w_lvw, max_w_max, max_w_min, max_w_none, max_w_px, max_w_screen, max_w_svh, max_w_svw, mb_auto, mb_px, me_auto, me_px, min_h_auto, min_h_dvh, min_h_dvw, min_h_fit, min_h_full, min_h_lvh, min_h_lvw, min_h_max, min_h_min, min_h_none, min_h_px, min_h_screen, min_h_svh, min_h_svw, min_w_auto, min_w_dvh, min_w_dvw, min_w_fit, min_w_full, min_w_lvh, min_w_lvw, min_w_max, min_w_min, min_w_none, min_w_px, min_w_screen, min_w_svh, min_w_svw, mix_blend_color, mix_blend_color_burn, mix_blend_color_dodge, mix_blend_darken, mix_blend_difference, mix_blend_exclusion, mix_blend_hard_light, mix_blend_hue, mix_blend_lighten, mix_blend_luminosity, mix_blend_multiply, mix_blend_normal, mix_blend_overlay, mix_blend_plus_darker, mix_blend_plus_lighter, mix_blend_saturation, mix_blend_screen, mix_blend_soft_light, ml_auto, ml_px, mr_auto, mr_px, ms_auto, ms_px, mt_auto, mt_px, mx_auto, mx_px, my_auto, my_px, no_underline, normal_case, normal_nums, not_italic, not_sr_only, object_bottom, object_center, object_contain, object_cover, object_fill, object_left, object_left_bottom, object_left_top, object_none, object_right, object_right_bottom, object_right_top, object_scale_down, object_top, oldstyle_nums, order_first, order_last, order_none, ordinal, origin_bottom, origin_bottom_left, origin_bottom_right, origin_center, origin_left, origin_right, origin_top, origin_top_left, origin_top_right, outline_dashed, outline_dotted, outline_double, outline_hidden, outline_none, outline_solid, overflow_auto, overflow_clip, overflow_ellipsis, overflow_hidden, overflow_scroll, overflow_visible, overflow_x_auto, overflow_x_clip, overflow_x_hidden, overflow_x_scroll, overflow_x_visible, overflow_y_auto, overflow_y_clip, overflow_y_hidden, overflow_y_scroll, overflow_y_visible, overline, overscroll_auto, overscroll_contain, overscroll_none, overscroll_x_auto, overscroll_x_contain, overscroll_x_none, overscroll_y_auto, overscroll_y_contain, overscroll_y_none, p_px, pb_px, pe_px, perspective_none, perspective_origin_bottom, perspective_origin_bottom_left, perspective_origin_bottom_right, perspective_origin_center, perspective_origin_left, perspective_origin_right, perspective_origin_top, perspective_origin_top_left, perspective_origin_top_right, pl_px, place_content_around, place_content_baseline, place_content_between, place_content_center, place_content_end, place_content_evenly, place_content_start, place_content_stretch, place_items_baseline, place_items_center, place_items_end, place_items_start, place_items_stretch, place_self_auto, place_self_center, place_self_end, place_self_start, place_self_stretch, pointer_events_auto, pointer_events_none, pr_px, proportional_nums, ps_px, pt_px, px_px, py_px, relative, resize, resize_none, resize_x, resize_y, right_auto, right_full, right_px, ring_inset, rotate_none, rounded, rounded_b_full, rounded_b_none, rounded_bl_full, rounded_bl_none, rounded_br_full, rounded_br_none, rounded_e_full, rounded_e_none, rounded_ee_full, rounded_ee_none, rounded_es_full, rounded_es_none, rounded_full, rounded_l_full, rounded_l_none, rounded_none, rounded_r_full, rounded_r_none, rounded_s_full, rounded_s_none, rounded_se_full, rounded_se_none, rounded_ss_full, rounded_ss_none, rounded_t_full, rounded_t_none, rounded_tl_full, rounded_tl_none, rounded_tr_full, rounded_tr_none, row_auto, row_end_auto, row_span_full, row_start_auto, scale_3d, scale_none, scheme_dark, scheme_light, scheme_light_dark, scheme_normal, scheme_only_dark, scheme_only_light, scroll_auto, scroll_m_px, scroll_mb_px, scroll_me_px, scroll_ml_px, scroll_mr_px, scroll_ms_px, scroll_mt_px, scroll_mx_px, scroll_my_px, scroll_p_px, scroll_pb_px, scroll_pe_px, scroll_pl_px, scroll_pr_px, scroll_ps_px, scroll_pt_px, scroll_px_px, scroll_py_px, scroll_smooth, select_all, select_auto, select_none, select_text, self_auto, self_baseline, self_center, self_end, self_start, self_stretch, shadow, shadow_initial, shadow_none, shrink, shrink_0, size_auto, size_dvh, size_dvw, size_fit, size_full, size_lvh, size_lvw, size_max, size_min, size_px, size_svh, size_svw, slashed_zero, snap_align_none, snap_always, snap_both, snap_center, snap_end, snap_mandatory, snap_none, snap_normal, snap_proximity, snap_start, snap_x, snap_y, space_x_px, space_x_reverse, space_y_px, space_y_reverse, sr_only, stacked_fractions, start_auto, start_full, start_px, static, sticky, stroke_none, subpixel_antialiased, table, table_auto, table_caption, table_cell, table_column, table_column_group, table_fixed, table_footer_group, table_header_group, table_row, table_row_group, tabular_nums, text_balance, text_center, text_clip, text_ellipsis, text_end, text_justify, text_left, text_nowrap, text_pretty, text_right, text_start, text_wrap, top_auto, top_full, top_px, touch_auto, touch_manipulation, touch_none, touch_pan_down, touch_pan_left, touch_pan_right, touch_pan_up, touch_pan_x, touch_pan_y, touch_pinch_zoom, transform_3d, transform_border, transform_content, transform_cpu, transform_fill, transform_flat, transform_gpu, transform_none, transform_stroke, transform_view, transition, transition_all, transition_colors, transition_discrete, transition_none, transition_normal, transition_opacity, transition_shadow, transition_transform, translate_3d, translate_full, translate_none, translate_px, translate_x_full, translate_x_px, translate_y_full, translate_y_px, translate_z_px, truncate, underline, underline_offset_auto, uppercase, via_none, visible, w_dvh, w_dvw, w_lvh, w_lvw, w_px, w_svh, w_svw, whitespace_break_spaces, whitespace_normal, whitespace_nowrap, whitespace_pre, whitespace_pre_line, whitespace_pre_wrap, will_change_auto, will_change_contents, will_change_scroll, will_change_transform
+
 -}
 
 import Html exposing (Attribute)
@@ -1074,6 +1084,7 @@ toClass (Tailwind className) =
 
 
 -- Internal helper
+{-| -}
 toClassName : Tailwind -> String
 toClassName (Tailwind className) =
     className
@@ -1081,121 +1092,145 @@ toClassName (Tailwind className) =
 
 -- SPACING (parameterized)
 
+{-| -}
 p : Spacing -> Tailwind
 p spacing =
     Tailwind ("p-" ++ spacingToString spacing)
 
 
+{-| -}
 px : Spacing -> Tailwind
 px spacing =
     Tailwind ("px-" ++ spacingToString spacing)
 
 
+{-| -}
 py : Spacing -> Tailwind
 py spacing =
     Tailwind ("py-" ++ spacingToString spacing)
 
 
+{-| -}
 pt : Spacing -> Tailwind
 pt spacing =
     Tailwind ("pt-" ++ spacingToString spacing)
 
 
+{-| -}
 pr : Spacing -> Tailwind
 pr spacing =
     Tailwind ("pr-" ++ spacingToString spacing)
 
 
+{-| -}
 pb : Spacing -> Tailwind
 pb spacing =
     Tailwind ("pb-" ++ spacingToString spacing)
 
 
+{-| -}
 pl : Spacing -> Tailwind
 pl spacing =
     Tailwind ("pl-" ++ spacingToString spacing)
 
 
+{-| -}
 m : Spacing -> Tailwind
 m spacing =
     Tailwind ("m-" ++ spacingToString spacing)
 
 
+{-| -}
 mx : Spacing -> Tailwind
 mx spacing =
     Tailwind ("mx-" ++ spacingToString spacing)
 
 
+{-| -}
 my : Spacing -> Tailwind
 my spacing =
     Tailwind ("my-" ++ spacingToString spacing)
 
 
+{-| -}
 mt : Spacing -> Tailwind
 mt spacing =
     Tailwind ("mt-" ++ spacingToString spacing)
 
 
+{-| -}
 mr : Spacing -> Tailwind
 mr spacing =
     Tailwind ("mr-" ++ spacingToString spacing)
 
 
+{-| -}
 mb : Spacing -> Tailwind
 mb spacing =
     Tailwind ("mb-" ++ spacingToString spacing)
 
 
+{-| -}
 ml : Spacing -> Tailwind
 ml spacing =
     Tailwind ("ml-" ++ spacingToString spacing)
 
 
+{-| -}
 neg_m : Spacing -> Tailwind
 neg_m spacing =
     Tailwind ("-m-" ++ spacingToString spacing)
 
 
+{-| -}
 neg_mx : Spacing -> Tailwind
 neg_mx spacing =
     Tailwind ("-mx-" ++ spacingToString spacing)
 
 
+{-| -}
 neg_my : Spacing -> Tailwind
 neg_my spacing =
     Tailwind ("-my-" ++ spacingToString spacing)
 
 
+{-| -}
 neg_mt : Spacing -> Tailwind
 neg_mt spacing =
     Tailwind ("-mt-" ++ spacingToString spacing)
 
 
+{-| -}
 neg_mr : Spacing -> Tailwind
 neg_mr spacing =
     Tailwind ("-mr-" ++ spacingToString spacing)
 
 
+{-| -}
 neg_mb : Spacing -> Tailwind
 neg_mb spacing =
     Tailwind ("-mb-" ++ spacingToString spacing)
 
 
+{-| -}
 neg_ml : Spacing -> Tailwind
 neg_ml spacing =
     Tailwind ("-ml-" ++ spacingToString spacing)
 
 
+{-| -}
 gap : Spacing -> Tailwind
 gap spacing =
     Tailwind ("gap-" ++ spacingToString spacing)
 
 
+{-| -}
 gap_x : Spacing -> Tailwind
 gap_x spacing =
     Tailwind ("gap-x-" ++ spacingToString spacing)
 
 
+{-| -}
 gap_y : Spacing -> Tailwind
 gap_y spacing =
     Tailwind ("gap-y-" ++ spacingToString spacing)
@@ -1203,301 +1238,371 @@ gap_y spacing =
 
 -- SIZING
 
+{-| -}
 w : Spacing -> Tailwind
 w spacing =
     Tailwind ("w-" ++ spacingToString spacing)
 
 
+{-| -}
 w_1over2 : Tailwind
 w_1over2 =
     Tailwind "w-1/2"
 
+{-| -}
 w_1over3 : Tailwind
 w_1over3 =
     Tailwind "w-1/3"
 
+{-| -}
 w_2over3 : Tailwind
 w_2over3 =
     Tailwind "w-2/3"
 
+{-| -}
 w_1over4 : Tailwind
 w_1over4 =
     Tailwind "w-1/4"
 
+{-| -}
 w_2over4 : Tailwind
 w_2over4 =
     Tailwind "w-2/4"
 
+{-| -}
 w_3over4 : Tailwind
 w_3over4 =
     Tailwind "w-3/4"
 
+{-| -}
 w_1over5 : Tailwind
 w_1over5 =
     Tailwind "w-1/5"
 
+{-| -}
 w_2over5 : Tailwind
 w_2over5 =
     Tailwind "w-2/5"
 
+{-| -}
 w_3over5 : Tailwind
 w_3over5 =
     Tailwind "w-3/5"
 
+{-| -}
 w_4over5 : Tailwind
 w_4over5 =
     Tailwind "w-4/5"
 
+{-| -}
 w_1over6 : Tailwind
 w_1over6 =
     Tailwind "w-1/6"
 
+{-| -}
 w_2over6 : Tailwind
 w_2over6 =
     Tailwind "w-2/6"
 
+{-| -}
 w_3over6 : Tailwind
 w_3over6 =
     Tailwind "w-3/6"
 
+{-| -}
 w_4over6 : Tailwind
 w_4over6 =
     Tailwind "w-4/6"
 
+{-| -}
 w_5over6 : Tailwind
 w_5over6 =
     Tailwind "w-5/6"
 
+{-| -}
 w_1over12 : Tailwind
 w_1over12 =
     Tailwind "w-1/12"
 
+{-| -}
 w_2over12 : Tailwind
 w_2over12 =
     Tailwind "w-2/12"
 
+{-| -}
 w_3over12 : Tailwind
 w_3over12 =
     Tailwind "w-3/12"
 
+{-| -}
 w_4over12 : Tailwind
 w_4over12 =
     Tailwind "w-4/12"
 
+{-| -}
 w_5over12 : Tailwind
 w_5over12 =
     Tailwind "w-5/12"
 
+{-| -}
 w_6over12 : Tailwind
 w_6over12 =
     Tailwind "w-6/12"
 
+{-| -}
 w_7over12 : Tailwind
 w_7over12 =
     Tailwind "w-7/12"
 
+{-| -}
 w_8over12 : Tailwind
 w_8over12 =
     Tailwind "w-8/12"
 
+{-| -}
 w_9over12 : Tailwind
 w_9over12 =
     Tailwind "w-9/12"
 
+{-| -}
 w_10over12 : Tailwind
 w_10over12 =
     Tailwind "w-10/12"
 
+{-| -}
 w_11over12 : Tailwind
 w_11over12 =
     Tailwind "w-11/12"
 
 
+{-| -}
 w_full : Tailwind
 w_full =
     Tailwind "w-full"
 
 
+{-| -}
 w_screen : Tailwind
 w_screen =
     Tailwind "w-screen"
 
 
+{-| -}
 w_auto : Tailwind
 w_auto =
     Tailwind "w-auto"
 
 
+{-| -}
 w_min : Tailwind
 w_min =
     Tailwind "w-min"
 
 
+{-| -}
 w_max : Tailwind
 w_max =
     Tailwind "w-max"
 
 
+{-| -}
 w_fit : Tailwind
 w_fit =
     Tailwind "w-fit"
 
 
+{-| -}
 h : Spacing -> Tailwind
 h spacing =
     Tailwind ("h-" ++ spacingToString spacing)
 
 
+{-| -}
 h_1over2 : Tailwind
 h_1over2 =
     Tailwind "h-1/2"
 
+{-| -}
 h_1over3 : Tailwind
 h_1over3 =
     Tailwind "h-1/3"
 
+{-| -}
 h_2over3 : Tailwind
 h_2over3 =
     Tailwind "h-2/3"
 
+{-| -}
 h_1over4 : Tailwind
 h_1over4 =
     Tailwind "h-1/4"
 
+{-| -}
 h_2over4 : Tailwind
 h_2over4 =
     Tailwind "h-2/4"
 
+{-| -}
 h_3over4 : Tailwind
 h_3over4 =
     Tailwind "h-3/4"
 
+{-| -}
 h_1over5 : Tailwind
 h_1over5 =
     Tailwind "h-1/5"
 
+{-| -}
 h_2over5 : Tailwind
 h_2over5 =
     Tailwind "h-2/5"
 
+{-| -}
 h_3over5 : Tailwind
 h_3over5 =
     Tailwind "h-3/5"
 
+{-| -}
 h_4over5 : Tailwind
 h_4over5 =
     Tailwind "h-4/5"
 
+{-| -}
 h_1over6 : Tailwind
 h_1over6 =
     Tailwind "h-1/6"
 
+{-| -}
 h_2over6 : Tailwind
 h_2over6 =
     Tailwind "h-2/6"
 
+{-| -}
 h_3over6 : Tailwind
 h_3over6 =
     Tailwind "h-3/6"
 
+{-| -}
 h_4over6 : Tailwind
 h_4over6 =
     Tailwind "h-4/6"
 
+{-| -}
 h_5over6 : Tailwind
 h_5over6 =
     Tailwind "h-5/6"
 
+{-| -}
 h_1over12 : Tailwind
 h_1over12 =
     Tailwind "h-1/12"
 
+{-| -}
 h_2over12 : Tailwind
 h_2over12 =
     Tailwind "h-2/12"
 
+{-| -}
 h_3over12 : Tailwind
 h_3over12 =
     Tailwind "h-3/12"
 
+{-| -}
 h_4over12 : Tailwind
 h_4over12 =
     Tailwind "h-4/12"
 
+{-| -}
 h_5over12 : Tailwind
 h_5over12 =
     Tailwind "h-5/12"
 
+{-| -}
 h_6over12 : Tailwind
 h_6over12 =
     Tailwind "h-6/12"
 
+{-| -}
 h_7over12 : Tailwind
 h_7over12 =
     Tailwind "h-7/12"
 
+{-| -}
 h_8over12 : Tailwind
 h_8over12 =
     Tailwind "h-8/12"
 
+{-| -}
 h_9over12 : Tailwind
 h_9over12 =
     Tailwind "h-9/12"
 
+{-| -}
 h_10over12 : Tailwind
 h_10over12 =
     Tailwind "h-10/12"
 
+{-| -}
 h_11over12 : Tailwind
 h_11over12 =
     Tailwind "h-11/12"
 
 
+{-| -}
 h_full : Tailwind
 h_full =
     Tailwind "h-full"
 
 
+{-| -}
 h_screen : Tailwind
 h_screen =
     Tailwind "h-screen"
 
 
+{-| -}
 h_auto : Tailwind
 h_auto =
     Tailwind "h-auto"
 
 
+{-| -}
 h_min : Tailwind
 h_min =
     Tailwind "h-min"
 
 
+{-| -}
 h_max : Tailwind
 h_max =
     Tailwind "h-max"
 
 
+{-| -}
 h_fit : Tailwind
 h_fit =
     Tailwind "h-fit"
 
 
+{-| -}
 min_w : Spacing -> Tailwind
 min_w spacing =
     Tailwind ("min-w-" ++ spacingToString spacing)
 
 
+{-| -}
 max_w : Spacing -> Tailwind
 max_w spacing =
     Tailwind ("max-w-" ++ spacingToString spacing)
 
 
+{-| -}
 min_h : Spacing -> Tailwind
 min_h spacing =
     Tailwind ("min-h-" ++ spacingToString spacing)
 
 
+{-| -}
 max_h : Spacing -> Tailwind
 max_h spacing =
     Tailwind ("max-h-" ++ spacingToString spacing)
@@ -1505,54 +1610,67 @@ max_h spacing =
 
 -- FONT SIZE
 
+{-| -}
 text_xs : Tailwind
 text_xs =
     Tailwind "text-xs"
 
+{-| -}
 text_sm : Tailwind
 text_sm =
     Tailwind "text-sm"
 
+{-| -}
 text_base : Tailwind
 text_base =
     Tailwind "text-base"
 
+{-| -}
 text_lg : Tailwind
 text_lg =
     Tailwind "text-lg"
 
+{-| -}
 text_xl : Tailwind
 text_xl =
     Tailwind "text-xl"
 
+{-| -}
 text_n2xl : Tailwind
 text_n2xl =
     Tailwind "text-2xl"
 
+{-| -}
 text_n3xl : Tailwind
 text_n3xl =
     Tailwind "text-3xl"
 
+{-| -}
 text_n4xl : Tailwind
 text_n4xl =
     Tailwind "text-4xl"
 
+{-| -}
 text_n5xl : Tailwind
 text_n5xl =
     Tailwind "text-5xl"
 
+{-| -}
 text_n6xl : Tailwind
 text_n6xl =
     Tailwind "text-6xl"
 
+{-| -}
 text_n7xl : Tailwind
 text_n7xl =
     Tailwind "text-7xl"
 
+{-| -}
 text_n8xl : Tailwind
 text_n8xl =
     Tailwind "text-8xl"
 
+{-| -}
 text_n9xl : Tailwind
 text_n9xl =
     Tailwind "text-9xl"
@@ -1560,38 +1678,47 @@ text_n9xl =
 
 -- FONT WEIGHT
 
+{-| -}
 font_thin : Tailwind
 font_thin =
     Tailwind "font-thin"
 
+{-| -}
 font_extralight : Tailwind
 font_extralight =
     Tailwind "font-extralight"
 
+{-| -}
 font_light : Tailwind
 font_light =
     Tailwind "font-light"
 
+{-| -}
 font_normal : Tailwind
 font_normal =
     Tailwind "font-normal"
 
+{-| -}
 font_medium : Tailwind
 font_medium =
     Tailwind "font-medium"
 
+{-| -}
 font_semibold : Tailwind
 font_semibold =
     Tailwind "font-semibold"
 
+{-| -}
 font_bold : Tailwind
 font_bold =
     Tailwind "font-bold"
 
+{-| -}
 font_extrabold : Tailwind
 font_extrabold =
     Tailwind "font-extrabold"
 
+{-| -}
 font_black : Tailwind
 font_black =
     Tailwind "font-black"
@@ -1599,34 +1726,42 @@ font_black =
 
 -- BORDER RADIUS (from theme)
 
+{-| -}
 rounded_xs : Tailwind
 rounded_xs =
     Tailwind "rounded-xs"
 
+{-| -}
 rounded_sm : Tailwind
 rounded_sm =
     Tailwind "rounded-sm"
 
+{-| -}
 rounded_md : Tailwind
 rounded_md =
     Tailwind "rounded-md"
 
+{-| -}
 rounded_lg : Tailwind
 rounded_lg =
     Tailwind "rounded-lg"
 
+{-| -}
 rounded_xl : Tailwind
 rounded_xl =
     Tailwind "rounded-xl"
 
+{-| -}
 rounded_n2xl : Tailwind
 rounded_n2xl =
     Tailwind "rounded-2xl"
 
+{-| -}
 rounded_n3xl : Tailwind
 rounded_n3xl =
     Tailwind "rounded-3xl"
 
+{-| -}
 rounded_n4xl : Tailwind
 rounded_n4xl =
     Tailwind "rounded-4xl"
@@ -1634,34 +1769,42 @@ rounded_n4xl =
 
 -- SHADOW SIZES (from theme)
 
+{-| -}
 shadow_n2xs : Tailwind
 shadow_n2xs =
     Tailwind "shadow-2xs"
 
+{-| -}
 shadow_xs : Tailwind
 shadow_xs =
     Tailwind "shadow-xs"
 
+{-| -}
 shadow_sm : Tailwind
 shadow_sm =
     Tailwind "shadow-sm"
 
+{-| -}
 shadow_md : Tailwind
 shadow_md =
     Tailwind "shadow-md"
 
+{-| -}
 shadow_lg : Tailwind
 shadow_lg =
     Tailwind "shadow-lg"
 
+{-| -}
 shadow_xl : Tailwind
 shadow_xl =
     Tailwind "shadow-xl"
 
+{-| -}
 shadow_n2xl : Tailwind
 shadow_n2xl =
     Tailwind "shadow-2xl"
 
+{-| -}
 shadow_inner : Tailwind
 shadow_inner =
     Tailwind "shadow-inner"
@@ -1669,41 +1812,49 @@ shadow_inner =
 
 -- COLOR UTILITIES
 
+{-| -}
 text_color : Color -> Tailwind
 text_color color =
     Tailwind ("text-" ++ colorToString color)
 
 
+{-| -}
 bg_color : Color -> Tailwind
 bg_color color =
     Tailwind ("bg-" ++ colorToString color)
 
 
+{-| -}
 border_color : Color -> Tailwind
 border_color color =
     Tailwind ("border-" ++ colorToString color)
 
 
+{-| -}
 ring_color : Color -> Tailwind
 ring_color color =
     Tailwind ("ring-" ++ colorToString color)
 
 
+{-| -}
 placeholder_color : Color -> Tailwind
 placeholder_color color =
     Tailwind ("placeholder-" ++ colorToString color)
 
 
+{-| -}
 text_simple : SimpleColor -> Tailwind
 text_simple (SimpleColor c) =
     Tailwind ("text-" ++ c)
 
 
+{-| -}
 bg_simple : SimpleColor -> Tailwind
 bg_simple (SimpleColor c) =
     Tailwind ("bg-" ++ c)
 
 
+{-| -}
 border_simple : SimpleColor -> Tailwind
 border_simple (SimpleColor c) =
     Tailwind ("border-" ++ c)
@@ -1711,76 +1862,91 @@ border_simple (SimpleColor c) =
 
 -- OPACITY
 
+{-| -}
 opacity_0 : Tailwind
 opacity_0 =
     Tailwind "opacity-0"
 
 
+{-| -}
 opacity_5 : Tailwind
 opacity_5 =
     Tailwind "opacity-5"
 
 
+{-| -}
 opacity_10 : Tailwind
 opacity_10 =
     Tailwind "opacity-10"
 
 
+{-| -}
 opacity_20 : Tailwind
 opacity_20 =
     Tailwind "opacity-20"
 
 
+{-| -}
 opacity_25 : Tailwind
 opacity_25 =
     Tailwind "opacity-25"
 
 
+{-| -}
 opacity_30 : Tailwind
 opacity_30 =
     Tailwind "opacity-30"
 
 
+{-| -}
 opacity_40 : Tailwind
 opacity_40 =
     Tailwind "opacity-40"
 
 
+{-| -}
 opacity_50 : Tailwind
 opacity_50 =
     Tailwind "opacity-50"
 
 
+{-| -}
 opacity_60 : Tailwind
 opacity_60 =
     Tailwind "opacity-60"
 
 
+{-| -}
 opacity_70 : Tailwind
 opacity_70 =
     Tailwind "opacity-70"
 
 
+{-| -}
 opacity_75 : Tailwind
 opacity_75 =
     Tailwind "opacity-75"
 
 
+{-| -}
 opacity_80 : Tailwind
 opacity_80 =
     Tailwind "opacity-80"
 
 
+{-| -}
 opacity_90 : Tailwind
 opacity_90 =
     Tailwind "opacity-90"
 
 
+{-| -}
 opacity_95 : Tailwind
 opacity_95 =
     Tailwind "opacity-95"
 
 
+{-| -}
 opacity_100 : Tailwind
 opacity_100 =
     Tailwind "opacity-100"
@@ -1788,36 +1954,43 @@ opacity_100 =
 
 -- Z-INDEX
 
+{-| -}
 z_0 : Tailwind
 z_0 =
     Tailwind "z-0"
 
 
+{-| -}
 z_10 : Tailwind
 z_10 =
     Tailwind "z-10"
 
 
+{-| -}
 z_20 : Tailwind
 z_20 =
     Tailwind "z-20"
 
 
+{-| -}
 z_30 : Tailwind
 z_30 =
     Tailwind "z-30"
 
 
+{-| -}
 z_40 : Tailwind
 z_40 =
     Tailwind "z-40"
 
 
+{-| -}
 z_50 : Tailwind
 z_50 =
     Tailwind "z-50"
 
 
+{-| -}
 z_auto : Tailwind
 z_auto =
     Tailwind "z-auto"
