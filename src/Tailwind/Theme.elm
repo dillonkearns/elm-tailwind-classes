@@ -1,10 +1,94 @@
 module Tailwind.Theme exposing
     ( Color, colorToString
-    , red, orange, amber, yellow, lime, green, emerald, teal, cyan, sky, blue, indigo, violet, purple, fuchsia, pink, rose, slate, gray, zinc, neutral, stone
-    , Shade, shadeToString, s50, s100, s200, s300, s400, s500, s600, s700, s800, s900, s950
-    , black, white, transparent, currentColor, inherit
-    , Spacing(..), spacingToString, s0, spx, s0_dot_5, s1, s1_dot_5, s2, s2_dot_5, s3, s3_dot_5, s4, s5, s6, s7, s8, s9, s10, s11, s12, s14, s16, s20, s24, s28, s32, s36, s40, s44, s48, s52, s56, s60, s64, s72, s80, s96
-    , Opacity(..), opacity0, opacity5, opacity10, opacity20, opacity25, opacity30, opacity40, opacity50, opacity60, opacity70, opacity75, opacity80, opacity90, opacity95, opacity100
+    , Shade(..), shadeToString
+    , SimpleColor(..)
+    , Spacing(..), spacingToString
+    , Opacity(..)
+    , red
+    , orange
+    , amber
+    , yellow
+    , lime
+    , green
+    , emerald
+    , teal
+    , cyan
+    , sky
+    , blue
+    , indigo
+    , violet
+    , purple
+    , fuchsia
+    , pink
+    , rose
+    , slate
+    , gray
+    , zinc
+    , neutral
+    , stone
+    , s50
+    , s100
+    , s200
+    , s300
+    , s400
+    , s500
+    , s600
+    , s700
+    , s800
+    , s900
+    , s950
+    , black
+    , white
+    , s0
+    , spx
+    , s0_dot_5
+    , s1
+    , s1_dot_5
+    , s2
+    , s2_dot_5
+    , s3
+    , s3_dot_5
+    , s4
+    , s5
+    , s6
+    , s7
+    , s8
+    , s9
+    , s10
+    , s11
+    , s12
+    , s14
+    , s16
+    , s20
+    , s24
+    , s28
+    , s32
+    , s36
+    , s40
+    , s44
+    , s48
+    , s52
+    , s56
+    , s60
+    , s64
+    , s72
+    , s80
+    , s96
+    , opacity0
+    , opacity5
+    , opacity10
+    , opacity20
+    , opacity25
+    , opacity30
+    , opacity40
+    , opacity50
+    , opacity60
+    , opacity70
+    , opacity75
+    , opacity80
+    , opacity90
+    , opacity95
+    , opacity100
     )
 
 {-| Theme values for Tailwind CSS.
@@ -31,9 +115,9 @@ Colors that take a shade parameter. Usage: `text_color (blue s500)`
 
 ## Simple Colors
 
-Colors without shades. Usage: `text_color white`
+Colors without shades. Usage: `text_simple white`
 
-@docs black, white, transparent, currentColor, inherit
+@docs SimpleColor, black, white
 
 
 ## Spacing
@@ -50,8 +134,7 @@ Colors without shades. Usage: `text_color white`
 
 {-| A color value that can be used with color utilities like `text_color`, `bg_color`, etc.
 
-Colors are either shaded (created by applying a shade to a color name like `blue s500`)
-or simple (like `white`, `black`, `transparent`).
+Colors are created by applying a shade to a color name like `blue s500`.
 
 -}
 type Color
@@ -121,6 +204,12 @@ shadeToString shade =
 
         S950 ->
             "950"
+
+
+{-| A simple color without shades (white, black, transparent, etc.).
+-}
+type SimpleColor
+    = SimpleColor String
 
 
 {-| A Tailwind spacing value from the default scale.
@@ -280,9 +369,7 @@ type Opacity
     = Opacity Int
 
 
-
 -- SHADED COLORS
-
 
 {-| Red color. Apply a shade: `red s500`
 -}
@@ -417,11 +504,9 @@ stone shade =
     Color ("stone-" ++ shadeToString shade)
 
 
-
 -- SHADES
 
-
-{-| Shade 50 (lightest)
+{-| Shade 50
 -}
 s50 : Shade
 s50 =
@@ -451,7 +536,7 @@ s400 : Shade
 s400 =
     S400
 
-{-| Shade 500 (medium)
+{-| Shade 500
 -}
 s500 : Shade
 s500 =
@@ -481,54 +566,29 @@ s900 : Shade
 s900 =
     S900
 
-{-| Shade 950 (darkest)
+{-| Shade 950
 -}
 s950 : Shade
 s950 =
     S950
 
 
-
 -- SIMPLE COLORS
 
-
-{-| Black color. Usage: `text_color black`
+{-| Simple color: black
 -}
-black : Color
+black : SimpleColor
 black =
-    Color "black"
+    SimpleColor "black"
 
-{-| White color. Usage: `text_color white`
+{-| Simple color: white
 -}
-white : Color
+white : SimpleColor
 white =
-    Color "white"
-
-
-{-| Transparent color. Usage: `bg_color transparent`
--}
-transparent : Color
-transparent =
-    Color "transparent"
-
-
-{-| Current color (inherits from text color). Usage: `border_color currentColor`
--}
-currentColor : Color
-currentColor =
-    Color "current"
-
-
-{-| Inherit color. Usage: `text_color inherit`
--}
-inherit : Color
-inherit =
-    Color "inherit"
-
+    SimpleColor "white"
 
 
 -- SPACING VALUES
-
 
 {-| Spacing: 0
 -}
@@ -741,9 +801,7 @@ s96 =
     S96
 
 
-
 -- OPACITY VALUES
-
 
 {-| Opacity 0%
 -}

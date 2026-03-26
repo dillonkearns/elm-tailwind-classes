@@ -2,3 +2,5 @@ elm-stuff/
 node_modules/
 tests/VerifyExamples
 examples/dist
+examples/.elm-tailwind/
+golden/.elm-tailwind/
