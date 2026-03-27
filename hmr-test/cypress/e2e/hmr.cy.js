@@ -2,7 +2,7 @@
 
 // Tests that HMR works with Browser.application + elm-tailwind-classes + @tailwindcss/vite.
 // Verifies: Elm code swap, Tailwind CSS generation for new classes, CSS HMR injection,
-// and no full page reload through the extraction cycle.
+// and no full page reload through multiple extraction cycles.
 
 const APP_ELM = Cypress.config('projectRoot') + '/src/App.elm'
 
@@ -44,57 +44,59 @@ view _ =
     }
 `
 
-// Swaps blue → red background color
 const RED_VERSION = BLUE_VERSION
   .replace('Tw.bg_color (blue s500)', 'Tw.bg_color (red s500)')
   .replace('Blue version', 'Red version')
 
 describe('HMR with Browser.application', () => {
-  it('swaps Tailwind color and applies new CSS without full reload', () => {
+  it('survives blue→red→blue round-trip without full page reload', () => {
     cy.visit('/')
     cy.contains('Blue version').should('be.visible')
 
-    // Verify initial blue background is applied.
-    // Store the computed color to compare after swap (Tailwind v4 uses oklch).
+    // Capture initial blue color
     let blueColor
     cy.get('[class*="bg-blue-500"]').should('exist').then(($el) => {
       blueColor = window.getComputedStyle($el[0]).backgroundColor
-      // Should be some non-transparent color
       expect(blueColor).to.not.equal('rgba(0, 0, 0, 0)')
     })
 
-    // Marker to detect full page reloads
+    // Set reload marker
     cy.window().then((win) => { win.__HMR_MARKER = true })
 
-    // Swap blue → red
+    // === First swap: blue → red ===
     cy.task('writeFile', { path: APP_ELM, content: RED_VERSION })
 
-    // Elm HMR swaps the view — new text and class appear
     cy.contains('Red version', { timeout: 15000 }).should('be.visible')
-    cy.get('[class*="bg-red-500"]').should('exist')
-
-    // Tailwind generates CSS for bg-red-500 and it's applied via CSS HMR.
-    // The background color should be different from the original blue.
-    cy.get('[class*="bg-red-500"]').then(($el) => {
+    cy.get('[class*="bg-red-500"]').should('exist').then(($el) => {
       const redColor = window.getComputedStyle($el[0]).backgroundColor
       expect(redColor).to.not.equal('rgba(0, 0, 0, 0)')
       expect(redColor).to.not.equal(blueColor)
     })
 
-    // Wait for elm-tailwind's delayed extraction + CSS HMR cycle
-    // (300ms debounce + elm-review extraction + CSS update).
-    // This is the path that previously triggered a full page reload.
+    // Wait for first extraction cycle to complete
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(10000)
 
-    // After the full cycle: no full page reload, color still red (not blue)
+    // Marker still set after first cycle
     cy.window().its('__HMR_MARKER').should('eq', true)
-    cy.contains('Red version').should('be.visible')
-    cy.get('[class*="bg-red-500"]').then(($el) => {
-      const redColor = window.getComputedStyle($el[0]).backgroundColor
-      expect(redColor).to.not.equal('rgba(0, 0, 0, 0)')
-      expect(redColor).to.not.equal(blueColor)
+
+    // === Second swap: red → blue ===
+    // This tests that @source inline() regex works on already-inlined content
+    cy.task('writeFile', { path: APP_ELM, content: BLUE_VERSION })
+
+    cy.contains('Blue version', { timeout: 15000 }).should('be.visible')
+    cy.get('[class*="bg-blue-500"]').should('exist').then(($el) => {
+      const bg = window.getComputedStyle($el[0]).backgroundColor
+      expect(bg).to.not.equal('rgba(0, 0, 0, 0)')
     })
+
+    // Wait for second extraction cycle
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(10000)
+
+    // Marker still set after TWO cycles — no full reload at any point
+    cy.window().its('__HMR_MARKER').should('eq', true)
+    cy.contains('Blue version').should('be.visible')
   })
 
   after(() => {
