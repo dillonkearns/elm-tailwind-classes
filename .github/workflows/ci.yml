@@ -18,15 +18,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-      - name: Use Node.js 20
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - name: Use Node.js 22
+        uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: 22
       # Re-use node_modules between runs until package-lock.json changes.
       - name: Cache node_modules
         id: cache-node_modules
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             node_modules
@@ -37,7 +37,7 @@ jobs:
       # review/elm.json, or golden/elm.json changes. The Elm compiler saves downloaded
       # Elm packages to ~/.elm, and elm-tooling saves downloaded tool executables there.
       - name: Cache ~/.elm
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.elm
           key: elm-${{ hashFiles('elm.json', 'elm-tooling.json', 'review/elm.json', 'golden/elm.json', 'golden/snapshot-tests/elm.json') }}
@@ -71,10 +71,9 @@ jobs:
       - name: Build elm docs
         run: npx --no-install elm make --docs docs.json
       - name: Elm Publish
-        uses: dillonkearns/elm-publish-action@v1
+        uses: dillonkearns/elm-publish-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-elm: ./node_modules/.bin/elm
       # - run: npm run build
       # - id: npm-publish
       #   if: github.ref == 'refs/heads/main'
