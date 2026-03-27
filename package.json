@@ -17,7 +17,8 @@
     "extractor/elm.json"
   ],
   "scripts": {
-    "test": "npm run test:unit && npm run test:golden",
+    "test": "npm run test:unit && npm run test:golden && npm run test:hmr",
+    "test:hmr": "./bin/hmr-test",
     "test:unit": "cd extractor && npx elm-test",
     "test:golden": "./bin/approve",
     "test:extract": "cd examples && npx elm-review --extract --report=json --config ../extractor | node -e \"const d=require('fs').readFileSync(0,'utf8');const j=JSON.parse(d);console.log(j.extracts?.TailwindExtractor?.classes?.length+' classes')\"",
