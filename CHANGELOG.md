@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-03-27
+
+### Added
+
+- **Auto-discover functional utilities from Tailwind's design system.** Utilities like `line-clamp-1`..`line-clamp-6`, `blur-*`, `brightness-*`, `contrast-*`, `scale-*`, `rotate-*`, `hue-rotate-*`, `saturate-*`, `sepia-*`, `grayscale-*`, `invert-*`, and many more are now generated automatically. Previously only static utilities were discovered; functional utilities with small value sets (up to 20 values per group) are now enumerated via `getCompletions()`.
+- **Tailwind plugin support.** Plugins like `@tailwindcss/typography` now work automatically. The codegen reads the user's actual CSS file (including `@plugin` directives) and provides the `loadModule` callback, so plugin-registered utilities (e.g. `prose`, `prose-lg`) appear in the generated Elm API.
+- **Custom `@utility` support.** Project-defined utilities via Tailwind's `@utility` directive are picked up by the design system and generated into the Elm API.
+
+### Fixed
+
+- Missing functional utilities (`line-clamp-1`..`6`, `blur-*`, `brightness-*`, `contrast-*`, `drop-shadow-*`, `hue-rotate-*`, `saturate-*`, `sepia-*`, `grayscale-*`, `invert-*`, `scale-*`, `skew-*`, `rotate-*`, etc.) that Tailwind classifies as "functional" rather than "static". These were previously only available via `Tw.raw`.
+- `loadDesignSystem` was ignoring the user's CSS file, hardcoding `@import "tailwindcss"` instead. This meant `@plugin`, `@utility`, and other CSS directives were not picked up during code generation.
+
 ## [0.3.0] - 2026-03-25
 
 ### Added
@@ -75,7 +88,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - **Zero config** - just add the Vite plugin and start coding
 - Support for `Tw.raw` escape hatch for custom classes
 
-[Unreleased]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.2.2...v0.3.0
 [0.2.2]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.2.1...v0.2.2
 [0.2.1]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.2.0...v0.2.1
