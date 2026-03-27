@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "./extra/print.css";
+@plugin "@tailwindcss/typography";
 
 @theme {
   --color-brand-50: #e0f2fe;

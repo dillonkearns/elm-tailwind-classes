@@ -13,6 +13,7 @@ This file exercises various Tailwind patterns:
   - Breakpoints (md, lg)
   - Nested variants
   - Raw strings
+  - Plugin utilities (@tailwindcss/typography)
 
 -}
 
@@ -88,6 +89,13 @@ main =
                 ]
             ]
             [ text "This paragraph is clamped to two lines" ]
+        , div
+            [ classes
+                [ Tw.prose
+                , Tw.prose_lg
+                ]
+            ]
+            [ text "Typography plugin content" ]
         , h1
             [ classes
                 [ Tw.text_n3xl

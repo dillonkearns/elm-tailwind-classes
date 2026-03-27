@@ -1224,6 +1224,35 @@ pointer_events_none : Tailwind
 pr : Spacing -> Tailwind
 pr_px : Tailwind
 proportional_nums : Tailwind
+prose : Tailwind
+prose_2xl : Tailwind
+prose_amber : Tailwind
+prose_base : Tailwind
+prose_blue : Tailwind
+prose_cyan : Tailwind
+prose_emerald : Tailwind
+prose_fuchsia : Tailwind
+prose_gray : Tailwind
+prose_green : Tailwind
+prose_indigo : Tailwind
+prose_invert : Tailwind
+prose_lg : Tailwind
+prose_lime : Tailwind
+prose_neutral : Tailwind
+prose_orange : Tailwind
+prose_pink : Tailwind
+prose_purple : Tailwind
+prose_red : Tailwind
+prose_rose : Tailwind
+prose_sky : Tailwind
+prose_slate : Tailwind
+prose_sm : Tailwind
+prose_stone : Tailwind
+prose_teal : Tailwind
+prose_violet : Tailwind
+prose_xl : Tailwind
+prose_yellow : Tailwind
+prose_zinc : Tailwind
 ps_px : Tailwind
 pt : Spacing -> Tailwind
 pt_px : Tailwind

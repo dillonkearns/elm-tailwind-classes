@@ -23,13 +23,22 @@ async function loadDesignSystem(cssPath) {
     // require.resolve gives dist/lib.js — go up one level to get the package root
     const twDir = path.resolve(path.dirname(requireFromProject.resolve('tailwindcss')), '..');
 
-    const ds = await __unstable__loadDesignSystem('@import "tailwindcss";', {
+    // Read the user's actual CSS so @plugin, @theme, @source, etc. are picked up
+    const cssContent = fs.readFileSync(path.resolve(cssPath), 'utf8');
+
+    const ds = await __unstable__loadDesignSystem(cssContent, {
       loadStylesheet: async (id, base) => {
         let resolved;
         if (id === 'tailwindcss') resolved = path.join(twDir, 'index.css');
         else if (id.startsWith('tailwindcss/')) resolved = path.join(twDir, id.replace('tailwindcss/', ''));
         else resolved = path.resolve(base, id);
         return { content: fs.readFileSync(resolved, 'utf8'), base: path.dirname(resolved) };
+      },
+      // Required for @plugin directives to resolve npm packages
+      loadModule: async (id, base) => {
+        const resolved = requireFromProject.resolve(id, { paths: [base] });
+        const mod = await import(resolved);
+        return { module: mod.default ?? mod, base: path.dirname(resolved) };
       },
     });
     return ds;
