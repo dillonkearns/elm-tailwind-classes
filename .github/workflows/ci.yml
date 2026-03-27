@@ -74,18 +74,3 @@ jobs:
         uses: dillonkearns/elm-publish-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-      # - run: npm run build
-      # - id: npm-publish
-      #   if: github.ref == 'refs/heads/main'
-      #   uses: JS-DevTools/npm-publish@v1
-      #   with:
-      #     token: ${{ secrets.NPM_TOKEN }}
-      - name: Generate elm-doc-preview
-        uses: EndBug/add-and-commit@v9
-        with:
-          add: "docs.json"
-          author_name: GitHub Actions
-          message: "Update docs.json from CI for elm-doc-preview."
-          push: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

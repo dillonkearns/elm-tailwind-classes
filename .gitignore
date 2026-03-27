@@ -4,3 +4,4 @@ tests/VerifyExamples
 examples/dist
 examples/.elm-tailwind/
 golden/.elm-tailwind/
+docs.json
