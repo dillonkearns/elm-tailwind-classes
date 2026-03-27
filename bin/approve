@@ -61,6 +61,10 @@ EXPECTED_CLASSES=(
   "text-brand-800"
   # Design system static utilities (text-wrap)
   "text-balance"
+  # Functional utilities with fixed values (line-clamp)
+  # line-clamp-N classes are "functional" in Tailwind but have a small finite set of values.
+  # These should be generated in the API like other fixed-value functional utilities.
+  "line-clamp-2"
 )
 
 MISSING=0

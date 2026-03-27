@@ -199,21 +199,6 @@ function generateTailwindWithUtilities(theme, designSystem) {
   const designSystemStaticDefs = [];
   const designSystemStaticExports = [];
 
-  // Functional utilities that Tailwind considers "functional" (not "static")
-  // but have fixed values we want to expose. These are class names that exist
-  // in getClassList() but not in utilities.keys('static').
-  const functionalUtilitiesToInclude = [
-    'grow', 'grow-0', 'shrink', 'shrink-0',
-    'font-sans', 'font-serif', 'font-mono',
-    'border', 'border-0', 'border-2', 'border-4', 'border-8',
-    'border-t', 'border-r', 'border-b', 'border-l',
-    'rounded', 'rounded-none', 'rounded-full',
-    'shadow', 'shadow-none',
-    'transition', 'transition-all', 'transition-none',
-    'transition-colors', 'transition-opacity', 'transition-shadow', 'transition-transform',
-    'animate-none', 'animate-spin', 'animate-ping', 'animate-pulse', 'animate-bounce',
-  ];
-
   if (!designSystem) {
     throw new Error(
       '[elm-tailwind] Failed to load Tailwind design system. ' +
@@ -222,25 +207,43 @@ function generateTailwindWithUtilities(theme, designSystem) {
     );
   }
 
-  // Generate from static utility registry
-  const staticKeys = new Set(designSystem.utilities.keys('static'));
-  // Combine static keys + explicit functional utilities
-  const allClassNames = [...new Set([...staticKeys, ...functionalUtilitiesToInclude])].sort();
-
-  // Warn about stale entries in functionalUtilitiesToInclude
-  for (const className of functionalUtilitiesToInclude) {
-    const cssArray = designSystem.candidatesToCss([className]);
-    if (!cssArray || cssArray.length === 0) {
-      console.warn(`[elm-tailwind] Warning: '${className}' in functionalUtilitiesToInclude is not recognized by Tailwind. Remove it?`);
-    }
-    if (staticKeys.has(className)) {
-      console.warn(`[elm-tailwind] Note: '${className}' is now a static utility in Tailwind — it can be removed from functionalUtilitiesToInclude.`);
+  // Enumerate functional utilities with small, finite value sets
+  // (e.g. line-clamp-1..6, grow/grow-0, border/border-2, transition-*, etc.).
+  // Each functional utility has completion groups (e.g. border has a color
+  // group with 290+ values AND a width group with 4 values). We include
+  // values from small groups while skipping large ones (colors, spacing).
+  const MAX_GROUP_VALUES = 20;
+  const functionalClassNames = [];
+  for (const funcKey of designSystem.utilities.keys('functional')) {
+    // Skip utilities that can't be valid Elm identifiers (e.g. @container)
+    if (/[^a-zA-Z0-9._/-]/.test(funcKey)) continue;
+    for (const group of designSystem.utilities.getCompletions(funcKey)) {
+      if (group.values.length > MAX_GROUP_VALUES) {
+        // From large groups (colors, spacing), only include the bare usage
+        // (e.g. "border" from the border color group)
+        for (const value of group.values) {
+          if (value === null || value === '') {
+            functionalClassNames.push(funcKey);
+          }
+        }
+      } else if (group.values.length > 0) {
+        for (const value of group.values) {
+          const className = value === null || value === '' ? funcKey : `${funcKey}-${value}`;
+          functionalClassNames.push(className);
+        }
+      }
     }
   }
+
+  // Generate from static utility registry + enumerated functional utilities
+  const staticKeys = new Set(designSystem.utilities.keys('static'));
+  const allClassNames = [...new Set([...staticKeys, ...functionalClassNames])].sort();
 
   for (const className of allClassNames) {
     const elmName = toElmName(className);
     if (existingExports.has(elmName)) continue;
+    // Skip names that aren't valid Elm identifiers after conversion
+    if (!/^[a-z][a-zA-Z0-9_]*$/.test(elmName)) continue;
 
     const cssArray = designSystem.candidatesToCss([className]);
     if (!cssArray || cssArray.length === 0) continue;

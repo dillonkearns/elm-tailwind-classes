@@ -26,6 +26,10 @@ module Tailwind.Theme exposing
     , zinc
     , neutral
     , stone
+    , mauve
+    , olive
+    , mist
+    , taupe
     , s50
     , s100
     , s200
@@ -105,7 +109,7 @@ This module provides type-safe color, shade, spacing, and opacity values.
 
 Colors that take a shade parameter. Usage: `text_color (blue s500)`
 
-@docs red, orange, amber, yellow, lime, green, emerald, teal, cyan, sky, blue, indigo, violet, purple, fuchsia, pink, rose, slate, gray, zinc, neutral, stone
+@docs red, orange, amber, yellow, lime, green, emerald, teal, cyan, sky, blue, indigo, violet, purple, fuchsia, pink, rose, slate, gray, zinc, neutral, stone, mauve, olive, mist, taupe
 
 
 ## Shades
@@ -502,6 +506,30 @@ neutral shade =
 stone : Shade -> Color
 stone shade =
     Color ("stone-" ++ shadeToString shade)
+
+{-| Mauve color. Apply a shade: `mauve s500`
+-}
+mauve : Shade -> Color
+mauve shade =
+    Color ("mauve-" ++ shadeToString shade)
+
+{-| Olive color. Apply a shade: `olive s500`
+-}
+olive : Shade -> Color
+olive shade =
+    Color ("olive-" ++ shadeToString shade)
+
+{-| Mist color. Apply a shade: `mist s500`
+-}
+mist : Shade -> Color
+mist shade =
+    Color ("mist-" ++ shadeToString shade)
+
+{-| Taupe color. Apply a shade: `taupe s500`
+-}
+taupe : Shade -> Color
+taupe shade =
+    Color ("taupe-" ++ shadeToString shade)
 
 
 -- SHADES

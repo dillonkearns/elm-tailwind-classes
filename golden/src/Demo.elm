@@ -82,6 +82,12 @@ main =
                 ]
             ]
             [ text "Custom raw class" ]
+        , p
+            [ classes
+                [ Tw.line_clamp_2
+                ]
+            ]
+            [ text "This paragraph is clamped to two lines" ]
         , h1
             [ classes
                 [ Tw.text_n3xl
