@@ -387,6 +387,7 @@ contain_strict : Tailwind
 contain_style : Tailwind
 container : Tailwind
 content_around : Tailwind
+content_auto : Tailwind
 content_baseline : Tailwind
 content_between : Tailwind
 content_center : Tailwind

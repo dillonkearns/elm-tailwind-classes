@@ -14,6 +14,7 @@ This file exercises various Tailwind patterns:
   - Nested variants
   - Raw strings
   - Plugin utilities (@tailwindcss/typography)
+  - Custom @utility directives
 
 -}
 
@@ -96,6 +97,12 @@ main =
                 ]
             ]
             [ text "Typography plugin content" ]
+        , div
+            [ classes
+                [ Tw.content_auto
+                ]
+            ]
+            [ text "Custom @utility directive" ]
         , h1
             [ classes
                 [ Tw.text_n3xl

@@ -380,6 +380,7 @@ contain_strict -> contain-strict
 contain_style -> contain-style
 container -> container
 content_around -> content-around
+content_auto -> content-auto
 content_baseline -> content-baseline
 content_between -> content-between
 content_center -> content-center

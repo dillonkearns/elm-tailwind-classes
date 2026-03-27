@@ -2,6 +2,10 @@
 @import "./extra/print.css";
 @plugin "@tailwindcss/typography";
 
+@utility content-auto {
+  content-visibility: auto;
+}
+
 @theme {
   --color-brand-50: #e0f2fe;
   --color-brand-100: #bae6fd;

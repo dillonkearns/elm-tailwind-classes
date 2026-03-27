@@ -4,6 +4,7 @@ bg-gray-100
 bg-white
 border
 border-brand-500
+content-auto
 custom-utility
 flex
 focus:shadow-lg

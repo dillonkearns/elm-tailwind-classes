@@ -66,6 +66,8 @@ EXPECTED_CLASSES=(
   # Plugin utilities (@tailwindcss/typography)
   "prose"
   "prose-lg"
+  # Custom @utility directives
+  "content-auto"
 )
 
 MISSING=0
