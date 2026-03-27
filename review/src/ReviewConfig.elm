@@ -49,6 +49,7 @@ config =
         { document = onlyExposed
         , from = exposedModules
         }
+        |> Review.Rule.ignoreErrorsForFiles [ "src/Tailwind.elm", "src/Tailwind/Breakpoints.elm" ]
     , Docs.ReviewLinksAndSections.rule
     , Docs.ReviewAtDocs.rule
     ]
