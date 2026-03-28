@@ -33,7 +33,7 @@ fi
 echo ""
 echo "=== Running Cypress HMR tests ==="
 RESULT=0
-npx cypress run --e2e --browser chrome 2>&1 || RESULT=$?
+npx cypress run --e2e --browser chrome --spec "cypress/e2e/hmr.cy.js" 2>&1 || RESULT=$?
 
 # Cleanup
 kill $VITE_PID 2>/dev/null || true

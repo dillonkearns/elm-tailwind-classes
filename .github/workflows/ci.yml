@@ -31,7 +31,15 @@ jobs:
           path: |
             node_modules
             golden/node_modules
-          key: node_modules-${{ hashFiles('package-lock.json', 'golden/package-lock.json') }}
+            hmr-test/node_modules
+          key: node_modules-${{ hashFiles('package-lock.json', 'golden/package-lock.json', 'hmr-test/package-lock.json') }}
+
+      # Cypress needs a browser — ubuntu-latest includes Chrome
+      - name: Cache Cypress binary
+        uses: actions/cache@v5
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-${{ hashFiles('hmr-test/package-lock.json') }}
 
       # Re-use ~/.elm between runs until elm.json, elm-tooling.json,
       # review/elm.json, or golden/elm.json changes. The Elm compiler saves downloaded
@@ -40,7 +48,7 @@ jobs:
         uses: actions/cache@v5
         with:
           path: ~/.elm
-          key: elm-${{ hashFiles('elm.json', 'elm-tooling.json', 'review/elm.json', 'golden/elm.json', 'golden/snapshot-tests/elm.json') }}
+          key: elm-${{ hashFiles('elm.json', 'elm-tooling.json', 'review/elm.json', 'golden/elm.json', 'golden/snapshot-tests/elm.json', 'hmr-test/elm.json') }}
 
       # Install npm packages, unless we restored them from cache.
       # Since `npm ci` removes the node_modules folder before running it’s

@@ -100,6 +100,7 @@ describe('HMR with Browser.application', () => {
   })
 
   after(() => {
-    cy.task('writeFile', { path: APP_ELM, content: BLUE_VERSION })
+    // Restore committed version (which has all patterns for the build test)
+    cy.task('gitRestore', { path: APP_ELM })
   })
 })

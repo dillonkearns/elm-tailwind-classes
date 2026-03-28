@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+set -o errexit
+cd "$(dirname "${BASH_SOURCE[0]}")/.."
+
+echo "=== Installing build test dependencies ==="
+cd hmr-test
+npm install --ignore-scripts 2>&1
+
+echo ""
+echo "=== Restoring source files ==="
+git checkout -- src/App.elm 2>/dev/null || true
+
+echo ""
+echo "=== Building with Vite ==="
+rm -rf .elm-tailwind elm-stuff dist
+npx vite build 2>&1
+echo "Build succeeded"
+
+echo ""
+echo "=== Serving built output ==="
+npx vite preview --port 4173 > /tmp/vite-preview.log 2>&1 &
+PREVIEW_PID=$!
+
+for i in $(seq 1 15); do
+  if curl -s http://localhost:4173/ > /dev/null 2>&1; then
+    echo "Preview server ready (${i}s)"
+    break
+  fi
+  sleep 1
+done
+
+if ! curl -s http://localhost:4173/ > /dev/null 2>&1; then
+  echo "FAILURE: Preview server did not start"
+  kill $PREVIEW_PID 2>/dev/null
+  cat /tmp/vite-preview.log
+  exit 1
+fi
+
+echo ""
+echo "=== Running Cypress build tests ==="
+RESULT=0
+CYPRESS_BASE_URL=http://localhost:4173 npx cypress run --e2e --browser chrome --spec "cypress/e2e/build.cy.js" 2>&1 || RESULT=$?
+
+kill $PREVIEW_PID 2>/dev/null || true
+
+if [ $RESULT -ne 0 ]; then
+  echo ""
+  echo "FAILURE: Build tests failed"
+  exit 1
+fi
+
+echo ""
+echo "=== Build tests passed ==="
+cd ..
