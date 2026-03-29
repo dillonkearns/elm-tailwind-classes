@@ -27,6 +27,7 @@ auto_rows_auto -> auto-rows-auto
 auto_rows_fr -> auto-rows-fr
 auto_rows_max -> auto-rows-max
 auto_rows_min -> auto-rows-min
+backdrop_blur -> backdrop-blur
 backdrop_blur_2xl -> backdrop-blur-2xl
 backdrop_blur_3xl -> backdrop-blur-3xl
 backdrop_blur_lg -> backdrop-blur-lg
@@ -53,6 +54,7 @@ backdrop_contrast_150 -> backdrop-contrast-150
 backdrop_contrast_200 -> backdrop-contrast-200
 backdrop_contrast_50 -> backdrop-contrast-50
 backdrop_contrast_75 -> backdrop-contrast-75
+backdrop_filter -> backdrop-filter
 backdrop_grayscale -> backdrop-grayscale
 backdrop_grayscale_0 -> backdrop-grayscale-0
 backdrop_grayscale_100 -> backdrop-grayscale-100
@@ -188,6 +190,7 @@ block_min -> block-min
 block_px -> block-px
 block_screen -> block-screen
 block_svh -> block-svh
+blur -> blur
 blur_2xl -> blur-2xl
 blur_3xl -> blur-3xl
 blur_lg -> blur-lg
@@ -474,6 +477,7 @@ divide_y_2 -> divide-y-2
 divide_y_4 -> divide-y-4
 divide_y_8 -> divide-y-8
 divide_y_reverse -> divide-y-reverse
+drop_shadow -> drop-shadow
 drop_shadow_2xl -> drop-shadow-2xl
 drop_shadow_lg -> drop-shadow-lg
 drop_shadow_md -> drop-shadow-md
@@ -495,12 +499,14 @@ ease_in_out -> ease-in-out
 ease_initial -> ease-initial
 ease_linear -> ease-linear
 ease_out -> ease-out
+end -> end
 end_auto -> end-auto
 end_full -> end-full
 end_px -> end-px
 field_sizing_content -> field-sizing-content
 field_sizing_fixed -> field-sizing-fixed
 fill_none -> fill-none
+filter -> filter
 fixed -> fixed
 flex -> flex
 flex_1 -> flex-1
@@ -518,11 +524,13 @@ flex_9 -> flex-9
 flex_auto -> flex-auto
 flex_col -> flex-col
 flex_col_reverse -> flex-col-reverse
+flex_grow -> flex-grow
 flex_initial -> flex-initial
 flex_none -> flex-none
 flex_nowrap -> flex-nowrap
 flex_row -> flex-row
 flex_row_reverse -> flex-row-reverse
+flex_shrink -> flex-shrink
 flex_wrap -> flex-wrap
 flex_wrap_reverse -> flex-wrap-reverse
 float_end -> float-end
@@ -977,8 +985,10 @@ mx_auto -> mx-auto
 mx_px -> mx-px
 my_auto -> my-auto
 my_px -> my-px
+neg_bg_conic -> -bg-conic
 neg_bottom_full -> -bottom-full
 neg_bottom_px -> -bottom-px
+neg_end -> -end
 neg_end_full -> -end-full
 neg_end_px -> -end-px
 neg_indent_px -> -indent-px
@@ -1024,6 +1034,7 @@ neg_scroll_mx_px -> -scroll-mx-px
 neg_scroll_my_px -> -scroll-my-px
 neg_space_x_px -> -space-x-px
 neg_space_y_px -> -space-y-px
+neg_start -> -start
 neg_start_full -> -start-full
 neg_start_px -> -start-px
 neg_top_full -> -top-full
@@ -1281,9 +1292,11 @@ rotate_z_3 -> rotate-z-3
 rotate_z_45 -> rotate-z-45
 rotate_z_6 -> rotate-z-6
 rotate_z_90 -> rotate-z-90
+rounded -> rounded
 rounded_2xl -> rounded-2xl
 rounded_3xl -> rounded-3xl
 rounded_4xl -> rounded-4xl
+rounded_b -> rounded-b
 rounded_b_2xl -> rounded-b-2xl
 rounded_b_3xl -> rounded-b-3xl
 rounded_b_4xl -> rounded-b-4xl
@@ -1294,6 +1307,7 @@ rounded_b_none -> rounded-b-none
 rounded_b_sm -> rounded-b-sm
 rounded_b_xl -> rounded-b-xl
 rounded_b_xs -> rounded-b-xs
+rounded_bl -> rounded-bl
 rounded_bl_2xl -> rounded-bl-2xl
 rounded_bl_3xl -> rounded-bl-3xl
 rounded_bl_4xl -> rounded-bl-4xl
@@ -1304,6 +1318,7 @@ rounded_bl_none -> rounded-bl-none
 rounded_bl_sm -> rounded-bl-sm
 rounded_bl_xl -> rounded-bl-xl
 rounded_bl_xs -> rounded-bl-xs
+rounded_br -> rounded-br
 rounded_br_2xl -> rounded-br-2xl
 rounded_br_3xl -> rounded-br-3xl
 rounded_br_4xl -> rounded-br-4xl
@@ -1314,6 +1329,7 @@ rounded_br_none -> rounded-br-none
 rounded_br_sm -> rounded-br-sm
 rounded_br_xl -> rounded-br-xl
 rounded_br_xs -> rounded-br-xs
+rounded_e -> rounded-e
 rounded_e_2xl -> rounded-e-2xl
 rounded_e_3xl -> rounded-e-3xl
 rounded_e_4xl -> rounded-e-4xl
@@ -1324,6 +1340,7 @@ rounded_e_none -> rounded-e-none
 rounded_e_sm -> rounded-e-sm
 rounded_e_xl -> rounded-e-xl
 rounded_e_xs -> rounded-e-xs
+rounded_ee -> rounded-ee
 rounded_ee_2xl -> rounded-ee-2xl
 rounded_ee_3xl -> rounded-ee-3xl
 rounded_ee_4xl -> rounded-ee-4xl
@@ -1334,6 +1351,7 @@ rounded_ee_none -> rounded-ee-none
 rounded_ee_sm -> rounded-ee-sm
 rounded_ee_xl -> rounded-ee-xl
 rounded_ee_xs -> rounded-ee-xs
+rounded_es -> rounded-es
 rounded_es_2xl -> rounded-es-2xl
 rounded_es_3xl -> rounded-es-3xl
 rounded_es_4xl -> rounded-es-4xl
@@ -1345,6 +1363,7 @@ rounded_es_sm -> rounded-es-sm
 rounded_es_xl -> rounded-es-xl
 rounded_es_xs -> rounded-es-xs
 rounded_full -> rounded-full
+rounded_l -> rounded-l
 rounded_l_2xl -> rounded-l-2xl
 rounded_l_3xl -> rounded-l-3xl
 rounded_l_4xl -> rounded-l-4xl
@@ -1361,6 +1380,7 @@ rounded_n2xl -> rounded-2xl
 rounded_n3xl -> rounded-3xl
 rounded_n4xl -> rounded-4xl
 rounded_none -> rounded-none
+rounded_r -> rounded-r
 rounded_r_2xl -> rounded-r-2xl
 rounded_r_3xl -> rounded-r-3xl
 rounded_r_4xl -> rounded-r-4xl
@@ -1371,6 +1391,7 @@ rounded_r_none -> rounded-r-none
 rounded_r_sm -> rounded-r-sm
 rounded_r_xl -> rounded-r-xl
 rounded_r_xs -> rounded-r-xs
+rounded_s -> rounded-s
 rounded_s_2xl -> rounded-s-2xl
 rounded_s_3xl -> rounded-s-3xl
 rounded_s_4xl -> rounded-s-4xl
@@ -1381,6 +1402,7 @@ rounded_s_none -> rounded-s-none
 rounded_s_sm -> rounded-s-sm
 rounded_s_xl -> rounded-s-xl
 rounded_s_xs -> rounded-s-xs
+rounded_se -> rounded-se
 rounded_se_2xl -> rounded-se-2xl
 rounded_se_3xl -> rounded-se-3xl
 rounded_se_4xl -> rounded-se-4xl
@@ -1392,6 +1414,7 @@ rounded_se_sm -> rounded-se-sm
 rounded_se_xl -> rounded-se-xl
 rounded_se_xs -> rounded-se-xs
 rounded_sm -> rounded-sm
+rounded_ss -> rounded-ss
 rounded_ss_2xl -> rounded-ss-2xl
 rounded_ss_3xl -> rounded-ss-3xl
 rounded_ss_4xl -> rounded-ss-4xl
@@ -1402,6 +1425,7 @@ rounded_ss_none -> rounded-ss-none
 rounded_ss_sm -> rounded-ss-sm
 rounded_ss_xl -> rounded-ss-xl
 rounded_ss_xs -> rounded-ss-xs
+rounded_t -> rounded-t
 rounded_t_2xl -> rounded-t-2xl
 rounded_t_3xl -> rounded-t-3xl
 rounded_t_4xl -> rounded-t-4xl
@@ -1412,6 +1436,7 @@ rounded_t_none -> rounded-t-none
 rounded_t_sm -> rounded-t-sm
 rounded_t_xl -> rounded-t-xl
 rounded_t_xs -> rounded-t-xs
+rounded_tl -> rounded-tl
 rounded_tl_2xl -> rounded-tl-2xl
 rounded_tl_3xl -> rounded-tl-3xl
 rounded_tl_4xl -> rounded-tl-4xl
@@ -1422,6 +1447,7 @@ rounded_tl_none -> rounded-tl-none
 rounded_tl_sm -> rounded-tl-sm
 rounded_tl_xl -> rounded-tl-xl
 rounded_tl_xs -> rounded-tl-xs
+rounded_tr -> rounded-tr
 rounded_tr_2xl -> rounded-tr-2xl
 rounded_tr_3xl -> rounded-tr-3xl
 rounded_tr_4xl -> rounded-tr-4xl
@@ -1638,6 +1664,7 @@ space_y_px -> space-y-px
 space_y_reverse -> space-y-reverse
 sr_only -> sr-only
 stacked_fractions -> stacked-fractions
+start -> start
 start_auto -> start-auto
 start_full -> start-full
 start_px -> start-px

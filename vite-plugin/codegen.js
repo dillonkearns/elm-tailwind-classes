@@ -226,19 +226,20 @@ function generateTailwindWithUtilities(theme, designSystem) {
   for (const funcKey of designSystem.utilities.keys('functional')) {
     // Skip utilities that can't be valid Elm identifiers (e.g. @container)
     if (/[^a-zA-Z0-9._/-]/.test(funcKey)) continue;
+    // Check if the bare utility name (e.g. "rounded") produces valid CSS.
+    // Some utilities like "rounded" are valid classes but don't appear in
+    // any completion group as a null/empty value.
+    const bareCss = designSystem.candidatesToCss([funcKey]);
+    if (bareCss && bareCss[0]) {
+      functionalClassNames.push(funcKey);
+    }
     for (const group of designSystem.utilities.getCompletions(funcKey)) {
       if (group.values.length > MAX_GROUP_VALUES) {
-        // From large groups (colors, spacing), only include the bare usage
-        // (e.g. "border" from the border color group)
-        for (const value of group.values) {
-          if (value === null || value === '') {
-            functionalClassNames.push(funcKey);
-          }
-        }
+        // Skip large groups (colors, spacing) — bare usage handled above
       } else if (group.values.length > 0) {
         for (const value of group.values) {
-          const className = value === null || value === '' ? funcKey : `${funcKey}-${value}`;
-          functionalClassNames.push(className);
+          if (value === null || value === '') continue; // bare usage handled above
+          functionalClassNames.push(`${funcKey}-${value}`);
         }
       }
     }

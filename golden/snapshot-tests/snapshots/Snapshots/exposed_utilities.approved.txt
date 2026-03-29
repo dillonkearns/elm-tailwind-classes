@@ -27,6 +27,7 @@ auto_rows_auto : Tailwind
 auto_rows_fr : Tailwind
 auto_rows_max : Tailwind
 auto_rows_min : Tailwind
+backdrop_blur : Tailwind
 backdrop_blur_2xl : Tailwind
 backdrop_blur_3xl : Tailwind
 backdrop_blur_lg : Tailwind
@@ -53,6 +54,7 @@ backdrop_contrast_150 : Tailwind
 backdrop_contrast_200 : Tailwind
 backdrop_contrast_50 : Tailwind
 backdrop_contrast_75 : Tailwind
+backdrop_filter : Tailwind
 backdrop_grayscale : Tailwind
 backdrop_grayscale_0 : Tailwind
 backdrop_grayscale_100 : Tailwind
@@ -191,6 +193,7 @@ block_min : Tailwind
 block_px : Tailwind
 block_screen : Tailwind
 block_svh : Tailwind
+blur : Tailwind
 blur_2xl : Tailwind
 blur_3xl : Tailwind
 blur_lg : Tailwind
@@ -481,6 +484,7 @@ divide_y_2 : Tailwind
 divide_y_4 : Tailwind
 divide_y_8 : Tailwind
 divide_y_reverse : Tailwind
+drop_shadow : Tailwind
 drop_shadow_2xl : Tailwind
 drop_shadow_lg : Tailwind
 drop_shadow_md : Tailwind
@@ -502,12 +506,14 @@ ease_in_out : Tailwind
 ease_initial : Tailwind
 ease_linear : Tailwind
 ease_out : Tailwind
+end : Tailwind
 end_auto : Tailwind
 end_full : Tailwind
 end_px : Tailwind
 field_sizing_content : Tailwind
 field_sizing_fixed : Tailwind
 fill_none : Tailwind
+filter : Tailwind
 fixed : Tailwind
 flex : Tailwind
 flex_1 : Tailwind
@@ -525,11 +531,13 @@ flex_9 : Tailwind
 flex_auto : Tailwind
 flex_col : Tailwind
 flex_col_reverse : Tailwind
+flex_grow : Tailwind
 flex_initial : Tailwind
 flex_none : Tailwind
 flex_nowrap : Tailwind
 flex_row : Tailwind
 flex_row_reverse : Tailwind
+flex_shrink : Tailwind
 flex_wrap : Tailwind
 flex_wrap_reverse : Tailwind
 float_end : Tailwind
@@ -999,8 +1007,10 @@ mx_px : Tailwind
 my : Spacing -> Tailwind
 my_auto : Tailwind
 my_px : Tailwind
+neg_bg_conic : Tailwind
 neg_bottom_full : Tailwind
 neg_bottom_px : Tailwind
+neg_end : Tailwind
 neg_end_full : Tailwind
 neg_end_px : Tailwind
 neg_indent_px : Tailwind
@@ -1053,6 +1063,7 @@ neg_scroll_mx_px : Tailwind
 neg_scroll_my_px : Tailwind
 neg_space_x_px : Tailwind
 neg_space_y_px : Tailwind
+neg_start : Tailwind
 neg_start_full : Tailwind
 neg_start_px : Tailwind
 neg_top_full : Tailwind
@@ -1320,9 +1331,11 @@ rotate_z_3 : Tailwind
 rotate_z_45 : Tailwind
 rotate_z_6 : Tailwind
 rotate_z_90 : Tailwind
+rounded : Tailwind
 rounded_2xl : Tailwind
 rounded_3xl : Tailwind
 rounded_4xl : Tailwind
+rounded_b : Tailwind
 rounded_b_2xl : Tailwind
 rounded_b_3xl : Tailwind
 rounded_b_4xl : Tailwind
@@ -1333,6 +1346,7 @@ rounded_b_none : Tailwind
 rounded_b_sm : Tailwind
 rounded_b_xl : Tailwind
 rounded_b_xs : Tailwind
+rounded_bl : Tailwind
 rounded_bl_2xl : Tailwind
 rounded_bl_3xl : Tailwind
 rounded_bl_4xl : Tailwind
@@ -1343,6 +1357,7 @@ rounded_bl_none : Tailwind
 rounded_bl_sm : Tailwind
 rounded_bl_xl : Tailwind
 rounded_bl_xs : Tailwind
+rounded_br : Tailwind
 rounded_br_2xl : Tailwind
 rounded_br_3xl : Tailwind
 rounded_br_4xl : Tailwind
@@ -1353,6 +1368,7 @@ rounded_br_none : Tailwind
 rounded_br_sm : Tailwind
 rounded_br_xl : Tailwind
 rounded_br_xs : Tailwind
+rounded_e : Tailwind
 rounded_e_2xl : Tailwind
 rounded_e_3xl : Tailwind
 rounded_e_4xl : Tailwind
@@ -1363,6 +1379,7 @@ rounded_e_none : Tailwind
 rounded_e_sm : Tailwind
 rounded_e_xl : Tailwind
 rounded_e_xs : Tailwind
+rounded_ee : Tailwind
 rounded_ee_2xl : Tailwind
 rounded_ee_3xl : Tailwind
 rounded_ee_4xl : Tailwind
@@ -1373,6 +1390,7 @@ rounded_ee_none : Tailwind
 rounded_ee_sm : Tailwind
 rounded_ee_xl : Tailwind
 rounded_ee_xs : Tailwind
+rounded_es : Tailwind
 rounded_es_2xl : Tailwind
 rounded_es_3xl : Tailwind
 rounded_es_4xl : Tailwind
@@ -1384,6 +1402,7 @@ rounded_es_sm : Tailwind
 rounded_es_xl : Tailwind
 rounded_es_xs : Tailwind
 rounded_full : Tailwind
+rounded_l : Tailwind
 rounded_l_2xl : Tailwind
 rounded_l_3xl : Tailwind
 rounded_l_4xl : Tailwind
@@ -1400,6 +1419,7 @@ rounded_n2xl : Tailwind
 rounded_n3xl : Tailwind
 rounded_n4xl : Tailwind
 rounded_none : Tailwind
+rounded_r : Tailwind
 rounded_r_2xl : Tailwind
 rounded_r_3xl : Tailwind
 rounded_r_4xl : Tailwind
@@ -1410,6 +1430,7 @@ rounded_r_none : Tailwind
 rounded_r_sm : Tailwind
 rounded_r_xl : Tailwind
 rounded_r_xs : Tailwind
+rounded_s : Tailwind
 rounded_s_2xl : Tailwind
 rounded_s_3xl : Tailwind
 rounded_s_4xl : Tailwind
@@ -1420,6 +1441,7 @@ rounded_s_none : Tailwind
 rounded_s_sm : Tailwind
 rounded_s_xl : Tailwind
 rounded_s_xs : Tailwind
+rounded_se : Tailwind
 rounded_se_2xl : Tailwind
 rounded_se_3xl : Tailwind
 rounded_se_4xl : Tailwind
@@ -1431,6 +1453,7 @@ rounded_se_sm : Tailwind
 rounded_se_xl : Tailwind
 rounded_se_xs : Tailwind
 rounded_sm : Tailwind
+rounded_ss : Tailwind
 rounded_ss_2xl : Tailwind
 rounded_ss_3xl : Tailwind
 rounded_ss_4xl : Tailwind
@@ -1441,6 +1464,7 @@ rounded_ss_none : Tailwind
 rounded_ss_sm : Tailwind
 rounded_ss_xl : Tailwind
 rounded_ss_xs : Tailwind
+rounded_t : Tailwind
 rounded_t_2xl : Tailwind
 rounded_t_3xl : Tailwind
 rounded_t_4xl : Tailwind
@@ -1451,6 +1475,7 @@ rounded_t_none : Tailwind
 rounded_t_sm : Tailwind
 rounded_t_xl : Tailwind
 rounded_t_xs : Tailwind
+rounded_tl : Tailwind
 rounded_tl_2xl : Tailwind
 rounded_tl_3xl : Tailwind
 rounded_tl_4xl : Tailwind
@@ -1461,6 +1486,7 @@ rounded_tl_none : Tailwind
 rounded_tl_sm : Tailwind
 rounded_tl_xl : Tailwind
 rounded_tl_xs : Tailwind
+rounded_tr : Tailwind
 rounded_tr_2xl : Tailwind
 rounded_tr_3xl : Tailwind
 rounded_tr_4xl : Tailwind
@@ -1677,6 +1703,7 @@ space_y_px : Tailwind
 space_y_reverse : Tailwind
 sr_only : Tailwind
 stacked_fractions : Tailwind
+start : Tailwind
 start_auto : Tailwind
 start_full : Tailwind
 start_px : Tailwind

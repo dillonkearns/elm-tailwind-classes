@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.5.1] - 2026-03-29
+
+### Fixed
+
+- **Missing bare functional utilities like `rounded`, `resize`, `blur`, `sepia`, etc.** Some functional utilities produce valid CSS for their bare name (e.g. `rounded` → `border-radius: 0.25rem`) but don't include it in their completion groups. The codegen now checks `candidatesToCss` for the bare utility name in addition to enumerating completion values.
+
 ## [0.5.0] - 2026-03-29
 
 ### Fixed
@@ -100,7 +106,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - **Zero config** - just add the Vite plugin and start coding
 - Support for `Tw.raw` escape hatch for custom classes
 
-[Unreleased]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.5.0...HEAD
+[Unreleased]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.5.1...HEAD
+[0.5.1]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.5.0...v0.5.1
 [0.5.0]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.2.2...v0.3.0
