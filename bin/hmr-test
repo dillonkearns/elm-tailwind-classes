@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+set -o errexit
+cd "$(dirname "${BASH_SOURCE[0]}")/.."
+
+echo "=== Installing HMR test dependencies ==="
+cd hmr-test
+npm install --ignore-scripts 2>&1
+
+echo ""
+echo "=== Starting Vite dev server ==="
+# Clean state
+rm -rf .elm-tailwind elm-stuff cypress/screenshots
+
+npx vite --port 5173 > /tmp/vite-hmr-test.log 2>&1 &
+VITE_PID=$!
+
+# Wait for server to be ready
+for i in $(seq 1 30); do
+  if curl -s http://localhost:5173/ > /dev/null 2>&1; then
+    echo "Vite server ready (${i}s)"
+    break
+  fi
+  sleep 1
+done
+
+if ! curl -s http://localhost:5173/ > /dev/null 2>&1; then
+  echo "FAILURE: Vite server did not start"
+  kill $VITE_PID 2>/dev/null
+  cat /tmp/vite-hmr-test.log
+  exit 1
+fi
+
+echo ""
+echo "=== Running Cypress HMR tests ==="
+RESULT=0
+npx cypress run --e2e --browser chrome --spec "cypress/e2e/hmr.cy.js" 2>&1 || RESULT=$?
+
+# Cleanup
+kill $VITE_PID 2>/dev/null || true
+
+if [ $RESULT -ne 0 ]; then
+  echo ""
+  echo "=== Vite server logs ==="
+  grep -E "hmr update|page reload|Classes changed|Triggered|Error" /tmp/vite-hmr-test.log || true
+  echo ""
+  echo "FAILURE: HMR tests failed"
+  exit 1
+fi
+
+echo ""
+echo "=== HMR tests passed ==="
+cd ..

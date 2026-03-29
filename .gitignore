@@ -4,4 +4,7 @@ tests/VerifyExamples
 examples/dist
 examples/.elm-tailwind/
 golden/.elm-tailwind/
+hmr-test/.elm-tailwind/
+hmr-test/cypress/screenshots/
+hmr-test/cypress/videos/
 docs.json

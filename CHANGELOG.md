@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- **HMR full page reload.** Adding or removing Tailwind classes in Elm code caused a full page reload instead of a CSS hot update. The root cause was that writing `safelist.txt` during HMR triggered Vite's file watcher on a non-CSS asset, which Vite can only handle via full reload. The fix uses `@source inline()` to write classes directly into the wrapper CSS during HMR, keeping the change within the CSS module graph where Vite can hot-replace it.
+- Skip `handleHotUpdate` for generated `.elm` files in the output directory, preventing unnecessary extraction cycles during codegen.
+
+### Added
+
+- **Cypress HMR test** that verifies CSS hot module replacement works with `Browser.application` without triggering a full page reload.
+
 ## [0.4.0] - 2026-03-27
 
 ### Added

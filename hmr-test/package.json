@@ -1,0 +1,18 @@
+{
+  "name": "elm-tailwind-hmr-test",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "test": "cypress run"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.18",
+    "cypress": "^13.17.0",
+    "elm-review": "^2.13.5",
+    "elm-tailwind-classes": "file:..",
+    "tailwindcss": "^4.1.18",
+    "vite": "^6.4.1",
+    "vite-plugin-elm": "^3.0.1"
+  }
+}
