@@ -221,6 +221,93 @@ view _ =
     cy.window().its('__HMR_MARKER').should('eq', true)
   })
 
+  it('applies breakpoint variant on a new parameterized color added during HMR', () => {
+    cy.visit('/')
+    cy.contains('Blue version').should('be.visible')
+    cy.window().then((win) => { win.__HMR_MARKER = true })
+
+    // Add md:bg-green-300 — a breakpoint variant on a parameterized color
+    // that wasn't used at startup. Green is not in the initial safelist,
+    // so it must come from @source inline(). The md: variant must be
+    // applied automatically by Tailwind on top of the @source inline class.
+    const WITH_MD_GREEN = `module App exposing (main)
+
+import Browser
+import Browser.Navigation as Nav
+import Html exposing (Html, div, h1, p, text)
+import Tailwind as Tw exposing (classes)
+import Tailwind.Breakpoints exposing (md)
+import Tailwind.Theme exposing (blue, green, s4, s300, s500)
+import Url
+
+type alias Model = { key : Nav.Key, count : Int }
+type Msg = UrlRequested Browser.UrlRequest | UrlChanged Url.Url | NoOp
+
+main : Program () Model Msg
+main = Browser.application
+    { init = init, view = view, update = update
+    , subscriptions = \\_ -> Sub.none
+    , onUrlRequest = UrlRequested, onUrlChange = UrlChanged
+    }
+
+init _ _ key = ( { key = key, count = 0 }, Cmd.none )
+
+update msg model =
+    case msg of
+        UrlRequested _ -> ( model, Cmd.none )
+        UrlChanged _ -> ( model, Cmd.none )
+        NoOp -> ( model, Cmd.none )
+
+view _ =
+    { title = "HMR Test"
+    , body =
+        [ div
+            [ classes
+                [ Tw.p s4
+                , Tw.bg_color (blue s500)
+                , md [ Tw.bg_color (green s300) ]
+                ]
+            ]
+            [ h1 [ classes [ Tw.text_n3xl, Tw.font_bold ] ] [ text "Breakpoint Test" ]
+            , p [] [ text "Has md:bg-green-300" ]
+            ]
+        ]
+    }
+`
+
+    cy.task('writeFile', { path: APP_ELM, content: WITH_MD_GREEN })
+
+    cy.contains('Breakpoint Test', { timeout: 15000 }).should('be.visible')
+
+    // The md:bg-green-300 class should be in the DOM
+    cy.get('[class*="md:bg-green-300"]').should('exist')
+
+    // Verify the CSS rule exists in the stylesheet with a media query
+    cy.document().then((doc) => {
+      let found = false
+      for (const sheet of doc.styleSheets) {
+        try {
+          for (const rule of sheet.cssRules) {
+            // @media rules contain nested rules
+            if (rule.cssRules) {
+              for (const nested of rule.cssRules) {
+                if (nested.cssText && nested.cssText.includes('bg-green-300')) {
+                  found = true
+                  break
+                }
+              }
+            }
+            if (found) break
+          }
+        } catch (e) { /* cross-origin */ }
+        if (found) break
+      }
+      expect(found, 'md:bg-green-300 CSS rule exists inside a @media query').to.be.true
+    })
+
+    cy.window().its('__HMR_MARKER').should('eq', true)
+  })
+
   after(() => {
     // Restore committed version (which has all patterns for the build test)
     cy.task('gitRestore', { path: APP_ELM })
