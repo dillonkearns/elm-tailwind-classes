@@ -76,7 +76,12 @@ export async function generateElmModules(cssPath, outputDir) {
     writeElmFile(outputDir, 'Tailwind/Theme.elm', generateTheme(theme));
     writeElmFile(outputDir, 'Tailwind/Breakpoints.elm', generateBreakpoints(theme));
 
-    return { success: true };
+    // Generate @source inline() directives for parameterized class combinations.
+    // These tell Tailwind about classes that use string concatenation in the
+    // compiled JS (e.g. "p-" ++ "4") so it can find them without extraction.
+    const sourceInlines = generateSourceInlines(theme, designSystem);
+
+    return { success: true, sourceInlines };
   } catch (e) {
     return { success: false, error: e.message };
   }
@@ -128,6 +133,59 @@ function toElmName(className) {
   name = name.replace(/-/g, '_').replace(/\./g, '_dot_');
   name = name.replace(/\//g, 'over');
   return name;
+}
+
+/**
+ * Generate @source inline() CSS directives for all parameterized class combinations.
+ * These cover classes that use string concatenation in the compiled Elm JS output
+ * (e.g. spacing, colors) which Tailwind's plain-text scanner can't detect.
+ * Used during dev to avoid running elm-review extraction on every HMR cycle.
+ */
+function generateSourceInlines(theme, designSystem) {
+  const spacingValues = [
+    '0', 'px', '0.5', '1', '1.5', '2', '2.5', '3', '3.5', '4', '5', '6', '7', '8', '9', '10',
+    '11', '12', '14', '16', '20', '24', '28', '32', '36', '40', '44', '48', '52', '56', '60',
+    '64', '72', '80', '96'
+  ];
+
+  const spacingPrefixes = [
+    'p', 'px', 'py', 'pt', 'pr', 'pb', 'pl',
+    'm', 'mx', 'my', 'mt', 'mr', 'mb', 'ml',
+    '-m', '-mx', '-my', '-mt', '-mr', '-mb', '-ml',
+    'gap', 'gap-x', 'gap-y',
+    'w', 'h', 'min-w', 'max-w', 'min-h', 'max-h',
+  ];
+
+  const colors = theme.colors || {};
+  const colorNames = Object.keys(colors);
+  const shadedColors = colorNames.filter(c => typeof colors[c] !== 'string');
+  const simpleColors = colorNames.filter(c => typeof colors[c] === 'string');
+  const shadeScale = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950'];
+
+  const colorPrefixes = ['text', 'bg', 'border', 'ring', 'placeholder'];
+
+  const lines = [];
+
+  // Spacing combinations: {prefix}-{value}
+  if (spacingPrefixes.length > 0 && spacingValues.length > 0) {
+    lines.push(`@source inline("{${spacingPrefixes.join(',')}}-{${spacingValues.join(',')}}");`);
+  }
+
+  // Shaded color combinations: {prefix}-{color}-{shade}
+  if (shadedColors.length > 0) {
+    lines.push(`@source inline("{${colorPrefixes.join(',')}}-{${shadedColors.join(',')}}-{${shadeScale.join(',')}}");`);
+  }
+
+  // Simple color combinations: {prefix}-{color}
+  if (simpleColors.length > 0) {
+    lines.push(`@source inline("{${colorPrefixes.join(',')}}-{${simpleColors.join(',')}}");`);
+  }
+
+  // Breakpoint variants applied to all of the above
+  const breakpoints = Object.keys(theme.breakpoints || { sm: '', md: '', lg: '', xl: '', '2xl': '' });
+  const stateVariants = ['hover', 'focus', 'active', 'disabled', 'focus-within', 'focus-visible', 'dark'];
+
+  return lines;
 }
 
 // Extract a clean one-line CSS doc comment from candidatesToCss output.

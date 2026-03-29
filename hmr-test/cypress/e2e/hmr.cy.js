@@ -73,15 +73,11 @@ describe('HMR with Browser.application', () => {
       expect(redColor).to.not.equal(blueColor)
     })
 
-    // Wait for first extraction cycle to complete
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(10000)
-
-    // Marker still set after first cycle
+    // No extraction wait needed — @source inline() pre-declared all class
+    // combinations at startup, so @tailwindcss/vite handles CSS HMR instantly.
     cy.window().its('__HMR_MARKER').should('eq', true)
 
     // === Second swap: red → blue ===
-    // This tests that @source inline() regex works on already-inlined content
     cy.task('writeFile', { path: APP_ELM, content: BLUE_VERSION })
 
     cy.contains('Blue version', { timeout: 15000 }).should('be.visible')
@@ -90,11 +86,7 @@ describe('HMR with Browser.application', () => {
       expect(bg).to.not.equal('rgba(0, 0, 0, 0)')
     })
 
-    // Wait for second extraction cycle
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(10000)
-
-    // Marker still set after TWO cycles — no full reload at any point
+    // Marker still set after TWO swaps — no full reload at any point
     cy.window().its('__HMR_MARKER').should('eq', true)
     cy.contains('Blue version').should('be.visible')
   })
