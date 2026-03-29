@@ -65,6 +65,11 @@ jobs:
         run: npm ci
       - name: elm-tooling install
         run: npx --no-install elm-tooling install
+      - name: Install hmr-test dependencies
+        if: steps.cache-node_modules.outputs.cache-hit != 'true'
+        run: cd hmr-test && npm ci
+      - name: Install Cypress binary
+        run: cd hmr-test && npx cypress install
       - name: Tests
         run: npm test
       - name: Add elm-review, elm and elm-format to path
