@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-03-29
+
 ### Fixed
 
 - **HMR full page reload.** Adding or removing Tailwind classes in Elm code caused a full page reload instead of a CSS hot update. The root cause was that writing `safelist.txt` during HMR triggered Vite's file watcher on a non-CSS asset, which Vite can only handle via full reload. The fix uses `@source inline()` to write classes directly into the wrapper CSS during HMR, keeping the change within the CSS module graph where Vite can hot-replace it.
@@ -14,7 +16,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-- **Cypress HMR test** that verifies CSS hot module replacement works with `Browser.application` without triggering a full page reload.
+- **Cypress integration tests** for both HMR and production builds. The HMR test verifies a blue-to-red-to-blue color swap with `Browser.application` survives two full extraction cycles without a page reload. The build test verifies parameterized colors, spacing, static utilities, and variants are applied in the production output.
+- **CI runs Cypress tests** — HMR and build tests run on every push/PR alongside unit and golden tests.
 
 ## [0.4.0] - 2026-03-27
 
@@ -97,7 +100,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - **Zero config** - just add the Vite plugin and start coding
 - Support for `Tw.raw` escape hatch for custom classes
 
-[Unreleased]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.2.2...v0.3.0
 [0.2.2]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.2.1...v0.2.2
