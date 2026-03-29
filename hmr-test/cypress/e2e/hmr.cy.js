@@ -49,6 +49,14 @@ const RED_VERSION = BLUE_VERSION
   .replace('Blue version', 'Red version')
 
 describe('HMR with Browser.application', () => {
+  beforeEach(() => {
+    // Restore base version before each test so tests are independent
+    cy.task('writeFile', { path: APP_ELM, content: BLUE_VERSION })
+    // Small delay for Vite to pick up the file change
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(500)
+  })
+
   it('survives blue→red→blue round-trip without full page reload', () => {
     cy.visit('/')
     cy.contains('Blue version').should('be.visible')
@@ -89,6 +97,32 @@ describe('HMR with Browser.application', () => {
     // Marker still set after TWO swaps — no full reload at any point
     cy.window().its('__HMR_MARKER').should('eq', true)
     cy.contains('Blue version').should('be.visible')
+  })
+
+  it('applies a new static utility added during HMR (not in initial safelist)', () => {
+    cy.visit('/')
+    cy.contains('Blue version').should('be.visible')
+    cy.window().then((win) => { win.__HMR_MARKER = true })
+
+    // Add Tw.italic — a static utility not used at startup, so it's not in
+    // the initial safelist or @source inline(). Tailwind's JS scanner must
+    // find 'italic' in the compiled output for this to work.
+    const WITH_ITALIC = BLUE_VERSION
+      .replace('Tw.font_bold', 'Tw.font_bold, Tw.italic')
+      .replace('Blue version', 'Italic version')
+
+    cy.task('writeFile', { path: APP_ELM, content: WITH_ITALIC })
+
+    cy.contains('Italic version', { timeout: 15000 }).should('be.visible')
+    cy.get('[class*="italic"]').should('exist')
+
+    // Verify font-style is actually italic (CSS applied, not just class attr)
+    cy.get('[class*="italic"]').then(($el) => {
+      const fontStyle = window.getComputedStyle($el[0]).fontStyle
+      expect(fontStyle).to.equal('italic')
+    })
+
+    cy.window().its('__HMR_MARKER').should('eq', true)
   })
 
   it('applies hover variant on a new parameterized color via HMR', () => {
