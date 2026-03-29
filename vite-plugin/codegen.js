@@ -156,12 +156,6 @@ function generateSourceInlines(theme, designSystem) {
     'w', 'h', 'min-w', 'max-w', 'min-h', 'max-h',
   ];
 
-  const colors = theme.colors || {};
-  const colorNames = Object.keys(colors);
-  const shadedColors = colorNames.filter(c => typeof colors[c] !== 'string');
-  const simpleColors = colorNames.filter(c => typeof colors[c] === 'string');
-  const shadeScale = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950'];
-
   const colorPrefixes = ['text', 'bg', 'border', 'ring', 'placeholder'];
 
   const lines = [];
@@ -171,19 +165,21 @@ function generateSourceInlines(theme, designSystem) {
     lines.push(`@source inline("{${spacingPrefixes.join(',')}}-{${spacingValues.join(',')}}");`);
   }
 
-  // Shaded color combinations: {prefix}-{color}-{shade}
-  if (shadedColors.length > 0) {
-    lines.push(`@source inline("{${colorPrefixes.join(',')}}-{${shadedColors.join(',')}}-{${shadeScale.join(',')}}");`);
+  // Color combinations: extract actual color values from the design system.
+  // We can't use theme.colors because resolveTheme doesn't include default
+  // Tailwind colors — only user-defined @theme colors appear there.
+  // Instead, query the design system's completions for a color utility.
+  if (designSystem) {
+    const colorValues = new Set();
+    for (const group of designSystem.utilities.getCompletions('bg')) {
+      for (const value of group.values) {
+        if (value && value !== '') colorValues.add(value);
+      }
+    }
+    if (colorValues.size > 0) {
+      lines.push(`@source inline("{${colorPrefixes.join(',')}}-{${[...colorValues].join(',')}}");`);
+    }
   }
-
-  // Simple color combinations: {prefix}-{color}
-  if (simpleColors.length > 0) {
-    lines.push(`@source inline("{${colorPrefixes.join(',')}}-{${simpleColors.join(',')}}");`);
-  }
-
-  // Breakpoint variants applied to all of the above
-  const breakpoints = Object.keys(theme.breakpoints || { sm: '', md: '', lg: '', xl: '', '2xl': '' });
-  const stateVariants = ['hover', 'focus', 'active', 'disabled', 'focus-within', 'focus-visible', 'dark'];
 
   return lines;
 }
