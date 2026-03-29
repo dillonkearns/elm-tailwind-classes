@@ -1881,7 +1881,7 @@ Use `classes` to convert a list of Tailwind values to an `Html.Attribute`.
 
 import Html exposing (Attribute)
 import Html.Attributes
-import Tailwind.Theme exposing (Color, SimpleColor(..), Spacing, colorToString, spacingToString)
+import Tailwind.Theme exposing (Color, SimpleColor(..), Spacing(..), colorToString, spacingToString)
 
 
 {-| A type representing a Tailwind CSS class or set of classes.
@@ -1972,149 +1972,2625 @@ toClassName (Tailwind className) =
 
 
 -- SPACING (parameterized)
+-- Each case branch uses a complete string literal so Tailwind's CSS scanner
+-- can find class names like "p-4" directly in the compiled JS output.
+
 
 {-| -}
 p : Spacing -> Tailwind
 p spacing =
-    Tailwind ("p-" ++ spacingToString spacing)
+    case spacing of
+        S0 ->
+            Tailwind "p-0"
 
+        Spx ->
+            Tailwind "p-px"
+
+        S0_dot_5 ->
+            Tailwind "p-0.5"
+
+        S1 ->
+            Tailwind "p-1"
+
+        S1_dot_5 ->
+            Tailwind "p-1.5"
+
+        S2 ->
+            Tailwind "p-2"
+
+        S2_dot_5 ->
+            Tailwind "p-2.5"
+
+        S3 ->
+            Tailwind "p-3"
+
+        S3_dot_5 ->
+            Tailwind "p-3.5"
+
+        S4 ->
+            Tailwind "p-4"
+
+        S5 ->
+            Tailwind "p-5"
+
+        S6 ->
+            Tailwind "p-6"
+
+        S7 ->
+            Tailwind "p-7"
+
+        S8 ->
+            Tailwind "p-8"
+
+        S9 ->
+            Tailwind "p-9"
+
+        S10 ->
+            Tailwind "p-10"
+
+        S11 ->
+            Tailwind "p-11"
+
+        S12 ->
+            Tailwind "p-12"
+
+        S14 ->
+            Tailwind "p-14"
+
+        S16 ->
+            Tailwind "p-16"
+
+        S20 ->
+            Tailwind "p-20"
+
+        S24 ->
+            Tailwind "p-24"
+
+        S28 ->
+            Tailwind "p-28"
+
+        S32 ->
+            Tailwind "p-32"
+
+        S36 ->
+            Tailwind "p-36"
+
+        S40 ->
+            Tailwind "p-40"
+
+        S44 ->
+            Tailwind "p-44"
+
+        S48 ->
+            Tailwind "p-48"
+
+        S52 ->
+            Tailwind "p-52"
+
+        S56 ->
+            Tailwind "p-56"
+
+        S60 ->
+            Tailwind "p-60"
+
+        S64 ->
+            Tailwind "p-64"
+
+        S72 ->
+            Tailwind "p-72"
+
+        S80 ->
+            Tailwind "p-80"
+
+        S96 ->
+            Tailwind "p-96"
 
 {-| -}
 px : Spacing -> Tailwind
 px spacing =
-    Tailwind ("px-" ++ spacingToString spacing)
+    case spacing of
+        S0 ->
+            Tailwind "px-0"
 
+        Spx ->
+            Tailwind "px-px"
+
+        S0_dot_5 ->
+            Tailwind "px-0.5"
+
+        S1 ->
+            Tailwind "px-1"
+
+        S1_dot_5 ->
+            Tailwind "px-1.5"
+
+        S2 ->
+            Tailwind "px-2"
+
+        S2_dot_5 ->
+            Tailwind "px-2.5"
+
+        S3 ->
+            Tailwind "px-3"
+
+        S3_dot_5 ->
+            Tailwind "px-3.5"
+
+        S4 ->
+            Tailwind "px-4"
+
+        S5 ->
+            Tailwind "px-5"
+
+        S6 ->
+            Tailwind "px-6"
+
+        S7 ->
+            Tailwind "px-7"
+
+        S8 ->
+            Tailwind "px-8"
+
+        S9 ->
+            Tailwind "px-9"
+
+        S10 ->
+            Tailwind "px-10"
+
+        S11 ->
+            Tailwind "px-11"
+
+        S12 ->
+            Tailwind "px-12"
+
+        S14 ->
+            Tailwind "px-14"
+
+        S16 ->
+            Tailwind "px-16"
+
+        S20 ->
+            Tailwind "px-20"
+
+        S24 ->
+            Tailwind "px-24"
+
+        S28 ->
+            Tailwind "px-28"
+
+        S32 ->
+            Tailwind "px-32"
+
+        S36 ->
+            Tailwind "px-36"
+
+        S40 ->
+            Tailwind "px-40"
+
+        S44 ->
+            Tailwind "px-44"
+
+        S48 ->
+            Tailwind "px-48"
+
+        S52 ->
+            Tailwind "px-52"
+
+        S56 ->
+            Tailwind "px-56"
+
+        S60 ->
+            Tailwind "px-60"
+
+        S64 ->
+            Tailwind "px-64"
+
+        S72 ->
+            Tailwind "px-72"
+
+        S80 ->
+            Tailwind "px-80"
+
+        S96 ->
+            Tailwind "px-96"
 
 {-| -}
 py : Spacing -> Tailwind
 py spacing =
-    Tailwind ("py-" ++ spacingToString spacing)
+    case spacing of
+        S0 ->
+            Tailwind "py-0"
 
+        Spx ->
+            Tailwind "py-px"
+
+        S0_dot_5 ->
+            Tailwind "py-0.5"
+
+        S1 ->
+            Tailwind "py-1"
+
+        S1_dot_5 ->
+            Tailwind "py-1.5"
+
+        S2 ->
+            Tailwind "py-2"
+
+        S2_dot_5 ->
+            Tailwind "py-2.5"
+
+        S3 ->
+            Tailwind "py-3"
+
+        S3_dot_5 ->
+            Tailwind "py-3.5"
+
+        S4 ->
+            Tailwind "py-4"
+
+        S5 ->
+            Tailwind "py-5"
+
+        S6 ->
+            Tailwind "py-6"
+
+        S7 ->
+            Tailwind "py-7"
+
+        S8 ->
+            Tailwind "py-8"
+
+        S9 ->
+            Tailwind "py-9"
+
+        S10 ->
+            Tailwind "py-10"
+
+        S11 ->
+            Tailwind "py-11"
+
+        S12 ->
+            Tailwind "py-12"
+
+        S14 ->
+            Tailwind "py-14"
+
+        S16 ->
+            Tailwind "py-16"
+
+        S20 ->
+            Tailwind "py-20"
+
+        S24 ->
+            Tailwind "py-24"
+
+        S28 ->
+            Tailwind "py-28"
+
+        S32 ->
+            Tailwind "py-32"
+
+        S36 ->
+            Tailwind "py-36"
+
+        S40 ->
+            Tailwind "py-40"
+
+        S44 ->
+            Tailwind "py-44"
+
+        S48 ->
+            Tailwind "py-48"
+
+        S52 ->
+            Tailwind "py-52"
+
+        S56 ->
+            Tailwind "py-56"
+
+        S60 ->
+            Tailwind "py-60"
+
+        S64 ->
+            Tailwind "py-64"
+
+        S72 ->
+            Tailwind "py-72"
+
+        S80 ->
+            Tailwind "py-80"
+
+        S96 ->
+            Tailwind "py-96"
 
 {-| -}
 pt : Spacing -> Tailwind
 pt spacing =
-    Tailwind ("pt-" ++ spacingToString spacing)
+    case spacing of
+        S0 ->
+            Tailwind "pt-0"
 
+        Spx ->
+            Tailwind "pt-px"
+
+        S0_dot_5 ->
+            Tailwind "pt-0.5"
+
+        S1 ->
+            Tailwind "pt-1"
+
+        S1_dot_5 ->
+            Tailwind "pt-1.5"
+
+        S2 ->
+            Tailwind "pt-2"
+
+        S2_dot_5 ->
+            Tailwind "pt-2.5"
+
+        S3 ->
+            Tailwind "pt-3"
+
+        S3_dot_5 ->
+            Tailwind "pt-3.5"
+
+        S4 ->
+            Tailwind "pt-4"
+
+        S5 ->
+            Tailwind "pt-5"
+
+        S6 ->
+            Tailwind "pt-6"
+
+        S7 ->
+            Tailwind "pt-7"
+
+        S8 ->
+            Tailwind "pt-8"
+
+        S9 ->
+            Tailwind "pt-9"
+
+        S10 ->
+            Tailwind "pt-10"
+
+        S11 ->
+            Tailwind "pt-11"
+
+        S12 ->
+            Tailwind "pt-12"
+
+        S14 ->
+            Tailwind "pt-14"
+
+        S16 ->
+            Tailwind "pt-16"
+
+        S20 ->
+            Tailwind "pt-20"
+
+        S24 ->
+            Tailwind "pt-24"
+
+        S28 ->
+            Tailwind "pt-28"
+
+        S32 ->
+            Tailwind "pt-32"
+
+        S36 ->
+            Tailwind "pt-36"
+
+        S40 ->
+            Tailwind "pt-40"
+
+        S44 ->
+            Tailwind "pt-44"
+
+        S48 ->
+            Tailwind "pt-48"
+
+        S52 ->
+            Tailwind "pt-52"
+
+        S56 ->
+            Tailwind "pt-56"
+
+        S60 ->
+            Tailwind "pt-60"
+
+        S64 ->
+            Tailwind "pt-64"
+
+        S72 ->
+            Tailwind "pt-72"
+
+        S80 ->
+            Tailwind "pt-80"
+
+        S96 ->
+            Tailwind "pt-96"
 
 {-| -}
 pr : Spacing -> Tailwind
 pr spacing =
-    Tailwind ("pr-" ++ spacingToString spacing)
+    case spacing of
+        S0 ->
+            Tailwind "pr-0"
 
+        Spx ->
+            Tailwind "pr-px"
+
+        S0_dot_5 ->
+            Tailwind "pr-0.5"
+
+        S1 ->
+            Tailwind "pr-1"
+
+        S1_dot_5 ->
+            Tailwind "pr-1.5"
+
+        S2 ->
+            Tailwind "pr-2"
+
+        S2_dot_5 ->
+            Tailwind "pr-2.5"
+
+        S3 ->
+            Tailwind "pr-3"
+
+        S3_dot_5 ->
+            Tailwind "pr-3.5"
+
+        S4 ->
+            Tailwind "pr-4"
+
+        S5 ->
+            Tailwind "pr-5"
+
+        S6 ->
+            Tailwind "pr-6"
+
+        S7 ->
+            Tailwind "pr-7"
+
+        S8 ->
+            Tailwind "pr-8"
+
+        S9 ->
+            Tailwind "pr-9"
+
+        S10 ->
+            Tailwind "pr-10"
+
+        S11 ->
+            Tailwind "pr-11"
+
+        S12 ->
+            Tailwind "pr-12"
+
+        S14 ->
+            Tailwind "pr-14"
+
+        S16 ->
+            Tailwind "pr-16"
+
+        S20 ->
+            Tailwind "pr-20"
+
+        S24 ->
+            Tailwind "pr-24"
+
+        S28 ->
+            Tailwind "pr-28"
+
+        S32 ->
+            Tailwind "pr-32"
+
+        S36 ->
+            Tailwind "pr-36"
+
+        S40 ->
+            Tailwind "pr-40"
+
+        S44 ->
+            Tailwind "pr-44"
+
+        S48 ->
+            Tailwind "pr-48"
+
+        S52 ->
+            Tailwind "pr-52"
+
+        S56 ->
+            Tailwind "pr-56"
+
+        S60 ->
+            Tailwind "pr-60"
+
+        S64 ->
+            Tailwind "pr-64"
+
+        S72 ->
+            Tailwind "pr-72"
+
+        S80 ->
+            Tailwind "pr-80"
+
+        S96 ->
+            Tailwind "pr-96"
 
 {-| -}
 pb : Spacing -> Tailwind
 pb spacing =
-    Tailwind ("pb-" ++ spacingToString spacing)
+    case spacing of
+        S0 ->
+            Tailwind "pb-0"
 
+        Spx ->
+            Tailwind "pb-px"
+
+        S0_dot_5 ->
+            Tailwind "pb-0.5"
+
+        S1 ->
+            Tailwind "pb-1"
+
+        S1_dot_5 ->
+            Tailwind "pb-1.5"
+
+        S2 ->
+            Tailwind "pb-2"
+
+        S2_dot_5 ->
+            Tailwind "pb-2.5"
+
+        S3 ->
+            Tailwind "pb-3"
+
+        S3_dot_5 ->
+            Tailwind "pb-3.5"
+
+        S4 ->
+            Tailwind "pb-4"
+
+        S5 ->
+            Tailwind "pb-5"
+
+        S6 ->
+            Tailwind "pb-6"
+
+        S7 ->
+            Tailwind "pb-7"
+
+        S8 ->
+            Tailwind "pb-8"
+
+        S9 ->
+            Tailwind "pb-9"
+
+        S10 ->
+            Tailwind "pb-10"
+
+        S11 ->
+            Tailwind "pb-11"
+
+        S12 ->
+            Tailwind "pb-12"
+
+        S14 ->
+            Tailwind "pb-14"
+
+        S16 ->
+            Tailwind "pb-16"
+
+        S20 ->
+            Tailwind "pb-20"
+
+        S24 ->
+            Tailwind "pb-24"
+
+        S28 ->
+            Tailwind "pb-28"
+
+        S32 ->
+            Tailwind "pb-32"
+
+        S36 ->
+            Tailwind "pb-36"
+
+        S40 ->
+            Tailwind "pb-40"
+
+        S44 ->
+            Tailwind "pb-44"
+
+        S48 ->
+            Tailwind "pb-48"
+
+        S52 ->
+            Tailwind "pb-52"
+
+        S56 ->
+            Tailwind "pb-56"
+
+        S60 ->
+            Tailwind "pb-60"
+
+        S64 ->
+            Tailwind "pb-64"
+
+        S72 ->
+            Tailwind "pb-72"
+
+        S80 ->
+            Tailwind "pb-80"
+
+        S96 ->
+            Tailwind "pb-96"
 
 {-| -}
 pl : Spacing -> Tailwind
 pl spacing =
-    Tailwind ("pl-" ++ spacingToString spacing)
+    case spacing of
+        S0 ->
+            Tailwind "pl-0"
 
+        Spx ->
+            Tailwind "pl-px"
+
+        S0_dot_5 ->
+            Tailwind "pl-0.5"
+
+        S1 ->
+            Tailwind "pl-1"
+
+        S1_dot_5 ->
+            Tailwind "pl-1.5"
+
+        S2 ->
+            Tailwind "pl-2"
+
+        S2_dot_5 ->
+            Tailwind "pl-2.5"
+
+        S3 ->
+            Tailwind "pl-3"
+
+        S3_dot_5 ->
+            Tailwind "pl-3.5"
+
+        S4 ->
+            Tailwind "pl-4"
+
+        S5 ->
+            Tailwind "pl-5"
+
+        S6 ->
+            Tailwind "pl-6"
+
+        S7 ->
+            Tailwind "pl-7"
+
+        S8 ->
+            Tailwind "pl-8"
+
+        S9 ->
+            Tailwind "pl-9"
+
+        S10 ->
+            Tailwind "pl-10"
+
+        S11 ->
+            Tailwind "pl-11"
+
+        S12 ->
+            Tailwind "pl-12"
+
+        S14 ->
+            Tailwind "pl-14"
+
+        S16 ->
+            Tailwind "pl-16"
+
+        S20 ->
+            Tailwind "pl-20"
+
+        S24 ->
+            Tailwind "pl-24"
+
+        S28 ->
+            Tailwind "pl-28"
+
+        S32 ->
+            Tailwind "pl-32"
+
+        S36 ->
+            Tailwind "pl-36"
+
+        S40 ->
+            Tailwind "pl-40"
+
+        S44 ->
+            Tailwind "pl-44"
+
+        S48 ->
+            Tailwind "pl-48"
+
+        S52 ->
+            Tailwind "pl-52"
+
+        S56 ->
+            Tailwind "pl-56"
+
+        S60 ->
+            Tailwind "pl-60"
+
+        S64 ->
+            Tailwind "pl-64"
+
+        S72 ->
+            Tailwind "pl-72"
+
+        S80 ->
+            Tailwind "pl-80"
+
+        S96 ->
+            Tailwind "pl-96"
 
 {-| -}
 m : Spacing -> Tailwind
 m spacing =
-    Tailwind ("m-" ++ spacingToString spacing)
+    case spacing of
+        S0 ->
+            Tailwind "m-0"
 
+        Spx ->
+            Tailwind "m-px"
+
+        S0_dot_5 ->
+            Tailwind "m-0.5"
+
+        S1 ->
+            Tailwind "m-1"
+
+        S1_dot_5 ->
+            Tailwind "m-1.5"
+
+        S2 ->
+            Tailwind "m-2"
+
+        S2_dot_5 ->
+            Tailwind "m-2.5"
+
+        S3 ->
+            Tailwind "m-3"
+
+        S3_dot_5 ->
+            Tailwind "m-3.5"
+
+        S4 ->
+            Tailwind "m-4"
+
+        S5 ->
+            Tailwind "m-5"
+
+        S6 ->
+            Tailwind "m-6"
+
+        S7 ->
+            Tailwind "m-7"
+
+        S8 ->
+            Tailwind "m-8"
+
+        S9 ->
+            Tailwind "m-9"
+
+        S10 ->
+            Tailwind "m-10"
+
+        S11 ->
+            Tailwind "m-11"
+
+        S12 ->
+            Tailwind "m-12"
+
+        S14 ->
+            Tailwind "m-14"
+
+        S16 ->
+            Tailwind "m-16"
+
+        S20 ->
+            Tailwind "m-20"
+
+        S24 ->
+            Tailwind "m-24"
+
+        S28 ->
+            Tailwind "m-28"
+
+        S32 ->
+            Tailwind "m-32"
+
+        S36 ->
+            Tailwind "m-36"
+
+        S40 ->
+            Tailwind "m-40"
+
+        S44 ->
+            Tailwind "m-44"
+
+        S48 ->
+            Tailwind "m-48"
+
+        S52 ->
+            Tailwind "m-52"
+
+        S56 ->
+            Tailwind "m-56"
+
+        S60 ->
+            Tailwind "m-60"
+
+        S64 ->
+            Tailwind "m-64"
+
+        S72 ->
+            Tailwind "m-72"
+
+        S80 ->
+            Tailwind "m-80"
+
+        S96 ->
+            Tailwind "m-96"
 
 {-| -}
 mx : Spacing -> Tailwind
 mx spacing =
-    Tailwind ("mx-" ++ spacingToString spacing)
+    case spacing of
+        S0 ->
+            Tailwind "mx-0"
 
+        Spx ->
+            Tailwind "mx-px"
+
+        S0_dot_5 ->
+            Tailwind "mx-0.5"
+
+        S1 ->
+            Tailwind "mx-1"
+
+        S1_dot_5 ->
+            Tailwind "mx-1.5"
+
+        S2 ->
+            Tailwind "mx-2"
+
+        S2_dot_5 ->
+            Tailwind "mx-2.5"
+
+        S3 ->
+            Tailwind "mx-3"
+
+        S3_dot_5 ->
+            Tailwind "mx-3.5"
+
+        S4 ->
+            Tailwind "mx-4"
+
+        S5 ->
+            Tailwind "mx-5"
+
+        S6 ->
+            Tailwind "mx-6"
+
+        S7 ->
+            Tailwind "mx-7"
+
+        S8 ->
+            Tailwind "mx-8"
+
+        S9 ->
+            Tailwind "mx-9"
+
+        S10 ->
+            Tailwind "mx-10"
+
+        S11 ->
+            Tailwind "mx-11"
+
+        S12 ->
+            Tailwind "mx-12"
+
+        S14 ->
+            Tailwind "mx-14"
+
+        S16 ->
+            Tailwind "mx-16"
+
+        S20 ->
+            Tailwind "mx-20"
+
+        S24 ->
+            Tailwind "mx-24"
+
+        S28 ->
+            Tailwind "mx-28"
+
+        S32 ->
+            Tailwind "mx-32"
+
+        S36 ->
+            Tailwind "mx-36"
+
+        S40 ->
+            Tailwind "mx-40"
+
+        S44 ->
+            Tailwind "mx-44"
+
+        S48 ->
+            Tailwind "mx-48"
+
+        S52 ->
+            Tailwind "mx-52"
+
+        S56 ->
+            Tailwind "mx-56"
+
+        S60 ->
+            Tailwind "mx-60"
+
+        S64 ->
+            Tailwind "mx-64"
+
+        S72 ->
+            Tailwind "mx-72"
+
+        S80 ->
+            Tailwind "mx-80"
+
+        S96 ->
+            Tailwind "mx-96"
 
 {-| -}
 my : Spacing -> Tailwind
 my spacing =
-    Tailwind ("my-" ++ spacingToString spacing)
+    case spacing of
+        S0 ->
+            Tailwind "my-0"
 
+        Spx ->
+            Tailwind "my-px"
+
+        S0_dot_5 ->
+            Tailwind "my-0.5"
+
+        S1 ->
+            Tailwind "my-1"
+
+        S1_dot_5 ->
+            Tailwind "my-1.5"
+
+        S2 ->
+            Tailwind "my-2"
+
+        S2_dot_5 ->
+            Tailwind "my-2.5"
+
+        S3 ->
+            Tailwind "my-3"
+
+        S3_dot_5 ->
+            Tailwind "my-3.5"
+
+        S4 ->
+            Tailwind "my-4"
+
+        S5 ->
+            Tailwind "my-5"
+
+        S6 ->
+            Tailwind "my-6"
+
+        S7 ->
+            Tailwind "my-7"
+
+        S8 ->
+            Tailwind "my-8"
+
+        S9 ->
+            Tailwind "my-9"
+
+        S10 ->
+            Tailwind "my-10"
+
+        S11 ->
+            Tailwind "my-11"
+
+        S12 ->
+            Tailwind "my-12"
+
+        S14 ->
+            Tailwind "my-14"
+
+        S16 ->
+            Tailwind "my-16"
+
+        S20 ->
+            Tailwind "my-20"
+
+        S24 ->
+            Tailwind "my-24"
+
+        S28 ->
+            Tailwind "my-28"
+
+        S32 ->
+            Tailwind "my-32"
+
+        S36 ->
+            Tailwind "my-36"
+
+        S40 ->
+            Tailwind "my-40"
+
+        S44 ->
+            Tailwind "my-44"
+
+        S48 ->
+            Tailwind "my-48"
+
+        S52 ->
+            Tailwind "my-52"
+
+        S56 ->
+            Tailwind "my-56"
+
+        S60 ->
+            Tailwind "my-60"
+
+        S64 ->
+            Tailwind "my-64"
+
+        S72 ->
+            Tailwind "my-72"
+
+        S80 ->
+            Tailwind "my-80"
+
+        S96 ->
+            Tailwind "my-96"
 
 {-| -}
 mt : Spacing -> Tailwind
 mt spacing =
-    Tailwind ("mt-" ++ spacingToString spacing)
+    case spacing of
+        S0 ->
+            Tailwind "mt-0"
 
+        Spx ->
+            Tailwind "mt-px"
+
+        S0_dot_5 ->
+            Tailwind "mt-0.5"
+
+        S1 ->
+            Tailwind "mt-1"
+
+        S1_dot_5 ->
+            Tailwind "mt-1.5"
+
+        S2 ->
+            Tailwind "mt-2"
+
+        S2_dot_5 ->
+            Tailwind "mt-2.5"
+
+        S3 ->
+            Tailwind "mt-3"
+
+        S3_dot_5 ->
+            Tailwind "mt-3.5"
+
+        S4 ->
+            Tailwind "mt-4"
+
+        S5 ->
+            Tailwind "mt-5"
+
+        S6 ->
+            Tailwind "mt-6"
+
+        S7 ->
+            Tailwind "mt-7"
+
+        S8 ->
+            Tailwind "mt-8"
+
+        S9 ->
+            Tailwind "mt-9"
+
+        S10 ->
+            Tailwind "mt-10"
+
+        S11 ->
+            Tailwind "mt-11"
+
+        S12 ->
+            Tailwind "mt-12"
+
+        S14 ->
+            Tailwind "mt-14"
+
+        S16 ->
+            Tailwind "mt-16"
+
+        S20 ->
+            Tailwind "mt-20"
+
+        S24 ->
+            Tailwind "mt-24"
+
+        S28 ->
+            Tailwind "mt-28"
+
+        S32 ->
+            Tailwind "mt-32"
+
+        S36 ->
+            Tailwind "mt-36"
+
+        S40 ->
+            Tailwind "mt-40"
+
+        S44 ->
+            Tailwind "mt-44"
+
+        S48 ->
+            Tailwind "mt-48"
+
+        S52 ->
+            Tailwind "mt-52"
+
+        S56 ->
+            Tailwind "mt-56"
+
+        S60 ->
+            Tailwind "mt-60"
+
+        S64 ->
+            Tailwind "mt-64"
+
+        S72 ->
+            Tailwind "mt-72"
+
+        S80 ->
+            Tailwind "mt-80"
+
+        S96 ->
+            Tailwind "mt-96"
 
 {-| -}
 mr : Spacing -> Tailwind
 mr spacing =
-    Tailwind ("mr-" ++ spacingToString spacing)
+    case spacing of
+        S0 ->
+            Tailwind "mr-0"
 
+        Spx ->
+            Tailwind "mr-px"
+
+        S0_dot_5 ->
+            Tailwind "mr-0.5"
+
+        S1 ->
+            Tailwind "mr-1"
+
+        S1_dot_5 ->
+            Tailwind "mr-1.5"
+
+        S2 ->
+            Tailwind "mr-2"
+
+        S2_dot_5 ->
+            Tailwind "mr-2.5"
+
+        S3 ->
+            Tailwind "mr-3"
+
+        S3_dot_5 ->
+            Tailwind "mr-3.5"
+
+        S4 ->
+            Tailwind "mr-4"
+
+        S5 ->
+            Tailwind "mr-5"
+
+        S6 ->
+            Tailwind "mr-6"
+
+        S7 ->
+            Tailwind "mr-7"
+
+        S8 ->
+            Tailwind "mr-8"
+
+        S9 ->
+            Tailwind "mr-9"
+
+        S10 ->
+            Tailwind "mr-10"
+
+        S11 ->
+            Tailwind "mr-11"
+
+        S12 ->
+            Tailwind "mr-12"
+
+        S14 ->
+            Tailwind "mr-14"
+
+        S16 ->
+            Tailwind "mr-16"
+
+        S20 ->
+            Tailwind "mr-20"
+
+        S24 ->
+            Tailwind "mr-24"
+
+        S28 ->
+            Tailwind "mr-28"
+
+        S32 ->
+            Tailwind "mr-32"
+
+        S36 ->
+            Tailwind "mr-36"
+
+        S40 ->
+            Tailwind "mr-40"
+
+        S44 ->
+            Tailwind "mr-44"
+
+        S48 ->
+            Tailwind "mr-48"
+
+        S52 ->
+            Tailwind "mr-52"
+
+        S56 ->
+            Tailwind "mr-56"
+
+        S60 ->
+            Tailwind "mr-60"
+
+        S64 ->
+            Tailwind "mr-64"
+
+        S72 ->
+            Tailwind "mr-72"
+
+        S80 ->
+            Tailwind "mr-80"
+
+        S96 ->
+            Tailwind "mr-96"
 
 {-| -}
 mb : Spacing -> Tailwind
 mb spacing =
-    Tailwind ("mb-" ++ spacingToString spacing)
+    case spacing of
+        S0 ->
+            Tailwind "mb-0"
 
+        Spx ->
+            Tailwind "mb-px"
+
+        S0_dot_5 ->
+            Tailwind "mb-0.5"
+
+        S1 ->
+            Tailwind "mb-1"
+
+        S1_dot_5 ->
+            Tailwind "mb-1.5"
+
+        S2 ->
+            Tailwind "mb-2"
+
+        S2_dot_5 ->
+            Tailwind "mb-2.5"
+
+        S3 ->
+            Tailwind "mb-3"
+
+        S3_dot_5 ->
+            Tailwind "mb-3.5"
+
+        S4 ->
+            Tailwind "mb-4"
+
+        S5 ->
+            Tailwind "mb-5"
+
+        S6 ->
+            Tailwind "mb-6"
+
+        S7 ->
+            Tailwind "mb-7"
+
+        S8 ->
+            Tailwind "mb-8"
+
+        S9 ->
+            Tailwind "mb-9"
+
+        S10 ->
+            Tailwind "mb-10"
+
+        S11 ->
+            Tailwind "mb-11"
+
+        S12 ->
+            Tailwind "mb-12"
+
+        S14 ->
+            Tailwind "mb-14"
+
+        S16 ->
+            Tailwind "mb-16"
+
+        S20 ->
+            Tailwind "mb-20"
+
+        S24 ->
+            Tailwind "mb-24"
+
+        S28 ->
+            Tailwind "mb-28"
+
+        S32 ->
+            Tailwind "mb-32"
+
+        S36 ->
+            Tailwind "mb-36"
+
+        S40 ->
+            Tailwind "mb-40"
+
+        S44 ->
+            Tailwind "mb-44"
+
+        S48 ->
+            Tailwind "mb-48"
+
+        S52 ->
+            Tailwind "mb-52"
+
+        S56 ->
+            Tailwind "mb-56"
+
+        S60 ->
+            Tailwind "mb-60"
+
+        S64 ->
+            Tailwind "mb-64"
+
+        S72 ->
+            Tailwind "mb-72"
+
+        S80 ->
+            Tailwind "mb-80"
+
+        S96 ->
+            Tailwind "mb-96"
 
 {-| -}
 ml : Spacing -> Tailwind
 ml spacing =
-    Tailwind ("ml-" ++ spacingToString spacing)
+    case spacing of
+        S0 ->
+            Tailwind "ml-0"
 
+        Spx ->
+            Tailwind "ml-px"
+
+        S0_dot_5 ->
+            Tailwind "ml-0.5"
+
+        S1 ->
+            Tailwind "ml-1"
+
+        S1_dot_5 ->
+            Tailwind "ml-1.5"
+
+        S2 ->
+            Tailwind "ml-2"
+
+        S2_dot_5 ->
+            Tailwind "ml-2.5"
+
+        S3 ->
+            Tailwind "ml-3"
+
+        S3_dot_5 ->
+            Tailwind "ml-3.5"
+
+        S4 ->
+            Tailwind "ml-4"
+
+        S5 ->
+            Tailwind "ml-5"
+
+        S6 ->
+            Tailwind "ml-6"
+
+        S7 ->
+            Tailwind "ml-7"
+
+        S8 ->
+            Tailwind "ml-8"
+
+        S9 ->
+            Tailwind "ml-9"
+
+        S10 ->
+            Tailwind "ml-10"
+
+        S11 ->
+            Tailwind "ml-11"
+
+        S12 ->
+            Tailwind "ml-12"
+
+        S14 ->
+            Tailwind "ml-14"
+
+        S16 ->
+            Tailwind "ml-16"
+
+        S20 ->
+            Tailwind "ml-20"
+
+        S24 ->
+            Tailwind "ml-24"
+
+        S28 ->
+            Tailwind "ml-28"
+
+        S32 ->
+            Tailwind "ml-32"
+
+        S36 ->
+            Tailwind "ml-36"
+
+        S40 ->
+            Tailwind "ml-40"
+
+        S44 ->
+            Tailwind "ml-44"
+
+        S48 ->
+            Tailwind "ml-48"
+
+        S52 ->
+            Tailwind "ml-52"
+
+        S56 ->
+            Tailwind "ml-56"
+
+        S60 ->
+            Tailwind "ml-60"
+
+        S64 ->
+            Tailwind "ml-64"
+
+        S72 ->
+            Tailwind "ml-72"
+
+        S80 ->
+            Tailwind "ml-80"
+
+        S96 ->
+            Tailwind "ml-96"
 
 {-| -}
 neg_m : Spacing -> Tailwind
 neg_m spacing =
-    Tailwind ("-m-" ++ spacingToString spacing)
+    case spacing of
+        S0 ->
+            Tailwind "-m-0"
 
+        Spx ->
+            Tailwind "-m-px"
+
+        S0_dot_5 ->
+            Tailwind "-m-0.5"
+
+        S1 ->
+            Tailwind "-m-1"
+
+        S1_dot_5 ->
+            Tailwind "-m-1.5"
+
+        S2 ->
+            Tailwind "-m-2"
+
+        S2_dot_5 ->
+            Tailwind "-m-2.5"
+
+        S3 ->
+            Tailwind "-m-3"
+
+        S3_dot_5 ->
+            Tailwind "-m-3.5"
+
+        S4 ->
+            Tailwind "-m-4"
+
+        S5 ->
+            Tailwind "-m-5"
+
+        S6 ->
+            Tailwind "-m-6"
+
+        S7 ->
+            Tailwind "-m-7"
+
+        S8 ->
+            Tailwind "-m-8"
+
+        S9 ->
+            Tailwind "-m-9"
+
+        S10 ->
+            Tailwind "-m-10"
+
+        S11 ->
+            Tailwind "-m-11"
+
+        S12 ->
+            Tailwind "-m-12"
+
+        S14 ->
+            Tailwind "-m-14"
+
+        S16 ->
+            Tailwind "-m-16"
+
+        S20 ->
+            Tailwind "-m-20"
+
+        S24 ->
+            Tailwind "-m-24"
+
+        S28 ->
+            Tailwind "-m-28"
+
+        S32 ->
+            Tailwind "-m-32"
+
+        S36 ->
+            Tailwind "-m-36"
+
+        S40 ->
+            Tailwind "-m-40"
+
+        S44 ->
+            Tailwind "-m-44"
+
+        S48 ->
+            Tailwind "-m-48"
+
+        S52 ->
+            Tailwind "-m-52"
+
+        S56 ->
+            Tailwind "-m-56"
+
+        S60 ->
+            Tailwind "-m-60"
+
+        S64 ->
+            Tailwind "-m-64"
+
+        S72 ->
+            Tailwind "-m-72"
+
+        S80 ->
+            Tailwind "-m-80"
+
+        S96 ->
+            Tailwind "-m-96"
 
 {-| -}
 neg_mx : Spacing -> Tailwind
 neg_mx spacing =
-    Tailwind ("-mx-" ++ spacingToString spacing)
+    case spacing of
+        S0 ->
+            Tailwind "-mx-0"
 
+        Spx ->
+            Tailwind "-mx-px"
+
+        S0_dot_5 ->
+            Tailwind "-mx-0.5"
+
+        S1 ->
+            Tailwind "-mx-1"
+
+        S1_dot_5 ->
+            Tailwind "-mx-1.5"
+
+        S2 ->
+            Tailwind "-mx-2"
+
+        S2_dot_5 ->
+            Tailwind "-mx-2.5"
+
+        S3 ->
+            Tailwind "-mx-3"
+
+        S3_dot_5 ->
+            Tailwind "-mx-3.5"
+
+        S4 ->
+            Tailwind "-mx-4"
+
+        S5 ->
+            Tailwind "-mx-5"
+
+        S6 ->
+            Tailwind "-mx-6"
+
+        S7 ->
+            Tailwind "-mx-7"
+
+        S8 ->
+            Tailwind "-mx-8"
+
+        S9 ->
+            Tailwind "-mx-9"
+
+        S10 ->
+            Tailwind "-mx-10"
+
+        S11 ->
+            Tailwind "-mx-11"
+
+        S12 ->
+            Tailwind "-mx-12"
+
+        S14 ->
+            Tailwind "-mx-14"
+
+        S16 ->
+            Tailwind "-mx-16"
+
+        S20 ->
+            Tailwind "-mx-20"
+
+        S24 ->
+            Tailwind "-mx-24"
+
+        S28 ->
+            Tailwind "-mx-28"
+
+        S32 ->
+            Tailwind "-mx-32"
+
+        S36 ->
+            Tailwind "-mx-36"
+
+        S40 ->
+            Tailwind "-mx-40"
+
+        S44 ->
+            Tailwind "-mx-44"
+
+        S48 ->
+            Tailwind "-mx-48"
+
+        S52 ->
+            Tailwind "-mx-52"
+
+        S56 ->
+            Tailwind "-mx-56"
+
+        S60 ->
+            Tailwind "-mx-60"
+
+        S64 ->
+            Tailwind "-mx-64"
+
+        S72 ->
+            Tailwind "-mx-72"
+
+        S80 ->
+            Tailwind "-mx-80"
+
+        S96 ->
+            Tailwind "-mx-96"
 
 {-| -}
 neg_my : Spacing -> Tailwind
 neg_my spacing =
-    Tailwind ("-my-" ++ spacingToString spacing)
+    case spacing of
+        S0 ->
+            Tailwind "-my-0"
 
+        Spx ->
+            Tailwind "-my-px"
+
+        S0_dot_5 ->
+            Tailwind "-my-0.5"
+
+        S1 ->
+            Tailwind "-my-1"
+
+        S1_dot_5 ->
+            Tailwind "-my-1.5"
+
+        S2 ->
+            Tailwind "-my-2"
+
+        S2_dot_5 ->
+            Tailwind "-my-2.5"
+
+        S3 ->
+            Tailwind "-my-3"
+
+        S3_dot_5 ->
+            Tailwind "-my-3.5"
+
+        S4 ->
+            Tailwind "-my-4"
+
+        S5 ->
+            Tailwind "-my-5"
+
+        S6 ->
+            Tailwind "-my-6"
+
+        S7 ->
+            Tailwind "-my-7"
+
+        S8 ->
+            Tailwind "-my-8"
+
+        S9 ->
+            Tailwind "-my-9"
+
+        S10 ->
+            Tailwind "-my-10"
+
+        S11 ->
+            Tailwind "-my-11"
+
+        S12 ->
+            Tailwind "-my-12"
+
+        S14 ->
+            Tailwind "-my-14"
+
+        S16 ->
+            Tailwind "-my-16"
+
+        S20 ->
+            Tailwind "-my-20"
+
+        S24 ->
+            Tailwind "-my-24"
+
+        S28 ->
+            Tailwind "-my-28"
+
+        S32 ->
+            Tailwind "-my-32"
+
+        S36 ->
+            Tailwind "-my-36"
+
+        S40 ->
+            Tailwind "-my-40"
+
+        S44 ->
+            Tailwind "-my-44"
+
+        S48 ->
+            Tailwind "-my-48"
+
+        S52 ->
+            Tailwind "-my-52"
+
+        S56 ->
+            Tailwind "-my-56"
+
+        S60 ->
+            Tailwind "-my-60"
+
+        S64 ->
+            Tailwind "-my-64"
+
+        S72 ->
+            Tailwind "-my-72"
+
+        S80 ->
+            Tailwind "-my-80"
+
+        S96 ->
+            Tailwind "-my-96"
 
 {-| -}
 neg_mt : Spacing -> Tailwind
 neg_mt spacing =
-    Tailwind ("-mt-" ++ spacingToString spacing)
+    case spacing of
+        S0 ->
+            Tailwind "-mt-0"
 
+        Spx ->
+            Tailwind "-mt-px"
+
+        S0_dot_5 ->
+            Tailwind "-mt-0.5"
+
+        S1 ->
+            Tailwind "-mt-1"
+
+        S1_dot_5 ->
+            Tailwind "-mt-1.5"
+
+        S2 ->
+            Tailwind "-mt-2"
+
+        S2_dot_5 ->
+            Tailwind "-mt-2.5"
+
+        S3 ->
+            Tailwind "-mt-3"
+
+        S3_dot_5 ->
+            Tailwind "-mt-3.5"
+
+        S4 ->
+            Tailwind "-mt-4"
+
+        S5 ->
+            Tailwind "-mt-5"
+
+        S6 ->
+            Tailwind "-mt-6"
+
+        S7 ->
+            Tailwind "-mt-7"
+
+        S8 ->
+            Tailwind "-mt-8"
+
+        S9 ->
+            Tailwind "-mt-9"
+
+        S10 ->
+            Tailwind "-mt-10"
+
+        S11 ->
+            Tailwind "-mt-11"
+
+        S12 ->
+            Tailwind "-mt-12"
+
+        S14 ->
+            Tailwind "-mt-14"
+
+        S16 ->
+            Tailwind "-mt-16"
+
+        S20 ->
+            Tailwind "-mt-20"
+
+        S24 ->
+            Tailwind "-mt-24"
+
+        S28 ->
+            Tailwind "-mt-28"
+
+        S32 ->
+            Tailwind "-mt-32"
+
+        S36 ->
+            Tailwind "-mt-36"
+
+        S40 ->
+            Tailwind "-mt-40"
+
+        S44 ->
+            Tailwind "-mt-44"
+
+        S48 ->
+            Tailwind "-mt-48"
+
+        S52 ->
+            Tailwind "-mt-52"
+
+        S56 ->
+            Tailwind "-mt-56"
+
+        S60 ->
+            Tailwind "-mt-60"
+
+        S64 ->
+            Tailwind "-mt-64"
+
+        S72 ->
+            Tailwind "-mt-72"
+
+        S80 ->
+            Tailwind "-mt-80"
+
+        S96 ->
+            Tailwind "-mt-96"
 
 {-| -}
 neg_mr : Spacing -> Tailwind
 neg_mr spacing =
-    Tailwind ("-mr-" ++ spacingToString spacing)
+    case spacing of
+        S0 ->
+            Tailwind "-mr-0"
 
+        Spx ->
+            Tailwind "-mr-px"
+
+        S0_dot_5 ->
+            Tailwind "-mr-0.5"
+
+        S1 ->
+            Tailwind "-mr-1"
+
+        S1_dot_5 ->
+            Tailwind "-mr-1.5"
+
+        S2 ->
+            Tailwind "-mr-2"
+
+        S2_dot_5 ->
+            Tailwind "-mr-2.5"
+
+        S3 ->
+            Tailwind "-mr-3"
+
+        S3_dot_5 ->
+            Tailwind "-mr-3.5"
+
+        S4 ->
+            Tailwind "-mr-4"
+
+        S5 ->
+            Tailwind "-mr-5"
+
+        S6 ->
+            Tailwind "-mr-6"
+
+        S7 ->
+            Tailwind "-mr-7"
+
+        S8 ->
+            Tailwind "-mr-8"
+
+        S9 ->
+            Tailwind "-mr-9"
+
+        S10 ->
+            Tailwind "-mr-10"
+
+        S11 ->
+            Tailwind "-mr-11"
+
+        S12 ->
+            Tailwind "-mr-12"
+
+        S14 ->
+            Tailwind "-mr-14"
+
+        S16 ->
+            Tailwind "-mr-16"
+
+        S20 ->
+            Tailwind "-mr-20"
+
+        S24 ->
+            Tailwind "-mr-24"
+
+        S28 ->
+            Tailwind "-mr-28"
+
+        S32 ->
+            Tailwind "-mr-32"
+
+        S36 ->
+            Tailwind "-mr-36"
+
+        S40 ->
+            Tailwind "-mr-40"
+
+        S44 ->
+            Tailwind "-mr-44"
+
+        S48 ->
+            Tailwind "-mr-48"
+
+        S52 ->
+            Tailwind "-mr-52"
+
+        S56 ->
+            Tailwind "-mr-56"
+
+        S60 ->
+            Tailwind "-mr-60"
+
+        S64 ->
+            Tailwind "-mr-64"
+
+        S72 ->
+            Tailwind "-mr-72"
+
+        S80 ->
+            Tailwind "-mr-80"
+
+        S96 ->
+            Tailwind "-mr-96"
 
 {-| -}
 neg_mb : Spacing -> Tailwind
 neg_mb spacing =
-    Tailwind ("-mb-" ++ spacingToString spacing)
+    case spacing of
+        S0 ->
+            Tailwind "-mb-0"
 
+        Spx ->
+            Tailwind "-mb-px"
+
+        S0_dot_5 ->
+            Tailwind "-mb-0.5"
+
+        S1 ->
+            Tailwind "-mb-1"
+
+        S1_dot_5 ->
+            Tailwind "-mb-1.5"
+
+        S2 ->
+            Tailwind "-mb-2"
+
+        S2_dot_5 ->
+            Tailwind "-mb-2.5"
+
+        S3 ->
+            Tailwind "-mb-3"
+
+        S3_dot_5 ->
+            Tailwind "-mb-3.5"
+
+        S4 ->
+            Tailwind "-mb-4"
+
+        S5 ->
+            Tailwind "-mb-5"
+
+        S6 ->
+            Tailwind "-mb-6"
+
+        S7 ->
+            Tailwind "-mb-7"
+
+        S8 ->
+            Tailwind "-mb-8"
+
+        S9 ->
+            Tailwind "-mb-9"
+
+        S10 ->
+            Tailwind "-mb-10"
+
+        S11 ->
+            Tailwind "-mb-11"
+
+        S12 ->
+            Tailwind "-mb-12"
+
+        S14 ->
+            Tailwind "-mb-14"
+
+        S16 ->
+            Tailwind "-mb-16"
+
+        S20 ->
+            Tailwind "-mb-20"
+
+        S24 ->
+            Tailwind "-mb-24"
+
+        S28 ->
+            Tailwind "-mb-28"
+
+        S32 ->
+            Tailwind "-mb-32"
+
+        S36 ->
+            Tailwind "-mb-36"
+
+        S40 ->
+            Tailwind "-mb-40"
+
+        S44 ->
+            Tailwind "-mb-44"
+
+        S48 ->
+            Tailwind "-mb-48"
+
+        S52 ->
+            Tailwind "-mb-52"
+
+        S56 ->
+            Tailwind "-mb-56"
+
+        S60 ->
+            Tailwind "-mb-60"
+
+        S64 ->
+            Tailwind "-mb-64"
+
+        S72 ->
+            Tailwind "-mb-72"
+
+        S80 ->
+            Tailwind "-mb-80"
+
+        S96 ->
+            Tailwind "-mb-96"
 
 {-| -}
 neg_ml : Spacing -> Tailwind
 neg_ml spacing =
-    Tailwind ("-ml-" ++ spacingToString spacing)
+    case spacing of
+        S0 ->
+            Tailwind "-ml-0"
 
+        Spx ->
+            Tailwind "-ml-px"
+
+        S0_dot_5 ->
+            Tailwind "-ml-0.5"
+
+        S1 ->
+            Tailwind "-ml-1"
+
+        S1_dot_5 ->
+            Tailwind "-ml-1.5"
+
+        S2 ->
+            Tailwind "-ml-2"
+
+        S2_dot_5 ->
+            Tailwind "-ml-2.5"
+
+        S3 ->
+            Tailwind "-ml-3"
+
+        S3_dot_5 ->
+            Tailwind "-ml-3.5"
+
+        S4 ->
+            Tailwind "-ml-4"
+
+        S5 ->
+            Tailwind "-ml-5"
+
+        S6 ->
+            Tailwind "-ml-6"
+
+        S7 ->
+            Tailwind "-ml-7"
+
+        S8 ->
+            Tailwind "-ml-8"
+
+        S9 ->
+            Tailwind "-ml-9"
+
+        S10 ->
+            Tailwind "-ml-10"
+
+        S11 ->
+            Tailwind "-ml-11"
+
+        S12 ->
+            Tailwind "-ml-12"
+
+        S14 ->
+            Tailwind "-ml-14"
+
+        S16 ->
+            Tailwind "-ml-16"
+
+        S20 ->
+            Tailwind "-ml-20"
+
+        S24 ->
+            Tailwind "-ml-24"
+
+        S28 ->
+            Tailwind "-ml-28"
+
+        S32 ->
+            Tailwind "-ml-32"
+
+        S36 ->
+            Tailwind "-ml-36"
+
+        S40 ->
+            Tailwind "-ml-40"
+
+        S44 ->
+            Tailwind "-ml-44"
+
+        S48 ->
+            Tailwind "-ml-48"
+
+        S52 ->
+            Tailwind "-ml-52"
+
+        S56 ->
+            Tailwind "-ml-56"
+
+        S60 ->
+            Tailwind "-ml-60"
+
+        S64 ->
+            Tailwind "-ml-64"
+
+        S72 ->
+            Tailwind "-ml-72"
+
+        S80 ->
+            Tailwind "-ml-80"
+
+        S96 ->
+            Tailwind "-ml-96"
 
 {-| -}
 gap : Spacing -> Tailwind
 gap spacing =
-    Tailwind ("gap-" ++ spacingToString spacing)
+    case spacing of
+        S0 ->
+            Tailwind "gap-0"
 
+        Spx ->
+            Tailwind "gap-px"
+
+        S0_dot_5 ->
+            Tailwind "gap-0.5"
+
+        S1 ->
+            Tailwind "gap-1"
+
+        S1_dot_5 ->
+            Tailwind "gap-1.5"
+
+        S2 ->
+            Tailwind "gap-2"
+
+        S2_dot_5 ->
+            Tailwind "gap-2.5"
+
+        S3 ->
+            Tailwind "gap-3"
+
+        S3_dot_5 ->
+            Tailwind "gap-3.5"
+
+        S4 ->
+            Tailwind "gap-4"
+
+        S5 ->
+            Tailwind "gap-5"
+
+        S6 ->
+            Tailwind "gap-6"
+
+        S7 ->
+            Tailwind "gap-7"
+
+        S8 ->
+            Tailwind "gap-8"
+
+        S9 ->
+            Tailwind "gap-9"
+
+        S10 ->
+            Tailwind "gap-10"
+
+        S11 ->
+            Tailwind "gap-11"
+
+        S12 ->
+            Tailwind "gap-12"
+
+        S14 ->
+            Tailwind "gap-14"
+
+        S16 ->
+            Tailwind "gap-16"
+
+        S20 ->
+            Tailwind "gap-20"
+
+        S24 ->
+            Tailwind "gap-24"
+
+        S28 ->
+            Tailwind "gap-28"
+
+        S32 ->
+            Tailwind "gap-32"
+
+        S36 ->
+            Tailwind "gap-36"
+
+        S40 ->
+            Tailwind "gap-40"
+
+        S44 ->
+            Tailwind "gap-44"
+
+        S48 ->
+            Tailwind "gap-48"
+
+        S52 ->
+            Tailwind "gap-52"
+
+        S56 ->
+            Tailwind "gap-56"
+
+        S60 ->
+            Tailwind "gap-60"
+
+        S64 ->
+            Tailwind "gap-64"
+
+        S72 ->
+            Tailwind "gap-72"
+
+        S80 ->
+            Tailwind "gap-80"
+
+        S96 ->
+            Tailwind "gap-96"
 
 {-| -}
 gap_x : Spacing -> Tailwind
 gap_x spacing =
-    Tailwind ("gap-x-" ++ spacingToString spacing)
+    case spacing of
+        S0 ->
+            Tailwind "gap-x-0"
 
+        Spx ->
+            Tailwind "gap-x-px"
+
+        S0_dot_5 ->
+            Tailwind "gap-x-0.5"
+
+        S1 ->
+            Tailwind "gap-x-1"
+
+        S1_dot_5 ->
+            Tailwind "gap-x-1.5"
+
+        S2 ->
+            Tailwind "gap-x-2"
+
+        S2_dot_5 ->
+            Tailwind "gap-x-2.5"
+
+        S3 ->
+            Tailwind "gap-x-3"
+
+        S3_dot_5 ->
+            Tailwind "gap-x-3.5"
+
+        S4 ->
+            Tailwind "gap-x-4"
+
+        S5 ->
+            Tailwind "gap-x-5"
+
+        S6 ->
+            Tailwind "gap-x-6"
+
+        S7 ->
+            Tailwind "gap-x-7"
+
+        S8 ->
+            Tailwind "gap-x-8"
+
+        S9 ->
+            Tailwind "gap-x-9"
+
+        S10 ->
+            Tailwind "gap-x-10"
+
+        S11 ->
+            Tailwind "gap-x-11"
+
+        S12 ->
+            Tailwind "gap-x-12"
+
+        S14 ->
+            Tailwind "gap-x-14"
+
+        S16 ->
+            Tailwind "gap-x-16"
+
+        S20 ->
+            Tailwind "gap-x-20"
+
+        S24 ->
+            Tailwind "gap-x-24"
+
+        S28 ->
+            Tailwind "gap-x-28"
+
+        S32 ->
+            Tailwind "gap-x-32"
+
+        S36 ->
+            Tailwind "gap-x-36"
+
+        S40 ->
+            Tailwind "gap-x-40"
+
+        S44 ->
+            Tailwind "gap-x-44"
+
+        S48 ->
+            Tailwind "gap-x-48"
+
+        S52 ->
+            Tailwind "gap-x-52"
+
+        S56 ->
+            Tailwind "gap-x-56"
+
+        S60 ->
+            Tailwind "gap-x-60"
+
+        S64 ->
+            Tailwind "gap-x-64"
+
+        S72 ->
+            Tailwind "gap-x-72"
+
+        S80 ->
+            Tailwind "gap-x-80"
+
+        S96 ->
+            Tailwind "gap-x-96"
 
 {-| -}
 gap_y : Spacing -> Tailwind
 gap_y spacing =
-    Tailwind ("gap-y-" ++ spacingToString spacing)
+    case spacing of
+        S0 ->
+            Tailwind "gap-y-0"
+
+        Spx ->
+            Tailwind "gap-y-px"
+
+        S0_dot_5 ->
+            Tailwind "gap-y-0.5"
+
+        S1 ->
+            Tailwind "gap-y-1"
+
+        S1_dot_5 ->
+            Tailwind "gap-y-1.5"
+
+        S2 ->
+            Tailwind "gap-y-2"
+
+        S2_dot_5 ->
+            Tailwind "gap-y-2.5"
+
+        S3 ->
+            Tailwind "gap-y-3"
+
+        S3_dot_5 ->
+            Tailwind "gap-y-3.5"
+
+        S4 ->
+            Tailwind "gap-y-4"
+
+        S5 ->
+            Tailwind "gap-y-5"
+
+        S6 ->
+            Tailwind "gap-y-6"
+
+        S7 ->
+            Tailwind "gap-y-7"
+
+        S8 ->
+            Tailwind "gap-y-8"
+
+        S9 ->
+            Tailwind "gap-y-9"
+
+        S10 ->
+            Tailwind "gap-y-10"
+
+        S11 ->
+            Tailwind "gap-y-11"
+
+        S12 ->
+            Tailwind "gap-y-12"
+
+        S14 ->
+            Tailwind "gap-y-14"
+
+        S16 ->
+            Tailwind "gap-y-16"
+
+        S20 ->
+            Tailwind "gap-y-20"
+
+        S24 ->
+            Tailwind "gap-y-24"
+
+        S28 ->
+            Tailwind "gap-y-28"
+
+        S32 ->
+            Tailwind "gap-y-32"
+
+        S36 ->
+            Tailwind "gap-y-36"
+
+        S40 ->
+            Tailwind "gap-y-40"
+
+        S44 ->
+            Tailwind "gap-y-44"
+
+        S48 ->
+            Tailwind "gap-y-48"
+
+        S52 ->
+            Tailwind "gap-y-52"
+
+        S56 ->
+            Tailwind "gap-y-56"
+
+        S60 ->
+            Tailwind "gap-y-60"
+
+        S64 ->
+            Tailwind "gap-y-64"
+
+        S72 ->
+            Tailwind "gap-y-72"
+
+        S80 ->
+            Tailwind "gap-y-80"
+
+        S96 ->
+            Tailwind "gap-y-96"
 
 
 -- SIZING

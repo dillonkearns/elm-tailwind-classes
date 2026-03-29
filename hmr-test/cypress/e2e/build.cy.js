@@ -72,3 +72,16 @@ describe('Production build', () => {
     })
   })
 })
+
+describe('Bundle size', () => {
+  it('reports JS bundle size', () => {
+    cy.visit('/')
+    // Log the JS asset size from the page's script tags
+    cy.get('script[src*="index-"]').invoke('attr', 'src').then((src) => {
+      cy.request(src).then((resp) => {
+        const kb = (resp.body.length / 1024).toFixed(1)
+        cy.log(`JS bundle: ${kb} KB`)
+      })
+    })
+  })
+})

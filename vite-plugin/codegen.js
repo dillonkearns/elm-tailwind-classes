@@ -130,6 +130,39 @@ function toElmName(className) {
   return name;
 }
 
+// Tailwind's default spacing scale — used by both Tailwind.elm and Theme.elm
+const spacingScale = [
+  '0', 'px', '0.5', '1', '1.5', '2', '2.5', '3', '3.5', '4', '5', '6', '7', '8', '9', '10',
+  '11', '12', '14', '16', '20', '24', '28', '32', '36', '40', '44', '48', '52', '56', '60',
+  '64', '72', '80', '96'
+];
+
+// Generate a spacing function with case expression using complete string literals.
+// This makes class names like "p-4" visible to Tailwind's JS scanner.
+function spacingCaseFunction(elmName, cssPrefix, spacingScale) {
+  const cases = spacingScale.map(v => {
+    const constructor = 'S' + toElmName(v).replace(/^n/, '');
+    return `        ${constructor} ->\n            Tailwind "${cssPrefix}${v}"`;
+  });
+  return `
+${elmName} : Spacing -> Tailwind
+${elmName} spacing =
+    case spacing of
+${cases.join('\n\n')}`;
+}
+
+// Generate all spacing functions (p, px, py, m, mx, gap, etc.)
+function generateSpacingFunctions(spacingScale) {
+  const spacingUtils = [
+    ['p', 'p-'], ['px', 'px-'], ['py', 'py-'], ['pt', 'pt-'], ['pr', 'pr-'], ['pb', 'pb-'], ['pl', 'pl-'],
+    ['m', 'm-'], ['mx', 'mx-'], ['my', 'my-'], ['mt', 'mt-'], ['mr', 'mr-'], ['mb', 'mb-'], ['ml', 'ml-'],
+    ['neg_m', '-m-'], ['neg_mx', '-mx-'], ['neg_my', '-my-'], ['neg_mt', '-mt-'],
+    ['neg_mr', '-mr-'], ['neg_mb', '-mb-'], ['neg_ml', '-ml-'],
+    ['gap', 'gap-'], ['gap_x', 'gap-x-'], ['gap_y', 'gap-y-'],
+  ];
+  return spacingUtils.map(([name, prefix]) => spacingCaseFunction(name, prefix, spacingScale)).join('\n');
+}
+
 // Extract a clean one-line CSS doc comment from candidatesToCss output.
 function cssDocComment(css, fallback) {
   if (!css) return fallback;
@@ -344,7 +377,7 @@ Use \`classes\` to convert a list of Tailwind values to an \`Html.Attribute\`.
 
 import Html exposing (Attribute)
 import Html.Attributes
-import Tailwind.Theme exposing (Color, SimpleColor(..), Spacing, colorToString, spacingToString)
+import Tailwind.Theme exposing (Color, SimpleColor(..), Spacing(..), colorToString, spacingToString)
 
 
 {-| A type representing a Tailwind CSS class or set of classes.
@@ -434,125 +467,10 @@ toClassName (Tailwind className) =
 
 
 -- SPACING (parameterized)
+-- Each case branch uses a complete string literal so Tailwind's CSS scanner
+-- can find class names like "p-4" directly in the compiled JS output.
 
-p : Spacing -> Tailwind
-p spacing =
-    Tailwind ("p-" ++ spacingToString spacing)
-
-
-px : Spacing -> Tailwind
-px spacing =
-    Tailwind ("px-" ++ spacingToString spacing)
-
-
-py : Spacing -> Tailwind
-py spacing =
-    Tailwind ("py-" ++ spacingToString spacing)
-
-
-pt : Spacing -> Tailwind
-pt spacing =
-    Tailwind ("pt-" ++ spacingToString spacing)
-
-
-pr : Spacing -> Tailwind
-pr spacing =
-    Tailwind ("pr-" ++ spacingToString spacing)
-
-
-pb : Spacing -> Tailwind
-pb spacing =
-    Tailwind ("pb-" ++ spacingToString spacing)
-
-
-pl : Spacing -> Tailwind
-pl spacing =
-    Tailwind ("pl-" ++ spacingToString spacing)
-
-
-m : Spacing -> Tailwind
-m spacing =
-    Tailwind ("m-" ++ spacingToString spacing)
-
-
-mx : Spacing -> Tailwind
-mx spacing =
-    Tailwind ("mx-" ++ spacingToString spacing)
-
-
-my : Spacing -> Tailwind
-my spacing =
-    Tailwind ("my-" ++ spacingToString spacing)
-
-
-mt : Spacing -> Tailwind
-mt spacing =
-    Tailwind ("mt-" ++ spacingToString spacing)
-
-
-mr : Spacing -> Tailwind
-mr spacing =
-    Tailwind ("mr-" ++ spacingToString spacing)
-
-
-mb : Spacing -> Tailwind
-mb spacing =
-    Tailwind ("mb-" ++ spacingToString spacing)
-
-
-ml : Spacing -> Tailwind
-ml spacing =
-    Tailwind ("ml-" ++ spacingToString spacing)
-
-
-neg_m : Spacing -> Tailwind
-neg_m spacing =
-    Tailwind ("-m-" ++ spacingToString spacing)
-
-
-neg_mx : Spacing -> Tailwind
-neg_mx spacing =
-    Tailwind ("-mx-" ++ spacingToString spacing)
-
-
-neg_my : Spacing -> Tailwind
-neg_my spacing =
-    Tailwind ("-my-" ++ spacingToString spacing)
-
-
-neg_mt : Spacing -> Tailwind
-neg_mt spacing =
-    Tailwind ("-mt-" ++ spacingToString spacing)
-
-
-neg_mr : Spacing -> Tailwind
-neg_mr spacing =
-    Tailwind ("-mr-" ++ spacingToString spacing)
-
-
-neg_mb : Spacing -> Tailwind
-neg_mb spacing =
-    Tailwind ("-mb-" ++ spacingToString spacing)
-
-
-neg_ml : Spacing -> Tailwind
-neg_ml spacing =
-    Tailwind ("-ml-" ++ spacingToString spacing)
-
-
-gap : Spacing -> Tailwind
-gap spacing =
-    Tailwind ("gap-" ++ spacingToString spacing)
-
-
-gap_x : Spacing -> Tailwind
-gap_x spacing =
-    Tailwind ("gap-x-" ++ spacingToString spacing)
-
-
-gap_y : Spacing -> Tailwind
-gap_y spacing =
-    Tailwind ("gap-y-" ++ spacingToString spacing)
+${generateSpacingFunctions(spacingScale)}
 
 
 -- SIZING
@@ -881,11 +799,7 @@ ${elmName} =
   });
   const simpleColorExports = simpleColors.map(c => toElmName(c));
 
-  const spacingScale = [
-    '0', 'px', '0.5', '1', '1.5', '2', '2.5', '3', '3.5', '4', '5', '6', '7', '8', '9', '10',
-    '11', '12', '14', '16', '20', '24', '28', '32', '36', '40', '44', '48', '52', '56', '60',
-    '64', '72', '80', '96'
-  ];
+  // spacingScale is defined at module scope
 
   const spacingConstructors = spacingScale.map(v => {
     return 'S' + toElmName(v).replace(/^n/, '');
