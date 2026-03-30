@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-03-30
+
+### Changed
+
+- **Fast HMR (~5s faster per change).** Eliminated elm-review extraction during HMR. The codegen now generates `@source inline()` CSS directives at startup that pre-declare all parameterized class combinations (spacing, colors, variants). Tailwind's scanner handles new static utilities from the compiled JS, and `@source inline()` covers parameterized ones — no re-extraction needed. Extraction still runs once at startup and for production builds.
+
 ## [0.5.1] - 2026-03-29
 
 ### Fixed
@@ -106,7 +112,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - **Zero config** - just add the Vite plugin and start coding
 - Support for `Tw.raw` escape hatch for custom classes
 
-[Unreleased]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.5.1...HEAD
+[Unreleased]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.6.0...HEAD
+[0.6.0]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.5.1...v0.6.0
 [0.5.1]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.5.0...v0.5.1
 [0.5.0]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.3.0...v0.4.0
