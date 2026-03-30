@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.6.1] - 2026-03-30
+
+### Fixed
+
+- Pin `tailwind-resolver` to 0.3.5 to avoid broken 0.3.8 release that causes `Export 'u1' is not defined in module` errors.
+
 ## [0.6.0] - 2026-03-30
 
 ### Changed
@@ -112,7 +118,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - **Zero config** - just add the Vite plugin and start coding
 - Support for `Tw.raw` escape hatch for custom classes
 
-[Unreleased]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.6.0...HEAD
+[Unreleased]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.6.1...HEAD
+[0.6.1]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.6.0...v0.6.1
 [0.6.0]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.5.1...v0.6.0
 [0.5.1]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.5.0...v0.5.1
 [0.5.0]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.4.0...v0.5.0
