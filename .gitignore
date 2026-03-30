@@ -8,3 +8,4 @@ hmr-test/.elm-tailwind/
 hmr-test/cypress/screenshots/
 hmr-test/cypress/videos/
 docs.json
+hmr-test/dist/
