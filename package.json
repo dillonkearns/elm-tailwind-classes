@@ -1,6 +1,6 @@
 {
   "name": "elm-tailwind-classes",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "Type-safe Tailwind CSS for Elm with static class extraction",
   "type": "module",
   "main": "./vite-plugin/index.js",
@@ -17,9 +17,10 @@
     "extractor/elm.json"
   ],
   "scripts": {
-    "test": "npm run test:unit && npm run test:golden && npm run test:build && npm run test:hmr",
+    "test": "npm run test:unit && npm run test:golden && npm run test:build && npm run test:hmr && npm run test:css-subdir",
     "test:hmr": "./bin/hmr-test",
     "test:build": "./bin/build-test",
+    "test:css-subdir": "./bin/css-subdirectory-test",
     "test:unit": "cd extractor && npx elm-test",
     "test:golden": "./bin/approve",
     "test:extract": "cd examples && npx elm-review --extract --report=json --config ../extractor | node -e \"const d=require('fs').readFileSync(0,'utf8');const j=JSON.parse(d);console.log(j.extracts?.TailwindExtractor?.classes?.length+' classes')\"",

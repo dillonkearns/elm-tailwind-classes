@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+set -o errexit
+cd "$(dirname "${BASH_SOURCE[0]}")/.."
+
+echo "=== Installing test dependencies ==="
+cd hmr-test
+npm install --ignore-scripts 2>&1
+
+echo ""
+echo "=== Running CSS subdirectory regression test ==="
+# This test doesn't need a running server — it tests codegen directly
+RESULT=0
+CYPRESS_BASE_URL="" npx cypress run --e2e --browser chrome --spec "cypress/e2e/css-subdirectory.cy.js" 2>&1 || RESULT=$?
+
+if [ $RESULT -ne 0 ]; then
+  echo ""
+  echo "FAILURE: CSS subdirectory test failed"
+  exit 1
+fi
+
+echo ""
+echo "=== CSS subdirectory test passed ==="
+cd ..

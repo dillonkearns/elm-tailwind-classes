@@ -27,6 +27,10 @@ async function loadDesignSystem(cssPath) {
     const cssContent = fs.readFileSync(path.resolve(cssPath), 'utf8');
 
     const ds = await __unstable__loadDesignSystem(cssContent, {
+      // Tell Tailwind where the CSS content originated so that relative
+      // @import paths (e.g. @import "print.css") resolve from the CSS
+      // file's directory, not from process.cwd().
+      base: cssDir,
       loadStylesheet: async (id, base) => {
         let resolved;
         if (id === 'tailwindcss') resolved = path.join(twDir, 'index.css');
