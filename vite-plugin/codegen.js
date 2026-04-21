@@ -139,6 +139,170 @@ function toElmName(className) {
   return name;
 }
 
+const spacingValues = [
+  '0', 'px', '0.5', '1', '1.5', '2', '2.5', '3', '3.5', '4', '5', '6', '7', '8', '9', '10',
+  '11', '12', '14', '16', '20', '24', '28', '32', '36', '40', '44', '48', '52', '56', '60',
+  '64', '72', '80', '96'
+];
+
+const spacingFamilies = [
+  ['p', 'p'],
+  ['px', 'px'],
+  ['py', 'py'],
+  ['ps', 'ps'],
+  ['pe', 'pe'],
+  ['pbs', 'pbs'],
+  ['pbe', 'pbe'],
+  ['pt', 'pt'],
+  ['pr', 'pr'],
+  ['pb', 'pb'],
+  ['pl', 'pl'],
+  ['m', 'm'],
+  ['mx', 'mx'],
+  ['my', 'my'],
+  ['ms', 'ms'],
+  ['me', 'me'],
+  ['mbs', 'mbs'],
+  ['mbe', 'mbe'],
+  ['mt', 'mt'],
+  ['mr', 'mr'],
+  ['mb', 'mb'],
+  ['ml', 'ml'],
+  ['neg_m', '-m'],
+  ['neg_mx', '-mx'],
+  ['neg_my', '-my'],
+  ['neg_ms', '-ms'],
+  ['neg_me', '-me'],
+  ['neg_mbs', '-mbs'],
+  ['neg_mbe', '-mbe'],
+  ['neg_mt', '-mt'],
+  ['neg_mr', '-mr'],
+  ['neg_mb', '-mb'],
+  ['neg_ml', '-ml'],
+  ['gap', 'gap'],
+  ['gap_x', 'gap-x'],
+  ['gap_y', 'gap-y'],
+  ['space_x', 'space-x'],
+  ['space_y', 'space-y'],
+  ['neg_space_x', '-space-x'],
+  ['neg_space_y', '-space-y'],
+  ['leading', 'leading'],
+  ['indent', 'indent'],
+  ['neg_indent', '-indent'],
+  ['inset', 'inset'],
+  ['inset_x', 'inset-x'],
+  ['inset_y', 'inset-y'],
+  ['inset_s', 'inset-s'],
+  ['inset_e', 'inset-e'],
+  ['inset_bs', 'inset-bs'],
+  ['inset_be', 'inset-be'],
+  ['neg_inset', '-inset'],
+  ['neg_inset_x', '-inset-x'],
+  ['neg_inset_y', '-inset-y'],
+  ['neg_inset_s', '-inset-s'],
+  ['neg_inset_e', '-inset-e'],
+  ['neg_inset_bs', '-inset-bs'],
+  ['neg_inset_be', '-inset-be'],
+  ['top', 'top'],
+  ['right', 'right'],
+  ['bottom', 'bottom'],
+  ['left', 'left'],
+  ['neg_top', '-top'],
+  ['neg_right', '-right'],
+  ['neg_bottom', '-bottom'],
+  ['neg_left', '-left'],
+  ['scroll_m', 'scroll-m'],
+  ['scroll_mx', 'scroll-mx'],
+  ['scroll_my', 'scroll-my'],
+  ['scroll_ms', 'scroll-ms'],
+  ['scroll_me', 'scroll-me'],
+  ['scroll_mbs', 'scroll-mbs'],
+  ['scroll_mbe', 'scroll-mbe'],
+  ['scroll_mt', 'scroll-mt'],
+  ['scroll_mr', 'scroll-mr'],
+  ['scroll_mb', 'scroll-mb'],
+  ['scroll_ml', 'scroll-ml'],
+  ['neg_scroll_m', '-scroll-m'],
+  ['neg_scroll_mx', '-scroll-mx'],
+  ['neg_scroll_my', '-scroll-my'],
+  ['neg_scroll_ms', '-scroll-ms'],
+  ['neg_scroll_me', '-scroll-me'],
+  ['neg_scroll_mbs', '-scroll-mbs'],
+  ['neg_scroll_mbe', '-scroll-mbe'],
+  ['neg_scroll_mt', '-scroll-mt'],
+  ['neg_scroll_mr', '-scroll-mr'],
+  ['neg_scroll_mb', '-scroll-mb'],
+  ['neg_scroll_ml', '-scroll-ml'],
+  ['scroll_p', 'scroll-p'],
+  ['scroll_px', 'scroll-px'],
+  ['scroll_py', 'scroll-py'],
+  ['scroll_ps', 'scroll-ps'],
+  ['scroll_pe', 'scroll-pe'],
+  ['scroll_pbs', 'scroll-pbs'],
+  ['scroll_pbe', 'scroll-pbe'],
+  ['scroll_pt', 'scroll-pt'],
+  ['scroll_pr', 'scroll-pr'],
+  ['scroll_pb', 'scroll-pb'],
+  ['scroll_pl', 'scroll-pl'],
+];
+
+const sizingFamilies = [
+  ['size', 'size'],
+  ['w', 'w'],
+  ['h', 'h'],
+  ['min_w', 'min-w'],
+  ['max_w', 'max-w'],
+  ['min_h', 'min-h'],
+  ['max_h', 'max-h'],
+];
+
+const colorFamilies = [
+  ['text', 'text'],
+  ['bg', 'bg'],
+  ['border', 'border'],
+  ['ring', 'ring'],
+  ['inset_ring', 'inset-ring'],
+  ['ring_offset', 'ring-offset'],
+  ['placeholder', 'placeholder'],
+  ['decoration', 'decoration'],
+  ['accent', 'accent'],
+  ['caret', 'caret'],
+  ['divide', 'divide'],
+  ['fill', 'fill'],
+  ['stroke', 'stroke'],
+  ['outline', 'outline'],
+  ['shadow', 'shadow'],
+  ['inset_shadow', 'inset-shadow'],
+  ['drop_shadow', 'drop-shadow'],
+  ['text_shadow', 'text-shadow'],
+  ['from', 'from'],
+  ['via', 'via'],
+  ['to', 'to'],
+];
+
+const requiredSimpleColors = ['black', 'white', 'transparent', 'current', 'inherit'];
+
+function spacingFunction(name, prefix) {
+  return `
+${name} : Spacing -> Tailwind
+${name} spacing =
+    Tailwind ("${prefix}-" ++ spacingToString spacing)`;
+}
+
+function colorFunction(name, prefix) {
+  return `
+${name}_color : Color -> Tailwind
+${name}_color color =
+    Tailwind ("${prefix}-" ++ colorToString color)`;
+}
+
+function simpleColorFunction(name, prefix) {
+  return `
+${name}_simple : SimpleColor -> Tailwind
+${name}_simple (SimpleColor c) =
+    Tailwind ("${prefix}-" ++ c)`;
+}
+
 /**
  * Generate @source inline() CSS directives for all parameterized class combinations.
  * These cover classes that use string concatenation in the compiled Elm JS output
@@ -146,21 +310,9 @@ function toElmName(className) {
  * Used during dev to avoid running elm-review extraction on every HMR cycle.
  */
 function generateSourceInlines(theme, designSystem) {
-  const spacingValues = [
-    '0', 'px', '0.5', '1', '1.5', '2', '2.5', '3', '3.5', '4', '5', '6', '7', '8', '9', '10',
-    '11', '12', '14', '16', '20', '24', '28', '32', '36', '40', '44', '48', '52', '56', '60',
-    '64', '72', '80', '96'
-  ];
+  const spacingPrefixes = spacingFamilies.map(([, prefix]) => prefix);
 
-  const spacingPrefixes = [
-    'p', 'px', 'py', 'pt', 'pr', 'pb', 'pl',
-    'm', 'mx', 'my', 'mt', 'mr', 'mb', 'ml',
-    '-m', '-mx', '-my', '-mt', '-mr', '-mb', '-ml',
-    'gap', 'gap-x', 'gap-y',
-    'w', 'h', 'min-w', 'max-w', 'min-h', 'max-h',
-  ];
-
-  const colorPrefixes = ['text', 'bg', 'border', 'ring', 'placeholder'];
+  const colorPrefixes = colorFamilies.map(([, prefix]) => prefix);
 
   const lines = [];
 
@@ -206,12 +358,7 @@ function generateTailwindWithUtilities(theme, designSystem) {
   const shadowSizes = Object.keys(theme.shadows || {}).filter(k => k !== 'default');
 
   // Build exports
-  const spacingExports = [
-    'p', 'px', 'py', 'pt', 'pr', 'pb', 'pl',
-    'm', 'mx', 'my', 'mt', 'mr', 'mb', 'ml',
-    'neg_m', 'neg_mx', 'neg_my', 'neg_mt', 'neg_mr', 'neg_mb', 'neg_ml',
-    'gap', 'gap_x', 'gap_y'
-  ];
+  const spacingExports = spacingFamilies.map(([name]) => name);
 
   const widthFractions = [
     '1/2', '1/3', '2/3', '1/4', '2/4', '3/4',
@@ -226,7 +373,8 @@ function generateTailwindWithUtilities(theme, designSystem) {
   const sizingExports = [
     'w', ...widthFractionExports, 'w_full', 'w_screen', 'w_auto', 'w_min', 'w_max', 'w_fit',
     'h', ...heightFractionExports, 'h_full', 'h_screen', 'h_auto', 'h_min', 'h_max', 'h_fit',
-    'min_w', 'max_w', 'min_h', 'max_h'
+    'min_w', 'max_w', 'min_h', 'max_h',
+    'size'
   ];
 
   const fontSizeExports = fontSizes.map(size => `text_${toElmName(size)}`);
@@ -236,10 +384,7 @@ function generateTailwindWithUtilities(theme, designSystem) {
 
   const shadowExports = shadowSizes.map(size => `shadow_${toElmName(size)}`);
 
-  const colorUtilExports = [
-    'text_color', 'bg_color', 'border_color', 'ring_color', 'placeholder_color',
-    'text_simple', 'bg_simple', 'border_simple'
-  ];
+  const colorUtilExports = colorFamilies.flatMap(([name]) => [`${name}_color`, `${name}_simple`]);
 
   const opacityExports = [
     'opacity_0', 'opacity_5', 'opacity_10', 'opacity_20', 'opacity_25', 'opacity_30', 'opacity_40',
@@ -358,6 +503,10 @@ shadow_${toElmName(size)} : Tailwind
 shadow_${toElmName(size)} =
     Tailwind "shadow-${size}"`);
 
+  const sizingFunctionDefs = sizingFamilies.map(([name, prefix]) => {
+    return spacingFunction(name, prefix);
+  });
+
   const widthFractionDefs = widthFractions.map(f => {
     const elmName = 'w_' + f.replace('/', 'over');
     return `
@@ -373,6 +522,10 @@ ${elmName} : Tailwind
 ${elmName} =
     Tailwind "h-${f}"`;
   });
+
+  const spacingFunctionDefs = spacingFamilies.map(([name, prefix]) => spacingFunction(name, prefix));
+  const colorFunctionDefs = colorFamilies.map(([name, prefix]) => colorFunction(name, prefix));
+  const simpleColorFunctionDefs = colorFamilies.map(([name, prefix]) => simpleColorFunction(name, prefix));
 
   const module = `module Tailwind exposing
     ( Tailwind(..)
@@ -492,133 +645,11 @@ toClassName (Tailwind className) =
 
 
 -- SPACING (parameterized)
-
-p : Spacing -> Tailwind
-p spacing =
-    Tailwind ("p-" ++ spacingToString spacing)
-
-
-px : Spacing -> Tailwind
-px spacing =
-    Tailwind ("px-" ++ spacingToString spacing)
-
-
-py : Spacing -> Tailwind
-py spacing =
-    Tailwind ("py-" ++ spacingToString spacing)
-
-
-pt : Spacing -> Tailwind
-pt spacing =
-    Tailwind ("pt-" ++ spacingToString spacing)
-
-
-pr : Spacing -> Tailwind
-pr spacing =
-    Tailwind ("pr-" ++ spacingToString spacing)
-
-
-pb : Spacing -> Tailwind
-pb spacing =
-    Tailwind ("pb-" ++ spacingToString spacing)
-
-
-pl : Spacing -> Tailwind
-pl spacing =
-    Tailwind ("pl-" ++ spacingToString spacing)
-
-
-m : Spacing -> Tailwind
-m spacing =
-    Tailwind ("m-" ++ spacingToString spacing)
-
-
-mx : Spacing -> Tailwind
-mx spacing =
-    Tailwind ("mx-" ++ spacingToString spacing)
-
-
-my : Spacing -> Tailwind
-my spacing =
-    Tailwind ("my-" ++ spacingToString spacing)
-
-
-mt : Spacing -> Tailwind
-mt spacing =
-    Tailwind ("mt-" ++ spacingToString spacing)
-
-
-mr : Spacing -> Tailwind
-mr spacing =
-    Tailwind ("mr-" ++ spacingToString spacing)
-
-
-mb : Spacing -> Tailwind
-mb spacing =
-    Tailwind ("mb-" ++ spacingToString spacing)
-
-
-ml : Spacing -> Tailwind
-ml spacing =
-    Tailwind ("ml-" ++ spacingToString spacing)
-
-
-neg_m : Spacing -> Tailwind
-neg_m spacing =
-    Tailwind ("-m-" ++ spacingToString spacing)
-
-
-neg_mx : Spacing -> Tailwind
-neg_mx spacing =
-    Tailwind ("-mx-" ++ spacingToString spacing)
-
-
-neg_my : Spacing -> Tailwind
-neg_my spacing =
-    Tailwind ("-my-" ++ spacingToString spacing)
-
-
-neg_mt : Spacing -> Tailwind
-neg_mt spacing =
-    Tailwind ("-mt-" ++ spacingToString spacing)
-
-
-neg_mr : Spacing -> Tailwind
-neg_mr spacing =
-    Tailwind ("-mr-" ++ spacingToString spacing)
-
-
-neg_mb : Spacing -> Tailwind
-neg_mb spacing =
-    Tailwind ("-mb-" ++ spacingToString spacing)
-
-
-neg_ml : Spacing -> Tailwind
-neg_ml spacing =
-    Tailwind ("-ml-" ++ spacingToString spacing)
-
-
-gap : Spacing -> Tailwind
-gap spacing =
-    Tailwind ("gap-" ++ spacingToString spacing)
-
-
-gap_x : Spacing -> Tailwind
-gap_x spacing =
-    Tailwind ("gap-x-" ++ spacingToString spacing)
-
-
-gap_y : Spacing -> Tailwind
-gap_y spacing =
-    Tailwind ("gap-y-" ++ spacingToString spacing)
+${spacingFunctionDefs.join('\n')}
 
 
 -- SIZING
-
-w : Spacing -> Tailwind
-w spacing =
-    Tailwind ("w-" ++ spacingToString spacing)
-
+${sizingFunctionDefs.join('\n')}
 ${widthFractionDefs.join('\n')}
 
 
@@ -651,11 +682,6 @@ w_fit : Tailwind
 w_fit =
     Tailwind "w-fit"
 
-
-h : Spacing -> Tailwind
-h spacing =
-    Tailwind ("h-" ++ spacingToString spacing)
-
 ${heightFractionDefs.join('\n')}
 
 
@@ -673,7 +699,6 @@ h_auto : Tailwind
 h_auto =
     Tailwind "h-auto"
 
-
 h_min : Tailwind
 h_min =
     Tailwind "h-min"
@@ -683,30 +708,9 @@ h_max : Tailwind
 h_max =
     Tailwind "h-max"
 
-
 h_fit : Tailwind
 h_fit =
     Tailwind "h-fit"
-
-
-min_w : Spacing -> Tailwind
-min_w spacing =
-    Tailwind ("min-w-" ++ spacingToString spacing)
-
-
-max_w : Spacing -> Tailwind
-max_w spacing =
-    Tailwind ("max-w-" ++ spacingToString spacing)
-
-
-min_h : Spacing -> Tailwind
-min_h spacing =
-    Tailwind ("min-h-" ++ spacingToString spacing)
-
-
-max_h : Spacing -> Tailwind
-max_h spacing =
-    Tailwind ("max-h-" ++ spacingToString spacing)
 
 
 -- FONT SIZE
@@ -726,45 +730,9 @@ ${shadowFunctions.join('\n')}
 
 
 -- COLOR UTILITIES
+${colorFunctionDefs.join('\n')}
 
-text_color : Color -> Tailwind
-text_color color =
-    Tailwind ("text-" ++ colorToString color)
-
-
-bg_color : Color -> Tailwind
-bg_color color =
-    Tailwind ("bg-" ++ colorToString color)
-
-
-border_color : Color -> Tailwind
-border_color color =
-    Tailwind ("border-" ++ colorToString color)
-
-
-ring_color : Color -> Tailwind
-ring_color color =
-    Tailwind ("ring-" ++ colorToString color)
-
-
-placeholder_color : Color -> Tailwind
-placeholder_color color =
-    Tailwind ("placeholder-" ++ colorToString color)
-
-
-text_simple : SimpleColor -> Tailwind
-text_simple (SimpleColor c) =
-    Tailwind ("text-" ++ c)
-
-
-bg_simple : SimpleColor -> Tailwind
-bg_simple (SimpleColor c) =
-    Tailwind ("bg-" ++ c)
-
-
-border_simple : SimpleColor -> Tailwind
-border_simple (SimpleColor c) =
-    Tailwind ("border-" ++ c)
+${simpleColorFunctionDefs.join('\n')}
 
 
 -- OPACITY
@@ -904,6 +872,12 @@ function generateTheme(theme) {
     }
   }
 
+  for (const colorName of requiredSimpleColors) {
+    if (!simpleColors.includes(colorName)) {
+      simpleColors.push(colorName);
+    }
+  }
+
   const shadeScale = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950'];
 
   // Colors are now functions that take a shade
@@ -939,19 +913,13 @@ ${elmName} =
   });
   const simpleColorExports = simpleColors.map(c => toElmName(c));
 
-  const spacingScale = [
-    '0', 'px', '0.5', '1', '1.5', '2', '2.5', '3', '3.5', '4', '5', '6', '7', '8', '9', '10',
-    '11', '12', '14', '16', '20', '24', '28', '32', '36', '40', '44', '48', '52', '56', '60',
-    '64', '72', '80', '96'
-  ];
-
-  const spacingConstructors = spacingScale.map(v => {
+  const spacingConstructors = spacingValues.map(v => {
     return 'S' + toElmName(v).replace(/^n/, '');
   });
 
   const spacingValueDefs = [];
   const spacingValueExports = [];
-  for (const v of spacingScale) {
+  for (const v of spacingValues) {
     const constructorName = 'S' + toElmName(v).replace(/^n/, '');
     const valueName = 's' + toElmName(v).replace(/^n/, '');
     spacingValueExports.push(valueName);
@@ -963,7 +931,7 @@ ${valueName} =
     ${constructorName}`);
   }
 
-  const spacingCases = spacingScale.map(v => {
+  const spacingCases = spacingValues.map(v => {
     const constructorName = 'S' + toElmName(v).replace(/^n/, '');
     return `        ${constructorName} ->\n            "${v}"`;
   });

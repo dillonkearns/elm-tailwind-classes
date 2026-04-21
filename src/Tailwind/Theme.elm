@@ -43,6 +43,9 @@ module Tailwind.Theme exposing
     , s950
     , black
     , white
+    , transparent
+    , current
+    , inherit
     , s0
     , spx
     , s0_dot_5
@@ -121,7 +124,7 @@ Colors that take a shade parameter. Usage: `text_color (blue s500)`
 
 Colors without shades. Usage: `text_simple white`
 
-@docs SimpleColor, black, white
+@docs SimpleColor, black, white, transparent, current, inherit
 
 
 ## Spacing
@@ -614,6 +617,24 @@ black =
 white : SimpleColor
 white =
     SimpleColor "white"
+
+{-| Simple color: transparent
+-}
+transparent : SimpleColor
+transparent =
+    SimpleColor "transparent"
+
+{-| Simple color: current
+-}
+current : SimpleColor
+current =
+    SimpleColor "current"
+
+{-| Simple color: inherit
+-}
+inherit : SimpleColor
+inherit =
+    SimpleColor "inherit"
 
 
 -- SPACING VALUES
