@@ -413,7 +413,7 @@ isColorFunction name =
 -}
 isSimpleColorFunction : String -> Bool
 isSimpleColorFunction name =
-    List.member name [ "text_simple", "bg_simple", "border_simple" ]
+    Dict.member name simpleColorFunctions
 
 
 {-| Get the CSS prefix for a color function.
@@ -428,18 +428,8 @@ colorFunctionPrefix funcName =
 -}
 simpleColorFunctionPrefix : String -> String
 simpleColorFunctionPrefix funcName =
-    case funcName of
-        "text_simple" ->
-            "text-"
-
-        "bg_simple" ->
-            "bg-"
-
-        "border_simple" ->
-            "border-"
-
-        _ ->
-            ""
+    Dict.get funcName simpleColorFunctions
+        |> Maybe.withDefault ""
 
 
 {-| Extract from a color application like (blue s500).
@@ -549,6 +539,12 @@ dataExtractor classes =
 -- CLASSES
 
 
+{-| Color utilities that take a shaded `Color` value.
+
+Kept in sync with `colorFamilies` in vite-plugin/codegen.js: every entry
+emitted by the codegen must have a corresponding extractor entry, or
+production builds will silently drop the class.
+-}
 colorFunctions : Dict String String
 colorFunctions =
     Dict.fromList
@@ -556,7 +552,53 @@ colorFunctions =
         , ( "bg_color", "bg-" )
         , ( "border_color", "border-" )
         , ( "ring_color", "ring-" )
+        , ( "inset_ring_color", "inset-ring-" )
+        , ( "ring_offset_color", "ring-offset-" )
         , ( "placeholder_color", "placeholder-" )
+        , ( "decoration_color", "decoration-" )
+        , ( "accent_color", "accent-" )
+        , ( "caret_color", "caret-" )
+        , ( "divide_color", "divide-" )
+        , ( "fill_color", "fill-" )
+        , ( "stroke_color", "stroke-" )
+        , ( "outline_color", "outline-" )
+        , ( "shadow_color", "shadow-" )
+        , ( "inset_shadow_color", "inset-shadow-" )
+        , ( "drop_shadow_color", "drop-shadow-" )
+        , ( "text_shadow_color", "text-shadow-" )
+        , ( "from_color", "from-" )
+        , ( "via_color", "via-" )
+        , ( "to_color", "to-" )
+        ]
+
+
+{-| Simple-color utilities that take an unshaded `SimpleColor`. Same
+families as `colorFunctions`, paired with their `_simple` variants.
+-}
+simpleColorFunctions : Dict String String
+simpleColorFunctions =
+    Dict.fromList
+        [ ( "text_simple", "text-" )
+        , ( "bg_simple", "bg-" )
+        , ( "border_simple", "border-" )
+        , ( "ring_simple", "ring-" )
+        , ( "inset_ring_simple", "inset-ring-" )
+        , ( "ring_offset_simple", "ring-offset-" )
+        , ( "placeholder_simple", "placeholder-" )
+        , ( "decoration_simple", "decoration-" )
+        , ( "accent_simple", "accent-" )
+        , ( "caret_simple", "caret-" )
+        , ( "divide_simple", "divide-" )
+        , ( "fill_simple", "fill-" )
+        , ( "stroke_simple", "stroke-" )
+        , ( "outline_simple", "outline-" )
+        , ( "shadow_simple", "shadow-" )
+        , ( "inset_shadow_simple", "inset-shadow-" )
+        , ( "drop_shadow_simple", "drop-shadow-" )
+        , ( "text_shadow_simple", "text-shadow-" )
+        , ( "from_simple", "from-" )
+        , ( "via_simple", "via-" )
+        , ( "to_simple", "to-" )
         ]
 
 
