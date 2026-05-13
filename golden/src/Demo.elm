@@ -21,7 +21,26 @@ This file exercises various Tailwind patterns:
 import Html exposing (Html, button, div, h1, p, text)
 import Tailwind as Tw exposing (classes, raw)
 import Tailwind.Breakpoints exposing (focus, hover, lg, md)
-import Tailwind.Theme exposing (blue, brand, gray, s2, s4, s6, s8, s100, s500, s600, s800, s900, white)
+import Tailwind.Theme
+    exposing
+        ( blue
+        , brand
+        , gray
+        , navigation_header_background
+        , palette_accent_40
+        , s100
+        , s2
+        , s4
+        , s500
+        , s6
+        , s600
+        , s8
+        , s800
+        , s900
+        , semantic_on_primary
+        , semantic_primary
+        , white
+        )
 
 
 main : Html msg
@@ -129,4 +148,22 @@ main =
                 ]
                 [ text "Custom brand color from theme" ]
             ]
+        , div
+            [ classes
+                [ Tw.mt s4
+                , Tw.p s4
+                , Tw.bg_simple semantic_primary
+                , Tw.text_simple semantic_on_primary
+                , Tw.border_simple palette_accent_40
+                , Tw.rounded_lg
+                ]
+            ]
+            [ p [] [ text "Multi-segment semantic colors (regression cover)" ] ]
+        , div
+            [ classes
+                [ Tw.bg_simple navigation_header_background
+                , Tw.p s2
+                ]
+            ]
+            [ text "navigation-header-background" ]
         ]

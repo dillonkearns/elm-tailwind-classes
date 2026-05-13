@@ -13,11 +13,13 @@
   },
   "files": [
     "vite-plugin/",
+    "!vite-plugin/__tests__/",
     "extractor/src/",
     "extractor/elm.json"
   ],
   "scripts": {
-    "test": "npm run test:unit && npm run test:golden && npm run test:build && npm run test:hmr && npm run test:css-subdir",
+    "test": "npm run test:unit && npm run test:codegen && npm run test:golden && npm run test:build && npm run test:hmr && npm run test:css-subdir",
+    "test:codegen": "node --test vite-plugin/__tests__/*.test.mjs",
     "test:hmr": "./bin/hmr-test",
     "test:build": "./bin/build-test",
     "test:css-subdir": "./bin/css-subdirectory-test",

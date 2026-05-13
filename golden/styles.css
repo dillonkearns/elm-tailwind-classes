@@ -18,4 +18,13 @@
   --color-brand-800: #0c4a6e;
   --color-brand-900: #082f49;
   --color-brand-950: #0a1e2f;
+
+  /* Multi-segment custom colors — exercise the codegen path that walks
+     non-standard nested theme.colors structures (see issue: custom CSS
+     variables not appearing in Tailwind/Theme.elm). */
+  --color-palette-accent-40: #4040d4;
+  --color-palette-accent-60: #8080f0;
+  --color-semantic-primary: var(--color-palette-accent-40);
+  --color-semantic-on-primary: #ffffff;
+  --color-navigation-header-background: var(--color-palette-accent-60);
 }
