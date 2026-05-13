@@ -602,37 +602,132 @@ simpleColorFunctions =
         ]
 
 
+{-| Utilities that take a `Spacing` value.
+
+Kept in sync with `spacingFamilies` + `sizingFamilies` in
+vite-plugin/codegen.js. Adding a new family in the codegen without
+adding it here means the generated Elm function works at runtime but
+its class never reaches Tailwind in production builds.
+-}
 spacingClasses : Dict.Dict String String
 spacingClasses =
     Dict.fromList
-        [ ( "p", "p" )
+        [ -- Padding
+          ( "p", "p" )
         , ( "px", "px" )
         , ( "py", "py" )
+        , ( "ps", "ps" )
+        , ( "pe", "pe" )
+        , ( "pbs", "pbs" )
+        , ( "pbe", "pbe" )
         , ( "pt", "pt" )
         , ( "pr", "pr" )
         , ( "pb", "pb" )
         , ( "pl", "pl" )
+
+        -- Margin
         , ( "m", "m" )
         , ( "mx", "mx" )
         , ( "my", "my" )
+        , ( "ms", "ms" )
+        , ( "me", "me" )
+        , ( "mbs", "mbs" )
+        , ( "mbe", "mbe" )
         , ( "mt", "mt" )
         , ( "mr", "mr" )
         , ( "mb", "mb" )
         , ( "ml", "ml" )
-        , ( "gap", "gap" )
-        , ( "gap_x", "gap-x" )
-        , ( "gap_y", "gap-y" )
-        , ( "w", "w" )
-        , ( "h", "h" )
-        , ( "min_w", "min-w" )
-        , ( "max_w", "max-w" )
-        , ( "min_h", "min-h" )
-        , ( "max_h", "max-h" )
         , ( "neg_m", "-m" )
         , ( "neg_mx", "-mx" )
         , ( "neg_my", "-my" )
+        , ( "neg_ms", "-ms" )
+        , ( "neg_me", "-me" )
+        , ( "neg_mbs", "-mbs" )
+        , ( "neg_mbe", "-mbe" )
         , ( "neg_mt", "-mt" )
         , ( "neg_mr", "-mr" )
         , ( "neg_mb", "-mb" )
         , ( "neg_ml", "-ml" )
+
+        -- Gap / inter-child spacing
+        , ( "gap", "gap" )
+        , ( "gap_x", "gap-x" )
+        , ( "gap_y", "gap-y" )
+        , ( "space_x", "space-x" )
+        , ( "space_y", "space-y" )
+        , ( "neg_space_x", "-space-x" )
+        , ( "neg_space_y", "-space-y" )
+
+        -- Sizing
+        , ( "w", "w" )
+        , ( "h", "h" )
+        , ( "size", "size" )
+        , ( "min_w", "min-w" )
+        , ( "max_w", "max-w" )
+        , ( "min_h", "min-h" )
+        , ( "max_h", "max-h" )
+
+        -- Typography
+        , ( "leading", "leading" )
+        , ( "indent", "indent" )
+        , ( "neg_indent", "-indent" )
+
+        -- Inset / positional
+        , ( "inset", "inset" )
+        , ( "inset_x", "inset-x" )
+        , ( "inset_y", "inset-y" )
+        , ( "inset_s", "inset-s" )
+        , ( "inset_e", "inset-e" )
+        , ( "inset_bs", "inset-bs" )
+        , ( "inset_be", "inset-be" )
+        , ( "neg_inset", "-inset" )
+        , ( "neg_inset_x", "-inset-x" )
+        , ( "neg_inset_y", "-inset-y" )
+        , ( "neg_inset_s", "-inset-s" )
+        , ( "neg_inset_e", "-inset-e" )
+        , ( "neg_inset_bs", "-inset-bs" )
+        , ( "neg_inset_be", "-inset-be" )
+        , ( "top", "top" )
+        , ( "right", "right" )
+        , ( "bottom", "bottom" )
+        , ( "left", "left" )
+        , ( "neg_top", "-top" )
+        , ( "neg_right", "-right" )
+        , ( "neg_bottom", "-bottom" )
+        , ( "neg_left", "-left" )
+
+        -- Scroll margin / padding
+        , ( "scroll_m", "scroll-m" )
+        , ( "scroll_mx", "scroll-mx" )
+        , ( "scroll_my", "scroll-my" )
+        , ( "scroll_ms", "scroll-ms" )
+        , ( "scroll_me", "scroll-me" )
+        , ( "scroll_mbs", "scroll-mbs" )
+        , ( "scroll_mbe", "scroll-mbe" )
+        , ( "scroll_mt", "scroll-mt" )
+        , ( "scroll_mr", "scroll-mr" )
+        , ( "scroll_mb", "scroll-mb" )
+        , ( "scroll_ml", "scroll-ml" )
+        , ( "neg_scroll_m", "-scroll-m" )
+        , ( "neg_scroll_mx", "-scroll-mx" )
+        , ( "neg_scroll_my", "-scroll-my" )
+        , ( "neg_scroll_ms", "-scroll-ms" )
+        , ( "neg_scroll_me", "-scroll-me" )
+        , ( "neg_scroll_mbs", "-scroll-mbs" )
+        , ( "neg_scroll_mbe", "-scroll-mbe" )
+        , ( "neg_scroll_mt", "-scroll-mt" )
+        , ( "neg_scroll_mr", "-scroll-mr" )
+        , ( "neg_scroll_mb", "-scroll-mb" )
+        , ( "neg_scroll_ml", "-scroll-ml" )
+        , ( "scroll_p", "scroll-p" )
+        , ( "scroll_px", "scroll-px" )
+        , ( "scroll_py", "scroll-py" )
+        , ( "scroll_ps", "scroll-ps" )
+        , ( "scroll_pe", "scroll-pe" )
+        , ( "scroll_pbs", "scroll-pbs" )
+        , ( "scroll_pbe", "scroll-pbe" )
+        , ( "scroll_pt", "scroll-pt" )
+        , ( "scroll_pr", "scroll-pr" )
+        , ( "scroll_pb", "scroll-pb" )
+        , ( "scroll_pl", "scroll-pl" )
         ]
