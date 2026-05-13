@@ -189,6 +189,206 @@ view = Tw.text_simple Theme.brand_palette_primary_14
 """
                     |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
                     |> Review.Test.expectDataExtract """{"classes":["text-brand-palette-primary-14"]}"""
+        , test "extracts decoration_color (blue s500) as decoration-blue-500" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind as Tw
+import Tailwind.Theme as Theme
+
+view = Tw.decoration_color (Theme.blue Theme.s500)
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["decoration-blue-500"]}"""
+        , test "extracts accent_color (red s400) as accent-red-400" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind as Tw
+import Tailwind.Theme as Theme
+
+view = Tw.accent_color (Theme.red Theme.s400)
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["accent-red-400"]}"""
+        , test "extracts caret_color (gray s900) as caret-gray-900" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind as Tw
+import Tailwind.Theme as Theme
+
+view = Tw.caret_color (Theme.gray Theme.s900)
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["caret-gray-900"]}"""
+        , test "extracts fill_color (sky s500) as fill-sky-500" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind as Tw
+import Tailwind.Theme as Theme
+
+view = Tw.fill_color (Theme.sky Theme.s500)
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["fill-sky-500"]}"""
+        , test "extracts shadow_color (blue s500) as shadow-blue-500" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind as Tw
+import Tailwind.Theme as Theme
+
+view = Tw.shadow_color (Theme.blue Theme.s500)
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["shadow-blue-500"]}"""
+        , test "extracts from_color/via_color/to_color for gradients" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind as Tw
+import Tailwind.Theme as Theme
+
+view = [ Tw.from_color (Theme.blue Theme.s400), Tw.via_color (Theme.blue Theme.s600), Tw.to_color (Theme.blue Theme.s900) ]
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["from-blue-400","to-blue-900","via-blue-600"]}"""
+        , test "extracts accent_simple white as accent-white" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind as Tw
+import Tailwind.Theme as Theme
+
+view = Tw.accent_simple Theme.white
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["accent-white"]}"""
+        , test "extracts decoration_simple transparent as decoration-transparent" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind as Tw
+import Tailwind.Theme as Theme
+
+view = Tw.decoration_simple Theme.transparent
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["decoration-transparent"]}"""
+        , test "extracts ring_simple current as ring-current" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind as Tw
+import Tailwind.Theme as Theme
+
+view = Tw.ring_simple Theme.current
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["ring-current"]}"""
+        , test "extracts leading Theme.s9 as leading-9" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind as Tw
+import Tailwind.Theme as Theme
+
+view = Tw.leading Theme.s9
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["leading-9"]}"""
+        , test "extracts top/right/bottom/left positional utilities" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind as Tw
+import Tailwind.Theme as Theme
+
+view = [ Tw.top Theme.s4, Tw.right Theme.s2, Tw.bottom Theme.s4, Tw.left Theme.s2 ]
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["bottom-4","left-2","right-2","top-4"]}"""
+        , test "extracts negative positional utilities" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind as Tw
+import Tailwind.Theme as Theme
+
+view = [ Tw.neg_top Theme.s4, Tw.neg_left Theme.s8 ]
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["-left-8","-top-4"]}"""
+        , test "extracts inset/inset_x/inset_y" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind as Tw
+import Tailwind.Theme as Theme
+
+view = [ Tw.inset Theme.s0, Tw.inset_x Theme.s4, Tw.inset_y Theme.s2 ]
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["inset-0","inset-x-4","inset-y-2"]}"""
+        , test "extracts logical-property inset (inset_s/e/bs/be)" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind as Tw
+import Tailwind.Theme as Theme
+
+view = [ Tw.inset_s Theme.s4, Tw.inset_e Theme.s4, Tw.inset_bs Theme.s4, Tw.inset_be Theme.s4 ]
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["inset-be-4","inset-bs-4","inset-e-4","inset-s-4"]}"""
+        , test "extracts size Theme.s8 as size-8" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind as Tw
+import Tailwind.Theme as Theme
+
+view = Tw.size Theme.s8
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["size-8"]}"""
+        , test "extracts space_x/space_y" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind as Tw
+import Tailwind.Theme as Theme
+
+view = [ Tw.space_x Theme.s2, Tw.space_y Theme.s4, Tw.neg_space_x Theme.s1 ]
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["-space-x-1","space-x-2","space-y-4"]}"""
+        , test "extracts indent and neg_indent" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind as Tw
+import Tailwind.Theme as Theme
+
+view = [ Tw.indent Theme.s4, Tw.neg_indent Theme.s2 ]
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["-indent-2","indent-4"]}"""
+        , test "extracts logical-property padding (ps/pe/pbs/pbe)" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind as Tw
+import Tailwind.Theme as Theme
+
+view = [ Tw.ps Theme.s4, Tw.pe Theme.s4, Tw.pbs Theme.s2, Tw.pbe Theme.s2 ]
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["pbe-2","pbs-2","pe-4","ps-4"]}"""
+        , test "extracts logical-property margin (ms/me/mbs/mbe + negative)" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind as Tw
+import Tailwind.Theme as Theme
+
+view = [ Tw.ms Theme.s4, Tw.me Theme.s4, Tw.mbs Theme.s2, Tw.mbe Theme.s2, Tw.neg_ms Theme.s1 ]
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["-ms-1","mbe-2","mbs-2","me-4","ms-4"]}"""
+        , test "extracts scroll margin/padding utilities" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind as Tw
+import Tailwind.Theme as Theme
+
+view = [ Tw.scroll_m Theme.s4, Tw.scroll_px Theme.s2, Tw.neg_scroll_mt Theme.s1 ]
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["-scroll-mt-1","scroll-m-4","scroll-px-2"]}"""
         ]
 
 

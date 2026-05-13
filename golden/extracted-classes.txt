@@ -1,3 +1,4 @@
+accent-transparent
 bg-blue-500
 bg-brand-100
 bg-gray-100
@@ -9,6 +10,7 @@ border-brand-500
 border-palette-accent-40
 content-auto
 custom-utility
+decoration-red-400
 flex
 focus:shadow-lg
 font-bold
@@ -16,10 +18,13 @@ font-semibold
 gap-4
 h-screen
 hover:bg-blue-600
+indent-4
 items-center
+leading-9
 lg:text-lg
 line-clamp-2
 mb-4
+mbs-2
 md:text-base
 mt-4
 mt-6
@@ -28,10 +33,14 @@ p-4
 p-8
 prose
 prose-lg
+ps-4
 px-4
 py-2
 rounded-lg
+scroll-m-4
 shadow-md
+size-8
+space-y-2
 text-balance
 text-brand-800
 text-gray-600
@@ -40,4 +49,5 @@ text-n3xl
 text-semantic-on-primary
 text-sm
 text-white
+top-4
 transition

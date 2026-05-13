@@ -413,7 +413,7 @@ isColorFunction name =
 -}
 isSimpleColorFunction : String -> Bool
 isSimpleColorFunction name =
-    List.member name [ "text_simple", "bg_simple", "border_simple" ]
+    Dict.member name simpleColorFunctions
 
 
 {-| Get the CSS prefix for a color function.
@@ -428,18 +428,8 @@ colorFunctionPrefix funcName =
 -}
 simpleColorFunctionPrefix : String -> String
 simpleColorFunctionPrefix funcName =
-    case funcName of
-        "text_simple" ->
-            "text-"
-
-        "bg_simple" ->
-            "bg-"
-
-        "border_simple" ->
-            "border-"
-
-        _ ->
-            ""
+    Dict.get funcName simpleColorFunctions
+        |> Maybe.withDefault ""
 
 
 {-| Extract from a color application like (blue s500).
@@ -549,6 +539,12 @@ dataExtractor classes =
 -- CLASSES
 
 
+{-| Color utilities that take a shaded `Color` value.
+
+Kept in sync with `colorFamilies` in vite-plugin/codegen.js: every entry
+emitted by the codegen must have a corresponding extractor entry, or
+production builds will silently drop the class.
+-}
 colorFunctions : Dict String String
 colorFunctions =
     Dict.fromList
@@ -556,41 +552,182 @@ colorFunctions =
         , ( "bg_color", "bg-" )
         , ( "border_color", "border-" )
         , ( "ring_color", "ring-" )
+        , ( "inset_ring_color", "inset-ring-" )
+        , ( "ring_offset_color", "ring-offset-" )
         , ( "placeholder_color", "placeholder-" )
+        , ( "decoration_color", "decoration-" )
+        , ( "accent_color", "accent-" )
+        , ( "caret_color", "caret-" )
+        , ( "divide_color", "divide-" )
+        , ( "fill_color", "fill-" )
+        , ( "stroke_color", "stroke-" )
+        , ( "outline_color", "outline-" )
+        , ( "shadow_color", "shadow-" )
+        , ( "inset_shadow_color", "inset-shadow-" )
+        , ( "drop_shadow_color", "drop-shadow-" )
+        , ( "text_shadow_color", "text-shadow-" )
+        , ( "from_color", "from-" )
+        , ( "via_color", "via-" )
+        , ( "to_color", "to-" )
         ]
 
 
+{-| Simple-color utilities that take an unshaded `SimpleColor`. Same
+families as `colorFunctions`, paired with their `_simple` variants.
+-}
+simpleColorFunctions : Dict String String
+simpleColorFunctions =
+    Dict.fromList
+        [ ( "text_simple", "text-" )
+        , ( "bg_simple", "bg-" )
+        , ( "border_simple", "border-" )
+        , ( "ring_simple", "ring-" )
+        , ( "inset_ring_simple", "inset-ring-" )
+        , ( "ring_offset_simple", "ring-offset-" )
+        , ( "placeholder_simple", "placeholder-" )
+        , ( "decoration_simple", "decoration-" )
+        , ( "accent_simple", "accent-" )
+        , ( "caret_simple", "caret-" )
+        , ( "divide_simple", "divide-" )
+        , ( "fill_simple", "fill-" )
+        , ( "stroke_simple", "stroke-" )
+        , ( "outline_simple", "outline-" )
+        , ( "shadow_simple", "shadow-" )
+        , ( "inset_shadow_simple", "inset-shadow-" )
+        , ( "drop_shadow_simple", "drop-shadow-" )
+        , ( "text_shadow_simple", "text-shadow-" )
+        , ( "from_simple", "from-" )
+        , ( "via_simple", "via-" )
+        , ( "to_simple", "to-" )
+        ]
+
+
+{-| Utilities that take a `Spacing` value.
+
+Kept in sync with `spacingFamilies` + `sizingFamilies` in
+vite-plugin/codegen.js. Adding a new family in the codegen without
+adding it here means the generated Elm function works at runtime but
+its class never reaches Tailwind in production builds.
+-}
 spacingClasses : Dict.Dict String String
 spacingClasses =
     Dict.fromList
-        [ ( "p", "p" )
+        [ -- Padding
+          ( "p", "p" )
         , ( "px", "px" )
         , ( "py", "py" )
+        , ( "ps", "ps" )
+        , ( "pe", "pe" )
+        , ( "pbs", "pbs" )
+        , ( "pbe", "pbe" )
         , ( "pt", "pt" )
         , ( "pr", "pr" )
         , ( "pb", "pb" )
         , ( "pl", "pl" )
+
+        -- Margin
         , ( "m", "m" )
         , ( "mx", "mx" )
         , ( "my", "my" )
+        , ( "ms", "ms" )
+        , ( "me", "me" )
+        , ( "mbs", "mbs" )
+        , ( "mbe", "mbe" )
         , ( "mt", "mt" )
         , ( "mr", "mr" )
         , ( "mb", "mb" )
         , ( "ml", "ml" )
-        , ( "gap", "gap" )
-        , ( "gap_x", "gap-x" )
-        , ( "gap_y", "gap-y" )
-        , ( "w", "w" )
-        , ( "h", "h" )
-        , ( "min_w", "min-w" )
-        , ( "max_w", "max-w" )
-        , ( "min_h", "min-h" )
-        , ( "max_h", "max-h" )
         , ( "neg_m", "-m" )
         , ( "neg_mx", "-mx" )
         , ( "neg_my", "-my" )
+        , ( "neg_ms", "-ms" )
+        , ( "neg_me", "-me" )
+        , ( "neg_mbs", "-mbs" )
+        , ( "neg_mbe", "-mbe" )
         , ( "neg_mt", "-mt" )
         , ( "neg_mr", "-mr" )
         , ( "neg_mb", "-mb" )
         , ( "neg_ml", "-ml" )
+
+        -- Gap / inter-child spacing
+        , ( "gap", "gap" )
+        , ( "gap_x", "gap-x" )
+        , ( "gap_y", "gap-y" )
+        , ( "space_x", "space-x" )
+        , ( "space_y", "space-y" )
+        , ( "neg_space_x", "-space-x" )
+        , ( "neg_space_y", "-space-y" )
+
+        -- Sizing
+        , ( "w", "w" )
+        , ( "h", "h" )
+        , ( "size", "size" )
+        , ( "min_w", "min-w" )
+        , ( "max_w", "max-w" )
+        , ( "min_h", "min-h" )
+        , ( "max_h", "max-h" )
+
+        -- Typography
+        , ( "leading", "leading" )
+        , ( "indent", "indent" )
+        , ( "neg_indent", "-indent" )
+
+        -- Inset / positional
+        , ( "inset", "inset" )
+        , ( "inset_x", "inset-x" )
+        , ( "inset_y", "inset-y" )
+        , ( "inset_s", "inset-s" )
+        , ( "inset_e", "inset-e" )
+        , ( "inset_bs", "inset-bs" )
+        , ( "inset_be", "inset-be" )
+        , ( "neg_inset", "-inset" )
+        , ( "neg_inset_x", "-inset-x" )
+        , ( "neg_inset_y", "-inset-y" )
+        , ( "neg_inset_s", "-inset-s" )
+        , ( "neg_inset_e", "-inset-e" )
+        , ( "neg_inset_bs", "-inset-bs" )
+        , ( "neg_inset_be", "-inset-be" )
+        , ( "top", "top" )
+        , ( "right", "right" )
+        , ( "bottom", "bottom" )
+        , ( "left", "left" )
+        , ( "neg_top", "-top" )
+        , ( "neg_right", "-right" )
+        , ( "neg_bottom", "-bottom" )
+        , ( "neg_left", "-left" )
+
+        -- Scroll margin / padding
+        , ( "scroll_m", "scroll-m" )
+        , ( "scroll_mx", "scroll-mx" )
+        , ( "scroll_my", "scroll-my" )
+        , ( "scroll_ms", "scroll-ms" )
+        , ( "scroll_me", "scroll-me" )
+        , ( "scroll_mbs", "scroll-mbs" )
+        , ( "scroll_mbe", "scroll-mbe" )
+        , ( "scroll_mt", "scroll-mt" )
+        , ( "scroll_mr", "scroll-mr" )
+        , ( "scroll_mb", "scroll-mb" )
+        , ( "scroll_ml", "scroll-ml" )
+        , ( "neg_scroll_m", "-scroll-m" )
+        , ( "neg_scroll_mx", "-scroll-mx" )
+        , ( "neg_scroll_my", "-scroll-my" )
+        , ( "neg_scroll_ms", "-scroll-ms" )
+        , ( "neg_scroll_me", "-scroll-me" )
+        , ( "neg_scroll_mbs", "-scroll-mbs" )
+        , ( "neg_scroll_mbe", "-scroll-mbe" )
+        , ( "neg_scroll_mt", "-scroll-mt" )
+        , ( "neg_scroll_mr", "-scroll-mr" )
+        , ( "neg_scroll_mb", "-scroll-mb" )
+        , ( "neg_scroll_ml", "-scroll-ml" )
+        , ( "scroll_p", "scroll-p" )
+        , ( "scroll_px", "scroll-px" )
+        , ( "scroll_py", "scroll-py" )
+        , ( "scroll_ps", "scroll-ps" )
+        , ( "scroll_pe", "scroll-pe" )
+        , ( "scroll_pbs", "scroll-pbs" )
+        , ( "scroll_pbe", "scroll-pbe" )
+        , ( "scroll_pt", "scroll-pt" )
+        , ( "scroll_pr", "scroll-pr" )
+        , ( "scroll_pb", "scroll-pb" )
+        , ( "scroll_pl", "scroll-pl" )
         ]

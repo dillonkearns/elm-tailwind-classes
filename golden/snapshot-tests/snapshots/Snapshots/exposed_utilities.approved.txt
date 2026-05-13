@@ -1,5 +1,7 @@
 absolute : Tailwind
 accent_auto : Tailwind
+accent_color : Color -> Tailwind
+accent_simple : SimpleColor -> Tailwind
 align_baseline : Tailwind
 align_bottom : Tailwind
 align_middle : Tailwind
@@ -270,6 +272,7 @@ border_y_0 : Tailwind
 border_y_2 : Tailwind
 border_y_4 : Tailwind
 border_y_8 : Tailwind
+bottom : Spacing -> Tailwind
 bottom_auto : Tailwind
 bottom_full : Tailwind
 bottom_px : Tailwind
@@ -316,6 +319,8 @@ buttonStyles : Tailwind
 capitalize : Tailwind
 caption_bottom : Tailwind
 caption_top : Tailwind
+caret_color : Color -> Tailwind
+caret_simple : SimpleColor -> Tailwind
 classes : List Tailwind -> Attribute msg
 clear_both : Tailwind
 clear_end : Tailwind
@@ -451,10 +456,12 @@ decoration_1 : Tailwind
 decoration_2 : Tailwind
 decoration_auto : Tailwind
 decoration_clone : Tailwind
+decoration_color : Color -> Tailwind
 decoration_dashed : Tailwind
 decoration_dotted : Tailwind
 decoration_double : Tailwind
 decoration_from_font : Tailwind
+decoration_simple : SimpleColor -> Tailwind
 decoration_slice : Tailwind
 decoration_solid : Tailwind
 decoration_wavy : Tailwind
@@ -467,10 +474,12 @@ delay_500 : Tailwind
 delay_700 : Tailwind
 delay_75 : Tailwind
 diagonal_fractions : Tailwind
+divide_color : Color -> Tailwind
 divide_dashed : Tailwind
 divide_dotted : Tailwind
 divide_double : Tailwind
 divide_none : Tailwind
+divide_simple : SimpleColor -> Tailwind
 divide_solid : Tailwind
 divide_x : Tailwind
 divide_x_0 : Tailwind
@@ -486,9 +495,11 @@ divide_y_8 : Tailwind
 divide_y_reverse : Tailwind
 drop_shadow : Tailwind
 drop_shadow_2xl : Tailwind
+drop_shadow_color : Color -> Tailwind
 drop_shadow_lg : Tailwind
 drop_shadow_md : Tailwind
 drop_shadow_none : Tailwind
+drop_shadow_simple : SimpleColor -> Tailwind
 drop_shadow_sm : Tailwind
 drop_shadow_xl : Tailwind
 drop_shadow_xs : Tailwind
@@ -512,7 +523,9 @@ end_full : Tailwind
 end_px : Tailwind
 field_sizing_content : Tailwind
 field_sizing_fixed : Tailwind
+fill_color : Color -> Tailwind
 fill_none : Tailwind
+fill_simple : SimpleColor -> Tailwind
 filter : Tailwind
 fixed : Tailwind
 flex : Tailwind
@@ -569,6 +582,8 @@ font_stretch_ultra_expanded : Tailwind
 font_thin : Tailwind
 forced_color_adjust_auto : Tailwind
 forced_color_adjust_none : Tailwind
+from_color : Color -> Tailwind
+from_simple : SimpleColor -> Tailwind
 gap : Spacing -> Tailwind
 gap_px : Tailwind
 gap_x : Spacing -> Tailwind
@@ -668,6 +683,7 @@ hue_rotate_90 : Tailwind
 hyphens_auto : Tailwind
 hyphens_manual : Tailwind
 hyphens_none : Tailwind
+indent : Spacing -> Tailwind
 indent_px : Tailwind
 inline : Tailwind
 inline_auto : Tailwind
@@ -684,13 +700,17 @@ inline_px : Tailwind
 inline_screen : Tailwind
 inline_svw : Tailwind
 inline_table : Tailwind
+inset : Spacing -> Tailwind
 inset_auto : Tailwind
+inset_be : Spacing -> Tailwind
 inset_be_auto : Tailwind
 inset_be_full : Tailwind
 inset_be_px : Tailwind
+inset_bs : Spacing -> Tailwind
 inset_bs_auto : Tailwind
 inset_bs_full : Tailwind
 inset_bs_px : Tailwind
+inset_e : Spacing -> Tailwind
 inset_e_auto : Tailwind
 inset_e_full : Tailwind
 inset_e_px : Tailwind
@@ -702,17 +722,24 @@ inset_ring_1 : Tailwind
 inset_ring_2 : Tailwind
 inset_ring_4 : Tailwind
 inset_ring_8 : Tailwind
+inset_ring_color : Color -> Tailwind
+inset_ring_simple : SimpleColor -> Tailwind
+inset_s : Spacing -> Tailwind
 inset_s_auto : Tailwind
 inset_s_full : Tailwind
 inset_s_px : Tailwind
 inset_shadow_2xs : Tailwind
+inset_shadow_color : Color -> Tailwind
 inset_shadow_initial : Tailwind
 inset_shadow_none : Tailwind
+inset_shadow_simple : SimpleColor -> Tailwind
 inset_shadow_sm : Tailwind
 inset_shadow_xs : Tailwind
+inset_x : Spacing -> Tailwind
 inset_x_auto : Tailwind
 inset_x_full : Tailwind
 inset_x_px : Tailwind
+inset_y : Spacing -> Tailwind
 inset_y_auto : Tailwind
 inset_y_full : Tailwind
 inset_y_px : Tailwind
@@ -759,6 +786,7 @@ justify_self_start : Tailwind
 justify_self_stretch : Tailwind
 justify_start : Tailwind
 justify_stretch : Tailwind
+leading : Spacing -> Tailwind
 leading_loose : Tailwind
 leading_none : Tailwind
 leading_normal : Tailwind
@@ -766,6 +794,7 @@ leading_px : Tailwind
 leading_relaxed : Tailwind
 leading_snug : Tailwind
 leading_tight : Tailwind
+left : Spacing -> Tailwind
 left_auto : Tailwind
 left_full : Tailwind
 left_px : Tailwind
@@ -916,10 +945,13 @@ max_w_svw : Tailwind
 mb : Spacing -> Tailwind
 mb_auto : Tailwind
 mb_px : Tailwind
+mbe : Spacing -> Tailwind
 mbe_auto : Tailwind
 mbe_px : Tailwind
+mbs : Spacing -> Tailwind
 mbs_auto : Tailwind
 mbs_px : Tailwind
+me : Spacing -> Tailwind
 me_auto : Tailwind
 me_px : Tailwind
 min_block_auto : Tailwind
@@ -996,6 +1028,7 @@ ml_px : Tailwind
 mr : Spacing -> Tailwind
 mr_auto : Tailwind
 mr_px : Tailwind
+ms : Spacing -> Tailwind
 ms_auto : Tailwind
 ms_px : Tailwind
 mt : Spacing -> Tailwind
@@ -1008,39 +1041,53 @@ my : Spacing -> Tailwind
 my_auto : Tailwind
 my_px : Tailwind
 neg_bg_conic : Tailwind
+neg_bottom : Spacing -> Tailwind
 neg_bottom_full : Tailwind
 neg_bottom_px : Tailwind
 neg_end : Tailwind
 neg_end_full : Tailwind
 neg_end_px : Tailwind
+neg_indent : Spacing -> Tailwind
 neg_indent_px : Tailwind
+neg_inset : Spacing -> Tailwind
+neg_inset_be : Spacing -> Tailwind
 neg_inset_be_full : Tailwind
 neg_inset_be_px : Tailwind
+neg_inset_bs : Spacing -> Tailwind
 neg_inset_bs_full : Tailwind
 neg_inset_bs_px : Tailwind
+neg_inset_e : Spacing -> Tailwind
 neg_inset_e_full : Tailwind
 neg_inset_e_px : Tailwind
 neg_inset_full : Tailwind
 neg_inset_px : Tailwind
+neg_inset_s : Spacing -> Tailwind
 neg_inset_s_full : Tailwind
 neg_inset_s_px : Tailwind
+neg_inset_x : Spacing -> Tailwind
 neg_inset_x_full : Tailwind
 neg_inset_x_px : Tailwind
+neg_inset_y : Spacing -> Tailwind
 neg_inset_y_full : Tailwind
 neg_inset_y_px : Tailwind
+neg_left : Spacing -> Tailwind
 neg_left_full : Tailwind
 neg_left_px : Tailwind
 neg_m : Spacing -> Tailwind
 neg_m_px : Tailwind
 neg_mb : Spacing -> Tailwind
 neg_mb_px : Tailwind
+neg_mbe : Spacing -> Tailwind
 neg_mbe_px : Tailwind
+neg_mbs : Spacing -> Tailwind
 neg_mbs_px : Tailwind
+neg_me : Spacing -> Tailwind
 neg_me_px : Tailwind
 neg_ml : Spacing -> Tailwind
 neg_ml_px : Tailwind
 neg_mr : Spacing -> Tailwind
 neg_mr_px : Tailwind
+neg_ms : Spacing -> Tailwind
 neg_ms_px : Tailwind
 neg_mt : Spacing -> Tailwind
 neg_mt_px : Tailwind
@@ -1048,24 +1095,39 @@ neg_mx : Spacing -> Tailwind
 neg_mx_px : Tailwind
 neg_my : Spacing -> Tailwind
 neg_my_px : Tailwind
+neg_right : Spacing -> Tailwind
 neg_right_full : Tailwind
 neg_right_px : Tailwind
+neg_scroll_m : Spacing -> Tailwind
 neg_scroll_m_px : Tailwind
+neg_scroll_mb : Spacing -> Tailwind
 neg_scroll_mb_px : Tailwind
+neg_scroll_mbe : Spacing -> Tailwind
 neg_scroll_mbe_px : Tailwind
+neg_scroll_mbs : Spacing -> Tailwind
 neg_scroll_mbs_px : Tailwind
+neg_scroll_me : Spacing -> Tailwind
 neg_scroll_me_px : Tailwind
+neg_scroll_ml : Spacing -> Tailwind
 neg_scroll_ml_px : Tailwind
+neg_scroll_mr : Spacing -> Tailwind
 neg_scroll_mr_px : Tailwind
+neg_scroll_ms : Spacing -> Tailwind
 neg_scroll_ms_px : Tailwind
+neg_scroll_mt : Spacing -> Tailwind
 neg_scroll_mt_px : Tailwind
+neg_scroll_mx : Spacing -> Tailwind
 neg_scroll_mx_px : Tailwind
+neg_scroll_my : Spacing -> Tailwind
 neg_scroll_my_px : Tailwind
+neg_space_x : Spacing -> Tailwind
 neg_space_x_px : Tailwind
+neg_space_y : Spacing -> Tailwind
 neg_space_y_px : Tailwind
 neg_start : Tailwind
 neg_start_full : Tailwind
 neg_start_px : Tailwind
+neg_top : Spacing -> Tailwind
 neg_top_full : Tailwind
 neg_top_px : Tailwind
 neg_translate_full : Tailwind
@@ -1145,6 +1207,7 @@ outline_1 : Tailwind
 outline_2 : Tailwind
 outline_4 : Tailwind
 outline_8 : Tailwind
+outline_color : Color -> Tailwind
 outline_dashed : Tailwind
 outline_dotted : Tailwind
 outline_double : Tailwind
@@ -1155,6 +1218,7 @@ outline_offset_1 : Tailwind
 outline_offset_2 : Tailwind
 outline_offset_4 : Tailwind
 outline_offset_8 : Tailwind
+outline_simple : SimpleColor -> Tailwind
 outline_solid : Tailwind
 overflow_auto : Tailwind
 overflow_clip : Tailwind
@@ -1186,8 +1250,11 @@ p : Spacing -> Tailwind
 p_px : Tailwind
 pb : Spacing -> Tailwind
 pb_px : Tailwind
+pbe : Spacing -> Tailwind
 pbe_px : Tailwind
+pbs : Spacing -> Tailwind
 pbs_px : Tailwind
+pe : Spacing -> Tailwind
 pe_px : Tailwind
 perspective_distant : Tailwind
 perspective_dramatic : Tailwind
@@ -1231,6 +1298,7 @@ place_self_end_safe : Tailwind
 place_self_start : Tailwind
 place_self_stretch : Tailwind
 placeholder_color : Color -> Tailwind
+placeholder_simple : SimpleColor -> Tailwind
 pointer_events_auto : Tailwind
 pointer_events_none : Tailwind
 pr : Spacing -> Tailwind
@@ -1265,6 +1333,7 @@ prose_violet : Tailwind
 prose_xl : Tailwind
 prose_yellow : Tailwind
 prose_zinc : Tailwind
+ps : Spacing -> Tailwind
 ps_px : Tailwind
 pt : Spacing -> Tailwind
 pt_px : Tailwind
@@ -1278,6 +1347,7 @@ resize : Tailwind
 resize_none : Tailwind
 resize_x : Tailwind
 resize_y : Tailwind
+right : Spacing -> Tailwind
 right_auto : Tailwind
 right_full : Tailwind
 right_px : Tailwind
@@ -1294,6 +1364,9 @@ ring_offset_1 : Tailwind
 ring_offset_2 : Tailwind
 ring_offset_4 : Tailwind
 ring_offset_8 : Tailwind
+ring_offset_color : Color -> Tailwind
+ring_offset_simple : SimpleColor -> Tailwind
+ring_simple : SimpleColor -> Tailwind
 rotate_0 : Tailwind
 rotate_1 : Tailwind
 rotate_12 : Tailwind
@@ -1599,27 +1672,49 @@ scheme_normal : Tailwind
 scheme_only_dark : Tailwind
 scheme_only_light : Tailwind
 scroll_auto : Tailwind
+scroll_m : Spacing -> Tailwind
 scroll_m_px : Tailwind
+scroll_mb : Spacing -> Tailwind
 scroll_mb_px : Tailwind
+scroll_mbe : Spacing -> Tailwind
 scroll_mbe_px : Tailwind
+scroll_mbs : Spacing -> Tailwind
 scroll_mbs_px : Tailwind
+scroll_me : Spacing -> Tailwind
 scroll_me_px : Tailwind
+scroll_ml : Spacing -> Tailwind
 scroll_ml_px : Tailwind
+scroll_mr : Spacing -> Tailwind
 scroll_mr_px : Tailwind
+scroll_ms : Spacing -> Tailwind
 scroll_ms_px : Tailwind
+scroll_mt : Spacing -> Tailwind
 scroll_mt_px : Tailwind
+scroll_mx : Spacing -> Tailwind
 scroll_mx_px : Tailwind
+scroll_my : Spacing -> Tailwind
 scroll_my_px : Tailwind
+scroll_p : Spacing -> Tailwind
 scroll_p_px : Tailwind
+scroll_pb : Spacing -> Tailwind
 scroll_pb_px : Tailwind
+scroll_pbe : Spacing -> Tailwind
 scroll_pbe_px : Tailwind
+scroll_pbs : Spacing -> Tailwind
 scroll_pbs_px : Tailwind
+scroll_pe : Spacing -> Tailwind
 scroll_pe_px : Tailwind
+scroll_pl : Spacing -> Tailwind
 scroll_pl_px : Tailwind
+scroll_pr : Spacing -> Tailwind
 scroll_pr_px : Tailwind
+scroll_ps : Spacing -> Tailwind
 scroll_ps_px : Tailwind
+scroll_pt : Spacing -> Tailwind
 scroll_pt_px : Tailwind
+scroll_px : Spacing -> Tailwind
 scroll_px_px : Tailwind
+scroll_py : Spacing -> Tailwind
 scroll_py_px : Tailwind
 scroll_smooth : Tailwind
 select_all : Tailwind
@@ -1642,6 +1737,7 @@ sepia_50 : Tailwind
 shadow : Tailwind
 shadow_2xl : Tailwind
 shadow_2xs : Tailwind
+shadow_color : Color -> Tailwind
 shadow_initial : Tailwind
 shadow_inner : Tailwind
 shadow_lg : Tailwind
@@ -1649,11 +1745,13 @@ shadow_md : Tailwind
 shadow_n2xl : Tailwind
 shadow_n2xs : Tailwind
 shadow_none : Tailwind
+shadow_simple : SimpleColor -> Tailwind
 shadow_sm : Tailwind
 shadow_xl : Tailwind
 shadow_xs : Tailwind
 shrink : Tailwind
 shrink_0 : Tailwind
+size : Spacing -> Tailwind
 size_auto : Tailwind
 size_dvh : Tailwind
 size_dvw : Tailwind
@@ -1697,8 +1795,10 @@ snap_proximity : Tailwind
 snap_start : Tailwind
 snap_x : Tailwind
 snap_y : Tailwind
+space_x : Spacing -> Tailwind
 space_x_px : Tailwind
 space_x_reverse : Tailwind
+space_y : Spacing -> Tailwind
 space_y_px : Tailwind
 space_y_reverse : Tailwind
 sr_only : Tailwind
@@ -1713,7 +1813,9 @@ stroke_0 : Tailwind
 stroke_1 : Tailwind
 stroke_2 : Tailwind
 stroke_3 : Tailwind
+stroke_color : Color -> Tailwind
 stroke_none : Tailwind
+stroke_simple : SimpleColor -> Tailwind
 subpixel_antialiased : Tailwind
 table : Tailwind
 table_auto : Tailwind
@@ -1757,10 +1859,12 @@ text_nowrap : Tailwind
 text_pretty : Tailwind
 text_right : Tailwind
 text_shadow_2xs : Tailwind
+text_shadow_color : Color -> Tailwind
 text_shadow_initial : Tailwind
 text_shadow_lg : Tailwind
 text_shadow_md : Tailwind
 text_shadow_none : Tailwind
+text_shadow_simple : SimpleColor -> Tailwind
 text_shadow_sm : Tailwind
 text_shadow_xs : Tailwind
 text_simple : SimpleColor -> Tailwind
@@ -1771,6 +1875,9 @@ text_xl : Tailwind
 text_xs : Tailwind
 toClass : Tailwind -> String
 toClassName : Tailwind -> String
+to_color : Color -> Tailwind
+to_simple : SimpleColor -> Tailwind
+top : Spacing -> Tailwind
 top_auto : Tailwind
 top_full : Tailwind
 top_px : Tailwind
@@ -1828,7 +1935,9 @@ underline_offset_4 : Tailwind
 underline_offset_8 : Tailwind
 underline_offset_auto : Tailwind
 uppercase : Tailwind
+via_color : Color -> Tailwind
 via_none : Tailwind
+via_simple : SimpleColor -> Tailwind
 visible : Tailwind
 w : Spacing -> Tailwind
 w_10over12 : Tailwind

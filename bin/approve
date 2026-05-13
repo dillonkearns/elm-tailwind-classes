@@ -64,6 +64,18 @@ EXPECTED_CLASSES=(
   "text-semantic-on-primary"
   "border-palette-accent-40"
   "bg-navigation-header-background"
+  # PR #6 parametric spacing/sizing families
+  "leading-9"
+  "indent-4"
+  "top-4"
+  "size-8"
+  "space-y-2"
+  "ps-4"
+  "mbs-2"
+  "scroll-m-4"
+  # PR #6 color families
+  "decoration-red-400"
+  "accent-transparent"
   # Design system static utilities (text-wrap)
   "text-balance"
   # Functional utilities with fixed values (line-clamp)
