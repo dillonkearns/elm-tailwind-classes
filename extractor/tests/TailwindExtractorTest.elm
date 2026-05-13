@@ -189,6 +189,96 @@ view = Tw.text_simple Theme.brand_palette_primary_14
 """
                     |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
                     |> Review.Test.expectDataExtract """{"classes":["text-brand-palette-primary-14"]}"""
+        , test "extracts decoration_color (blue s500) as decoration-blue-500" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind as Tw
+import Tailwind.Theme as Theme
+
+view = Tw.decoration_color (Theme.blue Theme.s500)
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["decoration-blue-500"]}"""
+        , test "extracts accent_color (red s400) as accent-red-400" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind as Tw
+import Tailwind.Theme as Theme
+
+view = Tw.accent_color (Theme.red Theme.s400)
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["accent-red-400"]}"""
+        , test "extracts caret_color (gray s900) as caret-gray-900" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind as Tw
+import Tailwind.Theme as Theme
+
+view = Tw.caret_color (Theme.gray Theme.s900)
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["caret-gray-900"]}"""
+        , test "extracts fill_color (sky s500) as fill-sky-500" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind as Tw
+import Tailwind.Theme as Theme
+
+view = Tw.fill_color (Theme.sky Theme.s500)
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["fill-sky-500"]}"""
+        , test "extracts shadow_color (blue s500) as shadow-blue-500" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind as Tw
+import Tailwind.Theme as Theme
+
+view = Tw.shadow_color (Theme.blue Theme.s500)
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["shadow-blue-500"]}"""
+        , test "extracts from_color/via_color/to_color for gradients" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind as Tw
+import Tailwind.Theme as Theme
+
+view = [ Tw.from_color (Theme.blue Theme.s400), Tw.via_color (Theme.blue Theme.s600), Tw.to_color (Theme.blue Theme.s900) ]
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["from-blue-400","to-blue-900","via-blue-600"]}"""
+        , test "extracts accent_simple white as accent-white" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind as Tw
+import Tailwind.Theme as Theme
+
+view = Tw.accent_simple Theme.white
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["accent-white"]}"""
+        , test "extracts decoration_simple transparent as decoration-transparent" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind as Tw
+import Tailwind.Theme as Theme
+
+view = Tw.decoration_simple Theme.transparent
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["decoration-transparent"]}"""
+        , test "extracts ring_simple current as ring-current" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind as Tw
+import Tailwind.Theme as Theme
+
+view = Tw.ring_simple Theme.current
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["ring-current"]}"""
         ]
 
 
