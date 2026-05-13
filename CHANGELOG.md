@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.6.4] - 2026-05-13
+
+### Added
+
+- **Expanded parameterized spacing and sizing utilities.** New generated helpers include logical padding and margin (`ps`, `pe`, `pbs`, `pbe`, `ms`, `me`, `mbs`, `mbe`), inter-child spacing (`space_x`, `space_y` and negative variants), typography spacing (`leading`, `indent`, `neg_indent`), inset and positional utilities (`inset`, `inset_x`, `inset_y`, logical inset variants, `top`, `right`, `bottom`, `left`, and negative variants), scroll margin/padding families, and `size`.
+- **Expanded color utility families.** Added generated `*_color` and `*_simple` helpers for ring offset, inset ring, placeholder, decoration, accent, caret, divide, fill, stroke, outline, shadow, inset shadow, drop shadow, text shadow, and gradient stops (`from`, `via`, `to`).
+- **Additional simple colors.** `transparent`, `current`, and `inherit` are now generated in `Tailwind.Theme` so they can be used with `*_simple` color helpers.
+
+### Fixed
+
+- **Dev HMR source inlines now cover sizing families.** The generated `@source inline()` directives now include `size`, `w`, `h`, `min-w`, `max-w`, `min-h`, and `max-h`, so new parameterized sizing utilities added while the dev server is running get CSS without requiring a restart.
+
 ## [0.6.3] - 2026-05-13
 
 ### Fixed
@@ -132,7 +144,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - **Zero config** - just add the Vite plugin and start coding
 - Support for `Tw.raw` escape hatch for custom classes
 
-[Unreleased]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.6.3...HEAD
+[Unreleased]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.6.4...HEAD
+[0.6.4]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.6.3...v0.6.4
 [0.6.3]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.6.2...v0.6.3
 [0.6.2]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.6.1...v0.6.2
 [0.6.1]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.6.0...v0.6.1
