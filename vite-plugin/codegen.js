@@ -314,7 +314,7 @@ ${name}_simple (SimpleColor c) =
  * Used during dev to avoid running elm-review extraction on every HMR cycle.
  */
 function generateSourceInlines(theme, designSystem) {
-  const spacingPrefixes = spacingFamilies.map(([, prefix]) => prefix);
+  const spacingPrefixes = [...spacingFamilies, ...sizingFamilies].map(([, prefix]) => prefix);
 
   const colorPrefixes = colorFamilies.map(([, prefix]) => prefix);
 

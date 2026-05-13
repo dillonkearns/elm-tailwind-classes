@@ -34,8 +34,27 @@ async function generateFor(cssBody, label) {
   return {
     theme: fs.readFileSync(path.join(outDir, 'Tailwind', 'Theme.elm'), 'utf8'),
     main: fs.readFileSync(path.join(outDir, 'Tailwind.elm'), 'utf8'),
+    sourceInlines: result.sourceInlines,
   };
 }
+
+test('dev source inlines cover generated sizing families', async () => {
+  const { main, sourceInlines } = await generateFor(`
+@import 'tailwindcss';
+`, 'source-inline-sizing');
+
+  assert.match(main, /^size\s*:\s*Spacing\s*->\s*Tailwind/m,
+    'sanity check: generated API exposes parameterized size classes');
+  assert.match(main, /^min_h\s*:\s*Spacing\s*->\s*Tailwind/m,
+    'sanity check: generated API exposes parameterized min-height classes');
+
+  const spacingInline = sourceInlines.find(line => line.includes('{0,px,0.5')) ?? '';
+  for (const prefix of ['size', 'w', 'h', 'min-w', 'max-w', 'min-h', 'max-h']) {
+    const escaped = prefix.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    assert.match(spacingInline, new RegExp(`(^|[,{])${escaped}($|[,}])`),
+      `expected dev @source inline() spacing directive to include ${prefix}`);
+  }
+});
 
 test('flat multi-segment shaded colors expose every distinct variable', async () => {
   const { theme } = await generateFor(`
