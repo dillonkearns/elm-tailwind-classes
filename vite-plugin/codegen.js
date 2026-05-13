@@ -61,7 +61,11 @@ async function loadDesignSystem(cssPath) {
  */
 export async function generateElmModules(cssPath, outputDir) {
   try {
-    const result = await resolveTheme({ input: cssPath });
+    // basePath: resolve default Tailwind theme variables relative to the CSS
+    // file's directory rather than process.cwd(). Mirrors how loadDesignSystem
+    // below resolves @import / @plugin from cssDir.
+    const cssDir = path.dirname(path.resolve(cssPath));
+    const result = await resolveTheme({ input: cssPath, basePath: cssDir });
     const theme = result.variants?.default;
 
     if (!theme) {
@@ -859,16 +863,60 @@ function generateTheme(theme) {
   const colors = theme.colors;
   const colorNames = Object.keys(colors);
 
-  // Separate shaded colors from simple colors
+  const shadeScale = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950'];
+  const shadeScaleSet = new Set(shadeScale);
+
+  // Separate top-level colors into:
+  //   - simple   : string-valued (e.g. black, white) → SimpleColor
+  //   - shaded   : object with only standard-shade string keys → Shade -> Color
+  //   - custom   : everything else (multi-segment user-defined CSS variables,
+  //                or shaded colors augmented with non-standard keys) → walked
+  //                recursively into individual SimpleColor leaves
   const shadedColors = [];
   const simpleColors = [];
+  // Each entry: { suffix: 'brand-palette-primary-14' }. Generated as a
+  // SimpleColor so users write Tw.bg_simple brand_palette_primary_14.
+  const customLeaves = [];
+  const customLeavesSeen = new Set();
+
+  function pushLeaf(pathParts) {
+    const suffix = pathParts.join('-');
+    if (customLeavesSeen.has(suffix)) return;
+    customLeavesSeen.add(suffix);
+    customLeaves.push({ suffix });
+  }
+
+  function walkLeaves(value, pathParts) {
+    if (typeof value === 'string') {
+      pushLeaf(pathParts);
+      return;
+    }
+    if (typeof value !== 'object' || value === null) return;
+    // A path with both a value and children is represented as
+    // { DEFAULT: '...', child: ... }. The DEFAULT belongs to the parent path.
+    if (typeof value.DEFAULT === 'string') pushLeaf(pathParts);
+    for (const [k, v] of Object.entries(value)) {
+      if (k === 'DEFAULT') continue;
+      walkLeaves(v, [...pathParts, k]);
+    }
+  }
 
   for (const colorName of colorNames) {
     const colorValue = colors[colorName];
     if (typeof colorValue === 'string') {
       simpleColors.push(colorName);
-    } else {
+      continue;
+    }
+    if (typeof colorValue !== 'object' || colorValue === null) continue;
+
+    const entries = Object.entries(colorValue);
+    const allStrings = entries.length > 0 && entries.every(([, v]) => typeof v === 'string');
+    const allStandard = entries.length > 0 && entries.every(([k]) => shadeScaleSet.has(k));
+
+    if (allStrings && allStandard) {
       shadedColors.push(colorName);
+    } else {
+      walkLeaves(colorValue, [colorName]);
     }
   }
 
@@ -877,8 +925,6 @@ function generateTheme(theme) {
       simpleColors.push(colorName);
     }
   }
-
-  const shadeScale = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950'];
 
   // Colors are now functions that take a shade
   const colorValueDefs = shadedColors.map(c => {
@@ -902,16 +948,31 @@ s${s} =
   const shadeValueExports = shadeScale.map(s => `s${s}`);
   const shadeCases = shadeScale.map(s => `        S${s} ->\n            "${s}"`);
 
-  const simpleColorDefs = simpleColors.map(c => {
-    const elmName = toElmName(c);
+  // Combine top-level simple colors and walked custom leaves into one
+  // SimpleColor list. Skip any leaf whose Elm identifier collides with a
+  // shaded color or another simple color so the output compiles.
+  const reservedNames = new Set([
+    ...simpleColors.map(toElmName),
+    ...shadedColors.map(toElmName),
+  ]);
+  const allSimples = simpleColors.map(c => ({ key: c, suffix: c }));
+  for (const leaf of customLeaves) {
+    const elmName = toElmName(leaf.suffix);
+    if (reservedNames.has(elmName)) continue;
+    reservedNames.add(elmName);
+    allSimples.push({ key: leaf.suffix, suffix: leaf.suffix });
+  }
+
+  const simpleColorDefs = allSimples.map(({ key, suffix }) => {
+    const elmName = toElmName(key);
     return `
-{-| Simple color: ${c}
+{-| Simple color: ${suffix}
 -}
 ${elmName} : SimpleColor
 ${elmName} =
-    SimpleColor "${c}"`;
+    SimpleColor "${suffix}"`;
   });
-  const simpleColorExports = simpleColors.map(c => toElmName(c));
+  const simpleColorExports = allSimples.map(({ key }) => toElmName(key));
 
   const spacingConstructors = spacingValues.map(v => {
     return 'S' + toElmName(v).replace(/^n/, '');

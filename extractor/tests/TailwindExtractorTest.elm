@@ -169,6 +169,26 @@ view = Tw.bg_simple Theme.white
 """
                     |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
                     |> Review.Test.expectDataExtract """{"classes":["bg-white"]}"""
+        , test "extracts bg_simple multi-segment custom color, converting underscores to dashes" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind as Tw
+import Tailwind.Theme as Theme
+
+view = Tw.bg_simple Theme.brand_specific_primary
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["bg-brand-specific-primary"]}"""
+        , test "extracts text_simple multi-segment palette color" <|
+            \() ->
+                """module A exposing (..)
+import Tailwind as Tw
+import Tailwind.Theme as Theme
+
+view = Tw.text_simple Theme.brand_palette_primary_14
+"""
+                    |> Review.Test.runWithProjectData projectWithTailwind TailwindExtractor.rule
+                    |> Review.Test.expectDataExtract """{"classes":["text-brand-palette-primary-14"]}"""
         ]
 
 
