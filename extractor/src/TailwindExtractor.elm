@@ -374,8 +374,10 @@ extractOneArg funcName arg lookupTable =
                         Just (colorFunctionPrefix funcName ++ argName)
 
                     else if isSimpleColorFunction funcName then
-                        -- Simple color function like text_simple white
-                        Just (simpleColorFunctionPrefix funcName ++ argName)
+                        -- Simple color function like text_simple white, or
+                        -- multi-segment custom color like bg_simple
+                        -- brand_specific_primary → "bg-brand-specific-primary"
+                        Just (simpleColorFunctionPrefix funcName ++ elmNameToClassName argName)
 
                     else
                         -- Spacing function

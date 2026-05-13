@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.6.3] - 2026-05-13
+
+### Fixed
+
+- **Custom multi-segment `@theme` colors now appear in `Tailwind.Theme`.** CSS variables like `--color-brand-specific-primary`, `--color-brand-palette-primary-14`, or `--color-navigation-header-background` previously collapsed into a single useless `brand : Shade -> Color` function and were unreachable from Elm. The codegen now walks `theme.colors` recursively and emits each leaf as a `SimpleColor` whose suffix matches the CSS variable name — e.g. `--color-brand-specific-primary` is generated as `brand_specific_primary : SimpleColor`, usable via `Tw.bg_simple brand_specific_primary`. Standard parameterized colors (`blue : Shade -> Color`, `gray : Shade -> Color`, etc.) are unchanged.
+- **Extractor: `_` is now converted to `-` in `SimpleColor` argument names.** Previously `Tw.bg_simple Theme.brand_specific_primary` extracted as `bg-brand_specific_primary` (underscored, no CSS match). It now correctly extracts as `bg-brand-specific-primary`.
+- **Codegen resolves Tailwind defaults from the CSS file's directory.** `resolveTheme` is now called with `basePath: cssDir`, matching how `loadDesignSystem` already resolves `@import`/`@plugin`. Makes codegen behavior independent of the caller's working directory.
+
 ## [0.6.2] - 2026-04-07
 
 ### Fixed
@@ -124,7 +132,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - **Zero config** - just add the Vite plugin and start coding
 - Support for `Tw.raw` escape hatch for custom classes
 
-[Unreleased]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.6.2...HEAD
+[Unreleased]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.6.3...HEAD
+[0.6.3]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.6.2...v0.6.3
 [0.6.2]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.6.1...v0.6.2
 [0.6.1]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.6.0...v0.6.1
 [0.6.0]: https://github.com/dillonkearns/elm-tailwind-classes/compare/v0.5.1...v0.6.0
