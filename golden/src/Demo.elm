@@ -28,17 +28,21 @@ import Tailwind.Theme
         , gray
         , navigation_header_background
         , palette_accent_40
+        , red
         , s100
         , s2
         , s4
+        , s400
         , s500
         , s6
         , s600
         , s8
         , s800
+        , s9
         , s900
         , semantic_on_primary
         , semantic_primary
+        , transparent
         , white
         )
 
@@ -166,4 +170,27 @@ main =
                 ]
             ]
             [ text "navigation-header-background" ]
+        , div
+            [ classes
+                [ -- PR #6 utilities exercised end-to-end: parametric
+                  -- spacing/sizing families that weren't in main.
+                  Tw.leading s9
+                , Tw.indent s4
+                , Tw.top s4
+                , Tw.size s8
+                , Tw.space_y s2
+                , Tw.ps s4
+                , Tw.mbs s2
+                , Tw.scroll_m s4
+                ]
+            ]
+            [ p
+                [ classes
+                    [ -- PR #6 color families exercised end-to-end.
+                      Tw.decoration_color (red s400)
+                    , Tw.accent_simple transparent
+                    ]
+                ]
+                [ text "PR #6 family coverage" ]
+            ]
         ]
